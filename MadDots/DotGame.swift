@@ -6,8 +6,8 @@
 //  Copyright © 2015 Kyle Murphy. All rights reserved.
 //
 
-let NumColumns = 4
-let NumRows = 8
+let NumColumns = 5
+let NumRows = 12
 
 let StartingColumn = 0
 let StartingRow = 0
@@ -63,8 +63,11 @@ class DotGame {
     }
   }
   
+  var cnt = 0
   func newPiece() -> Piece {
-    return Piece.random(StartingColumn, startingRow: StartingRow)
+    return Piece(column: StartingColumn, row: StartingRow, leftColor: .Blue, rightColor: .Yellow)
+
+//    return Piece.random(StartingColumn, startingRow: StartingRow)
   }
   
   func beginGame() {
@@ -131,8 +134,10 @@ class DotGame {
     if let piece = fallingPiece {
       piece.rotateCounterClockwise()
       if detectIllegalPlacement() {
+        print("dat illeg bro")
         piece.rotateClockwise()
       } else {
+        print("rotate counter")
         delegate?.gamePieceDidMove(self)
       }
     }

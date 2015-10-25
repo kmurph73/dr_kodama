@@ -125,6 +125,8 @@ class GameScene: SKScene {
           moveAction]))
       longestDuration = max(longestDuration, duration + delay)
     }
+    
+    runAction(SKAction.waitForDuration(longestDuration), completion:completion)
   }
   
   func addPieceToScene(piece: Piece, completion: (() -> ())?) {

@@ -58,7 +58,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "466891766.862742"
+            timestampString = "467430942.118658"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "findChainsForColumns(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MadDots/HandleChains.swift"
+            timestampString = "467488862.948507"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
@@ -74,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "466891766.862742"
+            timestampString = "467488972.413515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "findChainsForColumns(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "466891766.862742"
+            timestampString = "467488972.413515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "findChainsForColumns(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -105,14 +121,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MadDots/HandleChains.swift"
-            timestampString = "466891766.862742"
+            filePath = "MadDots/Piece.swift"
+            timestampString = "467501437.39727"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "findChainsForColumns(_:)"
-            landmarkType = "7">
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "getClockwisePositionFor(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

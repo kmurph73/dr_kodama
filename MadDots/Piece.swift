@@ -103,16 +103,45 @@ class Piece {
   
   var clockwiseRowColumnPositions: [Orientation: Array<(columnDiff: Int, rowDiff: Int)>] {
     return [
-      Orientation.Zero:       [(0, 0), (1, -1)],
+      Orientation.Zero:       [(0, 0), (1, 1)],
       Orientation.Ninety:     [(0, 0), (1, -1)],
       Orientation.OneEighty:  [(0, 0), (-1, 1)],
       Orientation.TwoSeventy: [(0, 0), (-1, -1)]
     ]
   }
   
+  func getClockwisePositionFor(orientation: Orientation) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+    let isOnRightEdge = self.rightDot.column == NumColumns - 1 && self.leftDot.column == NumColumns - 1
+
+    if isOnRightEdge {
+      if self.leftDot.row > self.rightDot.row {
+        return [(-1, 0), (0,1)]
+      } else {
+        return [(0,1), (-1, 0)]
+      }
+    } else {
+      return clockwiseRowColumnPositions[orientation]
+    }
+  }
+  
+  func getCounterClockwisePositionFor(orientation: Orientation) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+    let isOnLeftEdge = self.leftDot.column == 0 && self.rightDot.column == 0
+    if isOnLeftEdge {
+      print("is on left edge")
+      if self.leftDot.row > self.rightDot.row {
+        return [(1, 0), (0, 1)]
+      } else {
+        return [(0, 1), (1, 0)]
+      }
+    } else {
+      return counterClockwiseRowColumnPositions[orientation]
+    }
+  }
+  
+  
   final func rotatePieceCounterClockwise(orientation: Orientation) {
     print("rotatePieces:\(orientation)")
-    if let pieceRowColumnTranslation:Array<(columnDiff: Int, rowDiff: Int)> = counterClockwiseRowColumnPositions[orientation] {
+    if let pieceRowColumnTranslation = getCounterClockwisePositionFor(orientation) {
       print("pRowColumn:\(pieceRowColumnTranslation)")
       for (idx, diff) in pieceRowColumnTranslation.enumerate() {
         let dot = dots[idx]
@@ -125,7 +154,7 @@ class Piece {
   
   final func rotatePieceClockwise(orientation: Orientation) {
     print("rotatePieces:\(orientation)")
-    if let pieceRowColumnTranslation:Array<(columnDiff: Int, rowDiff: Int)> = clockwiseRowColumnPositions[orientation] {
+    if let pieceRowColumnTranslation = getClockwisePositionFor(orientation) {
       print("pRowColumn:\(pieceRowColumnTranslation)")
       for (idx, diff) in pieceRowColumnTranslation.enumerate() {
         let dot = dots[idx]
