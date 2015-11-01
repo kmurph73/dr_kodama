@@ -6,7 +6,7 @@
 //  Copyright © 2015 Kyle Murphy. All rights reserved.
 //
 
-class Array2D<T> {
+class Array2D<T>: CustomStringConvertible {
   let columns: Int
   let rows: Int
   var array: Array<T?>
@@ -25,5 +25,22 @@ class Array2D<T> {
     set(newValue) {
       array[(row * columns) + column] = newValue
     }
+  }
+  
+  var description: String {
+    var desc = ""
+    for row in 0..<NumRows {
+      for col in 0..<NumColumns {
+        if let line = self[col,row] as? Dot {
+          desc += "\(line.color.spriteName.characters.first!),"
+        } else {
+          desc += "X,"
+          
+        }
+      }
+      desc += "\n"
+    }
+    
+    return desc
   }
 }

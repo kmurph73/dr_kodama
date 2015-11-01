@@ -49,6 +49,8 @@ class Piece {
     
     self.leftDot = Dot(column: column, row: row, color: leftColor)
     self.rightDot = Dot(column: column + 1, row: row, color: rightColor)
+    self.rightDot.sibling = leftDot
+    self.leftDot.sibling = rightDot
   }
   
   var dots: [Dot] {
@@ -200,6 +202,10 @@ class Piece {
     let rightSide = DotColor(rawValue: Int(arc4random_uniform(NumberOfColors)))!
     
     return Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
+  }
+  
+  deinit {
+//    print("\(self) is being deinitialized")
   }
   
 }

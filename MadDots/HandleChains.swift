@@ -54,10 +54,8 @@ func findChainsForColumns(dotArray: Array2D<Dot>) -> Array<Dot> {
     
     for row in 0..<NumRows {
       if let dot = dotArray[column, row] {
-        print("dot: \(dot.color)")
-
         if let prevDot = previousDot {
-          print("prevDot: \(prevDot.color)")
+          
           if prevDot.color == dot.color {
             someChain.append(dot)
           } else {
@@ -70,11 +68,12 @@ func findChainsForColumns(dotArray: Array2D<Dot>) -> Array<Dot> {
         } else {
           someChain.append(dot)
           checkIfRealChain(someChain, realChains: &realChains)
-
           previousDot = dot
         }
         
       } else {
+        checkIfRealChain(someChain, realChains: &realChains)
+
 //        print("no dot at \(row),\(column); reset somechain")
         someChain = Array<Dot>()
       }
@@ -86,21 +85,33 @@ func findChainsForColumns(dotArray: Array2D<Dot>) -> Array<Dot> {
   return realChains
 }
 
+func dotIsSettled(dot: Dot?, dotArray: Array2D<Dot>) -> Bool {
+  if let d = dot {
+    return dotArray[d.column, d.row + 1] != nil
+  } else {
+    return false
+  }
+}
+
 func dropFallenDots(dotArray: Array2D<Dot>) -> Array<Dot> {
   var fallenDots = Array<Dot>()
   for column in 0..<NumColumns {
     var fallingDots = Array<Dot>()
     for var row = NumRows - 2; row > 0; row-- {
       if let dot = dotArray[column, row] {
-        var newRow = row
-        while (newRow < NumRows - 1 && dotArray[column, newRow + 1] == nil) {
-          newRow++
+        let siblingIsSettled = dotIsSettled(dot.sibling, dotArray: dotArray)
+
+        if dot.sibling == nil || !siblingIsSettled {
+          var newRow = row
+          while (newRow < NumRows - 1 && dotArray[column, newRow + 1] == nil) {
+            newRow++
+          }
+          
+          dot.row = newRow
+          dotArray[column, row] = nil
+          dotArray[column, newRow] = dot
+          fallingDots.append(dot)
         }
-        
-        dot.row = newRow
-        dotArray[column, row] = nil
-        dotArray[column, newRow] = dot
-        fallingDots.append(dot)
       }
     }
     
@@ -116,6 +127,4 @@ func checkIfRealChain(someChain: Array<Dot>, inout realChains: Array<Dot>) {
   if someChain.count > 2 {
     realChains.appendContentsOf(someChain)
   }
-  print("somechain: \(someChain); real: \(realChains)")
-
 }

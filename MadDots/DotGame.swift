@@ -6,8 +6,8 @@
 //  Copyright © 2015 Kyle Murphy. All rights reserved.
 //
 
-let NumColumns = 5
-let NumRows = 12
+let NumColumns = 10
+let NumRows = 18
 
 let StartingColumn = 0
 let StartingRow = 0
@@ -58,12 +58,14 @@ class DotGame {
       for dot in piece.dots {
         dotArray[dot.column, dot.row] = dot
       }
+//      print("darray: \(dotArray)")
       fallingPiece = nil
       delegate?.gamePieceDidLand(self)
     }
   }
   
   var cnt = 0
+  
   func newPiece() -> Piece {
     return Piece(column: StartingColumn, row: StartingRow, leftColor: .Blue, rightColor: .Yellow)
 
@@ -81,6 +83,7 @@ class DotGame {
   func detectIllegalPlacement() -> Bool {
     if let piece = fallingPiece {
       for dot in piece.dots {
+
         if dot.column < 0 || dot.column >= NumColumns
           || dot.row < 0 || dot.row >= NumRows {
             return true
@@ -169,7 +172,6 @@ class DotGame {
       } else {
         lastMovement = .Down
         delegate?.gamePieceDidMove(self)
-
       }
     }
 
@@ -179,14 +181,16 @@ class DotGame {
     let dotsToRemove = findChainsForColumns(dotArray)
         
     for dot in dotsToRemove {
+      if let s = dot.sibling {
+        s.sibling = nil
+      }
       dotArray[dot.column, dot.row] = nil
     }
-    
-    let fallenDots = dropFallenDots(dotArray)
     
     if dotsToRemove.count == 0 {
       return ([], [])
     } else {
+      let fallenDots = dropFallenDots(dotArray)
       return (dotsToRemove, fallenDots)
     }
     

@@ -49,6 +49,7 @@ enum DotColor: Int, CustomStringConvertible {
 class Dot: Hashable, CustomStringConvertible {
   // Constants
   let color: DotColor
+  weak var sibling: Dot?
   
   // Variables
   var column: Int
@@ -78,6 +79,11 @@ class Dot: Hashable, CustomStringConvertible {
     self.row = row
     self.color = color
   }
+  
+  deinit {
+//    print("\(self) is being deinitialized")
+  }
+  
 }
 
 func ==(lhs: Dot, rhs: Dot) -> Bool {

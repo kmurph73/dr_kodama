@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-let BlockSize:CGFloat = 25
+var BlockSize: CGFloat = 0
 let TickLengthLevelOne = NSTimeInterval(1024)
 
 class GameScene: SKScene {
@@ -18,15 +18,11 @@ class GameScene: SKScene {
   var tickLengthMillis = TickLengthLevelOne
   var lastTick:NSDate?
   var added = false
+  
+  var gridRendered = false
 
   override func didMoveToView(view: SKView) {
       /* Setup your scene here */
-//      let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-//      myLabel.text = "Hello, World!"
-//      myLabel.fontSize = 45
-//      myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-    
-//      self.addChild(myLabel)
   }
   
   override init(size: CGSize) {
@@ -34,16 +30,8 @@ class GameScene: SKScene {
     
     anchorPoint = CGPoint(x: 0, y: 1.0)
     
-//    let background = SKSpriteNode(imageNamed: "background")
-//    background.position = CGPoint(x: 0, y: 0)
-//    background.anchorPoint = CGPoint(x: 0, y: 1.0)
-    
-//    let gameBoardTexture = SKTexture()
-//    let gameBoard = SKSpriteNode(texture: gameBoardTexture, size: CGSizeMake(BlockSize * CGFloat(NumColumns), BlockSize * CGFloat(NumRows)))
-//    gameBoard.anchorPoint = CGPoint(x:0, y:1.0)
-//    gameBoard.position = LayerPosition
-//    
-//    addChild(gameBoard)
+
+    drawGrid()
   }
   
   required init(coder aDecoder: NSCoder) {
@@ -51,25 +39,19 @@ class GameScene: SKScene {
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+ 
      /* Called when a touch begins */
       
-//      for touch in touches {
-//          let location = touch.locationInNode(self)
-//          print("loc: \(location)")
-//        
-//          let sprite = SKSpriteNode(imageNamed:"reddot")
-//          
-//          sprite.xScale = 100
-//          sprite.yScale = 100
-//          sprite.position = CGPoint(x: 350, y:  650)
-//          
-//          self.addChild(sprite)
-//      }
+    for touch in touches {
+        let location = touch.locationInNode(self)
+        print("loc: \(location)")
+    }
+    
   }
 
   func pointForColumn(column: Int, row: Int) -> CGPoint {
-    let x: CGFloat = LayerPosition.x + (CGFloat(column) * BlockSize) + (BlockSize / 2)
-    let y: CGFloat = LayerPosition.y - ((CGFloat(row) * BlockSize) + (BlockSize / 2))
+    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize
+    let y: CGFloat = LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize
     return CGPointMake(x, y)
   }
   
@@ -96,6 +78,18 @@ class GameScene: SKScene {
     dot.sprite = sprite
     
     self.addChild(sprite)
+    
+    let pathToDraw:CGMutablePathRef = CGPathCreateMutable()
+    let myLine:SKShapeNode = SKShapeNode(path:pathToDraw)
+    
+    CGPathMoveToPoint(pathToDraw, nil, 100.0, 100)
+    let pt = pointForColumn(dot.column, row: dot.row)
+    CGPathAddLineToPoint(pathToDraw, nil, pt.x + 200, pt.y + 200)
+    
+    myLine.path = pathToDraw
+    myLine.strokeColor = SKColor.redColor()
+    
+    self.addChild(myLine)
     
     if let c = completion {
       runAction(SKAction.waitForDuration(0.2), completion: c)
@@ -153,6 +147,48 @@ class GameScene: SKScene {
 
         runAction(SKAction.waitForDuration(0.05), completion: completion)
       }
+    }
+  }
+  
+  func drawGrid() {
+    let totalRows = NumRows + 2
+    let totalCols = NumColumns + 2
+    
+    let rowSquare = self.frame.minY  / CGFloat(totalRows) * -1
+    let colSquare = self.frame.maxX / CGFloat(totalCols)
+    
+    let squareSize = rowSquare > colSquare ? colSquare : rowSquare
+    BlockSize = squareSize
+    
+    let rowWidth = (CGFloat(NumColumns) * squareSize)
+    let colHeight = (CGFloat(NumRows) * squareSize)
+    
+    let centerX = ((squareSize * CGFloat(NumColumns + 1)) + squareSize) / 2
+    let centerY = ((squareSize * CGFloat(NumRows + 1)) + squareSize) / 2 * -1
+    
+    if !gridRendered {
+      
+      for row in 1..<totalRows {
+        let y = squareSize * CGFloat(row) * -1
+        
+        let barra = SKSpriteNode(color: SKColor.whiteColor(), size: CGSizeMake(rowWidth, 1))
+        barra.position = CGPoint(x: centerX, y: y)
+        barra.zPosition = 9 // zPosition to change in which layer the barra appears.
+        
+        self.addChild(barra)
+      }
+      
+      for col in 1..<totalCols {
+        let x = squareSize * CGFloat(col)
+        
+        let barra = SKSpriteNode(color: SKColor.whiteColor(), size: CGSizeMake(1, colHeight))
+        barra.position = CGPoint(x: x, y: centerY)
+        barra.zPosition = 9 // zPosition to change in which layer the barra appears.
+        
+        self.addChild(barra)
+      }
+      
+      gridRendered = true
     }
   }
 }

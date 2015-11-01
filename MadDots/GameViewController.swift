@@ -35,14 +35,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let currentPoint = sender.translationInView(self.view)
 
     if let originalPoint = panPointReference {
-//      let v = sender.velocityInView(self.view)
-//      if fabs(v.y) > fabs(v.x) {
-//        dotGame.movePieceDown()
-//        panPointReference = currentPoint
-//      } else {
-//        dotGame.movePieceLeft()
-//        panPointReference = currentPoint
-//      }
       let velocity = sender.velocityInView(self.view)
       let downDistance = abs(currentPoint.y - originalPoint.y)
       let horizontalDistance = abs(currentPoint.x - originalPoint.x)
@@ -52,8 +44,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           dotGame.movePieceDown()
           panPointReference = currentPoint
         } else {
-          //          dotGame.movePieceLeft()
-//          panPointReference = currentPoint
+
         }
       }
       
@@ -134,7 +125,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func nextPiece() {
-    print("NEXT PIECE")
     let newPiece = dotGame.newPiece()
     dotGame.fallingPiece = newPiece
     self.view.userInteractionEnabled = true
