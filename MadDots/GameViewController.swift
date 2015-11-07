@@ -13,9 +13,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   var dotGame:DotGame!
   var scene: GameScene!
   var panPointReference:CGPoint?
+  var justEnded = false
 
   @IBAction func didTap(sender: UITapGestureRecognizer) {
-    print("didTap")
     dotGame.rotatePiece()
   }
   
@@ -44,7 +44,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           dotGame.movePieceDown()
           panPointReference = currentPoint
         } else {
-
+          panPointReference = currentPoint
         }
       }
       
@@ -53,15 +53,22 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           dotGame.movePieceRight()
           panPointReference = currentPoint
         } else {
-          dotGame.movePieceLeft()
-          panPointReference = currentPoint
-        }
-        
-      }
-      
 
+          if !justEnded {
+            dotGame.movePieceLeft()
+            panPointReference = currentPoint
+          }
+
+        }
+      }
     } else if sender.state == .Began {
+      print("began: \(currentPoint)")
       panPointReference = currentPoint
+    }
+    
+    if sender.state == .Ended {
+      print("ended") 
+      panPointReference = nil
     }
   }
   
@@ -135,6 +142,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   func gameDidBegin(dotGame: DotGame) {
     self.scene.addPieceToScene(dotGame.fallingPiece!) {
+      self.scene.addMadDotsToScene(dotGame.madDots)
+
       self.scene.startTicking()
     }
   }

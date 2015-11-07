@@ -49,7 +49,6 @@ enum DotColor: Int, CustomStringConvertible {
 class Dot: Hashable, CustomStringConvertible {
   // Constants
   let color: DotColor
-  weak var sibling: Dot?
   
   // Variables
   var column: Int
@@ -57,13 +56,9 @@ class Dot: Hashable, CustomStringConvertible {
   
   // Lazy loading
   var sprite: SKSpriteNode?
-  
+
   var spriteName: String {
     return color.description
-  }
-  
-  func isMad() -> Bool {
-    return false
   }
   
   var hashValue: Int {

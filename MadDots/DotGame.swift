@@ -42,6 +42,7 @@ enum Movement: Int, CustomStringConvertible {
 
 class DotGame {
   var dotArray:Array2D<Dot>
+  var madDots: Array<MadDot>
 
   var fallingPiece:Piece?
 
@@ -51,6 +52,7 @@ class DotGame {
   init() {
     fallingPiece = nil
     dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    madDots = Array<MadDot>()
   }
   
   func settleShape() {
@@ -67,7 +69,7 @@ class DotGame {
   var cnt = 0
   
   func newPiece() -> Piece {
-    return Piece(column: StartingColumn, row: StartingRow, leftColor: .Blue, rightColor: .Yellow)
+    return Piece(column: StartingColumn, row: StartingRow, leftColor: .Blue, rightColor: .Red)
 
 //    return Piece.random(StartingColumn, startingRow: StartingRow)
   }
@@ -77,7 +79,20 @@ class DotGame {
       fallingPiece = newPiece()
     }
     
+    addMadDots()
+    
     delegate?.gameDidBegin(self)
+  }
+  
+  func addMadDots() {
+    let hardCodedSpots: [(column: Int, row: Int, color: DotColor)] = [(5,10,.Red)]
+
+    for spot in hardCodedSpots {
+      let dot = MadDot(column: spot.column, row: spot.row, color: spot.color)
+      dotArray[dot.column, dot.row] = dot
+      madDots.append(dot)
+    }
+    
   }
   
   func detectIllegalPlacement() -> Bool {
@@ -135,12 +150,12 @@ class DotGame {
   
   func rotatePiece() {
     if let piece = fallingPiece {
+      print("rotate counter")
       piece.rotateCounterClockwise()
       if detectIllegalPlacement() {
-        print("dat illeg bro")
+        print("illege; rotate clock")
         piece.rotateClockwise()
       } else {
-        print("rotate counter")
         delegate?.gamePieceDidMove(self)
       }
     }
@@ -177,13 +192,16 @@ class DotGame {
 
   }
   
-  func removeCompletedDots() -> (dotsToRemove:Array<Dot>,fallenDots:Array<Dot>) {
-    let dotsToRemove = findChainsForColumns(dotArray)
-        
+  func removeCompletedDots() -> (dotsToRemove:Array<Dot>,fallenDots:Array<GoodDot>) {
+    let dotsToRemove = findAllChains(dotArray)
+    
     for dot in dotsToRemove {
-      if let s = dot.sibling {
-        s.sibling = nil
+      if let d = dot as? GoodDot {
+        if let s = d.sibling {
+          s.sibling = nil
+        }
       }
+      
       dotArray[dot.column, dot.row] = nil
     }
     
@@ -195,5 +213,6 @@ class DotGame {
     }
     
   }
+
   
 }

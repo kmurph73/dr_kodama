@@ -7,7 +7,11 @@
 //
 
 class MadDot: Dot {
-  override func isMad() -> Bool {
-    return true
+  override init(column:Int, row:Int, color:DotColor) {
+    super.init(column: column,row: row,color: color)
+  }
+  
+  override var spriteName: String {
+    return super.spriteName + "maddot"
   }
 }

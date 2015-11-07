@@ -37,23 +37,23 @@ enum Orientation: Int, CustomStringConvertible {
   }
 }
 
-class Piece {
+class Piece: CustomStringConvertible {
   var orientation: Orientation
   // The column and row representing the shape's anchor point
 //  var column, row:Int
   
-  var leftDot, rightDot: Dot
+  var leftDot, rightDot: GoodDot
   
   init(column:Int, row:Int, leftColor: DotColor, rightColor: DotColor) {
     self.orientation = .Zero
     
-    self.leftDot = Dot(column: column, row: row, color: leftColor)
-    self.rightDot = Dot(column: column + 1, row: row, color: rightColor)
+    self.leftDot = GoodDot(column: column, row: row, color: leftColor, side: .Left)
+    self.rightDot = GoodDot(column: column + 1, row: row, color: rightColor, side: .Right)
     self.rightDot.sibling = leftDot
     self.leftDot.sibling = rightDot
   }
   
-  var dots: [Dot] {
+  var dots: [GoodDot] {
     get {
       return [leftDot, rightDot]
     }
@@ -69,6 +69,10 @@ class Piece {
     get {
       return self.leftDot.row
     }
+  }
+  
+  var description: String {
+    return "leftDot: \(leftDot); rightDot: \(rightDot)"
   }
   
   final func lowerByOneRow() {
@@ -96,10 +100,10 @@ class Piece {
   
   var counterClockwiseRowColumnPositions: [Orientation: Array<(columnDiff: Int, rowDiff: Int)>] {
     return [
-      Orientation.Zero:       [(0, 0), (1, -1)],
+      Orientation.Zero:       [(0, 1), (1, 0)],
       Orientation.Ninety:     [(0, 0), (-1, -1)],
-      Orientation.OneEighty:  [(0, 0), (-1, 1)],
-      Orientation.TwoSeventy: [(0, 0), (1, 1)]
+      Orientation.OneEighty:  [(1, 0), (0, 1)],
+      Orientation.TwoSeventy: [(-1, -1), (0, 0)]
     ]
   }
   
@@ -107,8 +111,8 @@ class Piece {
     return [
       Orientation.Zero:       [(0, 0), (1, 1)],
       Orientation.Ninety:     [(0, 0), (1, -1)],
-      Orientation.OneEighty:  [(0, 0), (-1, 1)],
-      Orientation.TwoSeventy: [(0, 0), (-1, -1)]
+      Orientation.OneEighty:  [(0, 0), (-1, -1)],
+      Orientation.TwoSeventy: [(0, 0), (-1, 1)]
     ]
   }
   
@@ -116,6 +120,7 @@ class Piece {
     let isOnRightEdge = self.rightDot.column == NumColumns - 1 && self.leftDot.column == NumColumns - 1
 
     if isOnRightEdge {
+      print("clockwise on right edge")
       if self.leftDot.row > self.rightDot.row {
         return [(-1, 0), (0,1)]
       } else {
@@ -127,27 +132,23 @@ class Piece {
   }
   
   func getCounterClockwisePositionFor(orientation: Orientation) -> Array<(columnDiff: Int, rowDiff: Int)>? {
-    let isOnLeftEdge = self.leftDot.column == 0 && self.rightDot.column == 0
-    if isOnLeftEdge {
-      print("is on left edge")
-      if self.leftDot.row > self.rightDot.row {
-        return [(1, 0), (0, 1)]
-      } else {
-        return [(0, 1), (1, 0)]
-      }
+    let isOnTop = self.leftDot.row == 0 && self.rightDot.row == 0
+    let isOnRightEdge = self.leftDot.column == NumColumns - 1 && self.rightDot.column == NumColumns - 1 && self.rightDot.row > self.leftDot.row
+
+    if isOnRightEdge {
+      return [(-1,0), (0, -1)]
+    } else if isOnTop {
+      return [(0, 1),(-1, 0)]
     } else {
       return counterClockwiseRowColumnPositions[orientation]
     }
   }
   
-  
   final func rotatePieceCounterClockwise(orientation: Orientation) {
-    print("rotatePieces:\(orientation)")
     if let pieceRowColumnTranslation = getCounterClockwisePositionFor(orientation) {
-      print("pRowColumn:\(pieceRowColumnTranslation)")
       for (idx, diff) in pieceRowColumnTranslation.enumerate() {
         let dot = dots[idx]
-        print("idx: \(idx); diff: \(diff)")
+//        print("counter: idx: \(idx); diff: \(diff)")
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
       }
@@ -155,12 +156,9 @@ class Piece {
   }
   
   final func rotatePieceClockwise(orientation: Orientation) {
-    print("rotatePieces:\(orientation)")
     if let pieceRowColumnTranslation = getClockwisePositionFor(orientation) {
-      print("pRowColumn:\(pieceRowColumnTranslation)")
       for (idx, diff) in pieceRowColumnTranslation.enumerate() {
         let dot = dots[idx]
-        print("idx: \(idx); diff: \(diff)")
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
       }
@@ -186,14 +184,12 @@ class Piece {
   final func rotateClockwise() {
     let newOrientation = Orientation.rotate(orientation, clockwise: true)
     rotatePieceClockwise(newOrientation)
-    print("rotateClock: \(newOrientation)")
     orientation = newOrientation
   }
   
   final func rotateCounterClockwise() {
     let newOrientation = Orientation.rotate(orientation, clockwise: false)
     rotatePieceCounterClockwise(newOrientation)
-    print("rotateCounter: \(newOrientation)")
     orientation = newOrientation
   }
   

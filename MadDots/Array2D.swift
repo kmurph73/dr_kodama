@@ -19,7 +19,11 @@ class Array2D<T>: CustomStringConvertible {
   
   subscript(column: Int, row: Int) -> T? {
     get {
-      return array[(row * columns) + column]
+      if row >= NumRows || column >= NumColumns {
+        return nil
+      } else {
+        return array[(row * columns) + column]
+      }
     }
     
     set(newValue) {
@@ -35,7 +39,6 @@ class Array2D<T>: CustomStringConvertible {
           desc += "\(line.color.spriteName.characters.first!),"
         } else {
           desc += "X,"
-          
         }
       }
       desc += "\n"
