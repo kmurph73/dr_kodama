@@ -133,10 +133,17 @@ class Piece: CustomStringConvertible {
   
   func getCounterClockwisePositionFor(orientation: Orientation) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let isOnTop = self.leftDot.row == 0 && self.rightDot.row == 0
-    let isOnRightEdge = self.leftDot.column == NumColumns - 1 && self.rightDot.column == NumColumns - 1 && self.rightDot.row > self.leftDot.row
+    let isOnRightEdge = self.leftDot.column == NumColumns - 1 && self.rightDot.column == NumColumns - 1
 
     if isOnRightEdge {
-      return [(-1,0), (0, -1)]
+      print("on right edge")
+      if self.rightDot.row > self.leftDot.row {
+        print("right dot higher")
+        return [(-1,0), (0, -1)]
+      } else {
+        print("left lower")
+        return [(0,0), (-1, 1)]
+      }
     } else if isOnTop {
       return [(0, 1),(-1, 0)]
     } else {

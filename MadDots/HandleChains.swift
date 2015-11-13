@@ -8,12 +8,12 @@
 
 import Foundation
 
-func findChainsForRows(dotArray: Array2D<Dot>, inout realChains: Array<Dot>) -> Array<Dot> {
+func findChainsForRows(dotArray: Array2D<Dot>, inout realChains: Array<Dot>, startRow: Int, endRow: Int) -> Array<Dot> {
   var someChain = Array<Dot>()
   
   var previousDot: Dot?
   
-  for var row = NumRows - 1; row >= 0; row-- {
+  for var row = startRow - 1; row >= endRow; row-- {
     checkIfRealChain(someChain, realChains: &realChains)
     
     someChain = Array<Dot>()
@@ -50,16 +50,12 @@ func findChainsForRows(dotArray: Array2D<Dot>, inout realChains: Array<Dot>) -> 
   return realChains
 }
 
-func findChainsForColumn(dotArray:Array2D<Dot>, inout realChains: Array<Dot>) -> Array<Dot> {
+func findChainsForColumns(dotArray: Array2D<Dot>, inout realChains: Array<Dot>, startColumn: Int, endColumn: Int) -> Array<Dot> {
   var someChain = Array<Dot>()
+  
   var previousDot: Dot?
   
-}
-
-func findChainsForColumns(dotArray: Array2D<Dot>, inout realChains: Array<Dot>) -> Array<Dot> {
-
-  
-  for var column = NumColumns - 1; column >= 0; column-- {
+  for var column = startColumn - 1; column >= endColumn; column-- {
     checkIfRealChain(someChain, realChains: &realChains)
     
     someChain = Array<Dot>()
@@ -97,11 +93,27 @@ func findChainsForColumns(dotArray: Array2D<Dot>, inout realChains: Array<Dot>) 
   return realChains
 }
 
+func columnHasChain(dotArray: Array2D<Dot>, column: Int) -> Bool {
+  var chains = Array<Dot>()
+  
+  findChainsForColumns(dotArray, realChains: &chains, startColumn: column, endColumn: column)
+  
+  return chains.count > 0
+}
+
+func rowHasChain(dotArray: Array2D<Dot>, row: Int) -> Bool {
+  var chains = Array<Dot>()
+  
+  findChainsForRows(dotArray, realChains: &chains, startRow: row, endRow: row)
+  
+  return chains.count > 0
+}
+
 func findAllChains(dotArray: Array2D<Dot>) -> Array<Dot> {
   var realChains = Array<Dot>()
   
-  findChainsForColumns(dotArray, realChains: &realChains)
-  findChainsForRows(dotArray, realChains: &realChains)
+  findChainsForColumns(dotArray, realChains: &realChains, startColumn: NumColumns, endColumn: 0)
+  findChainsForRows(dotArray, realChains: &realChains, startRow: NumRows, endRow: 0)
 
   return realChains
 }
@@ -145,7 +157,7 @@ func dropFallenDots(dotArray: Array2D<Dot>) -> Array<GoodDot> {
 }
 
 func checkIfRealChain(someChain: Array<Dot>, inout realChains: Array<Dot>) {
-  if someChain.count > 2 {
+  if someChain.count > 3 {
     realChains.appendContentsOf(someChain)
   }
 }

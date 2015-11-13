@@ -17,6 +17,7 @@ class GameScene: SKScene {
   var tick:(() -> ())?
   var tickLengthMillis = TickLengthLevelOne
   var lastTick:NSDate?
+  var menuTapped = false
 
   override func didMoveToView(view: SKView) {
       /* Setup your scene here */
@@ -25,9 +26,36 @@ class GameScene: SKScene {
   override init(size: CGSize) {
     super.init(size: size)
     
+    self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
+
     anchorPoint = CGPoint(x: 0, y: 1.0)
     
     drawGrid()
+    
+    var myLabel = SKLabelNode(fontNamed: "Arial")
+    myLabel.text = "Menu"
+    myLabel.name = "menu"
+    myLabel.fontSize = 15
+    myLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
+
+    myLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize), CGRectGetMaxY(self.frame) - (BlockSize / 2))
+    self.addChild(myLabel)
+
+    myLabel = SKLabelNode(fontNamed: "Arial")
+    myLabel.text = "Level \(GameLevel)"
+    myLabel.fontSize = 13
+    
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) - (BlockSize / 2))
+    self.addChild(myLabel)
+    
+    myLabel = SKLabelNode(fontNamed: "Arial")
+    myLabel.text = "Speed \(GameSpeed)"
+    myLabel.fontSize = 13
+    
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, CGRectGetMaxY(self.frame) - (BlockSize / 2))
+    
+    self.addChild(myLabel)
+    
   }
   
   required init(coder aDecoder: NSCoder) {
@@ -35,6 +63,17 @@ class GameScene: SKScene {
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    if let t = touches.first {
+      let loc = t.locationInNode(self)
+      let node = self.nodeAtPoint(loc)
+      if node.name == "menu" {
+        menuTapped = true
+        print("MEEEENNNNUUUUUU")
+      } else {
+        menuTapped = false
+      }
+      
+    }
      /* Called when a touch begins */
   }
 

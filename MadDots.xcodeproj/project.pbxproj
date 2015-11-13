@@ -8,9 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		AD0B73F51BCC22C30085B244 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
+		AD51B03A1BEEDBD200CB2FE7 /* GameLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */; };
+		AD51B03B1BEEDC1600CB2FE7 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
+		AD51B03C1BEEDC1900CB2FE7 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F81BC4479A00E45888 /* Array2D.swift */; };
+		AD51B03D1BEEDC4400CB2FE7 /* Dot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F61BC446A400E45888 /* Dot.swift */; };
+		AD51B03E1BEEF10800CB2FE7 /* MadDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FC1BC447D100E45888 /* MadDot.swift */; };
+		AD51B03F1BEEF11000CB2FE7 /* GoodDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D091BEBD553005043A8 /* GoodDot.swift */; };
+		AD51B0401BEEF11800CB2FE7 /* HandleChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5E50091BD409D900AE3858 /* HandleChains.swift */; };
+		AD51B0411BEEF15A00CB2FE7 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FA1BC447BF00E45888 /* Piece.swift */; };
 		AD5D0D0A1BEBD553005043A8 /* GoodDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D091BEBD553005043A8 /* GoodDot.swift */; };
 		AD5D0D0C1BED23DE005043A8 /* GameLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */; };
+		AD5D0D151BEED5B8005043A8 /* MadDotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D141BEED5B8005043A8 /* MadDotsTests.swift */; };
+		AD5D0D1D1BEED7AF005043A8 /* GameLevelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D1C1BEED7AF005043A8 /* GameLevelsTests.swift */; };
 		AD5E500A1BD409D900AE3858 /* HandleChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5E50091BD409D900AE3858 /* HandleChains.swift */; };
+		ADB66DA91BF2CC1D0039C006 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB66DA81BF2CC1D0039C006 /* MainController.swift */; };
+		ADDBB15C1BF2C34800797A4C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDBB15B1BF2C34800797A4C /* MainScene.swift */; };
 		ADF807E11BC4462300E45888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807E01BC4462300E45888 /* AppDelegate.swift */; };
 		ADF807E31BC4462300E45888 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADF807E21BC4462300E45888 /* GameScene.sks */; };
 		ADF807E51BC4462300E45888 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807E41BC4462300E45888 /* GameScene.swift */; };
@@ -24,11 +36,27 @@
 		ADF807FD1BC447D100E45888 /* MadDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FC1BC447D100E45888 /* MadDot.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AD5D0D171BEED5B8005043A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADF807D51BC4462300E45888 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADF807DC1BC4462300E45888;
+			remoteInfo = MadDots;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AD0B73F41BCC22C30085B244 /* DotGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotGame.swift; sourceTree = "<group>"; };
 		AD5D0D091BEBD553005043A8 /* GoodDot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodDot.swift; sourceTree = "<group>"; };
 		AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevels.swift; sourceTree = "<group>"; };
+		AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadDotsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD5D0D141BEED5B8005043A8 /* MadDotsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadDotsTests.swift; sourceTree = "<group>"; };
+		AD5D0D161BEED5B8005043A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD5D0D1C1BEED7AF005043A8 /* GameLevelsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevelsTests.swift; sourceTree = "<group>"; };
 		AD5E50091BD409D900AE3858 /* HandleChains.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleChains.swift; sourceTree = "<group>"; };
+		ADB66DA81BF2CC1D0039C006 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		ADDBB15B1BF2C34800797A4C /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		ADF807DD1BC4462300E45888 /* MadDots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadDots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADF807E01BC4462300E45888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADF807E21BC4462300E45888 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -45,6 +73,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AD5D0D0F1BEED5B8005043A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADF807DA1BC4462300E45888 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -55,10 +90,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD5D0D131BEED5B8005043A8 /* MadDotsTests */ = {
+			isa = PBXGroup;
+			children = (
+				AD5D0D141BEED5B8005043A8 /* MadDotsTests.swift */,
+				AD5D0D161BEED5B8005043A8 /* Info.plist */,
+				AD5D0D1C1BEED7AF005043A8 /* GameLevelsTests.swift */,
+			);
+			path = MadDotsTests;
+			sourceTree = "<group>";
+		};
 		ADF807D41BC4462300E45888 = {
 			isa = PBXGroup;
 			children = (
 				ADF807DF1BC4462300E45888 /* MadDots */,
+				AD5D0D131BEED5B8005043A8 /* MadDotsTests */,
 				ADF807DE1BC4462300E45888 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				ADF807DD1BC4462300E45888 /* MadDots.app */,
+				AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +137,8 @@
 				AD5E50091BD409D900AE3858 /* HandleChains.swift */,
 				AD5D0D091BEBD553005043A8 /* GoodDot.swift */,
 				AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */,
+				ADDBB15B1BF2C34800797A4C /* MainScene.swift */,
+				ADB66DA81BF2CC1D0039C006 /* MainController.swift */,
 			);
 			path = MadDots;
 			sourceTree = "<group>";
@@ -97,6 +146,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AD5D0D111BEED5B8005043A8 /* MadDotsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD5D0D191BEED5B8005043A8 /* Build configuration list for PBXNativeTarget "MadDotsTests" */;
+			buildPhases = (
+				AD5D0D0E1BEED5B8005043A8 /* Sources */,
+				AD5D0D0F1BEED5B8005043A8 /* Frameworks */,
+				AD5D0D101BEED5B8005043A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AD5D0D181BEED5B8005043A8 /* PBXTargetDependency */,
+			);
+			name = MadDotsTests;
+			productName = MadDotsTests;
+			productReference = AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		ADF807DC1BC4462300E45888 /* MadDots */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ADF807F31BC4462300E45888 /* Build configuration list for PBXNativeTarget "MadDots" */;
@@ -120,9 +187,14 @@
 		ADF807D51BC4462300E45888 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Kyle Murphy";
 				TargetAttributes = {
+					AD5D0D111BEED5B8005043A8 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = ADF807DC1BC4462300E45888;
+					};
 					ADF807DC1BC4462300E45888 = {
 						CreatedOnToolsVersion = 7.0;
 					};
@@ -142,11 +214,19 @@
 			projectRoot = "";
 			targets = (
 				ADF807DC1BC4462300E45888 /* MadDots */,
+				AD5D0D111BEED5B8005043A8 /* MadDotsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AD5D0D101BEED5B8005043A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADF807DB1BC4462300E45888 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -161,6 +241,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AD5D0D0E1BEED5B8005043A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD51B03F1BEEF11000CB2FE7 /* GoodDot.swift in Sources */,
+				AD51B0401BEEF11800CB2FE7 /* HandleChains.swift in Sources */,
+				AD51B0411BEEF15A00CB2FE7 /* Piece.swift in Sources */,
+				AD51B03A1BEEDBD200CB2FE7 /* GameLevels.swift in Sources */,
+				AD51B03B1BEEDC1600CB2FE7 /* DotGame.swift in Sources */,
+				AD5D0D1D1BEED7AF005043A8 /* GameLevelsTests.swift in Sources */,
+				AD5D0D151BEED5B8005043A8 /* MadDotsTests.swift in Sources */,
+				AD51B03E1BEEF10800CB2FE7 /* MadDot.swift in Sources */,
+				AD51B03C1BEEDC1900CB2FE7 /* Array2D.swift in Sources */,
+				AD51B03D1BEEDC4400CB2FE7 /* Dot.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADF807D91BC4462300E45888 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -174,12 +271,22 @@
 				AD5D0D0C1BED23DE005043A8 /* GameLevels.swift in Sources */,
 				ADF807E11BC4462300E45888 /* AppDelegate.swift in Sources */,
 				ADF807FD1BC447D100E45888 /* MadDot.swift in Sources */,
+				ADDBB15C1BF2C34800797A4C /* MainScene.swift in Sources */,
 				ADF807F71BC446A400E45888 /* Dot.swift in Sources */,
+				ADB66DA91BF2CC1D0039C006 /* MainController.swift in Sources */,
 				ADF807F91BC4479A00E45888 /* Array2D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AD5D0D181BEED5B8005043A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ADF807DC1BC4462300E45888 /* MadDots */;
+			targetProxy = AD5D0D171BEED5B8005043A8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		ADF807E81BC4462300E45888 /* Main.storyboard */ = {
@@ -201,6 +308,33 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AD5D0D1A1BEED5B8005043A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = MadDotsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blah.kmurphles.Tetris.MadDotsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MadDots.app/MadDots";
+			};
+			name = Debug;
+		};
+		AD5D0D1B1BEED5B8005043A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MadDotsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.blah.kmurphles.Tetris.MadDotsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MadDots.app/MadDots";
+			};
+			name = Release;
+		};
 		ADF807F11BC4462300E45888 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -309,6 +443,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AD5D0D191BEED5B8005043A8 /* Build configuration list for PBXNativeTarget "MadDotsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD5D0D1A1BEED5B8005043A8 /* Debug */,
+				AD5D0D1B1BEED5B8005043A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ADF807D81BC4462300E45888 /* Build configuration list for PBXProject "MadDots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

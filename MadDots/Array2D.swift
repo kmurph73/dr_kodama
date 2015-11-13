@@ -31,12 +31,31 @@ class Array2D<T>: CustomStringConvertible {
     }
   }
   
+  func countMadDots() -> Int {
+    var cnt = 0
+    for row in 0..<NumRows {
+      for col in 0..<NumColumns {
+        if let _ = self[col,row] as? MadDot {
+          cnt += 1
+        }
+      }
+    }
+    
+    return cnt
+  }
+  
   var description: String {
     var desc = ""
     for row in 0..<NumRows {
       for col in 0..<NumColumns {
         if let line = self[col,row] as? Dot {
-          desc += "\(line.color.spriteName.characters.first!),"
+          let color = "\(line.color.spriteName.characters.first!),"
+          if let _ = line as? MadDot {
+            desc += "m\(color)"
+          } else {
+            desc += color
+          }
+
         } else {
           desc += "X,"
         }

@@ -45,6 +45,7 @@ class DotGame {
   var madDots: Array<MadDot>
 
   var fallingPiece:Piece?
+  var levelMaker: LevelMaker
 
   var delegate:DotGameDelegate?
   var lastMovement = Movement.Up
@@ -53,6 +54,7 @@ class DotGame {
     fallingPiece = nil
     dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
     madDots = Array<MadDot>()
+    levelMaker = LevelMaker(dotArray: dotArray)
   }
   
   func settleShape() {
@@ -69,9 +71,9 @@ class DotGame {
   var cnt = 0
   
   func newPiece() -> Piece {
-    return Piece(column: StartingColumn, row: StartingRow, leftColor: .Blue, rightColor: .Red)
+//    return Piece(column: StartingColumn, row: StartingRow, leftColor: .Blue, rightColor: .Red)
 
-//    return Piece.random(StartingColumn, startingRow: StartingRow)
+    return Piece.random(StartingColumn, startingRow: StartingRow)
   }
   
   func beginGame() {
@@ -79,7 +81,9 @@ class DotGame {
       fallingPiece = newPiece()
     }
     
-    addMadDots()
+    self.madDots.appendContentsOf(levelMaker.makeLevel(GameLevel))
+    
+    print("madDots: \(madDots)")
     
     delegate?.gameDidBegin(self)
   }

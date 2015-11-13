@@ -22,53 +22,193 @@ struct LevelRow {
 }
 
 class LevelMaker {
-  var level: Level
-  var totalMadDots: Int
+  var totalMadDots: Int?
+  var madDots: Array<MadDot>
+  
+  var dotArray: Array2D<Dot>
   
   func randomNum(min: Int, max: Int) -> Int {
     return Int(arc4random_uniform(UInt32(max))) + min
   }
   
-  init(level:Level) {
-    self.level = level
-    self.totalMadDots = level.totalMadDots
+  init(dotArray: Array2D<Dot>) {
+    self.dotArray = dotArray
+    self.madDots = Array<MadDot>()
   }
   
   func getRowNum(row:Int) {
     NumRows - row
   }
   
-  func randomColor() {
+  func placeRandomDot(col: Int, rowNum: Int) -> Bool {
+    let randNum = randomNum(0, max: 5)
+    if randNum == 4 {
+      return false
+    } else {
+      while true {
+        appendRandomDot(rowNum, col: col)
+        
+        if !columnHasChain(dotArray, column: col) {
+          return true
+        }
+      }
+    }
+  }
+  
+  func fillInDotsForRow(var numDotsRequiredForRow:Int, rowNum: Int) {
+    while numDotsRequiredForRow > 0 {
+      let randColumn = randomNum(0, max: NumColumns)
+      if dotArray[randColumn, rowNum] == nil {
+        if placeRandomDot(randColumn, rowNum: rowNum) {
+          numDotsRequiredForRow -= 1
+        }
+      }
+    }
+  }
+  
+  func removeDotsForRow(var numDotsRequiredForRow: Int, rowNum: Int) {
+    while numDotsRequiredForRow < 0 {
+      let randColumn = randomNum(0, max: NumColumns)
+      
+      if let dot = dotArray[randColumn, rowNum] as? MadDot {
+        dotArray[randColumn, rowNum] = nil
+        if let index = madDots.indexOf(dot) {
+          madDots.removeAtIndex(index)
+        }
+        numDotsRequiredForRow += 1
+        print("numdotsreq: \(numDotsRequiredForRow)")
+      }
+    }
+  }
+  
+  func satisfyMinimumRequirements() {
     
   }
-
-  func makeLevel(level: Level, dotGame: DotGame) -> Array2D<Dot> {
-    let arr = dotGame.dotArray
+  
+  func dotCountForRow(rowNum: Int) -> Int {
+    var cnt = 0
+    for column in 0...NumColumns {
+      if let _ = dotArray[column, rowNum] {
+        cnt += 1
+      }
+    }
     
-    if let rows = level.rows {
-      let sortedKeys = rows.keys.sort()
+    return cnt
+  }
+  
+  private func appendRandomDot(row: Int, col:Int) {
+    let md = MadDot(column: col, row: row, color: DotColor.random())
+    dotArray[col, row] = md
+    self.madDots.append(md)
+    print("append md: \(self.madDots)")
+  }
+  
+  func insertRandomDot(level: Level) -> Bool {
+    let randRow = randomNum(0, max: level.maxRows) + (NumRows - level.maxRows)
+    let randCol = randomNum(0, max: NumColumns)
+    
+    if let everyRow = level.everyRow {
+      if let _ = dotArray[randCol, randRow] as? MadDot {
+        return false
+      } else {
+        if let rows = level.rows, row = rows[randRow] {
+          print("append via row")
+          if dotCountForRow(randRow) < row.max {
+            appendRandomDot(randRow, col: randCol)
+            
+            return true
+          }
+          
+        } else if dotCountForRow(randRow) < everyRow.max {
+          appendRandomDot(randRow, col: randCol)
+          
+          return true
+        }
+      }
+    }
+    
+    return false
+  }
+
+  func makeLevel(levelNumber:  Int) -> Array<MadDot> {
+    self.madDots = Array<MadDot>()
+    let level = levels[levelNumber]!
+    var totalMadDots = level.totalMadDots
+    
+    if let levelRows = level.rows {
+      let sortedKeys = levelRows.keys.sort()
       
       for num in sortedKeys {
-        if let row = rows[num] {
+        if let rowLevel = levelRows[num] {
           let rowNum = NumRows - num
-          var randNum = randomNum(row.min, max: row.max)
-          var sparseArr = Array<MadDot?>(count: NumColumns, repeatedValue: nil)
+          var numDotsRequiredForRow = randomNum(rowLevel.min, max: rowLevel.max)
+          totalMadDots = totalMadDots - numDotsRequiredForRow
           
-          for col in 0...NumColumns {
-            let rn = randomNum(0, max: 4)
-            if rn != 4 {
-              sparseArr[]
-              arr[col, rowNum] = MadDot(column: col, row: rowNum, color: DotColor.random())
+          for col in 0..<NumColumns {
+            if placeRandomDot(col, rowNum: rowNum) {
+              numDotsRequiredForRow -= 1
             }
+          }
+          
+          if numDotsRequiredForRow > 1 {
+            fillInDotsForRow(numDotsRequiredForRow, rowNum: rowNum)
+          } else {
+            print("removeDotsForRow")
+            removeDotsForRow(numDotsRequiredForRow, rowNum: rowNum)
           }
         }
       }
     }
     
-    return arr
+    while totalMadDots > 0 {
+      print("totalMadDots: \(totalMadDots)")
+      if insertRandomDot(level) {
+        totalMadDots -= 1
+      }
+    }
+    
+    return self.madDots
   }
   
   let levels = [
-    1: Level(level: 1, totalMadDots: 4, rows: nil, maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 1))
+    1: Level(level: 1, totalMadDots: 4, rows: nil, maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 1)),
+    2: Level(level: 2, totalMadDots: 6, rows: nil, maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 2)),
+    3: Level(level: 3, totalMadDots: 9, rows: rowReqs[3], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 2)),
+    4: Level(level: 4, totalMadDots: 12, rows: rowReqs[4], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 3)),
+    5: Level(level: 5, totalMadDots: 15, rows: rowReqs[5], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 3)),
+    6: Level(level: 6, totalMadDots: 18, rows: rowReqs[6], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 4)),
+    7: Level(level: 7, totalMadDots: 21, rows: rowReqs[7], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 4)),
+    8: Level(level: 8, totalMadDots: 24, rows: rowReqs[8], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 5)),
+    9: Level(level: 9, totalMadDots: 27, rows: rowReqs[9], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 6)),
+    10: Level(level: 10, totalMadDots: 30, rows: rowReqs[10], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 7)),
+    11: Level(level: 11, totalMadDots: 32, rows: rowReqs[11], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 8)),
+    12: Level(level: 12, totalMadDots: 35, rows: rowReqs[11], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 8)),
+    13: Level(level: 13, totalMadDots: 38, rows: rowReqs[12], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: 8)),
+    14: Level(level: 14, totalMadDots: 41, rows: rowReqs[12], maxRows: NumRows - 5, everyRow: LevelRow(min: 0, max: NumColumns - 1)),
+    15: Level(level: 15, totalMadDots: 44, rows: rowReqs[13], maxRows: NumRows - 4, everyRow: LevelRow(min: 0, max: NumColumns)),
+    16: Level(level: 16, totalMadDots: 47, rows: rowReqs[13], maxRows: NumRows - 4, everyRow: LevelRow(min: 0, max: NumColumns)),
+    17: Level(level: 17, totalMadDots: 50, rows: rowReqs[14], maxRows: NumRows - 4, everyRow: LevelRow(min: 0, max: NumColumns)),
+    18: Level(level: 18, totalMadDots: 53, rows: rowReqs[14], maxRows: NumRows - 4, everyRow: LevelRow(min: 0, max: NumColumns))
   ]
+  
 }
+
+let rowReqs = [
+  3: [1: LevelRow(min: 1, max: 3)],
+  4: [1: LevelRow(min: 1, max: 4)],
+  5: [1: LevelRow(min: 2, max: 5)],
+  6: [1: LevelRow(min: 2, max: 5), 2: LevelRow(min: 2, max: 5)],
+  7: [1: LevelRow(min: 2, max: 6), 2: LevelRow(min: 2, max: 7)],
+  8: [1: LevelRow(min: 2, max: NumColumns - 4), 2: LevelRow(min: 2, max: 5)],
+  9: [1: LevelRow(min: 4, max: NumColumns - 3), 2: LevelRow(min: 2, max: 7)],
+  10: [1: LevelRow(min: 2, max: NumColumns - 2), 2: LevelRow(min: 2, max: 6)],
+  11: [1: LevelRow(min: 2, max: NumColumns - 2), 2: LevelRow(min: 2, max: 7)],
+  12: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: 7)],
+  13: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: 7)],
+  14: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: 8)],
+  15: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: 8)],
+  16: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: 8)],
+  17: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: 8)],
+  18: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: NumColumns - 1)]
+
+]

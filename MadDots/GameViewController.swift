@@ -12,11 +12,16 @@ import SpriteKit
 class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizerDelegate {
   var dotGame:DotGame!
   var scene: GameScene!
+  var mainScene: MainScene!
   var panPointReference:CGPoint?
   var justEnded = false
 
   @IBAction func didTap(sender: UITapGestureRecognizer) {
-    dotGame.rotatePiece()
+    print("didTap: \(scene.menuTapped)")
+    if !scene.menuTapped {
+      dotGame.rotatePiece()
+      scene.menuTapped = false
+    }
   }
   
   @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
@@ -86,7 +91,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     
     /* Set the scale mode to scale to fit the window */
     scene = GameScene(size: skView.bounds.size)
-
     scene.scaleMode = .AspectFill
     scene.tick = didTick      
     
