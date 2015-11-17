@@ -140,7 +140,7 @@ class LevelMaker {
     self.madDots = Array<MadDot>()
     var totalMadDots = levelNumber * 3
     
-    let offset = GameLevel > 5 ? GameLevel > 10 ? 6 : 5 : 4
+    let offset = GameLevel > 5 ? GameLevel > 10 ? 4 : 5 : 6
     
     while totalMadDots > 0 {
       if insertRandomDot(offset) {
