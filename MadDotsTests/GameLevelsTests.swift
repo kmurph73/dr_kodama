@@ -24,10 +24,9 @@ class GameLevelsTests: XCTestCase {
     for n in 0...10 {
       let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
       var madDots = Array<MadDot>()
-      let lm = LevelMaker(dotArray: dotArray, madDots: &madDots)
+      let lm = LevelMaker(dotArray: dotArray)
       lm.makeLevel(4)
-      XCTAssertEqual(30, dotArray.countMadDots())
-      print("dotArray: \(dotArray)")
+      XCTAssertEqual(12, dotArray.countMadDots())
     }
     
     // XCTAssertNotNil(lm, "LevelMaker could not be instantiated")

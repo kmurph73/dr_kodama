@@ -44,6 +44,36 @@ class Array2D<T>: CustomStringConvertible {
     return cnt
   }
   
+  func removeDotsFromScene() {
+    for thing in array {
+      if let dot = thing as? Dot {
+        dot.removeFromScene()
+      }
+    }
+  }
+  
+  func removePiece(piece: Piece) {
+    removeDot(piece.leftDot)
+    removeDot(piece.rightDot)
+  }
+  
+  func removeDot(dot: Dot) {
+    self[dot.column, dot.row] = nil
+  }
+  
+  func hasAchievedVictory() -> Bool {
+    var madDotCount = 0
+    for row in 0..<NumRows {
+      for col in 0..<NumColumns {
+        if let _ = self[col,row] as? MadDot {
+          madDotCount += 1
+        }
+      }
+    }
+    
+    return madDotCount == 0
+  }
+  
   var description: String {
     var desc = ""
     for row in 0..<NumRows {
@@ -52,12 +82,17 @@ class Array2D<T>: CustomStringConvertible {
           let color = "\(line.color.spriteName.characters.first!),"
           if let _ = line as? MadDot {
             desc += "m\(color)"
-          } else {
-            desc += color
+          } else if let dot = line as? GoodDot {
+            if let s = dot.sibling {
+              let abbrev = dot.side == .Left ? "l" : "r"
+              desc += "\(abbrev)\(color)"
+            } else {
+              desc += " \(color)"
+            }
           }
 
         } else {
-          desc += "X,"
+          desc += " X,"
         }
       }
       desc += "\n"
@@ -65,4 +100,9 @@ class Array2D<T>: CustomStringConvertible {
     
     return desc
   }
+  
+  deinit {
+    print("dotArray is being deinitialized")
+  }
+  
 }

@@ -75,6 +75,10 @@ class Dot: Hashable, CustomStringConvertible {
     self.color = color
   }
   
+  func removeFromScene() {
+    self.sprite?.removeFromParent()
+  }
+  
   deinit {
 //    print("\(self) is being deinitialized")
   }

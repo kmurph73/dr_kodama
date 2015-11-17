@@ -14,10 +14,12 @@ let TickLengthLevelOne = NSTimeInterval(1024)
 class GameScene: SKScene {
   let LayerPosition = CGPoint(x: 1, y: 1)
   
+  var ctrl: GameViewController?
   var tick:(() -> ())?
   var tickLengthMillis = TickLengthLevelOne
   var lastTick:NSDate?
   var menuTapped = false
+  var levelLabel: SKLabelNode?
 
   override func didMoveToView(view: SKView) {
       /* Setup your scene here */
@@ -38,24 +40,31 @@ class GameScene: SKScene {
     myLabel.fontSize = 15
     myLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
 
-    myLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize), CGRectGetMaxY(self.frame) - (BlockSize / 2))
+    myLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize), CGRectGetMaxY(self.frame) - (BlockSize / 2 + 5))
     self.addChild(myLabel)
+    
+    setLevelLabel()
 
-    myLabel = SKLabelNode(fontNamed: "Arial")
-    myLabel.text = "Level \(GameLevel)"
-    myLabel.fontSize = 13
-    
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) - (BlockSize / 2))
-    self.addChild(myLabel)
-    
     myLabel = SKLabelNode(fontNamed: "Arial")
     myLabel.text = "Speed \(GameSpeed)"
     myLabel.fontSize = 13
     
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, CGRectGetMaxY(self.frame) - (BlockSize / 2))
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, CGRectGetMaxY(self.frame) - (BlockSize / 2 + 5))
     
     self.addChild(myLabel)
+  }
+  
+  func setLevelLabel() {
+    if levelLabel != nil {
+      levelLabel!.removeFromParent()
+    }
+
+    levelLabel = SKLabelNode(fontNamed: "Arial")
+    levelLabel!.text = "Level \(GameLevel)"
+    levelLabel!.fontSize = 13
     
+    levelLabel!.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) - ((BlockSize / 2) + 5))
+    self.addChild(levelLabel!)
   }
   
   required init(coder aDecoder: NSCoder) {
@@ -68,7 +77,10 @@ class GameScene: SKScene {
       let node = self.nodeAtPoint(loc)
       if node.name == "menu" {
         menuTapped = true
-        print("MEEEENNNNUUUUUU")
+        if let c = ctrl {
+          c.showSheet("You rang?")
+          lastTick = nil
+        }
       } else {
         menuTapped = false
       }
@@ -103,12 +115,11 @@ class GameScene: SKScene {
     } else {
       return nil
     }
-//    
-//    if dot.side == .Left {
-//    } else {
-//      return CGPointMake(x - halfBlock, y)
-//    }
 
+  }
+  
+  func resumeGame() {
+    lastTick = NSDate()
   }
   
   override func update(currentTime: CFTimeInterval) {
@@ -125,6 +136,16 @@ class GameScene: SKScene {
     }
   }
   
+  func addArrayToScene(array: Array2D<Dot>) {
+    for row in 0..<NumRows {
+      for col in 0..<NumColumns {
+        if let dot = array[col,row] {
+          addDotToScene(dot, completion: nil)
+        }
+      }
+    }
+  }
+  
   func addDotToScene(dot:Dot, completion:(() -> ())?) {
     let sprite = SKSpriteNode(imageNamed:dot.spriteName)
     
@@ -135,9 +156,7 @@ class GameScene: SKScene {
     dot.sprite = sprite
     
     self.addChild(sprite)
-    
-    print("sprite: \(sprite)")
-    
+        
     if let d = dot as? GoodDot {
       if let p = pointForConnector(d) {
         let size = BlockSize / 4
@@ -159,7 +178,6 @@ class GameScene: SKScene {
   
   func removeDots(dots: Array<Dot>) {
     for dot in dots {
-      print("removeDot: \(dot)")
       dot.sprite?.removeFromParent()
       if let d = dot as? GoodDot {
         d.connector?.removeFromParent()
@@ -186,7 +204,6 @@ class GameScene: SKScene {
           moveAction]))
       
       if let p = pointForConnector(dot) {
-        print("drop connector")
         let connector = dot.connector!
 
         let movAction = SKAction.moveTo(p, duration: duration)
@@ -279,5 +296,9 @@ class GameScene: SKScene {
       self.addChild(barra)
     }
     
+  }
+  
+  deinit {
+    print("GameScene is being deinitialized")
   }
 }

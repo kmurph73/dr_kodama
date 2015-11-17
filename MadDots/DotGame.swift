@@ -49,10 +49,11 @@ class DotGame {
 
   var delegate:DotGameDelegate?
   var lastMovement = Movement.Up
+  var seq: Array<Piece>?
   
   init() {
     fallingPiece = nil
-    dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)    
     madDots = Array<MadDot>()
     levelMaker = LevelMaker(dotArray: dotArray)
   }
@@ -69,11 +70,34 @@ class DotGame {
   }
   
   var cnt = 0
+//  var alt = true
   
   func newPiece() -> Piece {
-//    return Piece(column: StartingColumn, row: StartingRow, leftColor: .Blue, rightColor: .Red)
+    if let s = seq {
+      cnt += 1
+      if cnt <= s.count {
+        return s[cnt - 1]
+      } else {
+        return Piece.random(StartingColumn, startingRow: StartingRow)
+      }
+    } else {
+      return Piece.random(StartingColumn, startingRow: StartingRow)
+    }
+  }
+  
+  func beginAnew() {
+    if let vc = delegate as? GameViewController {
+      vc.setLevelLabel()
+    }
 
-    return Piece.random(StartingColumn, startingRow: StartingRow)
+    fallingPiece?.removeFromScene()
+    fallingPiece = nil
+    dotArray.removeDotsFromScene()
+    dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    madDots = Array<MadDot>()
+    levelMaker.dotArray = dotArray
+    
+    beginGame()
   }
   
   func beginGame() {
@@ -81,9 +105,14 @@ class DotGame {
       fallingPiece = newPiece()
     }
     
-    self.madDots.appendContentsOf(levelMaker.makeLevel(GameLevel))
-    
-    print("madDots: \(madDots)")
+    self.madDots.appendContentsOf(levelMaker.makeRandomLevel(GameLevel))
+        
+//    let sen = testScenario()
+//    dotArray = sen.array
+//    seq = sen.pieces
+//    if let vc = delegate as? GameViewController {
+//      vc.scene.addArrayToScene(dotArray)
+//    }
     
     delegate?.gameDidBegin(self)
   }
@@ -102,7 +131,6 @@ class DotGame {
   func detectIllegalPlacement() -> Bool {
     if let piece = fallingPiece {
       for dot in piece.dots {
-
         if dot.column < 0 || dot.column >= NumColumns
           || dot.row < 0 || dot.row >= NumRows {
             return true
@@ -111,6 +139,7 @@ class DotGame {
         }
       }
     }
+    
     return false
   }
   
@@ -154,10 +183,8 @@ class DotGame {
   
   func rotatePiece() {
     if let piece = fallingPiece {
-      print("rotate counter")
-      piece.rotateCounterClockwise()
+      piece.rotateCounterClockwise(dotArray)
       if detectIllegalPlacement() {
-        print("illege; rotate clock")
         piece.rotateClockwise()
       } else {
         delegate?.gamePieceDidMove(self)
@@ -183,7 +210,6 @@ class DotGame {
       if detectIllegalPlacement() {
         piece.raiseByOneRow()
         if detectIllegalPlacement() {
-          print("end game")
 //          endGame()
         } else {
           settleShape()
@@ -215,8 +241,10 @@ class DotGame {
       let fallenDots = dropFallenDots(dotArray)
       return (dotsToRemove, fallenDots)
     }
-    
+  }
+  
+  deinit {
+    print("DotGame is being deinitialized")
   }
 
-  
 }

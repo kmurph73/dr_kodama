@@ -12,12 +12,10 @@ import SpriteKit
 class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizerDelegate {
   var dotGame:DotGame!
   var scene: GameScene!
-  var mainScene: MainScene!
   var panPointReference:CGPoint?
   var justEnded = false
 
   @IBAction func didTap(sender: UITapGestureRecognizer) {
-    print("didTap: \(scene.menuTapped)")
     if !scene.menuTapped {
       dotGame.rotatePiece()
       scene.menuTapped = false
@@ -36,6 +34,44 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     dotGame.lowerPiece()
   }
   
+  func setLevelLabel() {
+    self.scene.setLevelLabel()
+  }
+  
+  func showSheet(msg: String?) {
+    let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .ActionSheet)
+    
+    let newGame = UIAlertAction(title: "New Game", style: .Default, handler: { action in
+      self.dotGame.beginAnew()
+    })
+    
+    alertController.addAction(newGame)
+    
+    let menu = UIAlertAction(title: "Menu", style: .Default, handler: { _ in
+      self.backToMenu()
+    })
+    
+    alertController.addAction(menu)
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action in
+      self.scene.resumeGame()
+    })
+    alertController.addAction(cancelAction)
+    
+    presentViewController(alertController, animated:true, completion: nil)
+  }
+  
+  func backToMenu() {
+    self.scene.ctrl = nil
+    self.scene.tick = nil
+    self.scene.lastTick = nil
+    self.scene = nil
+    
+    self.dotGame.delegate = nil
+    self.dotGame = nil
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   @IBAction func didPan(sender: UIPanGestureRecognizer) {
     let currentPoint = sender.translationInView(self.view)
 
@@ -44,7 +80,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       let downDistance = abs(currentPoint.y - originalPoint.y)
       let horizontalDistance = abs(currentPoint.x - originalPoint.x)
 
-      if downDistance > (BlockSize * 0.5) {
+      if downDistance > (BlockSize * 0.55) {
         if velocity.y > CGFloat(0) {
           dotGame.movePieceDown()
           panPointReference = currentPoint
@@ -53,7 +89,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         }
       }
       
-      if horizontalDistance > (BlockSize * 0.5) {
+      if horizontalDistance > (BlockSize * 0.55) {
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
           panPointReference = currentPoint
@@ -67,18 +103,17 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         }
       }
     } else if sender.state == .Began {
-      print("began: \(currentPoint)")
       panPointReference = currentPoint
     }
     
     if sender.state == .Ended {
-      print("ended") 
       panPointReference = nil
     }
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    print("\(self) did load")
 
     // Configure the view.
     let skView = self.view as! SKView
@@ -91,11 +126,13 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     
     /* Set the scale mode to scale to fit the window */
     scene = GameScene(size: skView.bounds.size)
+    scene.ctrl = self
     scene.scaleMode = .AspectFill
     scene.tick = didTick      
     
     dotGame = DotGame()
     dotGame.delegate = self
+    dotGame.fallingPiece = nil
     dotGame.beginGame()
     
     skView.presentScene(scene)
@@ -114,6 +151,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func gameDidEnd(dotGame: DotGame) {
+    print("end game")
+    let msg = "You blew it!"
+    showSheet(msg)
   }
   
   func gamePieceDidLand(dotGame: DotGame) {
@@ -126,13 +166,28 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     
     if dotsToRemove.count > 0 {
       scene.removeDots(dotsToRemove)
-      scene.dropDots(fallenDots) {
-        self.gamePieceDidLand(dotGame)
+      if dotGame.dotArray.hasAchievedVictory() {
+        if GameLevel == 18 {
+          let msg = "You won!"
+          let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .Alert)
+          let okAction = UIAlertAction(title: "OMG pinch me", style: .Default, handler: { _ in
+            self.backToMenu()
+          })
+          alertController.addAction(okAction)
+          self.presentViewController(alertController, animated: true, completion: nil)
+        } else {
+          GameLevel += 1
+          dotGame.beginAnew()
+        }
+        
+      } else {
+        scene.dropDots(fallenDots) {
+          self.gamePieceDidLand(dotGame)
+        }
       }
     } else {
       nextPiece()
     }
-    
   }
   
   func nextPiece() {
@@ -145,6 +200,12 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func gameDidBegin(dotGame: DotGame) {
+    if scene.tick == nil {
+      scene.tick = didTick
+    }
+    
+    self.view.userInteractionEnabled = true
+
     self.scene.addPieceToScene(dotGame.fallingPiece!) {
       self.scene.addMadDotsToScene(dotGame.madDots)
 
@@ -168,4 +229,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   override func prefersStatusBarHidden() -> Bool {
       return true
   }
+  
+  deinit {
+    print("GameViewController is being deinitialized")
+  }
+  
 }

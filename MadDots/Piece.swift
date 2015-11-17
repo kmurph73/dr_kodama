@@ -71,6 +71,12 @@ class Piece: CustomStringConvertible {
     }
   }
   
+  var bottomDot: GoodDot? {
+    get {
+      return leftDot.row == rightDot.row ? nil : leftDot.row > rightDot.row ? leftDot : rightDot
+    }
+  }
+  
   var description: String {
     return "leftDot: \(leftDot); rightDot: \(rightDot)"
   }
@@ -120,7 +126,6 @@ class Piece: CustomStringConvertible {
     let isOnRightEdge = self.rightDot.column == NumColumns - 1 && self.leftDot.column == NumColumns - 1
 
     if isOnRightEdge {
-      print("clockwise on right edge")
       if self.leftDot.row > self.rightDot.row {
         return [(-1, 0), (0,1)]
       } else {
@@ -131,17 +136,20 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  func getCounterClockwisePositionFor(orientation: Orientation) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+  func getCounterClockwisePositionFor(orientation: Orientation, dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let isOnTop = self.leftDot.row == 0 && self.rightDot.row == 0
     let isOnRightEdge = self.leftDot.column == NumColumns - 1 && self.rightDot.column == NumColumns - 1
+    var rightIsBlocked = false
+    if !isOnRightEdge {
+      if let botDot = bottomDot {
+        rightIsBlocked = dotArray[botDot.column + 1, botDot.row] != nil
+      }
+    }
 
-    if isOnRightEdge {
-      print("on right edge")
+    if isOnRightEdge || rightIsBlocked {
       if self.rightDot.row > self.leftDot.row {
-        print("right dot higher")
         return [(-1,0), (0, -1)]
       } else {
-        print("left lower")
         return [(0,0), (-1, 1)]
       }
     } else if isOnTop {
@@ -151,8 +159,8 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  final func rotatePieceCounterClockwise(orientation: Orientation) {
-    if let pieceRowColumnTranslation = getCounterClockwisePositionFor(orientation) {
+  final func rotatePieceCounterClockwise(orientation: Orientation, dotArray: Array2D<Dot>) {
+    if let pieceRowColumnTranslation = getCounterClockwisePositionFor(orientation, dotArray: dotArray) {
       for (idx, diff) in pieceRowColumnTranslation.enumerate() {
         let dot = dots[idx]
 //        print("counter: idx: \(idx); diff: \(diff)")
@@ -194,9 +202,9 @@ class Piece: CustomStringConvertible {
     orientation = newOrientation
   }
   
-  final func rotateCounterClockwise() {
+  final func rotateCounterClockwise(dotArray: Array2D<Dot>) {
     let newOrientation = Orientation.rotate(orientation, clockwise: false)
-    rotatePieceCounterClockwise(newOrientation)
+    rotatePieceCounterClockwise(newOrientation, dotArray:dotArray)
     orientation = newOrientation
   }
   
@@ -207,8 +215,13 @@ class Piece: CustomStringConvertible {
     return Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
   }
   
+  func removeFromScene() {
+    self.leftDot.removeFromScene()
+    self.rightDot.removeFromScene()
+  }
+  
   deinit {
-//    print("\(self) is being deinitialized")
+    print("\(self) is being deinitialized")
   }
   
 }

@@ -20,13 +20,11 @@ class MainController: UIViewController {
   @IBAction func speedSliderChanged(slider: UISlider) {
     GameSpeed = lroundf(slider.value)
     updateLabels()
-
   }
   
   @IBAction func levelSliderChanged(slider: UISlider) {
     GameLevel = lroundf(slider.value)
     updateLabels()
-
   }
   
   @IBAction func tapPlay(sender: AnyObject) {

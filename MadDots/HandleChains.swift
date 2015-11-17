@@ -118,9 +118,13 @@ func findAllChains(dotArray: Array2D<Dot>) -> Array<Dot> {
   return realChains
 }
 
-func dotIsSettled(dot: Dot?, dotArray: Array2D<Dot>) -> Bool {
-  if let d = dot {
-    return dotArray[d.column, d.row + 1] != nil
+func dotIsSettled(dot: Dot, sibling: Dot?, dotArray: Array2D<Dot>) -> Bool {
+  if let sibling = sibling {
+    if dot.column != sibling.column {
+      return dotArray[sibling.column, sibling.row + 1] != nil
+    } else {
+      return false
+    }
   } else {
     return false
   }
@@ -128,21 +132,43 @@ func dotIsSettled(dot: Dot?, dotArray: Array2D<Dot>) -> Bool {
 
 func dropFallenDots(dotArray: Array2D<Dot>) -> Array<GoodDot> {
   var fallenDots = Array<GoodDot>()
-  for column in 0..<NumColumns {
+  for var row = NumRows - 2; row > 0; row-- {
     var fallingDots = Array<GoodDot>()
-    for var row = NumRows - 2; row > 0; row-- {
+    
+    for column in 0..<NumColumns {
+      
       if let dot = dotArray[column, row] as? GoodDot {
-        let siblingIsSettled = dotIsSettled(dot.sibling, dotArray: dotArray)
+        var newRow = row
+        while (newRow < NumRows - 1 && dotArray[column, newRow + 1] == nil) {
+          newRow++
+        }
 
-        if dot.sibling == nil || !siblingIsSettled {
-          var newRow = row
-          while (newRow < NumRows - 1 && dotArray[column, newRow + 1] == nil) {
-            newRow++
+        if let sibling = dot.sibling {
+          if sibling.row == dot.row {
+            let siblingRow = sibling.row
+            var newSiblingRow = sibling.row
+            
+            while (newSiblingRow < NumRows - 1 && dotArray[sibling.column, newSiblingRow + 1] == nil) {
+              newSiblingRow++
+            }
+            
+            newRow = min(newRow,newSiblingRow)
+            sibling.row = newRow
+
+            if newRow > siblingRow {
+              dotArray[sibling.column, siblingRow] = nil
+              dotArray[sibling.column, newRow] = sibling
+              fallingDots.append(sibling)
+            }
           }
-          
+        }
+        
+        if newRow > dot.row {
           dot.row = newRow
+          
           dotArray[column, row] = nil
           dotArray[column, newRow] = dot
+          
           fallingDots.append(dot)
         }
       }

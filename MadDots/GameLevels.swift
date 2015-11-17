@@ -76,13 +76,8 @@ class LevelMaker {
           madDots.removeAtIndex(index)
         }
         numDotsRequiredForRow += 1
-        print("numdotsreq: \(numDotsRequiredForRow)")
       }
     }
-  }
-  
-  func satisfyMinimumRequirements() {
-    
   }
   
   func dotCountForRow(rowNum: Int) -> Int {
@@ -100,7 +95,6 @@ class LevelMaker {
     let md = MadDot(column: col, row: row, color: DotColor.random())
     dotArray[col, row] = md
     self.madDots.append(md)
-    print("append md: \(self.madDots)")
   }
   
   func insertRandomDot(level: Level) -> Bool {
@@ -112,7 +106,6 @@ class LevelMaker {
         return false
       } else {
         if let rows = level.rows, row = rows[randRow] {
-          print("append via row")
           if dotCountForRow(randRow) < row.max {
             appendRandomDot(randRow, col: randCol)
             
@@ -128,6 +121,34 @@ class LevelMaker {
     }
     
     return false
+  }
+  
+  func insertRandomDot(offset:Int) -> Bool {
+    let randRow = randomNum(offset, max: NumRows - offset)
+    let randCol = randomNum(0, max: NumColumns)
+    
+    if let _ = dotArray[randCol, randRow] as? MadDot {
+      return false
+    } else {
+      appendRandomDot(randRow, col: randCol)
+      return true
+    }
+
+  }
+  
+  func makeRandomLevel(levelNumber: Int) -> Array<MadDot> {
+    self.madDots = Array<MadDot>()
+    var totalMadDots = levelNumber * 3
+    
+    let offset = GameLevel > 5 ? GameLevel > 10 ? 6 : 5 : 4
+    
+    while totalMadDots > 0 {
+      if insertRandomDot(offset) {
+        totalMadDots -= 1
+      }
+    }
+    
+    return self.madDots
   }
 
   func makeLevel(levelNumber:  Int) -> Array<MadDot> {
@@ -153,7 +174,6 @@ class LevelMaker {
           if numDotsRequiredForRow > 1 {
             fillInDotsForRow(numDotsRequiredForRow, rowNum: rowNum)
           } else {
-            print("removeDotsForRow")
             removeDotsForRow(numDotsRequiredForRow, rowNum: rowNum)
           }
         }
@@ -161,7 +181,6 @@ class LevelMaker {
     }
     
     while totalMadDots > 0 {
-      print("totalMadDots: \(totalMadDots)")
       if insertRandomDot(level) {
         totalMadDots -= 1
       }
@@ -210,5 +229,43 @@ let rowReqs = [
   16: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: 8)],
   17: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: 8)],
   18: [1: LevelRow(min: 4, max: NumColumns - 1), 2: LevelRow(min: 2, max: NumColumns - 1)]
-
 ]
+
+func setDot(arr: Array2D<Dot>, dot: Dot) {
+  arr[dot.column,dot.row] = dot
+}
+
+func setPiece(arr: Array2D<Dot>, piece: Piece) {
+  setDot(arr, dot: piece.leftDot)
+  setDot(arr, dot: piece.rightDot)
+}
+
+func testScenario() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
+  let arr = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+  var seq = Array<Piece>()
+  
+  let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .Red, side: .Left)
+  let dot2 = GoodDot(column: 3, row: NumRows - 7, color: .Red, side: .Right)
+  dot1.sibling = dot2
+  dot2.sibling = dot1
+  
+  setDot(arr, dot: dot1)
+  setDot(arr, dot: dot2)
+  
+  let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow, side: .Left)
+  let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow, side: .Right)
+  let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow, side: .Left)
+  
+  setDot(arr, dot: dot3)
+  setDot(arr, dot: dot4)
+  setDot(arr, dot: dot5)
+  
+  seq.appendContentsOf([
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow)
+  ])
+  
+  return (array:arr, pieces: seq)
+}

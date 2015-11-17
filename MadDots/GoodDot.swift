@@ -56,4 +56,14 @@ class GoodDot: Dot {
       return nil
     }
   }
+  
+  override func removeFromScene() {
+    self.connector?.removeFromParent()
+
+    super.removeFromScene()
+  }
+  
+  deinit {
+    print("\(self) was deinitialized")
+  }
 }
