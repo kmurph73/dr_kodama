@@ -4,7 +4,7 @@ Game name: Kodama or Forest Spirits (Kodama is taken)
 
 Crappy [kodama][1] sprites are inspired by Princess Mononoke
 
-[1]: https://www.google.com/webhp#safe=off&q=kodama
+[1]: https://www.google.com/webhp#safe=on&q=kodama
 
 Pieces will eventually become orbs.  Will have forest backgrounds and theme I'm thinking.
 
