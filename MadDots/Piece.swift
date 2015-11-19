@@ -44,6 +44,8 @@ class Piece: CustomStringConvertible {
   
   var leftDot, rightDot: GoodDot
   
+  var wasOnRightEdge = false
+  
   init(column:Int, row:Int, leftColor: DotColor, rightColor: DotColor) {
     self.orientation = .Zero
     
@@ -125,6 +127,16 @@ class Piece: CustomStringConvertible {
   func getClockwisePositionFor(orientation: Orientation) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let isOnRightEdge = self.rightDot.column == NumColumns - 1 && self.leftDot.column == NumColumns - 1
 
+    if wasOnRightEdge {
+      wasOnRightEdge = false
+
+      if self.rightDot.column > self.leftDot.column {
+        return [(1, -1), (0,0)]
+      } else {
+        return [(0, 0), (1,-1)]
+      }      
+    }
+
     if isOnRightEdge {
       if self.leftDot.row > self.rightDot.row {
         return [(-1, 0), (0,1)]
@@ -147,8 +159,10 @@ class Piece: CustomStringConvertible {
     }
 
     if isOnRightEdge || rightIsBlocked {
+      wasOnRightEdge = true
       if self.rightDot.row > self.leftDot.row {
-        return [(-1,0), (0, -1)]
+//        return [(-1,0), (0, -1)]
+        return [(-1,1), (0, 0)]
       } else {
         return [(0,0), (-1, 1)]
       }

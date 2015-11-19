@@ -252,13 +252,15 @@ func testScenario() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
   setDot(arr, dot: dot1)
   setDot(arr, dot: dot2)
   
-  let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow, side: .Left)
-  let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow, side: .Right)
-  let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow, side: .Left)
+  let dot3 = GoodDot(column: 1, row: NumRows - 1, color: .Yellow, side: .Left)
+  let dot4 = GoodDot(column: 1, row: NumRows - 2, color: .Yellow, side: .Right)
+  let dot5 = GoodDot(column: 1, row: NumRows - 3, color: .Yellow, side: .Left)
+  let dot6 = GoodDot(column: 1, row: NumRows - 4, color: .Blue, side: .Left)
   
   setDot(arr, dot: dot3)
   setDot(arr, dot: dot4)
   setDot(arr, dot: dot5)
+  setDot(arr, dot: dot6)
   
   seq.appendContentsOf([
     Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),

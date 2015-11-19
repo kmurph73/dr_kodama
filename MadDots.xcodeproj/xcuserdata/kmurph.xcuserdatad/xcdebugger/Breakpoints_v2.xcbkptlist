@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/Piece.swift"
-            timestampString = "469308751.065443"
+            timestampString = "469604381.980133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "getClockwisePositionFor(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -368,6 +368,22 @@
             startingLineNumber = "180"
             endingLineNumber = "180"
             landmarkName = "gamePieceDidLand(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MadDotsTests/PieceRotation.swift"
+            timestampString = "469604873.167787"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "testRotationInWedge()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

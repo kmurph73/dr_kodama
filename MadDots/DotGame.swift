@@ -106,7 +106,7 @@ class DotGame {
     }
     
     self.madDots.appendContentsOf(levelMaker.makeRandomLevel(GameLevel))
-        
+    
 //    let sen = testScenario()
 //    dotArray = sen.array
 //    seq = sen.pieces
