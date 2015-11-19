@@ -115,7 +115,7 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
-    XCTAssertEqual(piece.wasOnRightEdge,true)
+    XCTAssertEqual(piece.wasBlockedOnRight,true)
     
     piece.rotateClockwise()
 
@@ -140,6 +140,119 @@ class PieceRotationTests: XCTestCase {
     
     print("darray2: \(dotArray)")
     
+  }
+  
+  func testRotationOnTop() {
+    let dotGame = DotGame()
+    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotGame.dotArray = dotArray
+    
+    let red1 = GoodDot(column: 1, row: 1, color: .Red, side: .Left)
+    let red2 = GoodDot(column: 2, row: 1, color: .Red, side: .Right)
+    let mad = MadDot(column: 3, row: 1, color: .Yellow)
+    
+    setDot(dotArray, dot: red1)
+    setDot(dotArray, dot: red2)
+    setDot(dotArray, dot: mad)
+    
+    let piece = Piece(column: 1, row: 0, leftColor: .Yellow, rightColor: .Yellow)
+    
+    dotGame.fallingPiece = piece
+    setPiece(dotArray, piece: piece)
+    print("darray0: \(dotArray)")
+    
+    dotArray.removePiece(piece)
+    piece.rotateCounterClockwise(dotArray)
+    
+    XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
+    XCTAssertEqual(piece.wasBlockedOnTop, true)
+    
+    piece.rotateClockwise()
+    
+    XCTAssertEqual(dotGame.detectIllegalPlacement(), false)
+    
+    
+    //    XCTAssertEqual(piece.leftDot.column, 2)
+    
+    //    setPiece(dotArray, piece: piece)
+    
+//    print("darray2: \(dotArray)")
+    
+  }
+  
+  func testRotationWhenBlockedOnTop() {
+    let dotGame = DotGame()
+    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotGame.dotArray = dotArray
+    
+    let red1 = GoodDot(column: 1, row: 1, color: .Red, side: .Left)
+    let red2 = GoodDot(column: 2, row: 1, color: .Red, side: .Right)
+    let mad = MadDot(column: 3, row: 1, color: .Yellow)
+    
+    setDot(dotArray, dot: red1)
+    setDot(dotArray, dot: red2)
+    setDot(dotArray, dot: mad)
+    
+    let red3 = GoodDot(column: 1, row: 3, color: .Red, side: .Left)
+    let red4 = GoodDot(column: 2, row: 3, color: .Red, side: .Right)
+    let mad2 = MadDot(column: 3, row: 3, color: .Yellow)
+    
+    setDot(dotArray, dot: red3)
+    setDot(dotArray, dot: red4)
+    setDot(dotArray, dot: mad2)
+    
+    let piece = Piece(column: 1, row: 2, leftColor: .Yellow, rightColor: .Yellow)
+    
+    dotGame.fallingPiece = piece
+    setPiece(dotArray, piece: piece)
+    print("darray0: \(dotArray)")
+    
+    dotArray.removePiece(piece)
+    piece.rotateCounterClockwise(dotArray)
+    
+    XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
+    XCTAssertEqual(piece.wasBlockedOnTop, true)
+    
+    piece.rotateClockwise()
+    
+    XCTAssertEqual(dotGame.detectIllegalPlacement(), false)
+    
+  }
+  
+  func testRotatesCorrectlyWhenBlockedOnTop() {
+    let dotGame = DotGame()
+    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotGame.dotArray = dotArray
+    
+    let red1 = GoodDot(column: 1, row: 1, color: .Red, side: .Left)
+    let red2 = GoodDot(column: 2, row: 1, color: .Red, side: .Right)
+    let mad = MadDot(column: 3, row: 1, color: .Yellow)
+    
+    setDot(dotArray, dot: red1)
+    setDot(dotArray, dot: red2)
+    setDot(dotArray, dot: mad)
+    
+    let red4 = GoodDot(column: 2, row: 3, color: .Red, side: .Right)
+    let mad2 = MadDot(column: 3, row: 3, color: .Yellow)
+    
+    setDot(dotArray, dot: red4)
+    setDot(dotArray, dot: mad2)
+    
+    let piece = Piece(column: 1, row: 2, leftColor: .Yellow, rightColor: .Yellow)
+    
+    dotGame.fallingPiece = piece
+//    setPiece(dotArray, piece: piece)
+//    print("darray0: \(dotArray)")
+//    
+//    dotArray.removePiece(piece)
+    piece.rotateCounterClockwise(dotArray)
+    
+    XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
+    XCTAssertEqual(piece.wasBlockedOnTop, true)
+    XCTAssertEqual(piece.leftDot.column, 1)
+    XCTAssertEqual(piece.leftDot.row, 3)
+    XCTAssertEqual(piece.rightDot.column, 1)
+    XCTAssertEqual(piece.rightDot.row, 2)
   }
   
   func testPerformanceExample() {

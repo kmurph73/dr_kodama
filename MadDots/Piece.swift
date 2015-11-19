@@ -44,7 +44,8 @@ class Piece: CustomStringConvertible {
   
   var leftDot, rightDot: GoodDot
   
-  var wasOnRightEdge = false
+  var wasBlockedOnRight = false
+  var wasBlockedOnTop = false
   
   init(column:Int, row:Int, leftColor: DotColor, rightColor: DotColor) {
     self.orientation = .Zero
@@ -127,14 +128,24 @@ class Piece: CustomStringConvertible {
   func getClockwisePositionFor(orientation: Orientation) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let isOnRightEdge = self.rightDot.column == NumColumns - 1 && self.leftDot.column == NumColumns - 1
 
-    if wasOnRightEdge {
-      wasOnRightEdge = false
+    if wasBlockedOnRight {
+      wasBlockedOnRight = false
 
       if self.rightDot.column > self.leftDot.column {
         return [(1, -1), (0,0)]
       } else {
         return [(0, 0), (1,-1)]
       }      
+    }
+    
+    if wasBlockedOnTop {
+      wasBlockedOnTop = false
+      
+      if self.rightDot.column > self.leftDot.column {
+        return [(1, 0), (0,-1)]
+      } else {
+        return [(0, -1), (1,0)]
+      }
     }
 
     if isOnRightEdge {
@@ -148,25 +159,52 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  func getCounterClockwisePositionFor(orientation: Orientation, dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+  func checkIfBlockedForCounter(dotArray: Array2D<Dot>) -> (blockedOnRight: Bool, blockedOnTop: Bool) {
+    wasBlockedOnRight = false
+    wasBlockedOnTop = false
+    var rightIsBlocked = false
+    var topIsBlocked = false
+    
     let isOnTop = self.leftDot.row == 0 && self.rightDot.row == 0
     let isOnRightEdge = self.leftDot.column == NumColumns - 1 && self.rightDot.column == NumColumns - 1
-    var rightIsBlocked = false
-    if !isOnRightEdge {
+    
+    if isOnRightEdge {
+      rightIsBlocked = true
+    } else {
       if let botDot = bottomDot {
         rightIsBlocked = dotArray[botDot.column + 1, botDot.row] != nil
       }
     }
-
-    if isOnRightEdge || rightIsBlocked {
-      wasOnRightEdge = true
+    
+    if isOnTop {
+      topIsBlocked = true
+    } else {
+      if leftDot.row == rightDot.row {
+        topIsBlocked = dotArray[leftDot.column, leftDot.row - 1] != nil
+      }
+    }
+    
+    if rightIsBlocked {
+      wasBlockedOnRight = true
+    }
+    
+    if topIsBlocked {
+      wasBlockedOnTop = true
+    }
+    
+    return (blockedOnRight: rightIsBlocked, blockedOnTop: topIsBlocked)
+  }
+  
+  func getCounterClockwisePositionFor(orientation: Orientation, dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+    let results = checkIfBlockedForCounter(dotArray)
+    if results.blockedOnRight {
       if self.rightDot.row > self.leftDot.row {
 //        return [(-1,0), (0, -1)]
         return [(-1,1), (0, 0)]
       } else {
         return [(0,0), (-1, 1)]
       }
-    } else if isOnTop {
+    } else if results.blockedOnTop {
       return [(0, 1),(-1, 0)]
     } else {
       return counterClockwiseRowColumnPositions[orientation]

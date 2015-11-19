@@ -75,7 +75,7 @@ class Array2D<T>: CustomStringConvertible {
   }
   
   var description: String {
-    var desc = ""
+    var desc = "\n"
     for row in 0..<NumRows {
       for col in 0..<NumColumns {
         if let line = self[col,row] as? Dot {
