@@ -255,6 +255,51 @@ class PieceRotationTests: XCTestCase {
     XCTAssertEqual(piece.rightDot.row, 2)
   }
   
+  func testFitsIntoSlotOnEdge() {
+    let dotGame = DotGame()
+    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotGame.dotArray = dotArray
+    
+    let col = NumColumns - 2
+    
+    let red1 = GoodDot(column: col, row: 2, color: .Red, side: .Left)
+    let red2 = GoodDot(column: col, row: 4, color: .Red, side: .Right)
+    let mad = MadDot(column: col, row: 5, color: .Yellow)
+    
+    setDot(dotArray, dot: red1)
+    setDot(dotArray, dot: red2)
+    setDot(dotArray, dot: mad)
+    
+    let piece = Piece(column: col, row: 1, leftColor: .Yellow, rightColor: .Yellow)
+    
+    dotGame.fallingPiece = piece
+    
+    setPiece(dotArray, piece: piece)
+    print("darray0: \(dotArray)")
+    
+    dotArray.removePiece(piece)
+    //    setPiece(dotArray, piece: piece)
+    //    print("darray0: \(dotArray)")
+    //
+    //    dotArray.removePiece(piece)
+    piece.rotateCounterClockwise(dotArray)
+    piece.leftDot.column += 1
+    piece.rightDot.column += 1
+    piece.lowerByOneRow()
+    piece.lowerByOneRow()
+
+    piece.rotateCounterClockwise(dotArray)
+    
+    XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
+
+    piece.rotateCounterClockwise(dotArray)
+    XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
+
+    piece.rotateClockwise()
+    
+    XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
+  }
+  
   func testPerformanceExample() {
     // This is an example of a performance test case.
     //    self.measureBlock {

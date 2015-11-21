@@ -38,7 +38,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.scene.setLevelLabel()
   }
   
-  func showSheet(msg: String?) {
+  func showSheet(msg: String?, showCancel: Bool) {
     let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .ActionSheet)
     
     let newGame = UIAlertAction(title: "New Game", style: .Default, handler: { action in
@@ -53,10 +53,12 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     
     alertController.addAction(menu)
     
-    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action in
-      self.scene.resumeGame()
-    })
-    alertController.addAction(cancelAction)
+    if showCancel {
+      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action in
+        self.scene.resumeGame()
+      })
+      alertController.addAction(cancelAction)
+    }
     
     presentViewController(alertController, animated:true, completion: nil)
   }
@@ -87,20 +89,32 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         } else {
           panPointReference = currentPoint
         }
-      }
-      
-      if horizontalDistance > (BlockSize * 0.55) {
+        
+        if velocity.y > 2500 {
+          print("y velocity: \(velocity.y)")
+          dotGame.movePieceDown()
+        }
+      } else if horizontalDistance > (BlockSize * 0.55) {
+
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
           panPointReference = currentPoint
+          if velocity.x > 3000 {
+            print("x velocity: \(velocity.x)")
+            dotGame.movePieceRight()
+          }
         } else {
-
           if !justEnded {
             dotGame.movePieceLeft()
             panPointReference = currentPoint
+            if velocity.x > 3000 {
+              print("x velocity: \(velocity.x)")
+              dotGame.movePieceLeft()
+            }
           }
-
         }
+        
+
       }
     } else if sender.state == .Began {
       panPointReference = currentPoint
@@ -139,21 +153,21 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
 
   override func shouldAutorotate() -> Bool {
-      return false
+    return false
   }
 
   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-      if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-          return .AllButUpsideDown
-      } else {
-          return .All
-      }
+    if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+      return .AllButUpsideDown
+    } else {
+      return .All
+    }
   }
   
   func gameDidEnd(dotGame: DotGame) {
-    print("end game")
+    scene.tick = nil
     let msg = "You blew it!"
-    showSheet(msg)
+    showSheet(msg, showCancel: false)
   }
   
   func gamePieceDidLand(dotGame: DotGame) {

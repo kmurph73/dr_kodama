@@ -132,7 +132,7 @@ func dotIsSettled(dot: Dot, sibling: Dot?, dotArray: Array2D<Dot>) -> Bool {
 
 func dropFallenDots(dotArray: Array2D<Dot>) -> Array<GoodDot> {
   var fallenDots = Array<GoodDot>()
-  for var row = NumRows - 2; row > 0; row-- {
+  for var row = NumRows - 2; row >= 0; row-- {
     var fallingDots = Array<GoodDot>()
     
     for column in 0..<NumColumns {

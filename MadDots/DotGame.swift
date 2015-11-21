@@ -6,8 +6,8 @@
 //  Copyright © 2015 Kyle Murphy. All rights reserved.
 //
 
-let NumColumns = 10
-let NumRows = 18
+let NumColumns = 8
+let NumRows = 14
 
 let StartingColumn = 0
 let StartingRow = 0
@@ -210,6 +210,7 @@ class DotGame {
       if detectIllegalPlacement() {
         piece.raiseByOneRow()
         if detectIllegalPlacement() {
+          delegate?.gameDidEnd(self)
 //          endGame()
         } else {
           settleShape()

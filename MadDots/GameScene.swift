@@ -10,6 +10,7 @@ import SpriteKit
 
 var BlockSize: CGFloat = 0
 let TickLengthLevelOne = NSTimeInterval(1024)
+var extraYSpace: CGFloat = 0
 
 class GameScene: SKScene {
   let LayerPosition = CGPoint(x: 1, y: 1)
@@ -34,13 +35,15 @@ class GameScene: SKScene {
     
     drawGrid()
     
+    let y = CGRectGetMaxY(self.frame) - (extraYSpace)
+    
     var myLabel = SKLabelNode(fontNamed: "Arial")
     myLabel.text = "Menu"
     myLabel.name = "menu"
-    myLabel.fontSize = 15
+    myLabel.fontSize = 25
     myLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
 
-    myLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize), CGRectGetMaxY(self.frame) - (BlockSize / 2 + 5))
+    myLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize * 2), y)
     self.addChild(myLabel)
     
     setLevelLabel()
@@ -49,12 +52,14 @@ class GameScene: SKScene {
     myLabel.text = "Speed \(GameSpeed)"
     myLabel.fontSize = 13
     
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, CGRectGetMaxY(self.frame) - (BlockSize / 2 + 5))
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, y)
     
     self.addChild(myLabel)
   }
   
   func setLevelLabel() {
+    let y = CGRectGetMaxY(self.frame) - (extraYSpace)
+
     if levelLabel != nil {
       levelLabel!.removeFromParent()
     }
@@ -63,7 +68,7 @@ class GameScene: SKScene {
     levelLabel!.text = "Level \(GameLevel)"
     levelLabel!.fontSize = 13
     
-    levelLabel!.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) - ((BlockSize / 2) + 5))
+    levelLabel!.position = CGPointMake(CGRectGetMidX(self.frame), y)
     self.addChild(levelLabel!)
   }
   
@@ -78,7 +83,7 @@ class GameScene: SKScene {
       if node.name == "menu" {
         menuTapped = true
         if let c = ctrl {
-          c.showSheet("You rang?")
+          c.showSheet("You rang?", showCancel: true)
           lastTick = nil
         }
       } else {
@@ -92,13 +97,13 @@ class GameScene: SKScene {
   func pointForColumn(column: Int, row: Int) -> CGPoint {
     let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
     let y: CGFloat = LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1
-    return CGPointMake(x, y)
+    return CGPointMake(x, y - extraYSpace)
   }
   
   func pointForConnector(dot: GoodDot) -> CGPoint? {
     if let side = dot.sideOfSibling() {
       let x: CGFloat = LayerPosition.x + ((CGFloat(dot.column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
-      let y: CGFloat = LayerPosition.y - (((CGFloat(dot.row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1
+      let y: CGFloat = (LayerPosition.y - (((CGFloat(dot.row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - extraYSpace
       
       let halfBlock = BlockSize / 2 - ((BlockSize / 4) / 2)
   
@@ -276,11 +281,13 @@ class GameScene: SKScene {
     let centerX = ((squareSize * CGFloat(NumColumns + 1)) + squareSize) / 2
     let centerY = ((squareSize * CGFloat(NumRows + 1)) + squareSize) / 2 * -1
     
+    extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
+    
     for row in 1..<totalRows {
       let y = squareSize * CGFloat(row) * -1
       
       let barra = SKSpriteNode(color: SKColor.grayColor(), size: CGSizeMake(rowWidth, 0.5))
-      barra.position = CGPoint(x: centerX, y: y)
+      barra.position = CGPoint(x: centerX, y: y - extraYSpace)
       barra.zPosition = 9 // zPosition to change in which layer the barra appears.
       
       self.addChild(barra)
@@ -290,7 +297,7 @@ class GameScene: SKScene {
       let x = squareSize * CGFloat(col)
       
       let barra = SKSpriteNode(color: SKColor.grayColor(), size: CGSizeMake(0.5, colHeight))
-      barra.position = CGPoint(x: x, y: centerY)
+      barra.position = CGPoint(x: x, y: centerY - extraYSpace)
       barra.zPosition = 9 // zPosition to change in which layer the barra appears.
       
       self.addChild(barra)

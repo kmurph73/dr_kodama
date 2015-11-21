@@ -145,12 +145,45 @@ class ChainHandler: XCTestCase {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
   }
+  
+  func testBug() {
+    let dotGame = DotGame()
+    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotGame.dotArray = dotArray
+    
+    let col = NumColumns - 3
+    
+    let red1 = GoodDot(column: col, row: 2, color: .Red, side: .Left)
+    let red2 = GoodDot(column: col, row: 3, color: .Red, side: .Left)
+    let mad = MadDot(column: col, row: 4, color: .Red)
+    
+    setDot(dotArray, dot: red1)
+    setDot(dotArray, dot: red2)
+    setDot(dotArray, dot: mad)
+    
+    let piece = Piece(column: col, row: 1, leftColor: .Red, rightColor: .Yellow)
+    
+    dotGame.fallingPiece = piece
+    
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    //    setPiece(dotArray, piece: piece)
+    //    print("darray0: \(dotArray)")
+    //
+    //    dotArray.removePiece(piece)
+    piece.rotateCounterClockwise(dotArray)
+    
+    setPiece(dotArray, piece: piece)
+    
+    let results = dotGame.removeCompletedDots()
+    
+    XCTAssertEqual(results.fallenDots.count, 1)
+  }
+
+  func testPerformanceExample() {
+      // This is an example of a performance test case.
+      self.measureBlock {
+          // Put the code you want to measure the time of here.
+      }
+  }
 
 }

@@ -120,7 +120,7 @@ class Piece: CustomStringConvertible {
     return [
       Orientation.Zero:       [(0, 0), (1, 1)],
       Orientation.Ninety:     [(0, 0), (1, -1)],
-      Orientation.OneEighty:  [(0, 0), (-1, -1)],
+      Orientation.OneEighty:  [(1, 1), (0, 0)],
       Orientation.TwoSeventy: [(0, 0), (-1, 1)]
     ]
   }
