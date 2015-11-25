@@ -77,11 +77,20 @@
                                     <action selector="levelSliderChanged:" destination="lig-pX-0ps" eventType="valueChanged" id="pJC-xZ-778"/>
                                 </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ulA-0o-WJk">
+                                <rect key="frame" x="279" y="428" width="32" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Help"/>
+                                <connections>
+                                    <action selector="tapHelp:" destination="lig-pX-0ps" eventType="touchUpInside" id="xq7-Zs-oUU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="8Xf-If-5Pl" firstAttribute="top" secondItem="WNd-FQ-Uyr" secondAttribute="bottom" constant="50" id="0lN-nr-I61"/>
+                            <constraint firstItem="ulA-0o-WJk" firstAttribute="centerX" secondItem="4yy-Gf-9LA" secondAttribute="centerX" id="7G9-5s-5Ot"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Q1l-Ic-RnF" secondAttribute="trailing" id="9pr-Vs-gzy"/>
                             <constraint firstItem="Q1l-Ic-RnF" firstAttribute="top" secondItem="8Xf-If-5Pl" secondAttribute="bottom" constant="30" id="Byu-Pa-NYp"/>
                             <constraint firstItem="Xmk-Uy-2zG" firstAttribute="centerY" secondItem="4yy-Gf-9LA" secondAttribute="centerY" id="DNo-eE-T0Y"/>
@@ -90,6 +99,7 @@
                             <constraint firstItem="Q1l-Ic-RnF" firstAttribute="leading" secondItem="Tkm-Ve-aFN" secondAttribute="trailing" constant="20" id="LLV-A0-Evy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8Xf-If-5Pl" secondAttribute="trailing" id="ODL-mg-qjK"/>
                             <constraint firstItem="Tkm-Ve-aFN" firstAttribute="top" secondItem="D1W-YU-Yga" secondAttribute="bottom" constant="30" id="Ohx-yg-oei"/>
+                            <constraint firstItem="ulA-0o-WJk" firstAttribute="top" secondItem="Xmk-Uy-2zG" secondAttribute="bottom" constant="34" id="Pbk-xM-bus"/>
                             <constraint firstItem="8Xf-If-5Pl" firstAttribute="leading" secondItem="D1W-YU-Yga" secondAttribute="trailing" constant="20" id="UTc-Di-Q1j"/>
                             <constraint firstItem="Q1l-Ic-RnF" firstAttribute="top" secondItem="8Xf-If-5Pl" secondAttribute="bottom" constant="53" id="XKK-WS-EXQ"/>
                             <constraint firstItem="D1W-YU-Yga" firstAttribute="leading" secondItem="4yy-Gf-9LA" secondAttribute="leadingMargin" id="amY-kC-Ri4"/>
@@ -118,6 +128,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y8c-5x-WoI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-224" y="259"/>
+        </scene>
+        <!--Help View Controller-->
+        <scene sceneID="Ozk-tW-B5U">
+            <objects>
+                <viewController storyboardIdentifier="helpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sWp-cn-08K" customClass="HelpViewController" customModule="MadDots" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yUQ-7E-GYg"/>
+                        <viewControllerLayoutGuide type="bottom" id="iza-lj-gBy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JPb-Zl-Mg4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Can navigate back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sro-FH-RLl">
+                                <rect key="frame" x="216" y="162" width="141" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W3Z-Qs-NDT">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <animations/>
+                                <items>
+                                    <navigationItem title="Title" id="wJC-az-avd"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Sro-FH-RLl" firstAttribute="centerX" secondItem="JPb-Zl-Mg4" secondAttribute="centerX" id="NPi-TE-SSX"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T28-gG-thP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-224" y="965"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -169,7 +217,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="479" y="241"/>
+            <point key="canvasLocation" x="479" y="259"/>
         </scene>
     </scenes>
 </document>

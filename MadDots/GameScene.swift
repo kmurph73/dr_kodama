@@ -226,8 +226,8 @@ class GameScene: SKScene {
   }
   
   func addPieceToScene(piece: Piece, completion: (() -> ())?) {
-    addDotToScene(piece.leftDot, completion: nil)
-    addDotToScene(piece.rightDot, completion: completion)
+    addDotToScene(piece.dot1, completion: nil)
+    addDotToScene(piece.dot2, completion: completion)
   }
   
   func addMadDotsToScene(madDots: Array<MadDot>) {

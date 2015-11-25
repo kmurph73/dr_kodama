@@ -40,6 +40,15 @@ class MainController: UIViewController {
     updateLabels()
   }
   
+  @IBAction func tapHelp(sender: AnyObject) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    if let vc = storyboard.instantiateViewControllerWithIdentifier("helpViewController") as? HelpViewController {
+      let navigationController = UINavigationController(rootViewController: self)
+      navigationController.pushViewController(vc, animated: true)
+      self.presentViewController(navigationController, animated: false, completion: nil)
+    }
+  }
+  
   func updateLabels() {
     self.speedLabel.text = "Speed: \(GameSpeed)"
     self.levelLabel.text = "Level: \(GameLevel)"

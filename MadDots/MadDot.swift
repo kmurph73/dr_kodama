@@ -16,6 +16,6 @@ class MadDot: Dot {
   }
   
   deinit {
-    print("\(self) was deinitialized")
+//    print("\(self) was deinitialized")
   }
 }

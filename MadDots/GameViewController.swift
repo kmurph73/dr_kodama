@@ -82,7 +82,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       let downDistance = abs(currentPoint.y - originalPoint.y)
       let horizontalDistance = abs(currentPoint.x - originalPoint.x)
 
-      if downDistance > (BlockSize * 0.55) {
+      if downDistance > (BlockSize * 0.5) {
         if velocity.y > CGFloat(0) {
           dotGame.movePieceDown()
           panPointReference = currentPoint
@@ -91,16 +91,14 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         }
         
         if velocity.y > 2500 {
-          print("y velocity: \(velocity.y)")
           dotGame.movePieceDown()
         }
-      } else if horizontalDistance > (BlockSize * 0.55) {
+      } else if horizontalDistance > (BlockSize * 0.5) {
 
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
           panPointReference = currentPoint
           if velocity.x > 3000 {
-            print("x velocity: \(velocity.x)")
             dotGame.movePieceRight()
           }
         } else {
@@ -108,7 +106,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
             dotGame.movePieceLeft()
             panPointReference = currentPoint
             if velocity.x > 3000 {
-              print("x velocity: \(velocity.x)")
               dotGame.movePieceLeft()
             }
           }

@@ -34,13 +34,6 @@ class GoodDot: Dot {
   var connector: SKSpriteNode?
   weak var sibling: GoodDot?
   
-  var side: Side?
-  
-  init(column:Int, row:Int, color:DotColor, side:Side) {
-    self.side = side
-    super.init(column: column,row: row,color: color)
-  }
-  
   func sideOfSibling() -> Side? {
     if let s = self.sibling {
       if s.row > self.row {
@@ -64,6 +57,6 @@ class GoodDot: Dot {
   }
   
   deinit {
-    print("\(self) was deinitialized")
+//    print("\(self) was deinitialized")
   }
 }

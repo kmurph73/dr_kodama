@@ -236,26 +236,26 @@ func setDot(arr: Array2D<Dot>, dot: Dot) {
 }
 
 func setPiece(arr: Array2D<Dot>, piece: Piece) {
-  setDot(arr, dot: piece.leftDot)
-  setDot(arr, dot: piece.rightDot)
+  setDot(arr, dot: piece.dot1)
+  setDot(arr, dot: piece.dot2)
 }
 
 func testScenario() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
   let arr = Array2D<Dot>(columns: NumColumns, rows: NumRows)
   var seq = Array<Piece>()
   
-  let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .Red, side: .Left)
-  let dot2 = GoodDot(column: 3, row: NumRows - 7, color: .Red, side: .Right)
+  let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .Red)
+  let dot2 = GoodDot(column: 3, row: NumRows - 7, color: .Red)
   dot1.sibling = dot2
   dot2.sibling = dot1
   
   setDot(arr, dot: dot1)
   setDot(arr, dot: dot2)
   
-  let dot3 = GoodDot(column: 1, row: NumRows - 1, color: .Yellow, side: .Left)
-  let dot4 = GoodDot(column: 1, row: NumRows - 2, color: .Yellow, side: .Right)
-  let dot5 = GoodDot(column: 1, row: NumRows - 3, color: .Yellow, side: .Left)
-  let dot6 = GoodDot(column: 1, row: NumRows - 4, color: .Blue, side: .Left)
+  let dot3 = GoodDot(column: 1, row: NumRows - 1, color: .Yellow)
+  let dot4 = GoodDot(column: 1, row: NumRows - 2, color: .Yellow)
+  let dot5 = GoodDot(column: 1, row: NumRows - 3, color: .Yellow)
+  let dot6 = GoodDot(column: 1, row: NumRows - 4, color: .Blue)
   
   setDot(arr, dot: dot3)
   setDot(arr, dot: dot4)

@@ -53,8 +53,8 @@ class Array2D<T>: CustomStringConvertible {
   }
   
   func removePiece(piece: Piece) {
-    removeDot(piece.leftDot)
-    removeDot(piece.rightDot)
+    removeDot(piece.dot1)
+    removeDot(piece.dot2)
   }
   
   func removeDot(dot: Dot) {
@@ -83,9 +83,8 @@ class Array2D<T>: CustomStringConvertible {
           if let _ = line as? MadDot {
             desc += "m\(color)"
           } else if let dot = line as? GoodDot {
-            if let s = dot.sibling {
-              let abbrev = dot.side == .Left ? "l" : "r"
-              desc += "\(abbrev)\(color)"
+            if let _ = dot.sibling {
+              desc += "\(color)"
             } else {
               desc += " \(color)"
             }
@@ -102,7 +101,7 @@ class Array2D<T>: CustomStringConvertible {
   }
   
   deinit {
-    print("dotArray is being deinitialized")
+//    print("dotArray is being deinitialized")
   }
   
 }

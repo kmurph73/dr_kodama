@@ -8,75 +8,108 @@
 
 import SpriteKit
 
-let NumOrientations: UInt32 = 4
-
 enum Orientation: Int, CustomStringConvertible {
-  case Zero = 0, Ninety, OneEighty, TwoSeventy
+  case Vertical, Horizontal
   
-  var description: String {
+  var name: String {
     switch self {
-    case .Zero:
-      return "0"
-    case .Ninety:
-      return "90"
-    case .OneEighty:
-      return "180"
-    case .TwoSeventy:
-      return "270"
+    case .Vertical:
+      return "vertical"
+    case .Horizontal:
+      return "horizontal"
     }
   }
   
-  static func rotate(orientation:Orientation, clockwise: Bool) -> Orientation {
-    var rotated = orientation.rawValue + (clockwise ? -1 : 1)
-    if rotated > Orientation.TwoSeventy.rawValue {
-      rotated = Orientation.Zero.rawValue
-    } else if rotated < 0 {
-      rotated = Orientation.TwoSeventy.rawValue
-    }
-    return Orientation(rawValue:rotated)!
+  var description: String {
+    return self.name
   }
 }
 
+class Rotation {
+  var dots: [GoodDot]
+  var translations: Array<(columnDiff: Int, rowDiff: Int)>
+  
+  init(dots: [GoodDot], translations: Array<(columnDiff: Int, rowDiff: Int)>) {
+    self.dots = dots
+    self.translations = translations
+  }
+  
+  func undo() {
+    for (idx,dot) in self.dots.enumerate() {
+      let translation = translations[idx]
+      dot.row += translation.rowDiff * -1
+      dot.column += translation.columnDiff * -1
+    }
+  }
+  
+}
+
 class Piece: CustomStringConvertible {
-  var orientation: Orientation
   // The column and row representing the shape's anchor point
 //  var column, row:Int
   
-  var leftDot, rightDot: GoodDot
+  var dot1, dot2: GoodDot
   
-  var wasBlockedOnRight = false
-  var wasBlockedOnTop = false
+  var previousRotation: Rotation?
   
   init(column:Int, row:Int, leftColor: DotColor, rightColor: DotColor) {
-    self.orientation = .Zero
-    
-    self.leftDot = GoodDot(column: column, row: row, color: leftColor, side: .Left)
-    self.rightDot = GoodDot(column: column + 1, row: row, color: rightColor, side: .Right)
-    self.rightDot.sibling = leftDot
-    self.leftDot.sibling = rightDot
+    self.dot1 = GoodDot(column: column, row: row, color: leftColor)
+    self.dot2 = GoodDot(column: column + 1, row: row, color: rightColor)
+    self.dot1.sibling = dot2
+    self.dot2.sibling = dot1
   }
   
   var dots: [GoodDot] {
     get {
-      return [leftDot, rightDot]
+      if let ldot = self.leftDot, let rdot = self.rightDot {
+        return [ldot, rdot]
+      } else if let bdot = self.bottomDot, let tdot = self.topDot {
+        return [tdot, bdot]
+      } else {
+        return []
+      }
     }
   }
   
-  var column: Int {
-    get {
-      return self.leftDot.column
-    }
-  }
-  
-  var row: Int {
-    get {
-      return self.leftDot.row
-    }
-  }
+  var previousDots: [GoodDot]?
   
   var bottomDot: GoodDot? {
     get {
-      return leftDot.row == rightDot.row ? nil : leftDot.row > rightDot.row ? leftDot : rightDot
+      return dot1.row == dot2.row ? nil : dot1.row > dot2.row ? dot1 : dot2
+    }
+  }
+  
+  var topDot: GoodDot? {
+    get {
+      return dot1.row == dot2.row ? nil : dot1.row < dot2.row ? dot1 : dot2
+    }
+  }
+  
+  var leftDot: GoodDot? {
+    get {
+      return dot1.column == dot2.column ? nil : dot1.column < dot2.column ? dot1 : dot2
+    }
+  }
+  
+  var rightDot: GoodDot? {
+    get {
+      return dot1.column == dot2.column ? nil : dot1.column > dot2.column ? dot1 : dot2
+    }
+  }
+  
+  var bottomDots: Array<Dot> {
+    if let ldot = self.leftDot, let rdot = self.rightDot {
+      return [ldot,rdot]
+    } else if let bdot = self.bottomDot {
+      return [bdot]
+    }
+    
+    return []
+  }
+  
+  var orientation: Orientation {
+    get {
+      return self.leftDot == nil ? .Vertical : .Horizontal
     }
   }
   
@@ -107,157 +140,100 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  var counterClockwiseRowColumnPositions: [Orientation: Array<(columnDiff: Int, rowDiff: Int)>] {
-    return [
-      Orientation.Zero:       [(0, 1), (1, 0)],
-      Orientation.Ninety:     [(0, 0), (-1, -1)],
-      Orientation.OneEighty:  [(1, 0), (0, 1)],
-      Orientation.TwoSeventy: [(-1, -1), (0, 0)]
-    ]
-  }
-  
-  var clockwiseRowColumnPositions: [Orientation: Array<(columnDiff: Int, rowDiff: Int)>] {
-    return [
-      Orientation.Zero:       [(0, 0), (1, 1)],
-      Orientation.Ninety:     [(0, 0), (1, -1)],
-      Orientation.OneEighty:  [(1, 1), (0, 0)],
-      Orientation.TwoSeventy: [(0, 0), (-1, 1)]
-    ]
-  }
-  
-  func getClockwisePositionFor(orientation: Orientation) -> Array<(columnDiff: Int, rowDiff: Int)>? {
-    let isOnRightEdge = self.rightDot.column == NumColumns - 1 && self.leftDot.column == NumColumns - 1
-
-    if wasBlockedOnRight {
-      wasBlockedOnRight = false
-
-      if self.rightDot.column > self.leftDot.column {
-        return [(1, -1), (0,0)]
-      } else {
-        return [(0, 0), (1,-1)]
-      }      
-    }
-    
-    if wasBlockedOnTop {
-      wasBlockedOnTop = false
-      
-      if self.rightDot.column > self.leftDot.column {
-        return [(1, 0), (0,-1)]
-      } else {
-        return [(0, -1), (1,0)]
-      }
-    }
-
-    if isOnRightEdge {
-      if self.leftDot.row > self.rightDot.row {
-        return [(-1, 0), (0,1)]
-      } else {
-        return [(0,1), (-1, 0)]
-      }
-    } else {
-      return clockwiseRowColumnPositions[orientation]
-    }
-  }
-  
-  func checkIfBlockedForCounter(dotArray: Array2D<Dot>) -> (blockedOnRight: Bool, blockedOnTop: Bool) {
-    wasBlockedOnRight = false
-    wasBlockedOnTop = false
+  func checkBlockage(dotArray: Array2D<Dot>) -> (blockedOnRight: Bool, blockedOnTop: Bool) {
     var rightIsBlocked = false
     var topIsBlocked = false
     
-    let isOnTop = self.leftDot.row == 0 && self.rightDot.row == 0
-    let isOnRightEdge = self.leftDot.column == NumColumns - 1 && self.rightDot.column == NumColumns - 1
-    
-    if isOnRightEdge {
-      rightIsBlocked = true
-    } else {
-      if let botDot = bottomDot {
-        rightIsBlocked = dotArray[botDot.column + 1, botDot.row] != nil
+    if let rdot = self.rightDot, let ldot = self.leftDot {
+      let isOnTop = ldot.row == 0 && rdot.row == 0
+//      let isOnBottom = ldot.row == NumRows - 1
+      
+      if isOnTop {
+        topIsBlocked = true
+      } else {
+        topIsBlocked = dotArray[ldot.column, rdot.row - 1] != nil
+      }
+    } else if let bdot = self.bottomDot {
+      let isOnRightEdge = bdot.column == NumColumns - 1
+      
+      if isOnRightEdge {
+        rightIsBlocked = true
+      } else {
+        rightIsBlocked = dotArray[bdot.column + 1, bdot.row] != nil
       }
     }
-    
-    if isOnTop {
-      topIsBlocked = true
-    } else {
-      if leftDot.row == rightDot.row {
-        topIsBlocked = dotArray[leftDot.column, leftDot.row - 1] != nil
-      }
-    }
-    
-    if rightIsBlocked {
-      wasBlockedOnRight = true
-    }
-    
-    if topIsBlocked {
-      wasBlockedOnTop = true
-    }
-    
+
     return (blockedOnRight: rightIsBlocked, blockedOnTop: topIsBlocked)
   }
   
-  func getCounterClockwisePositionFor(orientation: Orientation, dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
-    let results = checkIfBlockedForCounter(dotArray)
+  func getCounterClockwisePositionFor(dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+    let results = checkBlockage(dotArray)
+    
     if results.blockedOnRight {
-      if self.rightDot.row > self.leftDot.row {
-//        return [(-1,0), (0, -1)]
-        return [(-1,1), (0, 0)]
-      } else {
-        return [(0,0), (-1, 1)]
-      }
+      return [(-1,1), (0, 0)]
     } else if results.blockedOnTop {
       return [(0, 1),(-1, 0)]
     } else {
-      return counterClockwiseRowColumnPositions[orientation]
+      if orientation == .Horizontal {
+        return [(0,0), (-1,-1)]
+      } else {
+        return [(0,1), (1,0)]
+      }
     }
   }
   
-  final func rotatePieceCounterClockwise(orientation: Orientation, dotArray: Array2D<Dot>) {
-    if let pieceRowColumnTranslation = getCounterClockwisePositionFor(orientation, dotArray: dotArray) {
+  func getClockwisePosition(dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+    let results = checkBlockage(dotArray)
+    
+    if results.blockedOnRight {
+      return [(-1,1), (0, 0)]
+    } else if results.blockedOnTop {
+      return [(0, 1),(-1, 0)]
+    } else {
+      if orientation == .Horizontal {
+        return [(0,0), (-1,-1)]
+      } else {
+        return [(0,0), (1,-1)]
+      }
+    }
+  }
+  
+  private final func rotatePieceCounterClockwise(dotArray: Array2D<Dot>) {
+    if let pieceRowColumnTranslation = getCounterClockwisePositionFor(dotArray) {
+      previousRotation = Rotation(dots: dots, translations: pieceRowColumnTranslation)
+      let cachedDots = dots
+
       for (idx, diff) in pieceRowColumnTranslation.enumerate() {
-        let dot = dots[idx]
-//        print("counter: idx: \(idx); diff: \(diff)")
+        let dot = cachedDots[idx]
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
       }
     }
   }
   
-  final func rotatePieceClockwise(orientation: Orientation) {
-    if let pieceRowColumnTranslation = getClockwisePositionFor(orientation) {
+  private final func rotatePieceClockwise(dotArray: Array2D<Dot>) {
+    if let pieceRowColumnTranslation = getClockwisePosition(dotArray) {
+      previousRotation = Rotation(dots: dots, translations: pieceRowColumnTranslation)
+      let cachedDots = dots
+
       for (idx, diff) in pieceRowColumnTranslation.enumerate() {
-        let dot = dots[idx]
+        let dot = cachedDots[idx]
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
       }
     }
   }
   
-  var bottomDotsForOrientations: [Orientation: Array<Dot>] {
-    return [
-      Orientation.Zero:       [leftDot, rightDot],
-      Orientation.Ninety:     [leftDot],
-      Orientation.OneEighty:  [rightDot, leftDot],
-      Orientation.TwoSeventy: [rightDot]
-    ]
-  }
-  
-  var bottomDots:Array<Dot> {
-    if let bottomDots = bottomDotsForOrientations[orientation] {
-      return bottomDots
-    }
-    return []
-  }
-  
-  final func rotateClockwise() {
-    let newOrientation = Orientation.rotate(orientation, clockwise: true)
-    rotatePieceClockwise(newOrientation)
-    orientation = newOrientation
+  final func rotateClockwise(dotArray: Array2D<Dot>) {
+    rotatePieceClockwise(dotArray)
   }
   
   final func rotateCounterClockwise(dotArray: Array2D<Dot>) {
-    let newOrientation = Orientation.rotate(orientation, clockwise: false)
-    rotatePieceCounterClockwise(newOrientation, dotArray:dotArray)
-    orientation = newOrientation
+    rotatePieceCounterClockwise(dotArray)
+  }
+  
+  final func undoPreviousRotation() {
+    previousRotation?.undo()
   }
   
   final class func random(startingColumn:Int, startingRow:Int) -> Piece {
@@ -268,12 +244,12 @@ class Piece: CustomStringConvertible {
   }
   
   func removeFromScene() {
-    self.leftDot.removeFromScene()
-    self.rightDot.removeFromScene()
+    self.dot1.removeFromScene()
+    self.dot2.removeFromScene()
   }
   
   deinit {
-    print("\(self) is being deinitialized")
+//    print("\(self) is being deinitialized")
   }
   
 }

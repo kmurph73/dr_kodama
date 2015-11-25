@@ -185,7 +185,8 @@ class DotGame {
     if let piece = fallingPiece {
       piece.rotateCounterClockwise(dotArray)
       if detectIllegalPlacement() {
-        piece.rotateClockwise()
+        piece.undoPreviousRotation()
+//        piece.rotateClockwise(dotArray)
       } else {
         delegate?.gamePieceDidMove(self)
       }

@@ -25,8 +25,8 @@ class PieceRotationTests: XCTestCase {
     let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 3, row: NumRows - 5, color: .Red, side: .Left)
-    let red2 = GoodDot(column: 3, row: NumRows - 4, color: .Red, side: .Right)
+    let red1 = GoodDot(column: 3, row: NumRows - 5, color: .Red)
+    let red2 = GoodDot(column: 3, row: NumRows - 4, color: .Red)
     let mad = MadDot(column: 3, row: NumRows - 3, color: .Yellow)
     setDot(dotArray, dot: red1)
     setDot(dotArray, dot: red2)
@@ -42,8 +42,8 @@ class PieceRotationTests: XCTestCase {
     
     setPiece(dotArray, piece: piece)
 
-    XCTAssertEqual(piece.leftDot.row, NumRows - 5)
-    XCTAssertEqual(piece.rightDot.row, NumRows - 6)
+    XCTAssertEqual(piece.bottomDot?.row, NumRows - 5)
+    XCTAssertEqual(piece.topDot?.row, NumRows - 6)
     
     dotArray.removePiece(piece)
     piece.lowerByOneRow()
@@ -56,8 +56,8 @@ class PieceRotationTests: XCTestCase {
     dotArray.removePiece(piece)
     piece.rotateCounterClockwise(dotArray)
     
-    XCTAssertEqual(piece.rightDot.column, 1)
-    XCTAssertEqual(piece.leftDot.column, 2)
+    XCTAssertEqual(piece.leftDot?.column, 1)
+    XCTAssertEqual(piece.rightDot?.column, 2)
     
     setPiece(dotArray, piece: piece)
     
@@ -73,16 +73,16 @@ class PieceRotationTests: XCTestCase {
     let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 3, row: NumRows - 3, color: .Red, side: .Left)
-    let red2 = GoodDot(column: 3, row: NumRows - 2, color: .Red, side: .Right)
+    let red1 = GoodDot(column: 3, row: NumRows - 3, color: .Red)
+    let red2 = GoodDot(column: 3, row: NumRows - 2, color: .Red)
     let mad = MadDot(column: 3, row: NumRows - 1, color: .Yellow)
     
     setDot(dotArray, dot: red1)
     setDot(dotArray, dot: red2)
     setDot(dotArray, dot: mad)
     
-    let red3 = GoodDot(column: 1, row: NumRows - 3, color: .Red, side: .Left)
-    let red4 = GoodDot(column: 1, row: NumRows - 2, color: .Red, side: .Right)
+    let red3 = GoodDot(column: 1, row: NumRows - 3, color: .Red)
+    let red4 = GoodDot(column: 1, row: NumRows - 2, color: .Red)
     let mad2 = MadDot(column: 1, row: NumRows - 1, color: .Yellow)
     
     setDot(dotArray, dot: red3)
@@ -115,14 +115,13 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
-    XCTAssertEqual(piece.wasBlockedOnRight,true)
     
-    piece.rotateClockwise()
+    piece.undoPreviousRotation()
 
     XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
     
-    piece.leftDot.row -= 1
-    piece.rightDot.row += 1
+    piece.dot1.row -= 1
+    piece.dot2.row += 1
 //    piece.rotateCounterClockwise(dotArray)
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
@@ -130,7 +129,7 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
     
-    piece.rotateClockwise()
+    piece.undoPreviousRotation()
     XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
     
 
@@ -147,8 +146,8 @@ class PieceRotationTests: XCTestCase {
     let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 1, row: 1, color: .Red, side: .Left)
-    let red2 = GoodDot(column: 2, row: 1, color: .Red, side: .Right)
+    let red1 = GoodDot(column: 1, row: 1, color: .Red)
+    let red2 = GoodDot(column: 2, row: 1, color: .Red)
     let mad = MadDot(column: 3, row: 1, color: .Yellow)
     
     setDot(dotArray, dot: red1)
@@ -165,9 +164,8 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
-    XCTAssertEqual(piece.wasBlockedOnTop, true)
     
-    piece.rotateClockwise()
+    piece.undoPreviousRotation()
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(), false)
     
@@ -185,16 +183,16 @@ class PieceRotationTests: XCTestCase {
     let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 1, row: 1, color: .Red, side: .Left)
-    let red2 = GoodDot(column: 2, row: 1, color: .Red, side: .Right)
+    let red1 = GoodDot(column: 1, row: 1, color: .Red)
+    let red2 = GoodDot(column: 2, row: 1, color: .Red)
     let mad = MadDot(column: 3, row: 1, color: .Yellow)
     
     setDot(dotArray, dot: red1)
     setDot(dotArray, dot: red2)
     setDot(dotArray, dot: mad)
     
-    let red3 = GoodDot(column: 1, row: 3, color: .Red, side: .Left)
-    let red4 = GoodDot(column: 2, row: 3, color: .Red, side: .Right)
+    let red3 = GoodDot(column: 1, row: 3, color: .Red)
+    let red4 = GoodDot(column: 2, row: 3, color: .Red)
     let mad2 = MadDot(column: 3, row: 3, color: .Yellow)
     
     setDot(dotArray, dot: red3)
@@ -211,9 +209,8 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
-    XCTAssertEqual(piece.wasBlockedOnTop, true)
     
-    piece.rotateClockwise()
+    piece.undoPreviousRotation()
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(), false)
     
@@ -224,15 +221,15 @@ class PieceRotationTests: XCTestCase {
     let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 1, row: 1, color: .Red, side: .Left)
-    let red2 = GoodDot(column: 2, row: 1, color: .Red, side: .Right)
+    let red1 = GoodDot(column: 1, row: 1, color: .Red)
+    let red2 = GoodDot(column: 2, row: 1, color: .Red)
     let mad = MadDot(column: 3, row: 1, color: .Yellow)
     
     setDot(dotArray, dot: red1)
     setDot(dotArray, dot: red2)
     setDot(dotArray, dot: mad)
     
-    let red4 = GoodDot(column: 2, row: 3, color: .Red, side: .Right)
+    let red4 = GoodDot(column: 2, row: 3, color: .Red)
     let mad2 = MadDot(column: 3, row: 3, color: .Yellow)
     
     setDot(dotArray, dot: red4)
@@ -248,11 +245,10 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
-    XCTAssertEqual(piece.wasBlockedOnTop, true)
-    XCTAssertEqual(piece.leftDot.column, 1)
-    XCTAssertEqual(piece.leftDot.row, 3)
-    XCTAssertEqual(piece.rightDot.column, 1)
-    XCTAssertEqual(piece.rightDot.row, 2)
+    XCTAssertEqual(piece.bottomDot?.column, 1)
+    XCTAssertEqual(piece.bottomDot?.row, 3)
+    XCTAssertEqual(piece.topDot?.column, 1)
+    XCTAssertEqual(piece.topDot?.row, 2)
   }
   
   func testFitsIntoSlotOnEdge() {
@@ -262,8 +258,8 @@ class PieceRotationTests: XCTestCase {
     
     let col = NumColumns - 2
     
-    let red1 = GoodDot(column: col, row: 2, color: .Red, side: .Left)
-    let red2 = GoodDot(column: col, row: 4, color: .Red, side: .Right)
+    let red1 = GoodDot(column: col, row: 2, color: .Red)
+    let red2 = GoodDot(column: col, row: 4, color: .Red)
     let mad = MadDot(column: col, row: 5, color: .Yellow)
     
     setDot(dotArray, dot: red1)
@@ -283,8 +279,8 @@ class PieceRotationTests: XCTestCase {
     //
     //    dotArray.removePiece(piece)
     piece.rotateCounterClockwise(dotArray)
-    piece.leftDot.column += 1
-    piece.rightDot.column += 1
+    piece.dot1.column += 1
+    piece.dot2.column += 1
     piece.lowerByOneRow()
     piece.lowerByOneRow()
 
@@ -295,7 +291,7 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
 
-    piece.rotateClockwise()
+    piece.rotateClockwise(dotArray)
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
   }
@@ -305,6 +301,57 @@ class PieceRotationTests: XCTestCase {
     //    self.measureBlock {
     //      // Put the code you want to measure the time of here.
     //    }
+  }
+  
+  func testRotationInWedge2() {
+    let dotGame = DotGame()
+    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotGame.dotArray = dotArray
+    
+    let red1 = GoodDot(column: 3, row: NumRows - 6, color: .Red)
+    let red2 = GoodDot(column: 3, row: NumRows - 5, color: .Red)
+    let mad = MadDot(column: 3, row: NumRows - 4, color: .Yellow)
+    
+    setDot(dotArray, dot: red1)
+    setDot(dotArray, dot: red2)
+    setDot(dotArray, dot: mad)
+    
+    let red3 = GoodDot(column: 1, row: NumRows - 6, color: .Red)
+    let red4 = GoodDot(column: 1, row: NumRows - 5, color: .Red)
+    let mad2 = MadDot(column: 1, row: NumRows - 4, color: .Yellow)
+    
+    setDot(dotArray, dot: red3)
+    setDot(dotArray, dot: red4)
+    setDot(dotArray, dot: mad2)
+    
+    print("darray-1: \(dotArray)")
+
+    let piece = Piece(column: 2, row: NumRows - 8, leftColor: .Yellow, rightColor: .Yellow)
+    dotGame.fallingPiece = piece
+
+    piece.rotateCounterClockwise(dotArray)
+    piece.rotateCounterClockwise(dotArray)
+    piece.rotateCounterClockwise(dotArray)
+    print("orient: \(piece.orientation)")
+
+    setPiece(dotArray, piece: piece)
+    print("darray0: \(dotArray)")
+    
+    dotArray.removePiece(piece)
+    piece.rotateCounterClockwise(dotArray)
+    piece.rotateCounterClockwise(dotArray)
+    piece.rotateCounterClockwise(dotArray)
+    setPiece(dotArray, piece: piece)
+    print("darray1: \(dotArray)")
+    
+    dotArray.removePiece(piece)
+
+    piece.rotateClockwise(dotArray)
+    
+    setPiece(dotArray, piece: piece)
+    print("darray2: \(dotArray)")
+    
+    dotArray.removePiece(piece)
   }
   
 }

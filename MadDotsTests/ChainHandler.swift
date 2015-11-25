@@ -28,8 +28,8 @@ class ChainHandler: XCTestCase {
       let dotGame = DotGame()
       let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
       
-      let dot1 = GoodDot(column: 3, row: NumRows - 6, color: .Yellow, side: .Left)
-      let dot2 = GoodDot(column: 3, row: NumRows - 5, color: .Yellow, side: .Right)
+      let dot1 = GoodDot(column: 3, row: NumRows - 6, color: .Yellow)
+      let dot2 = GoodDot(column: 3, row: NumRows - 5, color: .Yellow)
       
       dot1.sibling = dot2
       dot2.sibling = dot1
@@ -39,9 +39,9 @@ class ChainHandler: XCTestCase {
       let madDot = MadDot(column: 3, row: NumRows - 4, color: .Red)
       
       dotArray[3, NumRows - 4] = madDot
-      let dot3 = GoodDot(column: 3, row: NumRows - 3, color: .Red, side: .Right)
-      let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Red, side: .Right)
-      let dot5 = GoodDot(column: 3, row: NumRows - 1, color: .Red, side: .Right)
+      let dot3 = GoodDot(column: 3, row: NumRows - 3, color: .Red)
+      let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Red)
+      let dot5 = GoodDot(column: 3, row: NumRows - 1, color: .Red)
       
       dotArray[3,NumRows - 3] = dot3
       dotArray[3,NumRows - 2] = dot4
@@ -63,24 +63,24 @@ class ChainHandler: XCTestCase {
     let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let leftRedDot = GoodDot(column: 4, row: NumRows - 6, color: .Red, side: .Left)
-    let rightRedDot = GoodDot(column: 3, row: NumRows - 6, color: .Red, side: .Right)
+    let leftRedDot = GoodDot(column: 4, row: NumRows - 6, color: .Red)
+    let rightRedDot = GoodDot(column: 3, row: NumRows - 6, color: .Red)
     leftRedDot.sibling = rightRedDot
     rightRedDot.sibling = leftRedDot
     setDot(dotArray, dot: leftRedDot)
     setDot(dotArray, dot: rightRedDot)
     
-    let leftBlueDot = GoodDot(column: 4, row: NumRows - 7, color: .Blue, side: .Left)
-    let rightBlueDot = GoodDot(column: 3, row: NumRows - 7, color: .Blue, side: .Right)
+    let leftBlueDot = GoodDot(column: 4, row: NumRows - 7, color: .Blue)
+    let rightBlueDot = GoodDot(column: 3, row: NumRows - 7, color: .Blue)
     leftBlueDot.sibling = rightBlueDot
     rightBlueDot.sibling = leftBlueDot
     setDot(dotArray, dot: leftBlueDot)
     setDot(dotArray, dot: rightBlueDot)
     
-    let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow, side: .Left)
-    let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow, side: .Right)
-    let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow, side: .Left)
-    let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .Yellow, side: .Right)
+    let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow)
+    let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow)
+    let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow)
+    let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .Yellow)
     
     setDot(dotArray, dot: dot3)
     setDot(dotArray, dot: dot4)
@@ -111,8 +111,8 @@ class ChainHandler: XCTestCase {
     dotGame.dotArray = dotArray
     
     let madDot = MadDot(column: 4, row: NumRows - 3, color: .Yellow)
-    let leftDot = GoodDot(column: 4, row: NumRows - 4, color: .Red, side: .Left)
-    let rightDot = GoodDot(column: 5, row: NumRows - 4, color: .Red, side: .Right)
+    let leftDot = GoodDot(column: 4, row: NumRows - 4, color: .Red)
+    let rightDot = GoodDot(column: 5, row: NumRows - 4, color: .Red)
     
     leftDot.sibling = rightDot
     rightDot.sibling = leftDot
@@ -121,10 +121,10 @@ class ChainHandler: XCTestCase {
     setDot(dotArray, dot: rightDot)
     setDot(dotArray, dot: madDot)
     
-    let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow, side: .Left)
-    let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow, side: .Right)
-    let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow, side: .Left)
-    let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .Yellow, side: .Right)
+    let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow)
+    let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow)
+    let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow)
+    let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .Yellow)
     
     setDot(dotArray, dot: dot3)
     setDot(dotArray, dot: dot4)
@@ -153,8 +153,8 @@ class ChainHandler: XCTestCase {
     
     let col = NumColumns - 3
     
-    let red1 = GoodDot(column: col, row: 2, color: .Red, side: .Left)
-    let red2 = GoodDot(column: col, row: 3, color: .Red, side: .Left)
+    let red1 = GoodDot(column: col, row: 2, color: .Red)
+    let red2 = GoodDot(column: col, row: 3, color: .Red)
     let mad = MadDot(column: col, row: 4, color: .Red)
     
     setDot(dotArray, dot: red1)

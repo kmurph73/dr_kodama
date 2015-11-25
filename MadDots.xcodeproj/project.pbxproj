@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD0AE11E1C0124FC000FBB6F /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8E24D51C00E295006D2696 /* HelpViewController.swift */; };
 		AD0B73F51BCC22C30085B244 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
 		AD51B03A1BEEDBD200CB2FE7 /* GameLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */; };
 		AD51B03B1BEEDC1600CB2FE7 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
@@ -21,6 +22,7 @@
 		AD5D0D151BEED5B8005043A8 /* MadDotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D141BEED5B8005043A8 /* MadDotsTests.swift */; };
 		AD5D0D1D1BEED7AF005043A8 /* GameLevelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D1C1BEED7AF005043A8 /* GameLevelsTests.swift */; };
 		AD5E500A1BD409D900AE3858 /* HandleChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5E50091BD409D900AE3858 /* HandleChains.swift */; };
+		AD8E24D61C00E295006D2696 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8E24D51C00E295006D2696 /* HelpViewController.swift */; };
 		ADB66DA91BF2CC1D0039C006 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB66DA81BF2CC1D0039C006 /* MainController.swift */; };
 		ADD284F31BF90B3100A4732A /* PieceRotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD284F21BF90B3100A4732A /* PieceRotation.swift */; };
 		ADD284F41BFADABA00A4732A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807E41BC4462300E45888 /* GameScene.swift */; };
@@ -60,6 +62,7 @@
 		AD5D0D161BEED5B8005043A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD5D0D1C1BEED7AF005043A8 /* GameLevelsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevelsTests.swift; sourceTree = "<group>"; };
 		AD5E50091BD409D900AE3858 /* HandleChains.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleChains.swift; sourceTree = "<group>"; };
+		AD8E24D51C00E295006D2696 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		ADB66DA81BF2CC1D0039C006 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		ADD284F21BF90B3100A4732A /* PieceRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceRotation.swift; sourceTree = "<group>"; };
 		ADDBB15B1BF2C34800797A4C /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
@@ -148,6 +151,7 @@
 				AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */,
 				ADDBB15B1BF2C34800797A4C /* MainScene.swift */,
 				ADB66DA81BF2CC1D0039C006 /* MainController.swift */,
+				AD8E24D51C00E295006D2696 /* HelpViewController.swift */,
 			);
 			path = MadDots;
 			sourceTree = "<group>";
@@ -266,6 +270,7 @@
 				AD51B03E1BEEF10800CB2FE7 /* MadDot.swift in Sources */,
 				ADF55A881BF573CE00F90381 /* ChainHandler.swift in Sources */,
 				ADD284F51BFADABA00A4732A /* GameViewController.swift in Sources */,
+				AD0AE11E1C0124FC000FBB6F /* HelpViewController.swift in Sources */,
 				AD51B03C1BEEDC1900CB2FE7 /* Array2D.swift in Sources */,
 				ADD284F31BF90B3100A4732A /* PieceRotation.swift in Sources */,
 				ADD284F41BFADABA00A4732A /* GameScene.swift in Sources */,
@@ -285,6 +290,7 @@
 				ADF807FB1BC447BF00E45888 /* Piece.swift in Sources */,
 				AD5D0D0C1BED23DE005043A8 /* GameLevels.swift in Sources */,
 				ADF807E11BC4462300E45888 /* AppDelegate.swift in Sources */,
+				AD8E24D61C00E295006D2696 /* HelpViewController.swift in Sources */,
 				ADF807FD1BC447D100E45888 /* MadDot.swift in Sources */,
 				ADDBB15C1BF2C34800797A4C /* MainScene.swift in Sources */,
 				ADF807F71BC446A400E45888 /* Dot.swift in Sources */,
