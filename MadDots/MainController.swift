@@ -41,12 +41,7 @@ class MainController: UIViewController {
   }
   
   @IBAction func tapHelp(sender: AnyObject) {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    if let vc = storyboard.instantiateViewControllerWithIdentifier("helpViewController") as? HelpViewController {
-      let navigationController = UINavigationController(rootViewController: self)
-      navigationController.pushViewController(vc, animated: true)
-      self.presentViewController(navigationController, animated: false, completion: nil)
-    }
+    self.performSegueWithIdentifier("help", sender: self)
   }
   
   func updateLabels() {

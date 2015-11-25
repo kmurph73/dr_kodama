@@ -202,21 +202,16 @@ class GameScene: SKScene {
       let duration = NSTimeInterval(((sprite.position.y - newPosition.y) / BlockSize) * 0.1)
       let moveAction = SKAction.moveTo(newPosition, duration: duration)
       
-      moveAction.timingMode = .EaseOut
-      sprite.runAction(
-        SKAction.sequence([
-          SKAction.waitForDuration(delay),
-          moveAction]))
+      moveAction.timingMode = .EaseIn
+      sprite.runAction(moveAction)
       
       if let p = pointForConnector(dot) {
         let connector = dot.connector!
 
         let movAction = SKAction.moveTo(p, duration: duration)
+        movAction.timingMode = .EaseIn
 
-        connector.runAction(
-          SKAction.sequence([
-            SKAction.waitForDuration(delay),
-            movAction]))
+        connector.runAction(movAction)
       }
       
       longestDuration = max(longestDuration, duration + delay)

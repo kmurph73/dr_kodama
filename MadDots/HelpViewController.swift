@@ -9,4 +9,7 @@
 import UIKit
 
 class HelpViewController: UIViewController {
+  @IBAction func tapDone(sender: AnyObject) {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
 }

@@ -82,7 +82,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       let downDistance = abs(currentPoint.y - originalPoint.y)
       let horizontalDistance = abs(currentPoint.x - originalPoint.x)
 
-      if downDistance > (BlockSize * 0.5) {
+      if downDistance > (BlockSize * 0.45) {
         if velocity.y > CGFloat(0) {
           dotGame.movePieceDown()
           panPointReference = currentPoint
@@ -94,7 +94,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           dotGame.movePieceDown()
         }
       } else if horizontalDistance > (BlockSize * 0.5) {
-
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
           panPointReference = currentPoint
@@ -174,6 +173,11 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let results = dotGame.removeCompletedDots()
     let dotsToRemove = results.dotsToRemove
     let fallenDots = results.fallenDots
+    if fallenDots.count > 0 {
+      
+      
+    }
+    
     
     if dotsToRemove.count > 0 {
       scene.removeDots(dotsToRemove)
@@ -204,9 +208,10 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   func nextPiece() {
     let newPiece = dotGame.newPiece()
     dotGame.fallingPiece = newPiece
-    self.view.userInteractionEnabled = true
     self.scene.addPieceToScene(newPiece) {
       self.scene.startTicking()
+      self.panPointReference = nil
+      self.view.userInteractionEnabled = true
     }
   }
   
@@ -242,7 +247,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   deinit {
-    print("GameViewController is being deinitialized")
+//    print("GameViewController is being deinitialized")
   }
   
 }

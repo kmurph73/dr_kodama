@@ -123,13 +123,31 @@
                         <outlet property="speedLabel" destination="D1W-YU-Yga" id="vd1-l5-ugR"/>
                         <outlet property="speedSlider" destination="8Xf-If-5Pl" id="Ggd-bp-Qsa"/>
                         <segue destination="BV1-FR-VrT" kind="showDetail" identifier="gogo" id="Kae-qk-ydG"/>
+                        <segue destination="bDm-Cf-dzN" kind="show" identifier="help" action="showDetailViewController:sender:" id="kwL-Pl-ZzK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y8c-5x-WoI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-224" y="259"/>
         </scene>
-        <!--Help View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="nEP-6T-qzX">
+            <objects>
+                <navigationController id="bDm-Cf-dzN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xMp-cm-kYl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="sWp-cn-08K" kind="relationship" relationship="rootViewController" id="ed9-Ez-bCZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="upH-jw-l9r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-891" y="930"/>
+        </scene>
+        <!--Helpage-->
         <scene sceneID="Ozk-tW-B5U">
             <objects>
                 <viewController storyboardIdentifier="helpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sWp-cn-08K" customClass="HelpViewController" customModule="MadDots" customModuleProvider="target" sceneMemberID="viewController">
@@ -141,31 +159,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Can navigate back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sro-FH-RLl">
-                                <rect key="frame" x="216" y="162" width="141" height="21"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="Wws-bR-hqg">
+                                <rect key="frame" x="176" y="150" width="247" height="300"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W3Z-Qs-NDT">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <animations/>
-                                <items>
-                                    <navigationItem title="Title" id="wJC-az-avd"/>
-                                </items>
-                            </navigationBar>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Sro-FH-RLl" firstAttribute="centerX" secondItem="JPb-Zl-Mg4" secondAttribute="centerX" id="NPi-TE-SSX"/>
+                            <constraint firstItem="Wws-bR-hqg" firstAttribute="leading" secondItem="JPb-Zl-Mg4" secondAttribute="leadingMargin" id="9Ex-lL-AwG"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Helpage" id="SH0-WP-xxo">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="5t6-Jh-Eju">
+                            <connections>
+                                <action selector="tapDone:" destination="sWp-cn-08K" id="BcQ-Y8-toX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T28-gG-thP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-224" y="965"/>
+            <point key="canvasLocation" x="-141" y="1191"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -220,4 +235,7 @@
             <point key="canvasLocation" x="479" y="259"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="help" width="247" height="300"/>
+    </resources>
 </document>

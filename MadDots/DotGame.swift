@@ -9,7 +9,7 @@
 let NumColumns = 8
 let NumRows = 14
 
-let StartingColumn = 0
+let StartingColumn = 3
 let StartingRow = 0
 
 enum MatrixDir: Int {

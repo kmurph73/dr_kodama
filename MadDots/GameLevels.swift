@@ -262,6 +262,13 @@ func testScenario() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
   setDot(arr, dot: dot5)
   setDot(arr, dot: dot6)
   
+  for col in 0..<NumColumns {
+    let color: DotColor = col % 2 == 0 ? .Yellow : .Blue
+    setDot(arr, dot: GoodDot(column: col, row: 5, color: color))
+  }
+
+  setDot(arr, dot: MadDot(column: 3, row: NumRows - 1, color: .Blue))
+
   seq.appendContentsOf([
     Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
     Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),

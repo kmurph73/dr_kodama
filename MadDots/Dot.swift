@@ -6,16 +6,6 @@
 //  Copyright © 2015 Kyle Murphy. All rights reserved.
 //
 
-//import Foundation
-
-//
-//  Block.swift
-//  Swiftris
-//
-//  Created by Stan Idesis on 7/18/14.
-//  Copyright (c) 2014 Bloc. All rights reserved.
-//
-
 import SpriteKit
 
 let NumberOfColors: UInt32 = 4
