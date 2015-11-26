@@ -74,6 +74,32 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  func getMod(velocity: CGFloat) -> CGFloat {
+    switch velocity {
+    case _ where velocity > 4000:
+      return 0.5
+    case _ where velocity > 3500:
+      return 0.1
+    case _ where velocity > 3000:
+      return 0.15
+    case _ where velocity > 2500:
+      return 0.2
+    case _ where velocity > 2000:
+      return 0.25
+    case _ where velocity > 1500:
+      return 0.3
+    case _ where velocity > 1000:
+      return 0.35
+    case _ where velocity > 750:
+      return 0.4
+    case _ where velocity > 500:
+      return 0.45
+    default:
+      return 0.5
+    }
+    
+  }
+  
   @IBAction func didPan(sender: UIPanGestureRecognizer) {
     let currentPoint = sender.translationInView(self.view)
 
@@ -81,7 +107,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       let velocity = sender.velocityInView(self.view)
       let downDistance = abs(currentPoint.y - originalPoint.y)
       let horizontalDistance = abs(currentPoint.x - originalPoint.x)
-
+      
       if downDistance > (BlockSize * 0.45) {
         if velocity.y > CGFloat(0) {
           dotGame.movePieceDown()
