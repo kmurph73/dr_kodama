@@ -116,21 +116,21 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           panPointReference = currentPoint
         }
         
-        if velocity.y > 2500 {
+        if velocity.y > 2100 {
           dotGame.movePieceDown()
         }
       } else if horizontalDistance > (BlockSize * 0.5) {
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
           panPointReference = currentPoint
-          if velocity.x > 3000 {
+          if velocity.x > 2200 {
             dotGame.movePieceRight()
           }
         } else {
           if !justEnded {
             dotGame.movePieceLeft()
             panPointReference = currentPoint
-            if velocity.x > 3000 {
+            if velocity.x > 2200 {
               dotGame.movePieceLeft()
             }
           }
@@ -199,10 +199,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let results = dotGame.removeCompletedDots()
     let dotsToRemove = results.dotsToRemove
     let fallenDots = results.fallenDots
-    if fallenDots.count > 0 {
-      
-      
-    }
     
     
     if dotsToRemove.count > 0 {
@@ -232,13 +228,15 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func nextPiece() {
-    let newPiece = dotGame.newPiece()
-    dotGame.fallingPiece = newPiece
-    self.scene.addPieceToScene(newPiece) {
-      self.scene.startTicking()
-      self.panPointReference = nil
-      self.view.userInteractionEnabled = true
-    }
+    delay(0.2, closure: {_ in
+      let newPiece = self.dotGame.newPiece()
+      self.dotGame.fallingPiece = newPiece
+      self.scene.addPieceToScene(newPiece) {
+        self.scene.startTicking()
+        self.panPointReference = nil
+        self.view.userInteractionEnabled = true
+      }
+    })
   }
   
   func gameDidBegin(dotGame: DotGame) {

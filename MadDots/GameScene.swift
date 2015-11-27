@@ -301,6 +301,6 @@ class GameScene: SKScene {
   }
   
   deinit {
-    print("GameScene is being deinitialized")
+//    print("GameScene is being deinitialized")
   }
 }

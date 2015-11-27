@@ -114,7 +114,7 @@ class Piece: CustomStringConvertible {
   }
   
   var description: String {
-    return "leftDot: \(leftDot); rightDot: \(rightDot)"
+    return "piece: \(dot1), \(dot2)"
   }
   
   final func lowerByOneRow() {

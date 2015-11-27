@@ -165,7 +165,6 @@ class DotGame {
       }
 
       delegate?.gamePieceDidMove(self)
-
     }
   }
   
@@ -246,7 +245,7 @@ class DotGame {
   }
   
   deinit {
-    print("DotGame is being deinitialized")
+//    print("DotGame is being deinitialized")
   }
 
 }
