@@ -7,10 +7,13 @@
 //
 
 let NumColumns = 8
-let NumRows = 14
+let NumRows = 16
+let DrawnRows = NumRows - 2
 
 let StartingColumn = 3
-let StartingRow = 0
+let StartingRow = 1
+
+var RotateDir: Dir = .CounterClockwise
 
 enum MatrixDir: Int {
   case Row = 0, Column
@@ -19,25 +22,8 @@ enum MatrixDir: Int {
 protocol DotGameDelegate {
   func gameDidEnd(dotGame: DotGame)
   func gameDidBegin(dotGame: DotGame)
-  func gamePieceDidMove(dotGame: DotGame)
+  func gamePieceDidMove(dotGame: DotGame, completion: (() -> ())?)
   func gamePieceDidLand(dotGame: DotGame)
-}
-
-enum Movement: Int, CustomStringConvertible {
-  case Up = 0, Down, Left, Right
-  
-  var description: String {
-    switch self {
-    case .Up:
-      return "Up"
-    case .Down:
-      return "Down"
-    case .Left:
-      return "Left"
-    case .Right:
-      return "Right"
-    }
-  }
 }
 
 class DotGame {
@@ -48,23 +34,22 @@ class DotGame {
   var levelMaker: LevelMaker
 
   var delegate:DotGameDelegate?
-  var lastMovement = Movement.Up
   var seq: Array<Piece>?
   
   init() {
     fallingPiece = nil
-    dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)    
+    dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
     madDots = Array<MadDot>()
     levelMaker = LevelMaker(dotArray: dotArray)
   }
   
-  func settleShape() {
+  func settlePiece() {
     if let piece = fallingPiece {
       for dot in piece.dots {
         dotArray[dot.column, dot.row] = dot
       }
-//      print("darray: \(dotArray)")
       fallingPiece = nil
+//      print("darray: \(dotArray)")
       delegate?.gamePieceDidLand(self)
     }
   }
@@ -82,6 +67,25 @@ class DotGame {
       }
     } else {
       return Piece.random(StartingColumn, startingRow: StartingRow)
+    }
+  }
+  
+  func dropPiece() {
+    if let piece = fallingPiece {
+      if let ctrl = delegate as? GameViewController {
+        ctrl.scene.stopTicking()
+      }
+      while true {
+        piece.lowerByOneRow()
+        if detectIllegalPlacement() {
+          piece.raiseByOneRow()
+          break
+        }
+      }
+      
+      delegate?.gamePieceDidMove(self) {
+        self.settlePiece()
+      }
     }
   }
   
@@ -117,17 +121,6 @@ class DotGame {
     delegate?.gameDidBegin(self)
   }
   
-  func addMadDots() {
-    let hardCodedSpots: [(column: Int, row: Int, color: DotColor)] = [(5,10,.Red)]
-
-    for spot in hardCodedSpots {
-      let dot = MadDot(column: spot.column, row: spot.row, color: spot.color)
-      dotArray[dot.column, dot.row] = dot
-      madDots.append(dot)
-    }
-    
-  }
-  
   func detectIllegalPlacement() -> Bool {
     if let piece = fallingPiece {
       for dot in piece.dots {
@@ -151,7 +144,7 @@ class DotGame {
         return
       }
 
-      delegate?.gamePieceDidMove(self)
+      delegate?.gamePieceDidMove(self, completion: nil)
       
     }
   }
@@ -164,7 +157,7 @@ class DotGame {
         return
       }
 
-      delegate?.gamePieceDidMove(self)
+      delegate?.gamePieceDidMove(self, completion: nil)
     }
   }
   
@@ -176,18 +169,22 @@ class DotGame {
         return
       }
 
-      delegate?.gamePieceDidMove(self)
+      delegate?.gamePieceDidMove(self, completion: nil)
     }
   }
   
   func rotatePiece() {
     if let piece = fallingPiece {
-      piece.rotateCounterClockwise(dotArray)
+      if RotateDir == .Clockwise {
+        piece.rotateClockwise(dotArray)
+      } else {
+        piece.rotateCounterClockwise(dotArray)
+      }
       if detectIllegalPlacement() {
         piece.undoPreviousRotation()
 //        piece.rotateClockwise(dotArray)
       } else {
-        delegate?.gamePieceDidMove(self)
+        delegate?.gamePieceDidMove(self, completion: nil)
       }
     }
   }
@@ -213,11 +210,10 @@ class DotGame {
           delegate?.gameDidEnd(self)
 //          endGame()
         } else {
-          settleShape()
+          settlePiece()
         }
       } else {
-        lastMovement = .Down
-        delegate?.gamePieceDidMove(self)
+        delegate?.gamePieceDidMove(self, completion: nil)
       }
     }
 
@@ -236,6 +232,11 @@ class DotGame {
       dotArray[dot.column, dot.row] = nil
     }
     
+    madDots = madDots.filter() {
+      return !dotsToRemove.contains($0)
+    }
+    levelMaker.madDots = madDots
+    
     if dotsToRemove.count == 0 {
       return ([], [])
     } else {
@@ -245,7 +246,7 @@ class DotGame {
   }
   
   deinit {
-//    print("DotGame is being deinitialized")
+    print("DotGame is being deinitialized")
   }
 
 }

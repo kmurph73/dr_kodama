@@ -25,9 +25,14 @@ enum Orientation: Int, CustomStringConvertible {
   }
 }
 
+enum Dir {
+  case Clockwise, CounterClockwise
+}
+
 class Rotation {
   var dots: [GoodDot]
   var translations: Array<(columnDiff: Int, rowDiff: Int)>
+  var settled = false
   
   init(dots: [GoodDot], translations: Array<(columnDiff: Int, rowDiff: Int)>) {
     self.dots = dots
@@ -49,6 +54,8 @@ class Piece: CustomStringConvertible {
 //  var column, row:Int
   
   var dot1, dot2: GoodDot
+  
+  var settled = false
   
   var previousRotation: Rotation?
   
@@ -140,30 +147,41 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  func checkBlockage(dotArray: Array2D<Dot>) -> (blockedOnRight: Bool, blockedOnTop: Bool) {
+  func checkBlockage(dotArray: Array2D<Dot>) -> (blockedOnRight: Bool, blockedOnTop: Bool, blockedOnLeft: Bool) {
     var rightIsBlocked = false
     var topIsBlocked = false
+    var leftIsBlocked = false
     
     if let rdot = self.rightDot, let ldot = self.leftDot {
       let isOnTop = ldot.row == 0 && rdot.row == 0
-//      let isOnBottom = ldot.row == NumRows - 1
       
       if isOnTop {
         topIsBlocked = true
       } else {
         topIsBlocked = dotArray[ldot.column, rdot.row - 1] != nil
       }
+
     } else if let bdot = self.bottomDot {
-      let isOnRightEdge = bdot.column == NumColumns - 1
-      
-      if isOnRightEdge {
-        rightIsBlocked = true
+      if RotateDir == .CounterClockwise {
+        let isOnRightEdge = bdot.column == NumColumns - 1
+        
+        if isOnRightEdge {
+          rightIsBlocked = true
+        } else {
+          rightIsBlocked = dotArray[bdot.column + 1, bdot.row] != nil
+        }
       } else {
-        rightIsBlocked = dotArray[bdot.column + 1, bdot.row] != nil
+        let isOnLeftEdge = bdot.column == 0
+        
+        if isOnLeftEdge {
+          leftIsBlocked = true
+        } else {
+          leftIsBlocked = dotArray[bdot.column - 1, bdot.row] != nil
+        }
       }
     }
 
-    return (blockedOnRight: rightIsBlocked, blockedOnTop: topIsBlocked)
+    return (blockedOnRight: rightIsBlocked, blockedOnTop: topIsBlocked, blockedOnLeft: leftIsBlocked)
   }
   
   func getCounterClockwisePositionFor(dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
@@ -185,15 +203,16 @@ class Piece: CustomStringConvertible {
   func getClockwisePosition(dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let results = checkBlockage(dotArray)
     
-    if results.blockedOnRight {
-      return [(-1,1), (0, 0)]
+    if results.blockedOnLeft {
+      return [(1,1), (0, 0)]
     } else if results.blockedOnTop {
-      return [(0, 1),(-1, 0)]
+      print("blocked on top")
+      return [(1, 0), (0, 1)]
     } else {
       if orientation == .Horizontal {
-        return [(0,0), (-1,-1)]
+        return [(1,-1), (0,0)]
       } else {
-        return [(0,0), (1,-1)]
+        return [(0,1), (-1,0)]
       }
     }
   }
@@ -243,13 +262,21 @@ class Piece: CustomStringConvertible {
     return Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
   }
   
+  func hasDotsAboveGrid() -> Bool {
+    if dot1.row < 2 || dot2.row < 2 {
+      return true
+    }
+    
+    return false
+  }
+  
   func removeFromScene() {
     self.dot1.removeFromScene()
     self.dot2.removeFromScene()
   }
   
   deinit {
-//    print("\(self) is being deinitialized")
+    print("\(self) is being deinitialized")
   }
   
 }

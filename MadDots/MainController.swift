@@ -28,6 +28,9 @@ class MainController: UIViewController {
   }
   
   @IBAction func tapPlay(sender: AnyObject) {
+    NSUserDefaults.standardUserDefaults().setValue(GameLevel, forKey: "gameLevel")
+    NSUserDefaults.standardUserDefaults().setValue(GameSpeed, forKey: "gameSpeed")
+
     self.performSegueWithIdentifier("gogo", sender: self)
   }
   

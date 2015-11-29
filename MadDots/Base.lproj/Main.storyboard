@@ -85,6 +85,13 @@
                                     <action selector="tapHelp:" destination="lig-pX-0ps" eventType="touchUpInside" id="xq7-Zs-oUU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New: swipe up to drop immediately" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdK-QV-AQr">
+                                <rect key="frame" x="157" y="482" width="268" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -105,6 +112,8 @@
                             <constraint firstItem="D1W-YU-Yga" firstAttribute="leading" secondItem="4yy-Gf-9LA" secondAttribute="leadingMargin" id="amY-kC-Ri4"/>
                             <constraint firstItem="Tkm-Ve-aFN" firstAttribute="leading" secondItem="4yy-Gf-9LA" secondAttribute="leadingMargin" id="eKZ-8q-NdI"/>
                             <constraint firstItem="Q1l-Ic-RnF" firstAttribute="centerX" secondItem="4yy-Gf-9LA" secondAttribute="centerX" id="gJx-nJ-cYE"/>
+                            <constraint firstItem="jdK-QV-AQr" firstAttribute="top" secondItem="ulA-0o-WJk" secondAttribute="bottom" constant="20" id="jeG-p8-Kiz"/>
+                            <constraint firstItem="jdK-QV-AQr" firstAttribute="centerX" secondItem="4yy-Gf-9LA" secondAttribute="centerX" id="kmX-vq-7Wy"/>
                             <constraint firstItem="WNd-FQ-Uyr" firstAttribute="top" secondItem="7gx-sY-LcC" secondAttribute="bottom" constant="10" id="nZc-lr-qMQ"/>
                             <constraint firstItem="Xmk-Uy-2zG" firstAttribute="top" secondItem="Q1l-Ic-RnF" secondAttribute="bottom" constant="36" id="w2H-T2-nqv"/>
                             <constraint firstItem="WNd-FQ-Uyr" firstAttribute="centerX" secondItem="4yy-Gf-9LA" secondAttribute="centerX" id="xxB-Gw-qxN"/>
@@ -145,7 +154,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="upH-jw-l9r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-891" y="930"/>
+            <point key="canvasLocation" x="-783" y="1144"/>
         </scene>
         <!--Helpage-->
         <scene sceneID="Ozk-tW-B5U">
@@ -159,15 +168,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="Wws-bR-hqg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="help" translatesAutoresizingMaskIntoConstraints="NO" id="Wws-bR-hqg">
                                 <rect key="frame" x="176" y="150" width="247" height="300"/>
                                 <animations/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Swipe up to drop immediately " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFe-hb-4QZ">
+                                <rect key="frame" x="198" y="87" width="232" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="drag left/right/down to move" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riB-g6-6ri">
+                                <rect key="frame" x="198" y="116" width="219" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Wws-bR-hqg" firstAttribute="top" secondItem="riB-g6-6ri" secondAttribute="bottom" constant="10" id="1Cn-3k-PUY"/>
                             <constraint firstItem="Wws-bR-hqg" firstAttribute="leading" secondItem="JPb-Zl-Mg4" secondAttribute="leadingMargin" id="9Ex-lL-AwG"/>
+                            <constraint firstItem="aFe-hb-4QZ" firstAttribute="centerX" secondItem="JPb-Zl-Mg4" secondAttribute="centerX" id="KjF-gi-kIc"/>
+                            <constraint firstItem="aFe-hb-4QZ" firstAttribute="top" secondItem="yUQ-7E-GYg" secondAttribute="bottom" id="OaS-uf-mbg"/>
+                            <constraint firstItem="riB-g6-6ri" firstAttribute="centerX" secondItem="JPb-Zl-Mg4" secondAttribute="centerX" id="PpE-lt-o4P"/>
+                            <constraint firstItem="riB-g6-6ri" firstAttribute="top" secondItem="aFe-hb-4QZ" secondAttribute="bottom" constant="10" id="Vnu-jS-OMI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Helpage" id="SH0-WP-xxo">
@@ -180,7 +208,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T28-gG-thP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-141" y="1191"/>
+            <point key="canvasLocation" x="17" y="1144"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -199,9 +227,7 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="zxA-l8-ecy" appends="YES" id="5Bf-gU-ulg"/>
                             <outletCollection property="gestureRecognizers" destination="HOp-sT-SWv" appends="YES" id="RAn-qk-GEz"/>
-                            <outletCollection property="gestureRecognizers" destination="5Kc-34-ZKD" appends="YES" id="b1E-7L-ycs"/>
-                            <outletCollection property="gestureRecognizers" destination="jgF-Iu-uav" appends="YES" id="esX-d1-eUZ"/>
-                            <outletCollection property="gestureRecognizers" destination="dim-R7-7G3" appends="YES" id="rTD-vu-KFA"/>
+                            <outletCollection property="gestureRecognizers" destination="Ta3-ch-Zg8" appends="YES" id="Nif-Ts-rWr"/>
                         </connections>
                     </view>
                 </viewController>
@@ -216,19 +242,10 @@
                         <action selector="didPan:" destination="BV1-FR-VrT" id="LyP-6R-E63"/>
                     </connections>
                 </panGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="5Kc-34-ZKD">
+                <swipeGestureRecognizer direction="up" id="Ta3-ch-Zg8">
                     <connections>
-                        <action selector="swipeRight:" destination="BV1-FR-VrT" id="VR9-ef-Ctf"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="jgF-Iu-uav">
-                    <connections>
-                        <action selector="swipeLeft:" destination="BV1-FR-VrT" id="WnU-Sb-VpR"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="down" id="dim-R7-7G3">
-                    <connections>
-                        <action selector="swipeDown:" destination="BV1-FR-VrT" id="Ts9-u2-Tfr"/>
+                        <action selector="swipeUp:" destination="BV1-FR-VrT" id="KbO-qO-gbu"/>
+                        <outlet property="delegate" destination="BV1-FR-VrT" id="clC-3R-oaM"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>

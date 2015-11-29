@@ -21,21 +21,26 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       scene.menuTapped = false
     }
   }
+
+  @IBAction func swipeUp(sender: UISwipeGestureRecognizer) {
+    dotGame.dropPiece()
+//    dotGame.movePieceRight()
+  }
   
   @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
-    dotGame.movePieceRight()
+//    dotGame.movePieceRight()
   }
   
   @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
-    dotGame.movePieceLeft()
+//    dotGame.movePieceLeft()
   }
   
   @IBAction func swipeDown(sender: UISwipeGestureRecognizer) {
-    dotGame.lowerPiece()
+//    dotGame.lowerPiece()
   }
   
   func setLevelLabel() {
-    self.scene.setLevelLabel()
+    self.scene.levelLabelSetter()
   }
   
   func showSheet(msg: String?, showCancel: Bool) {
@@ -110,16 +115,16 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       
       if downDistance > (BlockSize * 0.45) {
         if velocity.y > CGFloat(0) {
-          dotGame.movePieceDown()
+          dotGame.lowerPiece()
           panPointReference = currentPoint
         } else {
           panPointReference = currentPoint
         }
         
         if velocity.y > 2100 {
-          dotGame.movePieceDown()
+          dotGame.lowerPiece()
         }
-      } else if horizontalDistance > (BlockSize * 0.5) {
+      } else if horizontalDistance > (BlockSize * 0.45) {
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
           panPointReference = currentPoint
@@ -200,8 +205,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let dotsToRemove = results.dotsToRemove
     let fallenDots = results.fallenDots
     
-    
     if dotsToRemove.count > 0 {
+      dotGame.fallingPiece = nil
+
       scene.removeDots(dotsToRemove)
       if dotGame.dotArray.hasAchievedVictory() {
         if GameLevel == 18 {
@@ -214,21 +220,30 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           self.presentViewController(alertController, animated: true, completion: nil)
         } else {
           GameLevel += 1
-          dotGame.beginAnew()
+          print("begin anew")
+          delay(0.5) {
+            dotGame.beginAnew()
+          }
         }
-        
       } else {
         scene.dropDots(fallenDots) {
           self.gamePieceDidLand(dotGame)
         }
       }
     } else {
-      nextPiece()
+
+      if dotGame.dotArray.hasDotsAboveGrid() {
+        gameDidEnd(dotGame)
+      } else {
+        dotGame.fallingPiece = nil
+        nextPiece()
+      }
+
     }
   }
   
   func nextPiece() {
-    delay(0.2, closure: {_ in
+    delay(0.2) {
       let newPiece = self.dotGame.newPiece()
       self.dotGame.fallingPiece = newPiece
       self.scene.addPieceToScene(newPiece) {
@@ -236,7 +251,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         self.panPointReference = nil
         self.view.userInteractionEnabled = true
       }
-    })
+    }
   }
   
   func gameDidBegin(dotGame: DotGame) {
@@ -253,8 +268,16 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     }
   }
   
-  func gamePieceDidMove(dotGame: DotGame) {
-    scene.redrawPiece(dotGame.fallingPiece!) {}
+  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
+  
+  func gamePieceDidMove(dotGame: DotGame, completion:(() -> ())?) {
+    scene.redrawPiece(dotGame.fallingPiece!) {
+      if let c = completion {
+        c()
+      }
+    }
   }
 
   func didTick() {
@@ -271,7 +294,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   deinit {
-//    print("GameViewController is being deinitialized")
+    print("GameViewController is being deinitialized")
   }
   
 }

@@ -52,6 +52,20 @@ class Array2D<T>: CustomStringConvertible {
     }
   }
   
+  func hasDotsAboveGrid() -> Bool {
+    for row in 0..<NumRows {
+      for col in 0..<NumColumns {
+        if let dot = self[col,row] as? Dot {
+          if dot.row < 2 {
+            return true
+          }
+        }
+      }
+    }
+    
+    return false
+  }
+  
   func removePiece(piece: Piece) {
     removeDot(piece.dot1)
     removeDot(piece.dot2)
@@ -101,7 +115,7 @@ class Array2D<T>: CustomStringConvertible {
   }
   
   deinit {
-//    print("dotArray is being deinitialized")
+    print("dotArray is being deinitialized")
   }
   
 }

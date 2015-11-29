@@ -123,7 +123,8 @@ func dotIsSettled(dot: Dot, sibling: Dot?, dotArray: Array2D<Dot>) -> Bool {
     if dot.column != sibling.column {
       return dotArray[sibling.column, sibling.row + 1] != nil
     } else {
-      return false
+      let bottomDot = dot.row > sibling.row ? dot : sibling
+      return dotArray[bottomDot.column, bottomDot.row + 1] != nil
     }
   } else {
     return false

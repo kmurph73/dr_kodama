@@ -35,7 +35,7 @@ class GameScene: SKScene {
     
     drawGrid()
     
-    let y = CGRectGetMaxY(self.frame) - (extraYSpace)
+    let y = CGRectGetMaxY(self.frame) - (extraYSpace - BlockSize)
     
     var myLabel = SKLabelNode(fontNamed: "Arial")
     myLabel.text = "Menu"
@@ -46,7 +46,7 @@ class GameScene: SKScene {
     myLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize * 2), y)
     self.addChild(myLabel)
     
-    setLevelLabel()
+    levelLabelSetter()
 
     myLabel = SKLabelNode(fontNamed: "Arial")
     myLabel.text = "Speed \(GameSpeed)"
@@ -57,8 +57,8 @@ class GameScene: SKScene {
     self.addChild(myLabel)
   }
   
-  func setLevelLabel() {
-    let y = CGRectGetMaxY(self.frame) - (extraYSpace)
+  func levelLabelSetter() {
+    let y = CGRectGetMaxY(self.frame) - (extraYSpace - BlockSize)
 
     if levelLabel != nil {
       levelLabel!.removeFromParent()
@@ -97,13 +97,13 @@ class GameScene: SKScene {
   func pointForColumn(column: Int, row: Int) -> CGPoint {
     let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
     let y: CGFloat = LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1
-    return CGPointMake(x, y - extraYSpace)
+    return CGPointMake(x, y - (extraYSpace - BlockSize * 2))
   }
   
   func pointForConnector(dot: GoodDot) -> CGPoint? {
     if let side = dot.sideOfSibling() {
       let x: CGFloat = LayerPosition.x + ((CGFloat(dot.column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
-      let y: CGFloat = (LayerPosition.y - (((CGFloat(dot.row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - extraYSpace
+      let y: CGFloat = (LayerPosition.y - (((CGFloat(dot.row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - (extraYSpace - BlockSize * 2)
       
       let halfBlock = BlockSize / 2 - ((BlockSize / 4) / 2)
   
@@ -243,25 +243,25 @@ class GameScene: SKScene {
     for dot in piece.dots {
       if let sprite = dot.sprite {
         let point = pointForColumn(dot.column, row: dot.row)
-        let moveToAction:SKAction = SKAction.moveTo(point, duration: 0.05)
+        let moveToAction:SKAction = SKAction.moveTo(point, duration: 0)
         moveToAction.timingMode = .EaseOut
         sprite.runAction(moveToAction)
         
         if let p = pointForConnector(dot) {
           let connector = dot.connector!
-          let movToAction:SKAction = SKAction.moveTo(p, duration: 0.05)
+          let movToAction:SKAction = SKAction.moveTo(p, duration: 0)
           
           movToAction.timingMode = .EaseOut
           connector.runAction(movToAction)
         }
 
-        runAction(SKAction.waitForDuration(0.05), completion: completion)
+        runAction(SKAction.waitForDuration(0.01), completion: completion)
       }
     }
   }
   
   func drawGrid() {
-    let totalRows = NumRows + 2
+    let totalRows = NumRows
     let totalCols = NumColumns + 2
     
     let rowSquare = self.frame.minY  / CGFloat(totalRows) * -1
@@ -271,10 +271,10 @@ class GameScene: SKScene {
     BlockSize = squareSize
     
     let rowWidth = (CGFloat(NumColumns) * squareSize)
-    let colHeight = (CGFloat(NumRows) * squareSize)
+    let colHeight = (CGFloat(DrawnRows) * squareSize)
     
     let centerX = ((squareSize * CGFloat(NumColumns + 1)) + squareSize) / 2
-    let centerY = ((squareSize * CGFloat(NumRows + 1)) + squareSize) / 2 * -1
+    let centerY = ((squareSize * CGFloat(DrawnRows + 1)) + squareSize) / 2 * -1
     
     extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
     
@@ -301,6 +301,6 @@ class GameScene: SKScene {
   }
   
   deinit {
-//    print("GameScene is being deinitialized")
+    print("GameScene is being deinitialized")
   }
 }

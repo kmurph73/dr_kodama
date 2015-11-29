@@ -57,6 +57,6 @@ class GoodDot: Dot {
   }
   
   deinit {
-//    print("\(self) was deinitialized")
+    print("GoodDot: \(self) was deinitialized")
   }
 }

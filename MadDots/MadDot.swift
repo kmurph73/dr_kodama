@@ -12,10 +12,10 @@ class MadDot: Dot {
   }
   
   override var spriteName: String {
-    return super.spriteName + "kodama"
+    return super.spriteName + "maddot"
   }
   
   deinit {
-//    print("MadDot: \(self) was deinitialized")
+    print("MadDot: \(self) was deinitialized")
   }
 }

@@ -291,7 +291,7 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     XCTAssertEqual(dotGame.detectIllegalPlacement(),true)
 
-    piece.rotateClockwise(dotArray)
+    piece.undoPreviousRotation()
     
     XCTAssertEqual(dotGame.detectIllegalPlacement(),false)
   }

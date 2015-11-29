@@ -20,19 +20,6 @@ class GameLevelsTests: XCTestCase {
     super.tearDown()
   }
   
-  func testLevel() {
-    for n in 0...10 {
-      let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
-      var madDots = Array<MadDot>()
-      let lm = LevelMaker(dotArray: dotArray)
-      lm.makeLevel(4)
-      XCTAssertEqual(12, dotArray.countMadDots())
-    }
-    
-    // XCTAssertNotNil(lm, "LevelMaker could not be instantiated")
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-  }
   
   func testPerformanceExample() {
     // This is an example of a performance test case.
