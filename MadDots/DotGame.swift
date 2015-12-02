@@ -246,7 +246,7 @@ class DotGame {
   }
   
   deinit {
-    print("DotGame is being deinitialized")
+//    print("DotGame is being deinitialized")
   }
 
 }

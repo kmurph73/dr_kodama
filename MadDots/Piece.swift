@@ -50,7 +50,6 @@ class Rotation {
 }
 
 class Piece: CustomStringConvertible {
-  // The column and row representing the shape's anchor point
 //  var column, row:Int
   
   var dot1, dot2: GoodDot
@@ -276,7 +275,7 @@ class Piece: CustomStringConvertible {
   }
   
   deinit {
-    print("\(self) is being deinitialized")
+//    print("\(self) is being deinitialized")
   }
   
 }

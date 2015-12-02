@@ -56,7 +56,11 @@ class GoodDot: Dot {
     super.removeFromScene()
   }
   
+  override var spriteName: String {
+    return super.spriteName + "dot"
+  }
+  
   deinit {
-    print("GoodDot: \(self) was deinitialized")
+//    print("GoodDot: \(self) was deinitialized")
   }
 }

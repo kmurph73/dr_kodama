@@ -152,7 +152,7 @@ class LevelMaker {
   }
   
   deinit {
-    print("levelmaker was deinitialized")
+//    print("levelmaker was deinitialized")
   }
 }
 

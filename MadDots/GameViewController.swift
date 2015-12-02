@@ -14,6 +14,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   var scene: GameScene!
   var panPointReference:CGPoint?
   var justEnded = false
+  var panDistance: CGFloat?
 
   @IBAction func didTap(sender: UITapGestureRecognizer) {
     if !scene.menuTapped {
@@ -69,6 +70,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func backToMenu() {
+//    self.scene.textureCache = Dictionary<String, SKTexture>()
     self.scene.ctrl = nil
     self.scene.tick = nil
     self.scene.lastTick = nil
@@ -79,33 +81,31 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func getMod(velocity: CGFloat) -> CGFloat {
-    switch velocity {
-    case _ where velocity > 4000:
-      return 0.5
-    case _ where velocity > 3500:
-      return 0.1
-    case _ where velocity > 3000:
-      return 0.15
-    case _ where velocity > 2500:
-      return 0.2
-    case _ where velocity > 2000:
-      return 0.25
-    case _ where velocity > 1500:
-      return 0.3
-    case _ where velocity > 1000:
-      return 0.35
-    case _ where velocity > 750:
-      return 0.4
-    case _ where velocity > 500:
-      return 0.45
-    default:
-      return 0.5
-    }
-    
-  }
+  var panCnt = 0
+  var lastPan:NSDate?
   
   @IBAction func didPan(sender: UIPanGestureRecognizer) {
+    guard let panD = panDistance else {
+      return
+    }
+    
+    if let lp = lastPan {
+      let timePassed = lp.timeIntervalSinceNow * -1000.0
+//      print("timePassed: \(timePassed)")
+      if timePassed > 1024.0 {
+        print("pans perSecond: \(panCnt)")
+        panCnt = 0
+        lastPan = NSDate()
+      }  else {
+        panCnt += 1
+      }
+      
+    } else {
+      lastPan = NSDate()
+    }
+    
+    
+    
     let currentPoint = sender.translationInView(self.view)
 
     if let originalPoint = panPointReference {
@@ -113,7 +113,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       let downDistance = abs(currentPoint.y - originalPoint.y)
       let horizontalDistance = abs(currentPoint.x - originalPoint.x)
       
-      if downDistance > (BlockSize * 0.45) {
+      if downDistance > panD {
         if velocity.y > CGFloat(0) {
           dotGame.lowerPiece()
           panPointReference = currentPoint
@@ -124,7 +124,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         if velocity.y > 2100 {
           dotGame.lowerPiece()
         }
-      } else if horizontalDistance > (BlockSize * 0.45) {
+      } else if horizontalDistance > panD {
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
           panPointReference = currentPoint
@@ -160,6 +160,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let skView = self.view as! SKView
     skView.showsFPS = true
     skView.showsNodeCount = true
+    skView.showsDrawCount = true
     skView.multipleTouchEnabled = false
     
     /* Sprite Kit applies additional optimizations to improve rendering performance */
@@ -169,7 +170,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     scene = GameScene(size: skView.bounds.size)
     scene.ctrl = self
     scene.scaleMode = .AspectFill
-    scene.tick = didTick      
+    scene.tick = didTick
+    panDistance = BlockSize * 0.45
     
     dotGame = DotGame()
     dotGame.delegate = self
@@ -243,13 +245,13 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func nextPiece() {
-    delay(0.2) {
+    delay(0.25) {
       let newPiece = self.dotGame.newPiece()
       self.dotGame.fallingPiece = newPiece
+      self.view.userInteractionEnabled = true
       self.scene.addPieceToScene(newPiece) {
         self.scene.startTicking()
         self.panPointReference = nil
-        self.view.userInteractionEnabled = true
       }
     }
   }
@@ -294,7 +296,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   deinit {
-    print("GameViewController is being deinitialized")
+//    print("GameViewController is being deinitialized")
   }
   
 }

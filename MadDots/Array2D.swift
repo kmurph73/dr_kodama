@@ -115,7 +115,7 @@ class Array2D<T>: CustomStringConvertible {
   }
   
   deinit {
-    print("dotArray is being deinitialized")
+//    print("dotArray is being deinitialized")
   }
   
 }

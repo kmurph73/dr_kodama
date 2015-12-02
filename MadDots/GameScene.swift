@@ -13,6 +13,8 @@ let TickLengthLevelOne = NSTimeInterval(1024)
 var extraYSpace: CGFloat = 0
 
 class GameScene: SKScene {
+  let gridLayer = SKNode()
+  let dotLayer = SKNode()
   let LayerPosition = CGPoint(x: 1, y: 1)
   
   var ctrl: GameViewController?
@@ -21,6 +23,7 @@ class GameScene: SKScene {
   var lastTick:NSDate?
   var menuTapped = false
   var levelLabel: SKLabelNode?
+  var textureCache = Dictionary<String, SKTexture>()
 
   override func didMoveToView(view: SKView) {
       /* Setup your scene here */
@@ -32,8 +35,10 @@ class GameScene: SKScene {
     self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
 
     anchorPoint = CGPoint(x: 0, y: 1.0)
-    
+  
     drawGrid()
+    dotLayer.position = LayerPosition
+    self.addChild(dotLayer)
     
     let y = CGRectGetMaxY(self.frame) - (extraYSpace - BlockSize)
     
@@ -152,26 +157,41 @@ class GameScene: SKScene {
   }
   
   func addDotToScene(dot:Dot, completion:(() -> ())?) {
-    let sprite = SKSpriteNode(imageNamed:dot.spriteName)
+    var texture = textureCache[dot.spriteName]
+
+    if texture == nil {
+      texture = SKTexture(imageNamed: dot.spriteName)
+      textureCache[dot.spriteName] = texture
+    }
     
+    let sprite = SKSpriteNode(texture: texture)
+
     sprite.xScale = BlockSize
     sprite.yScale = BlockSize
     sprite.size = CGSize(width: BlockSize, height: BlockSize)
     sprite.position = pointForColumn(dot.column, row: dot.row)
     dot.sprite = sprite
     
-    self.addChild(sprite)
+    dotLayer.addChild(sprite)
         
     if let d = dot as? GoodDot {
       if let p = pointForConnector(d) {
         let size = BlockSize / 4
-        let connector = SKSpriteNode(color: SKColor.whiteColor(), size: CGSizeMake(size,size))
+        let name = "connector"
+        var connTexture = textureCache[name]
+        
+        if connTexture == nil {
+          connTexture = SKTexture(imageNamed:name)
+          textureCache[name] = connTexture
+        }
+        
+        let connector = SKSpriteNode(texture: connTexture, size: CGSizeMake(size,size))
 
         connector.position = p
-        connector.zPosition = 10 // zPosition to change in which layer the barra appears.
+        connector.zPosition = 12 // zPosition to change in which layer the barra appears.
         d.connector = connector
         
-        self.addChild(connector)
+        dotLayer.addChild(connector)
       }
     }
 
@@ -244,14 +264,12 @@ class GameScene: SKScene {
       if let sprite = dot.sprite {
         let point = pointForColumn(dot.column, row: dot.row)
         let moveToAction:SKAction = SKAction.moveTo(point, duration: 0)
-        moveToAction.timingMode = .EaseOut
         sprite.runAction(moveToAction)
         
         if let p = pointForConnector(dot) {
           let connector = dot.connector!
           let movToAction:SKAction = SKAction.moveTo(p, duration: 0)
           
-          movToAction.timingMode = .EaseOut
           connector.runAction(movToAction)
         }
 
@@ -285,7 +303,7 @@ class GameScene: SKScene {
       barra.position = CGPoint(x: centerX, y: y - extraYSpace)
       barra.zPosition = 9 // zPosition to change in which layer the barra appears.
       
-      self.addChild(barra)
+      gridLayer.addChild(barra)
     }
     
     for col in 1..<totalCols {
@@ -295,12 +313,16 @@ class GameScene: SKScene {
       barra.position = CGPoint(x: x, y: centerY - extraYSpace)
       barra.zPosition = 9 // zPosition to change in which layer the barra appears.
       
-      self.addChild(barra)
+      gridLayer.addChild(barra)
     }
+    
+    gridLayer.position = LayerPosition
+
+    self.addChild(gridLayer)
     
   }
   
   deinit {
-    print("GameScene is being deinitialized")
+//    print("GameScene is being deinitialized")
   }
 }
