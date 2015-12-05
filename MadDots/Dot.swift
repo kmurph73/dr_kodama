@@ -12,7 +12,7 @@ let NumberOfColors: UInt32 = 4
 
 enum DotColor: Int, CustomStringConvertible {
   
-  case Red = 0, Green, Blue, Yellow
+  case Red = 0, Green, Blue, Yellow, Orange
   
   var spriteName: String {
     switch self {
@@ -24,6 +24,8 @@ enum DotColor: Int, CustomStringConvertible {
       return "blue"
     case .Yellow:
       return "yellow"
+    case .Orange:
+      return "orange"
     }
   }
   

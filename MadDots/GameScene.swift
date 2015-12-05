@@ -110,7 +110,7 @@ class GameScene: SKScene {
       let x: CGFloat = LayerPosition.x + ((CGFloat(dot.column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
       let y: CGFloat = (LayerPosition.y - (((CGFloat(dot.row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - (extraYSpace - BlockSize * 2)
       
-      let halfBlock = BlockSize / 2 - ((BlockSize / 4) / 2)
+      let halfBlock = BlockSize / 2 - ((BlockSize / 6) / 2)
   
       switch side {
       case .Left:
@@ -165,10 +165,12 @@ class GameScene: SKScene {
     }
     
     let sprite = SKSpriteNode(texture: texture)
+    
+    let dotSize = BlockSize - 5
 
-    sprite.xScale = BlockSize
-    sprite.yScale = BlockSize
-    sprite.size = CGSize(width: BlockSize, height: BlockSize)
+    sprite.xScale = dotSize
+    sprite.yScale = dotSize
+    sprite.size = CGSize(width: dotSize, height: dotSize)
     sprite.position = pointForColumn(dot.column, row: dot.row)
     dot.sprite = sprite
     
@@ -176,7 +178,7 @@ class GameScene: SKScene {
         
     if let d = dot as? GoodDot {
       if let p = pointForConnector(d) {
-        let size = BlockSize / 4
+        let size = BlockSize / 6
         let name = "connector"
         var connTexture = textureCache[name]
         
@@ -259,21 +261,21 @@ class GameScene: SKScene {
     lastTick = nil
   }
 
-  func redrawPiece(piece: Piece, completion:() -> ()) {
+  func redrawPiece(piece: Piece, duration: NSTimeInterval, completion:() -> ()) {
     for dot in piece.dots {
       if let sprite = dot.sprite {
         let point = pointForColumn(dot.column, row: dot.row)
-        let moveToAction:SKAction = SKAction.moveTo(point, duration: 0)
+        let moveToAction:SKAction = SKAction.moveTo(point, duration: duration)
         sprite.runAction(moveToAction)
         
         if let p = pointForConnector(dot) {
           let connector = dot.connector!
-          let movToAction:SKAction = SKAction.moveTo(p, duration: 0)
+          let movToAction:SKAction = SKAction.moveTo(p, duration: duration)
           
           connector.runAction(movToAction)
         }
 
-        runAction(SKAction.waitForDuration(0.01), completion: completion)
+        runAction(SKAction.waitForDuration(duration), completion: completion)
       }
     }
   }

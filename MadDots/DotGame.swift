@@ -5,6 +5,7 @@
 //  Created by Kyle Murphy on 10/12/15.
 //  Copyright © 2015 Kyle Murphy. All rights reserved.
 //
+import Foundation
 
 let NumColumns = 8
 let NumRows = 16
@@ -22,7 +23,7 @@ enum MatrixDir: Int {
 protocol DotGameDelegate {
   func gameDidEnd(dotGame: DotGame)
   func gameDidBegin(dotGame: DotGame)
-  func gamePieceDidMove(dotGame: DotGame, completion: (() -> ())?)
+  func gamePieceDidMove(dotGame: DotGame, duration: NSTimeInterval, completion: (() -> ())?)
   func gamePieceDidLand(dotGame: DotGame)
 }
 
@@ -83,7 +84,7 @@ class DotGame {
         }
       }
       
-      delegate?.gamePieceDidMove(self) {
+      delegate?.gamePieceDidMove(self, duration: 0.07) {
         self.settlePiece()
       }
     }
@@ -144,7 +145,7 @@ class DotGame {
         return
       }
 
-      delegate?.gamePieceDidMove(self, completion: nil)
+      delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
       
     }
   }
@@ -157,7 +158,7 @@ class DotGame {
         return
       }
 
-      delegate?.gamePieceDidMove(self, completion: nil)
+      delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
     }
   }
   
@@ -169,7 +170,7 @@ class DotGame {
         return
       }
 
-      delegate?.gamePieceDidMove(self, completion: nil)
+      delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
     }
   }
   
@@ -184,7 +185,7 @@ class DotGame {
         piece.undoPreviousRotation()
 //        piece.rotateClockwise(dotArray)
       } else {
-        delegate?.gamePieceDidMove(self, completion: nil)
+        delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
       }
     }
   }
@@ -213,7 +214,7 @@ class DotGame {
           settlePiece()
         }
       } else {
-        delegate?.gamePieceDidMove(self, completion: nil)
+        delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
       }
     }
 

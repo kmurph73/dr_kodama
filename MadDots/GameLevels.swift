@@ -142,9 +142,23 @@ class LevelMaker {
     
     let offset = GameLevel > 5 ? GameLevel > 10 ? 6 : 7 : 8
     
-    while totalMadDots > 0 {
-      if insertRandomDot(offset) {
-        totalMadDots -= 1
+    while true {
+      print("makeRandomLevel")
+      while totalMadDots > 0 {
+        if insertRandomDot(offset) {
+          totalMadDots -= 1
+        }
+      }
+      
+      let results = findAllChains(dotArray)
+      if results.count > 0 {
+        for d in results {
+          rmDot(dotArray, dot: d)
+        }
+        totalMadDots += results.count
+        self.madDots = self.madDots.filter({ (dot) in !results.contains(dot) })
+      } else {
+        break
       }
     }
     
@@ -154,6 +168,10 @@ class LevelMaker {
   deinit {
 //    print("levelmaker was deinitialized")
   }
+}
+
+func rmDot(arr: Array2D<Dot>, dot: Dot) {
+  arr[dot.column, dot.row] = nil
 }
 
 

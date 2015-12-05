@@ -91,7 +91,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     
     if let lp = lastPan {
       let timePassed = lp.timeIntervalSinceNow * -1000.0
-//      print("timePassed: \(timePassed)")
+      //      print("timePassed: \(timePassed)")
       if timePassed > 1024.0 {
         print("pans perSecond: \(panCnt)")
         panCnt = 0
@@ -103,8 +103,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     } else {
       lastPan = NSDate()
     }
-    
-    
     
     let currentPoint = sender.translationInView(self.view)
 
@@ -274,8 +272,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     return true
   }
   
-  func gamePieceDidMove(dotGame: DotGame, completion:(() -> ())?) {
-    scene.redrawPiece(dotGame.fallingPiece!) {
+  func gamePieceDidMove(dotGame: DotGame, duration: NSTimeInterval, completion:(() -> ())?) {
+    scene.redrawPiece(dotGame.fallingPiece!, duration: duration) {
       if let c = completion {
         c()
       }
