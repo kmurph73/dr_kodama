@@ -22,32 +22,32 @@ class PieceRotationTests: XCTestCase {
   
   func testRotation() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let red1 = GoodDot(column: 3, row: NumRows - 5, color: .Red)
     let red2 = GoodDot(column: 3, row: NumRows - 4, color: .Red)
     let mad = MadDot(column: 3, row: NumRows - 3, color: .Yellow)
-    setDot(dotArray, dot: red1)
-    setDot(dotArray, dot: red2)
-    setDot(dotArray, dot: mad)
+    dotArray.setDot(red1)
+    dotArray.setDot(red2)
+    dotArray.setDot(mad)
     
     let piece = Piece(column: 2, row: NumRows - 6, leftColor: .Yellow, rightColor: .Yellow)
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     print("darray0: \(dotArray)")
 
     dotArray.removePiece(piece)
     piece.rotateCounterClockwise(dotArray)
     piece.lowerByOneRow()
     
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
 
     XCTAssertEqual(piece.bottomDot?.row, NumRows - 5)
     XCTAssertEqual(piece.topDot?.row, NumRows - 6)
     
     dotArray.removePiece(piece)
     piece.lowerByOneRow()
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     
 //    setDot(dotArray, dot: piece.leftDot)
 //    setDot(dotArray, dot: piece.rightDot)
@@ -59,7 +59,7 @@ class PieceRotationTests: XCTestCase {
     XCTAssertEqual(piece.leftDot?.column, 1)
     XCTAssertEqual(piece.rightDot?.column, 2)
     
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     
     print("darray2: \(dotArray)")
     
@@ -70,42 +70,42 @@ class PieceRotationTests: XCTestCase {
   
   func testRotationInWedge() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let red1 = GoodDot(column: 3, row: NumRows - 3, color: .Red)
     let red2 = GoodDot(column: 3, row: NumRows - 2, color: .Red)
     let mad = MadDot(column: 3, row: NumRows - 1, color: .Yellow)
     
-    setDot(dotArray, dot: red1)
-    setDot(dotArray, dot: red2)
-    setDot(dotArray, dot: mad)
+    dotArray.setDot(red1)
+    dotArray.setDot(red2)
+    dotArray.setDot(mad)
     
     let red3 = GoodDot(column: 1, row: NumRows - 3, color: .Red)
     let red4 = GoodDot(column: 1, row: NumRows - 2, color: .Red)
     let mad2 = MadDot(column: 1, row: NumRows - 1, color: .Yellow)
     
-    setDot(dotArray, dot: red3)
-    setDot(dotArray, dot: red4)
-    setDot(dotArray, dot: mad2)
+    dotArray.setDot(red3)
+    dotArray.setDot(red4)
+    dotArray.setDot(mad2)
     
     let piece = Piece(column: 2, row: NumRows - 4, leftColor: .Yellow, rightColor: .Yellow)
     dotGame.fallingPiece = piece
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     print("darray0: \(dotArray)")
     
     dotArray.removePiece(piece)
     piece.rotateCounterClockwise(dotArray)
     piece.lowerByOneRow()
     
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     
 //    XCTAssertEqual(piece.leftDot.row, NumRows - 5)
 //    XCTAssertEqual(piece.rightDot.row, NumRows - 6)
     
     dotArray.removePiece(piece)
     piece.lowerByOneRow()
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     
     //    setDot(dotArray, dot: piece.leftDot)
     //    setDot(dotArray, dot: piece.rightDot)
@@ -143,21 +143,21 @@ class PieceRotationTests: XCTestCase {
   
   func testRotationOnTop() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let red1 = GoodDot(column: 1, row: 1, color: .Red)
     let red2 = GoodDot(column: 2, row: 1, color: .Red)
     let mad = MadDot(column: 3, row: 1, color: .Yellow)
     
-    setDot(dotArray, dot: red1)
-    setDot(dotArray, dot: red2)
-    setDot(dotArray, dot: mad)
+    dotArray.setDot(red1)
+    dotArray.setDot(red2)
+    dotArray.setDot(mad)
     
     let piece = Piece(column: 1, row: 0, leftColor: .Yellow, rightColor: .Yellow)
     
     dotGame.fallingPiece = piece
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     print("darray0: \(dotArray)")
     
     dotArray.removePiece(piece)
@@ -180,29 +180,29 @@ class PieceRotationTests: XCTestCase {
   
   func testRotationWhenBlockedOnTop() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let red1 = GoodDot(column: 1, row: 1, color: .Red)
     let red2 = GoodDot(column: 2, row: 1, color: .Red)
     let mad = MadDot(column: 3, row: 1, color: .Yellow)
     
-    setDot(dotArray, dot: red1)
-    setDot(dotArray, dot: red2)
-    setDot(dotArray, dot: mad)
+    dotArray.setDot(red1)
+    dotArray.setDot(red2)
+    dotArray.setDot(mad)
     
     let red3 = GoodDot(column: 1, row: 3, color: .Red)
     let red4 = GoodDot(column: 2, row: 3, color: .Red)
     let mad2 = MadDot(column: 3, row: 3, color: .Yellow)
     
-    setDot(dotArray, dot: red3)
-    setDot(dotArray, dot: red4)
-    setDot(dotArray, dot: mad2)
+    dotArray.setDot(red3)
+    dotArray.setDot(red4)
+    dotArray.setDot(mad2)
     
     let piece = Piece(column: 1, row: 2, leftColor: .Yellow, rightColor: .Yellow)
     
     dotGame.fallingPiece = piece
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     print("darray0: \(dotArray)")
     
     dotArray.removePiece(piece)
@@ -218,22 +218,22 @@ class PieceRotationTests: XCTestCase {
   
   func testRotatesCorrectlyWhenBlockedOnTop() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let red1 = GoodDot(column: 1, row: 1, color: .Red)
     let red2 = GoodDot(column: 2, row: 1, color: .Red)
     let mad = MadDot(column: 3, row: 1, color: .Yellow)
     
-    setDot(dotArray, dot: red1)
-    setDot(dotArray, dot: red2)
-    setDot(dotArray, dot: mad)
+    dotArray.setDot(red1)
+    dotArray.setDot(red2)
+    dotArray.setDot(mad)
     
     let red4 = GoodDot(column: 2, row: 3, color: .Red)
     let mad2 = MadDot(column: 3, row: 3, color: .Yellow)
     
-    setDot(dotArray, dot: red4)
-    setDot(dotArray, dot: mad2)
+    dotArray.setDot(red4)
+    dotArray.setDot(mad2)
     
     let piece = Piece(column: 1, row: 2, leftColor: .Yellow, rightColor: .Yellow)
     
@@ -253,7 +253,7 @@ class PieceRotationTests: XCTestCase {
   
   func testFitsIntoSlotOnEdge() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let col = NumColumns - 2
@@ -262,15 +262,15 @@ class PieceRotationTests: XCTestCase {
     let red2 = GoodDot(column: col, row: 4, color: .Red)
     let mad = MadDot(column: col, row: 5, color: .Yellow)
     
-    setDot(dotArray, dot: red1)
-    setDot(dotArray, dot: red2)
-    setDot(dotArray, dot: mad)
+    dotArray.setDot(red1)
+    dotArray.setDot(red2)
+    dotArray.setDot(mad)
     
     let piece = Piece(column: col, row: 1, leftColor: .Yellow, rightColor: .Yellow)
     
     dotGame.fallingPiece = piece
     
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     print("darray0: \(dotArray)")
     
     dotArray.removePiece(piece)
@@ -305,24 +305,24 @@ class PieceRotationTests: XCTestCase {
   
   func testRotationInWedge2() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let red1 = GoodDot(column: 3, row: NumRows - 6, color: .Red)
     let red2 = GoodDot(column: 3, row: NumRows - 5, color: .Red)
     let mad = MadDot(column: 3, row: NumRows - 4, color: .Yellow)
     
-    setDot(dotArray, dot: red1)
-    setDot(dotArray, dot: red2)
-    setDot(dotArray, dot: mad)
+    dotArray.setDot(red1)
+    dotArray.setDot(red2)
+    dotArray.setDot(mad)
     
     let red3 = GoodDot(column: 1, row: NumRows - 6, color: .Red)
     let red4 = GoodDot(column: 1, row: NumRows - 5, color: .Red)
     let mad2 = MadDot(column: 1, row: NumRows - 4, color: .Yellow)
     
-    setDot(dotArray, dot: red3)
-    setDot(dotArray, dot: red4)
-    setDot(dotArray, dot: mad2)
+    dotArray.setDot(red3)
+    dotArray.setDot(red4)
+    dotArray.setDot(mad2)
     
     print("darray-1: \(dotArray)")
 
@@ -334,21 +334,21 @@ class PieceRotationTests: XCTestCase {
     piece.rotateCounterClockwise(dotArray)
     print("orient: \(piece.orientation)")
 
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     print("darray0: \(dotArray)")
     
     dotArray.removePiece(piece)
     piece.rotateCounterClockwise(dotArray)
     piece.rotateCounterClockwise(dotArray)
     piece.rotateCounterClockwise(dotArray)
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     print("darray1: \(dotArray)")
     
     dotArray.removePiece(piece)
 
     piece.rotateClockwise(dotArray)
     
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     print("darray2: \(dotArray)")
     
     dotArray.removePiece(piece)

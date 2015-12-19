@@ -8,8 +8,6 @@
 
 import SpriteKit
 
-let NumberOfColors: UInt32 = 4
-
 enum DotColor: Int, CustomStringConvertible {
   
   case Red = 0, Green, Blue, Yellow, Orange
@@ -34,7 +32,7 @@ enum DotColor: Int, CustomStringConvertible {
   }
   
   static func random() -> DotColor {
-    return DotColor(rawValue:Int(arc4random_uniform(NumberOfColors)))!
+    return DotColor(rawValue:Int(arc4random_uniform(UInt32(NumberOfColors))))!
   }
 }
 

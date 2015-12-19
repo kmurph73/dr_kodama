@@ -25,13 +25,13 @@ class LevelMaker {
   var totalMadDots: Int?
   var madDots: Array<MadDot>
   
-  var dotArray: Array2D<Dot>
+  var dotArray: DotArray2D
   
   func randomNum(min: Int, max: Int) -> Int {
     return Int(arc4random_uniform(UInt32(max))) + min
   }
   
-  init(dotArray: Array2D<Dot>) {
+  init(dotArray: DotArray2D) {
     self.dotArray = dotArray
     self.madDots = Array<MadDot>()
   }
@@ -153,7 +153,7 @@ class LevelMaker {
       let results = findAllChains(dotArray)
       if results.count > 0 {
         for d in results {
-          rmDot(dotArray, dot: d)
+          dotArray.rmDot(d)
         }
         totalMadDots += results.count
         self.madDots = self.madDots.filter({ (dot) in !results.contains(dot) })
@@ -170,22 +170,8 @@ class LevelMaker {
   }
 }
 
-func rmDot(arr: Array2D<Dot>, dot: Dot) {
-  arr[dot.column, dot.row] = nil
-}
-
-
-func setDot(arr: Array2D<Dot>, dot: Dot) {
-  arr[dot.column,dot.row] = dot
-}
-
-func setPiece(arr: Array2D<Dot>, piece: Piece) {
-  setDot(arr, dot: piece.dot1)
-  setDot(arr, dot: piece.dot2)
-}
-
-func testScenario() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
-  let arr = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+func testScenario() -> (array:DotArray2D, pieces: Array<Piece>) {
+  let arr = DotArray2D(columns: NumColumns, rows: NumRows)
   var seq = Array<Piece>()
   
   let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .Red)
@@ -193,25 +179,25 @@ func testScenario() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
   dot1.sibling = dot2
   dot2.sibling = dot1
   
-  setDot(arr, dot: dot1)
-  setDot(arr, dot: dot2)
+  arr.setDot(dot1)
+  arr.setDot(dot2)
   
   let dot3 = GoodDot(column: 1, row: NumRows - 1, color: .Yellow)
   let dot4 = GoodDot(column: 1, row: NumRows - 2, color: .Yellow)
   let dot5 = GoodDot(column: 1, row: NumRows - 3, color: .Yellow)
   let dot6 = GoodDot(column: 1, row: NumRows - 4, color: .Blue)
   
-  setDot(arr, dot: dot3)
-  setDot(arr, dot: dot4)
-  setDot(arr, dot: dot5)
-  setDot(arr, dot: dot6)
+  arr.setDot(dot3)
+  arr.setDot(dot4)
+  arr.setDot(dot5)
+  arr.setDot(dot6)
   
   for col in 0..<NumColumns {
     let color: DotColor = col % 2 == 0 ? .Yellow : .Blue
-    setDot(arr, dot: GoodDot(column: col, row: 5, color: color))
+    arr.setDot(GoodDot(column: col, row: 5, color: color))
   }
 
-  setDot(arr, dot: MadDot(column: 3, row: NumRows - 1, color: .Blue))
+  arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .Blue))
 
   seq.appendContentsOf([
     Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
@@ -223,8 +209,8 @@ func testScenario() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
   return (array:arr, pieces: seq)
 }
 
-func testScenario2() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
-  let arr = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+func testScenario2() -> (array:DotArray2D, pieces: Array<Piece>) {
+  let arr = DotArray2D(columns: NumColumns, rows: NumRows)
   var seq = Array<Piece>()
   
   let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .Red)
@@ -232,25 +218,25 @@ func testScenario2() -> (array:Array2D<Dot>, pieces: Array<Piece>) {
   dot1.sibling = dot2
   dot2.sibling = dot1
   
-  setDot(arr, dot: dot1)
-  setDot(arr, dot: dot2)
+  arr.setDot(dot1)
+  arr.setDot(dot2)
   
   let dot3 = GoodDot(column: 1, row: NumRows - 1, color: .Yellow)
   let dot4 = GoodDot(column: 1, row: NumRows - 2, color: .Yellow)
   let dot5 = GoodDot(column: 1, row: NumRows - 3, color: .Yellow)
   let dot6 = GoodDot(column: 1, row: NumRows - 4, color: .Blue)
   
-  setDot(arr, dot: dot3)
-  setDot(arr, dot: dot4)
-  setDot(arr, dot: dot5)
-  setDot(arr, dot: dot6)
+  arr.setDot(dot3)
+  arr.setDot(dot4)
+  arr.setDot(dot5)
+  arr.setDot(dot6)
   
   for col in 0..<NumColumns {
     let color: DotColor = col % 2 == 0 ? .Yellow : .Blue
-    setDot(arr, dot: GoodDot(column: col, row: 5, color: color))
+    arr.setDot(GoodDot(column: col, row: 5, color: color))
   }
   
-  setDot(arr, dot: MadDot(column: 3, row: NumRows - 1, color: .Blue))
+  arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .Blue))
   
   seq.appendContentsOf([
     Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),

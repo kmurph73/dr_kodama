@@ -146,7 +146,7 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  func checkBlockage(dotArray: Array2D<Dot>) -> (blockedOnRight: Bool, blockedOnTop: Bool, blockedOnLeft: Bool) {
+  func checkBlockage(dotArray: DotArray2D) -> (blockedOnRight: Bool, blockedOnTop: Bool, blockedOnLeft: Bool) {
     var rightIsBlocked = false
     var topIsBlocked = false
     var leftIsBlocked = false
@@ -183,7 +183,7 @@ class Piece: CustomStringConvertible {
     return (blockedOnRight: rightIsBlocked, blockedOnTop: topIsBlocked, blockedOnLeft: leftIsBlocked)
   }
   
-  func getCounterClockwisePositionFor(dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+  func getCounterClockwisePositionFor(dotArray: DotArray2D) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let results = checkBlockage(dotArray)
     
     if results.blockedOnRight {
@@ -199,7 +199,7 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  func getClockwisePosition(dotArray: Array2D<Dot>) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+  func getClockwisePosition(dotArray:DotArray2D) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let results = checkBlockage(dotArray)
     
     if results.blockedOnLeft {
@@ -216,7 +216,7 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  private final func rotatePieceCounterClockwise(dotArray: Array2D<Dot>) {
+  private final func rotatePieceCounterClockwise(dotArray: DotArray2D) {
     if let pieceRowColumnTranslation = getCounterClockwisePositionFor(dotArray) {
       previousRotation = Rotation(dots: dots, translations: pieceRowColumnTranslation)
       let cachedDots = dots
@@ -229,7 +229,7 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  private final func rotatePieceClockwise(dotArray: Array2D<Dot>) {
+  private final func rotatePieceClockwise(dotArray: DotArray2D) {
     if let pieceRowColumnTranslation = getClockwisePosition(dotArray) {
       previousRotation = Rotation(dots: dots, translations: pieceRowColumnTranslation)
       let cachedDots = dots
@@ -242,11 +242,11 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  final func rotateClockwise(dotArray: Array2D<Dot>) {
+  final func rotateClockwise(dotArray: DotArray2D) {
     rotatePieceClockwise(dotArray)
   }
   
-  final func rotateCounterClockwise(dotArray: Array2D<Dot>) {
+  final func rotateCounterClockwise(dotArray: DotArray2D) {
     rotatePieceCounterClockwise(dotArray)
   }
   
@@ -255,8 +255,8 @@ class Piece: CustomStringConvertible {
   }
   
   final class func random(startingColumn:Int, startingRow:Int) -> Piece {
-    let leftSide = DotColor(rawValue: Int(arc4random_uniform(NumberOfColors)))!
-    let rightSide = DotColor(rawValue: Int(arc4random_uniform(NumberOfColors)))!
+    let leftSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
+    let rightSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
     
     return Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
   }

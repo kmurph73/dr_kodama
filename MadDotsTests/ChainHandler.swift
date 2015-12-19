@@ -26,7 +26,7 @@ class ChainHandler: XCTestCase {
 
     func testExample() {
       let dotGame = DotGame()
-      let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+      let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
       
       let dot1 = GoodDot(column: 3, row: NumRows - 6, color: .Yellow)
       let dot2 = GoodDot(column: 3, row: NumRows - 5, color: .Yellow)
@@ -60,32 +60,32 @@ class ChainHandler: XCTestCase {
   
   func testFloatingPiece() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let leftRedDot = GoodDot(column: 4, row: NumRows - 6, color: .Red)
     let rightRedDot = GoodDot(column: 3, row: NumRows - 6, color: .Red)
     leftRedDot.sibling = rightRedDot
     rightRedDot.sibling = leftRedDot
-    setDot(dotArray, dot: leftRedDot)
-    setDot(dotArray, dot: rightRedDot)
+    dotArray.setDot(leftRedDot)
+    dotArray.setDot(rightRedDot)
     
     let leftBlueDot = GoodDot(column: 4, row: NumRows - 7, color: .Blue)
     let rightBlueDot = GoodDot(column: 3, row: NumRows - 7, color: .Blue)
     leftBlueDot.sibling = rightBlueDot
     rightBlueDot.sibling = leftBlueDot
-    setDot(dotArray, dot: leftBlueDot)
-    setDot(dotArray, dot: rightBlueDot)
+    dotArray.setDot(leftBlueDot)
+    dotArray.setDot(rightBlueDot)
     
     let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow)
     let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow)
     let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow)
     let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .Yellow)
     
-    setDot(dotArray, dot: dot3)
-    setDot(dotArray, dot: dot4)
-    setDot(dotArray, dot: dot5)
-    setDot(dotArray, dot: dot6)
+    dotArray.setDot(dot3)
+    dotArray.setDot(dot4)
+    dotArray.setDot(dot5)
+    dotArray.setDot(dot6)
     
     let results = dotGame.removeCompletedDots()
 
@@ -107,7 +107,7 @@ class ChainHandler: XCTestCase {
   
   func testDotsShouldntDrop() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let madDot = MadDot(column: 4, row: NumRows - 3, color: .Yellow)
@@ -117,19 +117,19 @@ class ChainHandler: XCTestCase {
     leftDot.sibling = rightDot
     rightDot.sibling = leftDot
     
-    setDot(dotArray, dot: leftDot)
-    setDot(dotArray, dot: rightDot)
-    setDot(dotArray, dot: madDot)
+    dotArray.setDot(leftDot)
+    dotArray.setDot(rightDot)
+    dotArray.setDot(madDot)
     
     let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow)
     let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow)
     let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow)
     let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .Yellow)
     
-    setDot(dotArray, dot: dot3)
-    setDot(dotArray, dot: dot4)
-    setDot(dotArray, dot: dot5)
-    setDot(dotArray, dot: dot6)
+    dotArray.setDot(dot3)
+    dotArray.setDot(dot4)
+    dotArray.setDot(dot5)
+    dotArray.setDot(dot6)
     
     let results = dotGame.removeCompletedDots()
 
@@ -148,7 +148,7 @@ class ChainHandler: XCTestCase {
   
   func testBug() {
     let dotGame = DotGame()
-    let dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
     let col = NumColumns - 3
@@ -157,9 +157,9 @@ class ChainHandler: XCTestCase {
     let red2 = GoodDot(column: col, row: 3, color: .Red)
     let mad = MadDot(column: col, row: 4, color: .Red)
     
-    setDot(dotArray, dot: red1)
-    setDot(dotArray, dot: red2)
-    setDot(dotArray, dot: mad)
+    dotArray.setDot(red1)
+    dotArray.setDot(red2)
+    dotArray.setDot(mad)
     
     let piece = Piece(column: col, row: 1, leftColor: .Red, rightColor: .Yellow)
     
@@ -172,7 +172,7 @@ class ChainHandler: XCTestCase {
     //    dotArray.removePiece(piece)
     piece.rotateCounterClockwise(dotArray)
     
-    setPiece(dotArray, piece: piece)
+    dotArray.setPiece(piece)
     
     let results = dotGame.removeCompletedDots()
     

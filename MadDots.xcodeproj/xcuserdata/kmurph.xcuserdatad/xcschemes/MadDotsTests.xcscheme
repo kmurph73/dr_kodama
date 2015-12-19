@@ -27,8 +27,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ADF807DC1BC4462300E45888"
-            BuildableName = "MadDots.app"
-            BlueprintName = "MadDots"
+            BuildableName = "Dr. Kodama.app"
+            BlueprintName = "Dr. Kodama"
             ReferencedContainer = "container:MadDots.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -50,8 +50,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ADF807DC1BC4462300E45888"
-            BuildableName = "MadDots.app"
-            BlueprintName = "MadDots"
+            BuildableName = "Dr. Kodama.app"
+            BlueprintName = "Dr. Kodama"
             ReferencedContainer = "container:MadDots.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -68,8 +68,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "ADF807DC1BC4462300E45888"
-            BuildableName = "MadDots.app"
-            BlueprintName = "MadDots"
+            BuildableName = "Dr. Kodama.app"
+            BlueprintName = "Dr. Kodama"
             ReferencedContainer = "container:MadDots.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

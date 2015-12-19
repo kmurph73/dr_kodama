@@ -45,8 +45,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func showSheet(msg: String?, showCancel: Bool) {
-    let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .ActionSheet)
-    
+    let style: UIAlertControllerStyle = iPad ? .Alert : .ActionSheet
+    let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
+
     let newGame = UIAlertAction(title: "New Game", style: .Default, handler: { action in
       self.dotGame.beginAnew()
     })
@@ -66,7 +67,13 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       alertController.addAction(cancelAction)
     }
     
-    presentViewController(alertController, animated:true, completion: nil)
+    
+//    if let ml = self.scene.menuLabel {
+//      print("CMMMMMMMOOOOONNNNN")
+//      let size = CGSize(width: ml.yScale, height: ml.xScale)
+//      alertController.popoverPresentationController?.sourceRect = CGRect(origin: ml.position, size:size)
+//    }
+    self.presentViewController(alertController, animated:true, completion: nil)
   }
   
   func backToMenu() {
@@ -81,29 +88,11 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
-  var panCnt = 0
-  var lastPan:NSDate?
-  
   @IBAction func didPan(sender: UIPanGestureRecognizer) {
     guard let panD = panDistance else {
       return
     }
-    
-    if let lp = lastPan {
-      let timePassed = lp.timeIntervalSinceNow * -1000.0
-      //      print("timePassed: \(timePassed)")
-      if timePassed > 1024.0 {
-        print("pans perSecond: \(panCnt)")
-        panCnt = 0
-        lastPan = NSDate()
-      }  else {
-        panCnt += 1
-      }
-      
-    } else {
-      lastPan = NSDate()
-    }
-    
+
     let currentPoint = sender.translationInView(self.view)
 
     if let originalPoint = panPointReference {
@@ -138,8 +127,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
             }
           }
         }
-        
-
       }
     } else if sender.state == .Began {
       panPointReference = currentPoint

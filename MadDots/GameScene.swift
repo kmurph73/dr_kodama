@@ -11,6 +11,7 @@ import SpriteKit
 var BlockSize: CGFloat = 0
 let TickLengthLevelOne = NSTimeInterval(1024)
 var extraYSpace: CGFloat = 0
+var iPad = false
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
@@ -23,6 +24,7 @@ class GameScene: SKScene {
   var lastTick:NSDate?
   var menuTapped = false
   var levelLabel: SKLabelNode?
+  var menuLabel: SKLabelNode?
   var textureCache = Dictionary<String, SKTexture>()
 
   override func didMoveToView(view: SKView) {
@@ -33,34 +35,58 @@ class GameScene: SKScene {
     super.init(size: size)
     
     self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
+    print("tickLengh: \(tickLengthMillis)")
 
     anchorPoint = CGPoint(x: 0, y: 1.0)
   
+    if ShowBG {
+      setupBackground()
+    }
+    
+    let modelName = UIDevice.currentDevice().modelName
+    print("modelName: \(modelName)")
+    let matches = matchesForRegexInText("^iPad", text: modelName)
+    if matches.count > 0 {
+      iPad = true
+    }
+
     drawGrid()
     dotLayer.position = LayerPosition
     self.addChild(dotLayer)
     
     let y = CGRectGetMaxY(self.frame) - (extraYSpace - BlockSize)
     
-    var myLabel = SKLabelNode(fontNamed: "Arial")
-    myLabel.text = "Menu"
-    myLabel.name = "menu"
-    myLabel.fontSize = 25
-    myLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
+    menuLabel = SKLabelNode(fontNamed: "Arial")
+    
+    if let menuLabel = menuLabel {
+      menuLabel.text = "Menu"
+      menuLabel.name = "menu"
+      menuLabel.fontSize = iPad ? 40 : 25
+      menuLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
+      menuLabel.zPosition = 5
 
-    myLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize * 2), y)
-    self.addChild(myLabel)
+      let offset = iPad ? 20 : 2
+      menuLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize * 2), y - CGFloat(offset))
+      self.addChild(menuLabel)
+    }
     
     levelLabelSetter()
 
-    myLabel = SKLabelNode(fontNamed: "Arial")
-    myLabel.text = "Speed \(GameSpeed)"
-    myLabel.fontSize = 13
+    let speedLabel = SKLabelNode(fontNamed: "Arial")
+    speedLabel.text = "Speed \(GameSpeed)"
+    speedLabel.fontSize = 13
+    speedLabel.zPosition = 5
     
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, y)
+    speedLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, y)
+    self.addChild(speedLabel)
     
-    self.addChild(myLabel)
+    
+
   }
+  
+//  func startTicking() {
+//    NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: "newTick", userInfo: nil, repeats: true)
+//  }
   
   func levelLabelSetter() {
     let y = CGRectGetMaxY(self.frame) - (extraYSpace - BlockSize)
@@ -72,6 +98,7 @@ class GameScene: SKScene {
     levelLabel = SKLabelNode(fontNamed: "Arial")
     levelLabel!.text = "Level \(GameLevel)"
     levelLabel!.fontSize = 13
+    levelLabel!.zPosition = 2
     
     levelLabel!.position = CGPointMake(CGRectGetMidX(self.frame), y)
     self.addChild(levelLabel!)
@@ -96,7 +123,6 @@ class GameScene: SKScene {
       }
       
     }
-     /* Called when a touch begins */
   }
 
   func pointForColumn(column: Int, row: Int) -> CGPoint {
@@ -106,21 +132,26 @@ class GameScene: SKScene {
   }
   
   func pointForConnector(dot: GoodDot) -> CGPoint? {
+    guard let s = dot.sibling where s.connector == nil else {
+      return nil
+    }
+    
     if let side = dot.sideOfSibling() {
       let x: CGFloat = LayerPosition.x + ((CGFloat(dot.column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
       let y: CGFloat = (LayerPosition.y - (((CGFloat(dot.row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - (extraYSpace - BlockSize * 2)
       
       let halfBlock = BlockSize / 2 - ((BlockSize / 6) / 2)
-  
+      let pieceCenter = halfBlock * 1.25
+      
       switch side {
       case .Left:
-        return CGPointMake(x - halfBlock, y)
+        return CGPointMake(x - pieceCenter, y)
       case .Right:
-        return CGPointMake(x + halfBlock, y)
+        return CGPointMake(x + pieceCenter, y)
       case .Bottom:
-        return CGPointMake(x, y - halfBlock)
+        return CGPointMake(x, y - pieceCenter)
       case .Top:
-        return CGPointMake(x, y + halfBlock)
+        return CGPointMake(x, y + pieceCenter)
       }
     } else {
       return nil
@@ -146,7 +177,7 @@ class GameScene: SKScene {
     }
   }
   
-  func addArrayToScene(array: Array2D<Dot>) {
+  func addArrayToScene(array: DotArray2D) {
     for row in 0..<NumRows {
       for col in 0..<NumColumns {
         if let dot = array[col,row] {
@@ -171,6 +202,7 @@ class GameScene: SKScene {
     sprite.xScale = dotSize
     sprite.yScale = dotSize
     sprite.size = CGSize(width: dotSize, height: dotSize)
+    sprite.zPosition = 5
     sprite.position = pointForColumn(dot.column, row: dot.row)
     dot.sprite = sprite
     
@@ -178,8 +210,8 @@ class GameScene: SKScene {
         
     if let d = dot as? GoodDot {
       if let p = pointForConnector(d) {
-        let size = BlockSize / 6
-        let name = "connector"
+        let size = BlockSize / 4
+        let name = "whitecircle"
         var connTexture = textureCache[name]
         
         if connTexture == nil {
@@ -280,6 +312,24 @@ class GameScene: SKScene {
     }
   }
   
+  func setupBackground() {
+    let name = "fantasyforest"
+    var texture = textureCache[name]
+    
+    if texture == nil {
+      texture = SKTexture(imageNamed: name)
+      textureCache[name] = texture
+    }
+    
+    let background = SKSpriteNode(texture: texture, size: CGSizeMake(size.width,size.height))
+
+    background.anchorPoint = CGPoint(x: 0, y: 1.0)
+    
+    background.position = CGPoint(x: 0, y: 0)
+    background.zPosition = 0
+    gridLayer.addChild(background)
+  }
+  
   func drawGrid() {
     let totalRows = NumRows
     let totalCols = NumColumns + 2
@@ -287,7 +337,10 @@ class GameScene: SKScene {
     let rowSquare = self.frame.minY  / CGFloat(totalRows) * -1
     let colSquare = self.frame.maxX / CGFloat(totalCols)
     
-    let squareSize = rowSquare > colSquare ? colSquare : rowSquare
+    var squareSize = rowSquare > colSquare ? colSquare : rowSquare
+    if iPad {
+      squareSize -= 5
+    }
     BlockSize = squareSize
     
     let rowWidth = (CGFloat(NumColumns) * squareSize)
@@ -297,6 +350,9 @@ class GameScene: SKScene {
     let centerY = ((squareSize * CGFloat(DrawnRows + 1)) + squareSize) / 2 * -1
     
     extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
+//    if iPad {
+//      extraYSpace += CGFloat(100)
+//    }
     
     for row in 1..<totalRows {
       let y = squareSize * CGFloat(row) * -1

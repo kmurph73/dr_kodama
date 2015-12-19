@@ -10,6 +10,10 @@
 		AD0AE11E1C0124FC000FBB6F /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8E24D51C00E295006D2696 /* HelpViewController.swift */; };
 		AD0B73F51BCC22C30085B244 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
 		AD34A8301C0D4EAF0049D6B2 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */; };
+		AD34A8321C1364A90049D6B2 /* Background.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AD34A8311C1364A90049D6B2 /* Background.atlas */; };
+		AD34A8341C13D8800049D6B2 /* DotArray2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34A8331C13D8800049D6B2 /* DotArray2D.swift */; };
+		AD34A8351C13DA0C0049D6B2 /* DotArray2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34A8331C13D8800049D6B2 /* DotArray2D.swift */; };
+		AD34A8571C1676440049D6B2 /* StoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34A8561C1676440049D6B2 /* StoreController.swift */; };
 		AD51B03A1BEEDBD200CB2FE7 /* GameLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */; };
 		AD51B03B1BEEDC1600CB2FE7 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
 		AD51B03C1BEEDC1900CB2FE7 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F81BC4479A00E45888 /* Array2D.swift */; };
@@ -23,6 +27,7 @@
 		AD5D0D151BEED5B8005043A8 /* MadDotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D141BEED5B8005043A8 /* MadDotsTests.swift */; };
 		AD5D0D1D1BEED7AF005043A8 /* GameLevelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D1C1BEED7AF005043A8 /* GameLevelsTests.swift */; };
 		AD5E500A1BD409D900AE3858 /* HandleChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5E50091BD409D900AE3858 /* HandleChains.swift */; };
+		AD87227B1C1C9DBE0037A009 /* StoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34A8561C1676440049D6B2 /* StoreController.swift */; };
 		AD8E24D61C00E295006D2696 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8E24D51C00E295006D2696 /* HelpViewController.swift */; };
 		AD9CAE6F1C080D4200BD3E9B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */; };
 		AD9CAE701C08E32700BD3E9B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */; };
@@ -58,6 +63,9 @@
 /* Begin PBXFileReference section */
 		AD0B73F41BCC22C30085B244 /* DotGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotGame.swift; sourceTree = "<group>"; };
 		AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
+		AD34A8311C1364A90049D6B2 /* Background.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Background.atlas; sourceTree = "<group>"; };
+		AD34A8331C13D8800049D6B2 /* DotArray2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotArray2D.swift; sourceTree = "<group>"; };
+		AD34A8561C1676440049D6B2 /* StoreController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreController.swift; sourceTree = "<group>"; };
 		AD5D0D091BEBD553005043A8 /* GoodDot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodDot.swift; sourceTree = "<group>"; };
 		AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevels.swift; sourceTree = "<group>"; };
 		AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadDotsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,7 +79,7 @@
 		ADD284F21BF90B3100A4732A /* PieceRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceRotation.swift; sourceTree = "<group>"; };
 		ADDBB15B1BF2C34800797A4C /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		ADF55A871BF573CE00F90381 /* ChainHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainHandler.swift; sourceTree = "<group>"; };
-		ADF807DD1BC4462300E45888 /* MadDots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MadDots.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADF807DD1BC4462300E45888 /* Dr. Kodama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dr. Kodama.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADF807E01BC4462300E45888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADF807E41BC4462300E45888 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		ADF807E61BC4462300E45888 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -127,7 +135,7 @@
 		ADF807DE1BC4462300E45888 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ADF807DD1BC4462300E45888 /* MadDots.app */,
+				ADF807DD1BC4462300E45888 /* Dr. Kodama.app */,
 				AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */,
 			);
 			name = Products;
@@ -136,6 +144,7 @@
 		ADF807DF1BC4462300E45888 /* MadDots */ = {
 			isa = PBXGroup;
 			children = (
+				AD34A8311C1364A90049D6B2 /* Background.atlas */,
 				AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */,
 				ADF807E01BC4462300E45888 /* AppDelegate.swift */,
 				ADF807E41BC4462300E45888 /* GameScene.swift */,
@@ -156,6 +165,8 @@
 				ADB66DA81BF2CC1D0039C006 /* MainController.swift */,
 				AD8E24D51C00E295006D2696 /* HelpViewController.swift */,
 				AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */,
+				AD34A8331C13D8800049D6B2 /* DotArray2D.swift */,
+				AD34A8561C1676440049D6B2 /* StoreController.swift */,
 			);
 			path = MadDots;
 			sourceTree = "<group>";
@@ -181,9 +192,9 @@
 			productReference = AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		ADF807DC1BC4462300E45888 /* MadDots */ = {
+		ADF807DC1BC4462300E45888 /* Dr. Kodama */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ADF807F31BC4462300E45888 /* Build configuration list for PBXNativeTarget "MadDots" */;
+			buildConfigurationList = ADF807F31BC4462300E45888 /* Build configuration list for PBXNativeTarget "Dr. Kodama" */;
 			buildPhases = (
 				ADF807D91BC4462300E45888 /* Sources */,
 				ADF807DA1BC4462300E45888 /* Frameworks */,
@@ -193,9 +204,9 @@
 			);
 			dependencies = (
 			);
-			name = MadDots;
+			name = "Dr. Kodama";
 			productName = MadDots;
-			productReference = ADF807DD1BC4462300E45888 /* MadDots.app */;
+			productReference = ADF807DD1BC4462300E45888 /* Dr. Kodama.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -231,7 +242,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ADF807DC1BC4462300E45888 /* MadDots */,
+				ADF807DC1BC4462300E45888 /* Dr. Kodama */,
 				AD5D0D111BEED5B8005043A8 /* MadDotsTests */,
 			);
 		};
@@ -252,6 +263,7 @@
 				ADF807EF1BC4462300E45888 /* LaunchScreen.storyboard in Resources */,
 				ADF807EC1BC4462300E45888 /* Assets.xcassets in Resources */,
 				AD34A8301C0D4EAF0049D6B2 /* Sprites.atlas in Resources */,
+				AD34A8321C1364A90049D6B2 /* Background.atlas in Resources */,
 				ADF807EA1BC4462300E45888 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,10 +288,12 @@
 				AD9CAE701C08E32700BD3E9B /* Utilities.swift in Sources */,
 				ADD284F51BFADABA00A4732A /* GameViewController.swift in Sources */,
 				AD0AE11E1C0124FC000FBB6F /* HelpViewController.swift in Sources */,
+				AD87227B1C1C9DBE0037A009 /* StoreController.swift in Sources */,
 				AD51B03C1BEEDC1900CB2FE7 /* Array2D.swift in Sources */,
 				ADD284F31BF90B3100A4732A /* PieceRotation.swift in Sources */,
 				ADD284F41BFADABA00A4732A /* GameScene.swift in Sources */,
 				AD51B03D1BEEDC4400CB2FE7 /* Dot.swift in Sources */,
+				AD34A8351C13DA0C0049D6B2 /* DotArray2D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,8 +308,10 @@
 				AD0B73F51BCC22C30085B244 /* DotGame.swift in Sources */,
 				ADF807E71BC4462300E45888 /* GameViewController.swift in Sources */,
 				ADF807FB1BC447BF00E45888 /* Piece.swift in Sources */,
+				AD34A8341C13D8800049D6B2 /* DotArray2D.swift in Sources */,
 				AD5D0D0C1BED23DE005043A8 /* GameLevels.swift in Sources */,
 				ADF807E11BC4462300E45888 /* AppDelegate.swift in Sources */,
+				AD34A8571C1676440049D6B2 /* StoreController.swift in Sources */,
 				AD8E24D61C00E295006D2696 /* HelpViewController.swift in Sources */,
 				ADF807FD1BC447D100E45888 /* MadDot.swift in Sources */,
 				ADDBB15C1BF2C34800797A4C /* MainScene.swift in Sources */,
@@ -310,7 +326,7 @@
 /* Begin PBXTargetDependency section */
 		AD5D0D181BEED5B8005043A8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = ADF807DC1BC4462300E45888 /* MadDots */;
+			target = ADF807DC1BC4462300E45888 /* Dr. Kodama */;
 			targetProxy = AD5D0D171BEED5B8005043A8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -453,7 +469,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blah.kmurphles.kodama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -467,7 +483,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blah.kmurphles.kodama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -492,7 +508,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADF807F31BC4462300E45888 /* Build configuration list for PBXNativeTarget "MadDots" */ = {
+		ADF807F31BC4462300E45888 /* Build configuration list for PBXNativeTarget "Dr. Kodama" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADF807F41BC4462300E45888 /* Debug */,

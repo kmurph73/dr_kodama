@@ -8,7 +8,7 @@
 
 import Foundation
 
-func findChainsForRows(dotArray: Array2D<Dot>, inout realChains: Array<Dot>, startRow: Int, endRow: Int) -> Array<Dot> {
+func findChainsForRows(dotArray: DotArray2D, inout realChains: Array<Dot>, startRow: Int, endRow: Int) -> Array<Dot> {
   var someChain = Array<Dot>()
   
   var previousDot: Dot?
@@ -50,7 +50,7 @@ func findChainsForRows(dotArray: Array2D<Dot>, inout realChains: Array<Dot>, sta
   return realChains
 }
 
-func findChainsForColumns(dotArray: Array2D<Dot>, inout realChains: Array<Dot>, startColumn: Int, endColumn: Int) -> Array<Dot> {
+func findChainsForColumns(dotArray: DotArray2D, inout realChains: Array<Dot>, startColumn: Int, endColumn: Int) -> Array<Dot> {
   var someChain = Array<Dot>()
   
   var previousDot: Dot?
@@ -93,7 +93,7 @@ func findChainsForColumns(dotArray: Array2D<Dot>, inout realChains: Array<Dot>, 
   return realChains
 }
 
-func columnHasChain(dotArray: Array2D<Dot>, column: Int) -> Bool {
+func columnHasChain(dotArray: DotArray2D, column: Int) -> Bool {
   var chains = Array<Dot>()
   
   findChainsForColumns(dotArray, realChains: &chains, startColumn: column, endColumn: column)
@@ -101,7 +101,7 @@ func columnHasChain(dotArray: Array2D<Dot>, column: Int) -> Bool {
   return chains.count > 0
 }
 
-func rowHasChain(dotArray: Array2D<Dot>, row: Int) -> Bool {
+func rowHasChain(dotArray: DotArray2D, row: Int) -> Bool {
   var chains = Array<Dot>()
   
   findChainsForRows(dotArray, realChains: &chains, startRow: row, endRow: row)
@@ -109,7 +109,7 @@ func rowHasChain(dotArray: Array2D<Dot>, row: Int) -> Bool {
   return chains.count > 0
 }
 
-func findAllChains(dotArray: Array2D<Dot>) -> Array<Dot> {
+func findAllChains(dotArray: DotArray2D) -> Array<Dot> {
   var realChains = Array<Dot>()
   
   findChainsForColumns(dotArray, realChains: &realChains, startColumn: NumColumns, endColumn: 0)
@@ -118,7 +118,7 @@ func findAllChains(dotArray: Array2D<Dot>) -> Array<Dot> {
   return realChains
 }
 
-func dotIsSettled(dot: Dot, sibling: Dot?, dotArray: Array2D<Dot>) -> Bool {
+func dotIsSettled(dot: Dot, sibling: Dot?, dotArray: DotArray2D) -> Bool {
   if let sibling = sibling {
     if dot.column != sibling.column {
       return dotArray[sibling.column, sibling.row + 1] != nil
@@ -131,7 +131,7 @@ func dotIsSettled(dot: Dot, sibling: Dot?, dotArray: Array2D<Dot>) -> Bool {
   }
 }
 
-func dropFallenDots(dotArray: Array2D<Dot>) -> Array<GoodDot> {
+func dropFallenDots(dotArray:DotArray2D) -> Array<GoodDot> {
   var fallenDots = Array<GoodDot>()
   for var row = NumRows - 2; row >= 0; row-- {
     var fallingDots = Array<GoodDot>()

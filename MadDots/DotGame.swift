@@ -28,7 +28,7 @@ protocol DotGameDelegate {
 }
 
 class DotGame {
-  var dotArray:Array2D<Dot>
+  var dotArray:DotArray2D
   var madDots: Array<MadDot>
 
   var fallingPiece:Piece?
@@ -39,7 +39,7 @@ class DotGame {
   
   init() {
     fallingPiece = nil
-    dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     madDots = Array<MadDot>()
     levelMaker = LevelMaker(dotArray: dotArray)
   }
@@ -98,7 +98,7 @@ class DotGame {
     fallingPiece?.removeFromScene()
     fallingPiece = nil
     dotArray.removeDotsFromScene()
-    dotArray = Array2D<Dot>(columns: NumColumns, rows: NumRows)
+    dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     madDots = Array<MadDot>()
     levelMaker.dotArray = dotArray
     

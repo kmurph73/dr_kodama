@@ -22,6 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if let gameLevel = NSUserDefaults.standardUserDefaults().valueForKey("gameLevel") as? Int {
       GameLevel = gameLevel
     }
+    
+    if let numColors = NSUserDefaults.standardUserDefaults().valueForKey("numColors") as? Int {
+      NumberOfColors = numColors
+    }
+    
+    if let showBG = NSUserDefaults.standardUserDefaults().valueForKey("showBG") as? Bool {
+      ShowBG = showBG
+    }
 
     return true
   }
