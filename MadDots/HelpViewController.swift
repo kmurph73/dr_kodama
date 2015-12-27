@@ -9,7 +9,33 @@
 import UIKit
 
 class HelpViewController: UIViewController {
+  @IBOutlet weak var whitedot1: UIImageView!
+  @IBOutlet weak var reddot1: UIImageView!
+  @IBOutlet weak var reddot2: UIImageView!
+  @IBOutlet weak var whitedot2: UIImageView!
+  @IBOutlet weak var bluedot1: UIImageView!
+  @IBOutlet weak var bluedot2: UIImageView!
+  
+  @IBOutlet weak var aftertap1label: UILabel!
+  @IBOutlet weak var bluedot3: UIImageView!
+  
+  @IBOutlet weak var aftertap2label: UILabel!
+  @IBOutlet weak var reddot3: UIImageView!
+  @IBOutlet weak var whitedot3: UIImageView!
+  @IBOutlet weak var trailingMargin: NSLayoutConstraint!
   @IBAction func tapDone(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if iPad {
+      self.trailingMargin.constant = view.bounds.size.width / 3.5
+    } else {
+      self.trailingMargin.constant = view.bounds.size.width / 5
+    }
+  }
+
+  
 }

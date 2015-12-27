@@ -223,21 +223,36 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         gameDidEnd(dotGame)
       } else {
         dotGame.fallingPiece = nil
-        nextPiece()
+        newPiece()
       }
 
     }
   }
   
-  func nextPiece() {
+  func newPiece() {
     delay(0.25) {
-      let newPiece = self.dotGame.newPiece()
-      self.dotGame.fallingPiece = newPiece
-      self.view.userInteractionEnabled = true
-      self.scene.addPieceToScene(newPiece) {
-        self.scene.startTicking()
+      if let nextPiece = self.dotGame.nextPiece {
+        let newPiece = self.dotGame.newNextPiece()
+        self.dotGame.fallingPiece = nextPiece
+        self.dotGame.nextPiece = newPiece
+        self.view.userInteractionEnabled = true
+        self.dotGame.lowerPiece()
         self.panPointReference = nil
+        self.scene.startTicking()
+        delay(0.75) {
+          self.scene.addPieceToScene(newPiece, completion: nil)
+        }
+      } else {
+        let newPiece = self.dotGame.newPiece()
+
+        self.dotGame.fallingPiece = newPiece
+        self.view.userInteractionEnabled = true
+        self.scene.addPieceToScene(newPiece) {
+          self.scene.startTicking()
+          self.panPointReference = nil
+        }
       }
+
     }
   }
   
@@ -250,6 +265,12 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
     self.scene.addPieceToScene(dotGame.fallingPiece!) {
       self.scene.addMadDotsToScene(dotGame.madDots)
+      
+      delay(0.75) {
+        if let nextPiece = dotGame.nextPiece {
+          self.scene.addPieceToScene(nextPiece, completion: nil)
+        }
+      }
 
       self.scene.startTicking()
     }

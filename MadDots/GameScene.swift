@@ -11,7 +11,6 @@ import SpriteKit
 var BlockSize: CGFloat = 0
 let TickLengthLevelOne = NSTimeInterval(1024)
 var extraYSpace: CGFloat = 0
-var iPad = false
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
@@ -25,6 +24,7 @@ class GameScene: SKScene {
   var menuTapped = false
   var levelLabel: SKLabelNode?
   var menuLabel: SKLabelNode?
+  var menuBtn: SKSpriteNode?
   var textureCache = Dictionary<String, SKTexture>()
 
   override func didMoveToView(view: SKView) {
@@ -42,13 +42,6 @@ class GameScene: SKScene {
     if ShowBG {
       setupBackground()
     }
-    
-    let modelName = UIDevice.currentDevice().modelName
-    print("modelName: \(modelName)")
-    let matches = matchesForRegexInText("^iPad", text: modelName)
-    if matches.count > 0 {
-      iPad = true
-    }
 
     drawGrid()
     dotLayer.position = LayerPosition
@@ -56,18 +49,23 @@ class GameScene: SKScene {
     
     let y = CGRectGetMaxY(self.frame) - (extraYSpace - BlockSize)
     
-    menuLabel = SKLabelNode(fontNamed: "Arial")
+    menuBtn = SKSpriteNode(imageNamed: "menubtn")
     
-    if let menuLabel = menuLabel {
-      menuLabel.text = "Menu"
-      menuLabel.name = "menu"
-      menuLabel.fontSize = iPad ? 40 : 25
-      menuLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
-      menuLabel.zPosition = 5
+    if let menuBtn = menuBtn {
+//      menuLabel.text = "Menu"
+      menuBtn.name = "menu"
+//      menuLabel.fontSize = iPad ? 40 : 25
+//      menuLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
+      menuBtn.zPosition = 5
+      if iPad {
+        menuBtn.size = CGSize(width: 201, height: 65)
+      } else {
+        menuBtn.size = CGSize(width: 123, height: 40)
+      }
 
       let offset = iPad ? 20 : 2
-      menuLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize * 2), y - CGFloat(offset))
-      self.addChild(menuLabel)
+      menuBtn.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize * 2), y - CGFloat(offset))
+      self.addChild(menuBtn)
     }
     
     levelLabelSetter()
@@ -313,7 +311,8 @@ class GameScene: SKScene {
   }
   
   func setupBackground() {
-    let name = "fantasyforest"
+    let name = iPad ? "ipadfantasybg" : "fantasyforest"
+
     var texture = textureCache[name]
     
     if texture == nil {

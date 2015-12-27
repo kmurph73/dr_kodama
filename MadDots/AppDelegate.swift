@@ -30,6 +30,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if let showBG = NSUserDefaults.standardUserDefaults().valueForKey("showBG") as? Bool {
       ShowBG = showBG
     }
+    
+    if let moreLevels = NSUserDefaults.standardUserDefaults().valueForKey("moreLevelsPurchased") as? Bool {
+      MoreLevelsPurchased = moreLevels
+    }
+    
+    if let fifthColor = NSUserDefaults.standardUserDefaults().valueForKey("fifthColorPurchased") as? Bool {
+      FifthColorPurchased = fifthColor
+    }
+    
+    if let nextPiece = NSUserDefaults.standardUserDefaults().valueForKey("nextPiecePurchased") as? Bool {
+      NextPiecePurchased = nextPiece
+    }
+    
+    if let showNextPiece = NSUserDefaults.standardUserDefaults().valueForKey("showNextPiece") as? Bool {
+      ShowNextPiece = showNextPiece
+    }
 
     return true
   }
