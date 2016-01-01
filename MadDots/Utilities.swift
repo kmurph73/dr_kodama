@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
 func delay(delay:Double, closure:()->()) {
   dispatch_after(
@@ -28,6 +29,17 @@ func matchesForRegexInText(regex: String!, text: String!) -> [String] {
     print("invalid regex: \(error.localizedDescription)")
     return []
   }
+}
+
+extension SKProduct {
+  
+  func localizedPrice() -> String {
+    let formatter = NSNumberFormatter()
+    formatter.numberStyle = .CurrencyStyle
+    formatter.locale = self.priceLocale
+    return formatter.stringFromNumber(self.price)!
+  }
+  
 }
 
 public extension UIDevice {

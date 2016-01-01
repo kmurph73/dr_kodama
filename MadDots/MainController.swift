@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 var GameLevel = 1
 var GameSpeed = 5
@@ -21,7 +22,7 @@ var FifthColorPurchased = false
 
 var iPad = false
 
-class MainController: UIViewController, StoreControllerDelegate {
+class MainController: UIViewController {
 
   @IBOutlet weak var backgroundImg: UIImageView!
   @IBOutlet weak var playLabel: UIButton!
@@ -33,14 +34,22 @@ class MainController: UIViewController, StoreControllerDelegate {
     self.performSegueWithIdentifier("goSettings", sender: self)
   }
   
+  @IBAction func tapStore(sender: UIButton) {
+    self.performSegueWithIdentifier("goStore", sender: self)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    mainController = self
     
     let modelName = UIDevice.currentDevice().modelName
     let matches = matchesForRegexInText("^iPad", text: modelName)
     if matches.count > 0 {
       iPad = true
     }
+    
+//    Products.store.restoreCompletedTransactions()
     
 //    iPad = true
     
@@ -60,26 +69,10 @@ class MainController: UIViewController, StoreControllerDelegate {
     self.performSegueWithIdentifier("help", sender: self)
   }
   
-  func storeController(controller: StoreController, didChangeFifthColor val: Bool) {
-    FifthColorPurchased = val
-    NSUserDefaults.standardUserDefaults().setValue(FifthColorPurchased, forKey: "fifthColorPurchased")
-  }
-
-  func storeController(controller: StoreController, didChangeMoreLevels val: Bool) {
-    MoreLevelsPurchased = val
-    NSUserDefaults.standardUserDefaults().setValue(MoreLevelsPurchased, forKey: "moreLevelsPurchased")
-  }
-  
-  func storeController(controller: StoreController, didChangeNextPiece val: Bool) {
-    NextPiecePurchased = val
-    NSUserDefaults.standardUserDefaults().setValue(NextPiecePurchased, forKey: "nextPiecePurchased")
-  }
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "goStore" {
-      let navigationController = segue.destinationViewController as! UINavigationController
-      let vc = navigationController.viewControllers.first as! StoreController
-      vc.delegate = self
+//      let navigationController = segue.destinationViewController as! UINavigationController
+//      let vc = navigationController.viewControllers.first as! StoreController
     }
   }
 }

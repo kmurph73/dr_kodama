@@ -197,7 +197,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
       scene.removeDots(dotsToRemove)
       if dotGame.dotArray.hasAchievedVictory() {
-        if GameLevel == 18 {
+        if GameLevel == 20 {
           let msg = "You won!"
           let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .Alert)
           let okAction = UIAlertAction(title: "OMG pinch me", style: .Default, handler: { _ in
@@ -207,7 +207,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           self.presentViewController(alertController, animated: true, completion: nil)
         } else {
           GameLevel += 1
-          print("begin anew")
           delay(0.5) {
             dotGame.beginAnew()
           }
@@ -230,7 +229,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func newPiece() {
-    delay(0.25) {
+    delay(0.3) {
       if let nextPiece = self.dotGame.nextPiece {
         let newPiece = self.dotGame.newNextPiece()
         self.dotGame.fallingPiece = nextPiece
@@ -266,8 +265,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.scene.addPieceToScene(dotGame.fallingPiece!) {
       self.scene.addMadDotsToScene(dotGame.madDots)
       
-      delay(0.75) {
-        if let nextPiece = dotGame.nextPiece {
+      if let nextPiece = dotGame.nextPiece {
+        delay(0.65) {
           self.scene.addPieceToScene(nextPiece, completion: nil)
         }
       }

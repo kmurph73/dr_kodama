@@ -31,7 +31,12 @@
 		AD8E24D61C00E295006D2696 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8E24D51C00E295006D2696 /* HelpViewController.swift */; };
 		AD9CAE6F1C080D4200BD3E9B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */; };
 		AD9CAE701C08E32700BD3E9B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */; };
+		ADAD42BB1C34EF4B002B0493 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB73FEA1C30911300365022 /* IAPHelper.swift */; };
+		ADAD42BD1C35E9E5002B0493 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAD42BC1C35E9E5002B0493 /* Globals.swift */; };
 		ADB66DA91BF2CC1D0039C006 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB66DA81BF2CC1D0039C006 /* MainController.swift */; };
+		ADB73FEB1C30911300365022 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB73FEA1C30911300365022 /* IAPHelper.swift */; };
+		ADB73FED1C3091BC00365022 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB73FEC1C3091BC00365022 /* Products.swift */; };
+		ADB73FEE1C3092FA00365022 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB73FEC1C3091BC00365022 /* Products.swift */; };
 		ADC1DC8A1C262F54004CE42F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC1DC891C262F54004CE42F /* SettingsController.swift */; };
 		ADD284F31BF90B3100A4732A /* PieceRotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD284F21BF90B3100A4732A /* PieceRotation.swift */; };
 		ADD284F41BFADABA00A4732A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807E41BC4462300E45888 /* GameScene.swift */; };
@@ -49,6 +54,7 @@
 		ADF807F91BC4479A00E45888 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F81BC4479A00E45888 /* Array2D.swift */; };
 		ADF807FB1BC447BF00E45888 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FA1BC447BF00E45888 /* Piece.swift */; };
 		ADF807FD1BC447D100E45888 /* MadDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FC1BC447D100E45888 /* MadDot.swift */; };
+		ADFC4DBD1C30FCBF00F54A41 /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFC4DBC1C30FCBF00F54A41 /* StoreViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +82,10 @@
 		AD5E50091BD409D900AE3858 /* HandleChains.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleChains.swift; sourceTree = "<group>"; };
 		AD8E24D51C00E295006D2696 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		ADAD42BC1C35E9E5002B0493 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		ADB66DA81BF2CC1D0039C006 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		ADB73FEA1C30911300365022 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		ADB73FEC1C3091BC00365022 /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		ADC1DC891C262F54004CE42F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		ADD284F21BF90B3100A4732A /* PieceRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceRotation.swift; sourceTree = "<group>"; };
 		ADDBB15B1BF2C34800797A4C /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
@@ -93,6 +102,7 @@
 		ADF807F81BC4479A00E45888 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		ADF807FA1BC447BF00E45888 /* Piece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		ADF807FC1BC447D100E45888 /* MadDot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadDot.swift; sourceTree = "<group>"; };
+		ADFC4DBC1C30FCBF00F54A41 /* StoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +180,10 @@
 				AD34A8331C13D8800049D6B2 /* DotArray2D.swift */,
 				AD34A8561C1676440049D6B2 /* StoreController.swift */,
 				ADC1DC891C262F54004CE42F /* SettingsController.swift */,
+				ADB73FEA1C30911300365022 /* IAPHelper.swift */,
+				ADB73FEC1C3091BC00365022 /* Products.swift */,
+				ADFC4DBC1C30FCBF00F54A41 /* StoreViewController.swift */,
+				ADAD42BC1C35E9E5002B0493 /* Globals.swift */,
 			);
 			path = MadDots;
 			sourceTree = "<group>";
@@ -295,7 +309,9 @@
 				AD51B03C1BEEDC1900CB2FE7 /* Array2D.swift in Sources */,
 				ADD284F31BF90B3100A4732A /* PieceRotation.swift in Sources */,
 				ADD284F41BFADABA00A4732A /* GameScene.swift in Sources */,
+				ADB73FEE1C3092FA00365022 /* Products.swift in Sources */,
 				AD51B03D1BEEDC4400CB2FE7 /* Dot.swift in Sources */,
+				ADAD42BB1C34EF4B002B0493 /* IAPHelper.swift in Sources */,
 				AD34A8351C13DA0C0049D6B2 /* DotArray2D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,13 +331,17 @@
 				AD34A8341C13D8800049D6B2 /* DotArray2D.swift in Sources */,
 				AD5D0D0C1BED23DE005043A8 /* GameLevels.swift in Sources */,
 				ADF807E11BC4462300E45888 /* AppDelegate.swift in Sources */,
+				ADB73FEB1C30911300365022 /* IAPHelper.swift in Sources */,
 				AD34A8571C1676440049D6B2 /* StoreController.swift in Sources */,
 				AD8E24D61C00E295006D2696 /* HelpViewController.swift in Sources */,
 				ADF807FD1BC447D100E45888 /* MadDot.swift in Sources */,
 				ADDBB15C1BF2C34800797A4C /* MainScene.swift in Sources */,
+				ADAD42BD1C35E9E5002B0493 /* Globals.swift in Sources */,
 				ADF807F71BC446A400E45888 /* Dot.swift in Sources */,
+				ADB73FED1C3091BC00365022 /* Products.swift in Sources */,
 				ADB66DA91BF2CC1D0039C006 /* MainController.swift in Sources */,
 				ADF807F91BC4479A00E45888 /* Array2D.swift in Sources */,
+				ADFC4DBD1C30FCBF00F54A41 /* StoreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

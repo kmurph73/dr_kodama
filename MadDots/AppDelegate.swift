@@ -8,6 +8,8 @@
 
 import UIKit
 
+var mainController: MainController?
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,37 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
-    if let gameSpeed = NSUserDefaults.standardUserDefaults().valueForKey("gameSpeed") as? Int {
-      GameSpeed = gameSpeed
-    }
-    
-    if let gameLevel = NSUserDefaults.standardUserDefaults().valueForKey("gameLevel") as? Int {
-      GameLevel = gameLevel
-    }
-    
-    if let numColors = NSUserDefaults.standardUserDefaults().valueForKey("numColors") as? Int {
-      NumberOfColors = numColors
-    }
-    
-    if let showBG = NSUserDefaults.standardUserDefaults().valueForKey("showBG") as? Bool {
-      ShowBG = showBG
-    }
-    
-    if let moreLevels = NSUserDefaults.standardUserDefaults().valueForKey("moreLevelsPurchased") as? Bool {
-      MoreLevelsPurchased = moreLevels
-    }
-    
-    if let fifthColor = NSUserDefaults.standardUserDefaults().valueForKey("fifthColorPurchased") as? Bool {
-      FifthColorPurchased = fifthColor
-    }
-    
-    if let nextPiece = NSUserDefaults.standardUserDefaults().valueForKey("nextPiecePurchased") as? Bool {
-      NextPiecePurchased = nextPiece
-    }
-    
-    if let showNextPiece = NSUserDefaults.standardUserDefaults().valueForKey("showNextPiece") as? Bool {
-      ShowNextPiece = showNextPiece
-    }
 
     return true
   }

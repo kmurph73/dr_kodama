@@ -98,7 +98,7 @@ class SettingsController: UIViewController {
   
   func handleMoreLevels() {
     if MoreLevelsPurchased {
-      levelSlider.maximumValue = 18.0
+      levelSlider.maximumValue = 20.0
     } else {
       levelSlider.maximumValue = 11.0
     }
