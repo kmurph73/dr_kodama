@@ -80,7 +80,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 //    self.scene.textureCache = Dictionary<String, SKTexture>()
     self.scene.ctrl = nil
     self.scene.tick = nil
-    self.scene.lastTick = nil
+    self.scene.stopTicking()
+//    self.scene.lastTick = nil
     self.scene = nil
     
     self.dotGame.delegate = nil
@@ -301,7 +302,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   deinit {
-//    print("GameViewController is being deinitialized")
+    print("GameViewController is being deinitialized")
   }
   
 }

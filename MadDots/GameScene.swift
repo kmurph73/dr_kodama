@@ -9,7 +9,7 @@
 import SpriteKit
 
 var BlockSize: CGFloat = 0
-let TickLengthLevelOne = NSTimeInterval(1024)
+let TickLengthLevelOne = 0.2
 var extraYSpace: CGFloat = 0
 
 class GameScene: SKScene {
@@ -19,13 +19,15 @@ class GameScene: SKScene {
   
   var ctrl: GameViewController?
   var tick:(() -> ())?
-  var tickLengthMillis = TickLengthLevelOne
-  var lastTick:NSDate?
+  var tickLength = TickLengthLevelOne
+//  var tickLengthMillis = TickLengthLevelOne
+//  var lastTick:NSDate?
   var menuTapped = false
   var levelLabel: SKLabelNode?
   var menuLabel: SKLabelNode?
   var menuBtn: SKSpriteNode?
   var textureCache = Dictionary<String, SKTexture>()
+  var timer: NSTimer?
 
   override func didMoveToView(view: SKView) {
       /* Setup your scene here */
@@ -33,9 +35,10 @@ class GameScene: SKScene {
   
   override init(size: CGSize) {
     super.init(size: size)
-    
-    self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
-    print("tickLengh: \(tickLengthMillis)")
+
+    self.tickLength = abs(Double(GameSpeed - 13)) * 0.1
+//    self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
+//    print("tickLengh: \(tickLengthMillis)")
 
     anchorPoint = CGPoint(x: 0, y: 1.0)
   
@@ -114,7 +117,8 @@ class GameScene: SKScene {
         menuTapped = true
         if let c = ctrl {
           c.showSheet("You rang?", showCancel: true)
-          lastTick = nil
+          stopTicking()
+//          lastTick = nil
         }
       } else {
         menuTapped = false
@@ -158,22 +162,21 @@ class GameScene: SKScene {
   }
   
   func resumeGame() {
-    lastTick = NSDate()
+    self.timer = NSTimer.scheduledTimerWithTimeInterval(tickLength, target: self, selector: "didTick", userInfo: nil, repeats: true)
   }
   
-  override func update(currentTime: CFTimeInterval) {
-    /* Called before each frame is rendered */
-    if lastTick == nil {
-      return
-    }
-    
-    let timePassed = lastTick!.timeIntervalSinceNow * -1000.0
-    
-    if timePassed > tickLengthMillis {
-      lastTick = NSDate()
-      tick?()
-    }
-  }
+//  override func update(currentTime: CFTimeInterval) {
+//    /* Called before each frame is rendered */
+//    
+//    guard let lastTick = self.lastTick else { return }
+//    
+//    let timePassed = lastTick.timeIntervalSinceNow * -1000.0
+//    
+//    if timePassed > tickLengthMillis {
+//      self.lastTick = NSDate()
+//      tick?()
+//    }
+//  }
   
   func addArrayToScene(array: DotArray2D) {
     for row in 0..<NumRows {
@@ -283,12 +286,17 @@ class GameScene: SKScene {
     }
   }
   
+  func didTick() {
+    tick?()
+  }
+  
   func startTicking() {
-    lastTick = NSDate()
+    self.timer = NSTimer.scheduledTimerWithTimeInterval(tickLength, target: self, selector: "didTick", userInfo: nil, repeats: true)
   }
   
   func stopTicking() {
-    lastTick = nil
+    self.timer?.invalidate()
+    self.timer = nil
   }
 
   func redrawPiece(piece: Piece, duration: NSTimeInterval, completion:() -> ()) {
@@ -380,6 +388,6 @@ class GameScene: SKScene {
   }
   
   deinit {
-//    print("GameScene is being deinitialized")
+    print("GameScene is being deinitialized")
   }
 }
