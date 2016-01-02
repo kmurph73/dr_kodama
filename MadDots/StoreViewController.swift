@@ -15,6 +15,8 @@ class StoreViewController: UITableViewController {
   @IBOutlet weak var subtitleLabel: UILabel!
   
   var products = [SKProduct]()
+  
+  let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,16 +25,34 @@ class StoreViewController: UITableViewController {
       print("prods: \(products)")
       self.products = products
       self.tableView.reloadData()
+      self.stopSpinning()
     }
     
     Products.store.purchaseCompletedHandler = { success, product in
       self.tableView.reloadData()
+      self.stopSpinning()
     }
     
     Products.store.purchasingHandler = { started, product in
       self.tableView.reloadData()
+      self.stopSpinning()
     }
     
+    activityView.center = self.view.center
+    activityView.center.y -= 50
+    self.view.addSubview(activityView)
+    startSpinning()
+  }
+  
+  func startSpinning() {
+    delay(0.1) {
+      self.activityView.hidden = false
+      self.activityView.startAnimating()
+    }
+  }
+  
+  func stopSpinning() {
+    activityView.stopAnimating()
   }
   
   @IBAction func tapDone(sender: AnyObject) {
@@ -47,6 +67,7 @@ class StoreViewController: UITableViewController {
     let purchasing = Products.store.isProductBeingPurchased(product.productIdentifier)
 
     if !purchased && !purchasing {
+      startSpinning()
       Products.store.purchaseProduct(product)
     }
     
@@ -131,18 +152,4 @@ class StoreViewController: UITableViewController {
     return products.count
   }
   
-  func boughtFifthColor() {
-    guard let p = (products.filter{ $0.productIdentifier == "fifthcolor" }).first else { return }
-    Products.store.purchaseProduct(p)
-  }
-  
-  func boughtMoreLevels() {
-    guard let p = (products.filter{ $0.productIdentifier == "morelevels" }).first else { return }
-    Products.store.purchaseProduct(p)
-  }
-  
-  func boughtNextPiece() {
-    guard let p = (products.filter{ $0.productIdentifier == "shownextpiece" }).first else { return }
-    Products.store.purchaseProduct(p)
-  }
 }

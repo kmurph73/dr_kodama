@@ -445,7 +445,7 @@
                                     <action selector="speedSliderMoved:" destination="yOc-6N-67v" eventType="valueChanged" id="guJ-u6-eUP"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ThG-BX-tYK">
+                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="ThG-BX-tYK">
                                 <rect key="frame" x="110" y="155" width="204" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="d89-7L-oNi"/>

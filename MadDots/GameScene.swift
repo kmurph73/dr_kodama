@@ -9,8 +9,10 @@
 import SpriteKit
 
 var BlockSize: CGFloat = 0
-let TickLengthLevelOne = NSTimeInterval(1024)
+let TickLengthLevelOne = 0.2
 var extraYSpace: CGFloat = 0
+typealias PointStore = (point: CGPoint, connectorPoints: [Side: CGPoint])
+var points: Array2D<PointStore>?
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
@@ -19,23 +21,26 @@ class GameScene: SKScene {
   
   var ctrl: GameViewController?
   var tick:(() -> ())?
-  var tickLengthMillis = TickLengthLevelOne
-  var lastTick:NSDate?
+  var tickLength = TickLengthLevelOne
+//  var tickLengthMillis = TickLengthLevelOne
+//  var lastTick:NSDate?
   var menuTapped = false
   var levelLabel: SKLabelNode?
   var menuLabel: SKLabelNode?
   var menuBtn: SKSpriteNode?
   var textureCache = Dictionary<String, SKTexture>()
-
+  var timer: NSTimer?
+  
   override func didMoveToView(view: SKView) {
       /* Setup your scene here */
   }
   
   override init(size: CGSize) {
     super.init(size: size)
-    
-    self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
-    print("tickLengh: \(tickLengthMillis)")
+
+    self.tickLength = abs(Double(GameSpeed - 13)) * 0.1
+//    self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
+//    print("tickLengh: \(tickLengthMillis)")
 
     anchorPoint = CGPoint(x: 0, y: 1.0)
   
@@ -78,9 +83,31 @@ class GameScene: SKScene {
     speedLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, y)
     self.addChild(speedLabel)
     
-    
-
+    if points == nil {
+      print("crate points")
+      points = createPoints()
+    }
   }
+  
+  func createPoints() -> Array2D<PointStore> {
+    let arr = Array2D<PointStore>(columns: NumColumns, rows: NumRows)
+    
+    for row in 0..<NumRows {
+      for col in 0..<NumColumns {
+        arr[col,row] = (point: pointForColumn(col, row: row), connectorPoints: [
+          .Left: pointForSide(.Left, column: col, row: row),
+          .Right: pointForSide(.Right, column: col, row: row),
+          .Top: pointForSide(.Top, column: col, row: row),
+          .Bottom: pointForSide(.Bottom, column: col, row: row)
+          ])
+      }
+    }
+    
+    return arr
+  }
+
+  
+
   
 //  func startTicking() {
 //    NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: "newTick", userInfo: nil, repeats: true)
@@ -114,7 +141,8 @@ class GameScene: SKScene {
         menuTapped = true
         if let c = ctrl {
           c.showSheet("You rang?", showCancel: true)
-          lastTick = nil
+          stopTicking()
+//          lastTick = nil
         }
       } else {
         menuTapped = false
@@ -129,28 +157,32 @@ class GameScene: SKScene {
     return CGPointMake(x, y - (extraYSpace - BlockSize * 2))
   }
   
+  func pointForSide(side: Side, column: Int, row: Int) -> CGPoint {
+    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
+    let y: CGFloat = (LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - (extraYSpace - BlockSize * 2)
+    
+    let halfBlock = BlockSize / 2 - ((BlockSize / 6) / 2)
+    let pieceCenter = halfBlock * 1.25
+    
+    switch side {
+    case .Left:
+      return CGPointMake(x - pieceCenter, y)
+    case .Right:
+      return CGPointMake(x + pieceCenter, y)
+    case .Bottom:
+      return CGPointMake(x, y - pieceCenter)
+    case .Top:
+      return CGPointMake(x, y + pieceCenter)
+    }
+  }
+  
   func pointForConnector(dot: GoodDot) -> CGPoint? {
     guard let s = dot.sibling where s.connector == nil else {
       return nil
     }
     
-    if let side = dot.sideOfSibling() {
-      let x: CGFloat = LayerPosition.x + ((CGFloat(dot.column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
-      let y: CGFloat = (LayerPosition.y - (((CGFloat(dot.row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - (extraYSpace - BlockSize * 2)
-      
-      let halfBlock = BlockSize / 2 - ((BlockSize / 6) / 2)
-      let pieceCenter = halfBlock * 1.25
-      
-      switch side {
-      case .Left:
-        return CGPointMake(x - pieceCenter, y)
-      case .Right:
-        return CGPointMake(x + pieceCenter, y)
-      case .Bottom:
-        return CGPointMake(x, y - pieceCenter)
-      case .Top:
-        return CGPointMake(x, y + pieceCenter)
-      }
+    if let side = dot.sideOfSibling(), p = points {
+      return p[dot.column, dot.row]!.connectorPoints[side]
     } else {
       return nil
     }
@@ -158,22 +190,21 @@ class GameScene: SKScene {
   }
   
   func resumeGame() {
-    lastTick = NSDate()
+    self.timer = NSTimer.scheduledTimerWithTimeInterval(tickLength, target: self, selector: "didTick", userInfo: nil, repeats: true)
   }
   
-  override func update(currentTime: CFTimeInterval) {
-    /* Called before each frame is rendered */
-    if lastTick == nil {
-      return
-    }
-    
-    let timePassed = lastTick!.timeIntervalSinceNow * -1000.0
-    
-    if timePassed > tickLengthMillis {
-      lastTick = NSDate()
-      tick?()
-    }
-  }
+//  override func update(currentTime: CFTimeInterval) {
+//    /* Called before each frame is rendered */
+//    
+//    guard let lastTick = self.lastTick else { return }
+//    
+//    let timePassed = lastTick.timeIntervalSinceNow * -1000.0
+//    
+//    if timePassed > tickLengthMillis {
+//      self.lastTick = NSDate()
+//      tick?()
+//    }
+//  }
   
   func addArrayToScene(array: DotArray2D) {
     for row in 0..<NumRows {
@@ -201,7 +232,7 @@ class GameScene: SKScene {
     sprite.yScale = dotSize
     sprite.size = CGSize(width: dotSize, height: dotSize)
     sprite.zPosition = 5
-    sprite.position = pointForColumn(dot.column, row: dot.row)
+    sprite.position = points![dot.column, dot.row]!.point
     dot.sprite = sprite
     
     dotLayer.addChild(sprite)
@@ -247,7 +278,7 @@ class GameScene: SKScene {
     var longestDuration: NSTimeInterval = 0
 
     for (columnIdx, dot) in fallenDots.enumerate() {
-      let newPosition = pointForColumn(dot.column, row: dot.row)
+      let newPosition = points![dot.column, dot.row]!.point
       let sprite = dot.sprite!
       
       let delay = (NSTimeInterval(columnIdx) * 0.05) + (NSTimeInterval(columnIdx) * 0.05)
@@ -283,18 +314,23 @@ class GameScene: SKScene {
     }
   }
   
+  func didTick() {
+    tick?()
+  }
+  
   func startTicking() {
-    lastTick = NSDate()
+    self.timer = NSTimer.scheduledTimerWithTimeInterval(tickLength, target: self, selector: "didTick", userInfo: nil, repeats: true)
   }
   
   func stopTicking() {
-    lastTick = nil
+    self.timer?.invalidate()
+    self.timer = nil
   }
 
   func redrawPiece(piece: Piece, duration: NSTimeInterval, completion:() -> ()) {
     for dot in piece.dots {
       if let sprite = dot.sprite {
-        let point = pointForColumn(dot.column, row: dot.row)
+        let point = points![dot.column, dot.row]!.point
         let moveToAction:SKAction = SKAction.moveTo(point, duration: duration)
         sprite.runAction(moveToAction)
         
@@ -380,6 +416,6 @@ class GameScene: SKScene {
   }
   
   deinit {
-//    print("GameScene is being deinitialized")
+    print("GameScene is being deinitialized")
   }
 }
