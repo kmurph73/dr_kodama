@@ -32,18 +32,15 @@ func matchesForRegexInText(regex: String!, text: String!) -> [String] {
 }
 
 extension SKProduct {
-  
   func localizedPrice() -> String {
     let formatter = NSNumberFormatter()
     formatter.numberStyle = .CurrencyStyle
     formatter.locale = self.priceLocale
     return formatter.stringFromNumber(self.price)!
   }
-  
 }
 
 public extension UIDevice {
-  
   var modelName: String {
     var systemInfo = utsname()
     uname(&systemInfo)
@@ -80,5 +77,5 @@ public extension UIDevice {
     default:                                        return identifier
     }
   }
-  
+
 }

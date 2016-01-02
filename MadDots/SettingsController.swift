@@ -15,6 +15,7 @@ class SettingsController: UIViewController {
   @IBOutlet weak var nextPieceLabel: UILabel!
   @IBOutlet weak var levelSlider: UISlider!
   @IBOutlet weak var speedSlider: UISlider!
+  @IBOutlet weak var showBgLabel: UILabel!
   
   @IBOutlet weak var numColorsSwitch: UISwitch!
   @IBOutlet weak var nextPieceSwitch: UISwitch!
@@ -26,6 +27,8 @@ class SettingsController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    setLabelColor()
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -74,6 +77,14 @@ class SettingsController: UIViewController {
   
   @IBAction func nextPieceSwitchChanged(sender: UISwitch) {
     ShowNextPiece = sender.on
+  }
+  
+  func setLabelColor() {
+    let color = iPad ? UIColor.whiteColor() : UIColor.blackColor()
+    
+    self.showBgLabel.textColor = color
+    self.nextPieceLabel.textColor = color
+    self.numColorsLabel.textColor = color
   }
   
   func updateLabels() {

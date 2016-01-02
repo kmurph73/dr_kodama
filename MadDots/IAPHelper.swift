@@ -26,6 +26,7 @@ public typealias ProductIdentifier = String
 /// Completion handler called when products are fetched.
 public typealias RequestProductsCompletionHandler = (success: Bool, products: [SKProduct]) -> ()
 typealias PurchaseCompletedHandler = (success: Bool, productIdentifier: String) -> ()
+typealias PurchasingHandler = (started: Bool, productIdentifier: String) -> ()
 
 /// A Helper class for In-App-Purchases, it can fetch products, tell you if a product has been purchased,
 /// purchase products, and restore purchases.  Uses NSUserDefaults to cache if a product has been purchased.
@@ -36,12 +37,14 @@ public class IAPHelper : NSObject  {
   // Used to keep track of the possible products and which ones have been purchased.
   private let productIdentifiers: Set<ProductIdentifier>
   private var purchasedProductIdentifiers = Set<ProductIdentifier>()
+  private var purchasingProductIdentifiers = Set<ProductIdentifier>()
   
   // Used by SKProductsRequestDelegate
   private var productsRequest: SKProductsRequest?
   private var completionHandler: RequestProductsCompletionHandler?
   var purchaseCompletedHandler: PurchaseCompletedHandler?
-  
+  var purchasingHandler: PurchasingHandler?
+
   /// MARK: - User facing API
   
   /// Initialize the helper.  Pass in the set of ProductIdentifiers supported by the app.
@@ -72,7 +75,6 @@ public class IAPHelper : NSObject  {
   
   /// Initiates purchase of a product.
   public func purchaseProduct(product: SKProduct) {
-    print("Buying \(product.productIdentifier)...")
     let payment = SKPayment(product: product)
     SKPaymentQueue.defaultQueue().addPayment(payment)
   }
@@ -80,6 +82,10 @@ public class IAPHelper : NSObject  {
   /// Given the product identifier, returns true if that product has been purchased.
   public func isProductPurchased(productIdentifier: ProductIdentifier) -> Bool {
     return purchasedProductIdentifiers.contains(productIdentifier)
+  }
+  
+  public func isProductBeingPurchased(productIdentifier: ProductIdentifier) -> Bool {
+    return purchasingProductIdentifiers.contains(productIdentifier)
   }
   
   /// If the state of whether purchases have been made is lost  (e.g. the
@@ -139,20 +145,31 @@ extension IAPHelper: SKPaymentTransactionObserver {
         restoreTransaction(transaction)
         break
       case .Deferred:
+        stopPurchasing(transaction.payment.productIdentifier)
         break
       case .Purchasing:
+        setPurchasing(transaction)
         break
       }
     }
   }
   
+  private func setPurchasing(transaction: SKPaymentTransaction) {
+    purchasingProductIdentifiers.insert(transaction.payment.productIdentifier)
+    purchasingHandler?(started: true, productIdentifier: transaction.payment.productIdentifier)
+    print("ho: \(transaction.payment.productIdentifier)")
+  }
+  
   private func completeTransaction(transaction: SKPaymentTransaction) {
+    stopPurchasing(transaction.payment.productIdentifier)
+
     print("completeTransaction...")
     provideContentForProductIdentifier(transaction.payment.productIdentifier)
     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
   }
   
   private func restoreTransaction(transaction: SKPaymentTransaction) {
+    stopPurchasing(transaction.payment.productIdentifier)
     let productIdentifier = transaction.originalTransaction!.payment.productIdentifier
     print("restoreTransaction... \(productIdentifier)")
     provideContentForProductIdentifier(productIdentifier)
@@ -162,7 +179,11 @@ extension IAPHelper: SKPaymentTransactionObserver {
       NextPiecePurchased = true
       NSUserDefaults.standardUserDefaults().setValue(NextPiecePurchased, forKey: "shownextpiecePurchased")
     }
-
+  }
+  
+  private func stopPurchasing(productIdentifier: String) {
+    purchasingProductIdentifiers.remove(productIdentifier)
+    purchasingHandler?(started: false, productIdentifier: productIdentifier)
   }
   
   // Helper: Saves the fact that the product has been purchased and posts a notification.
@@ -179,6 +200,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
   }
   
   private func failedTransaction(transaction: SKPaymentTransaction) {
+    stopPurchasing(transaction.payment.productIdentifier)
+
     print("failedTransaction...")
     if transaction.error!.code != SKErrorPaymentCancelled {
       print("Transaction error: \(transaction.error!.localizedDescription)")

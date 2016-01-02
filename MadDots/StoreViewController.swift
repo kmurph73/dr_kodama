@@ -28,6 +28,11 @@ class StoreViewController: UITableViewController {
     Products.store.purchaseCompletedHandler = { success, product in
       self.tableView.reloadData()
     }
+    
+    Products.store.purchasingHandler = { started, product in
+      self.tableView.reloadData()
+    }
+    
   }
   
   @IBAction func tapDone(sender: AnyObject) {
@@ -39,8 +44,9 @@ class StoreViewController: UITableViewController {
     let product = self.products[indexPath.row]
     
     let purchased = NSUserDefaults.standardUserDefaults().boolForKey(product.productIdentifier + "Purchased")
+    let purchasing = Products.store.isProductBeingPurchased(product.productIdentifier)
 
-    if !purchased {
+    if !purchased && !purchasing {
       Products.store.purchaseProduct(product)
     }
     
@@ -84,7 +90,12 @@ class StoreViewController: UITableViewController {
       v.addConstraint(NSLayoutConstraint(item: imgView, attribute: .Trailing, relatedBy: .Equal, toItem: v, attribute: .Trailing, multiplier: 1, constant: -10))
     } else {
       let lbl = UILabel()
-      lbl.text = product.localizedPrice()
+      
+      if Products.store.isProductBeingPurchased(product.productIdentifier) {
+        lbl.text = ". . ."
+      } else {
+        lbl.text = product.localizedPrice()
+      }
       lbl.textColor = UIColor(red: (40 / 255.0), green: (100 / 255.0), blue: (200 / 255.0), alpha: 1)
       lbl.font = UIFont(name: lbl.font.fontName, size: 15)
       lbl.tag = 20
@@ -100,7 +111,6 @@ class StoreViewController: UITableViewController {
         attribute: NSLayoutAttribute.NotAnAttribute,
         multiplier: 1,
         constant: 50)
-      
 
       let yConstraint = NSLayoutConstraint(item: lbl, attribute: .CenterY, relatedBy: .Equal, toItem: v, attribute: .CenterY, multiplier: 1, constant: 0)
 
@@ -111,7 +121,7 @@ class StoreViewController: UITableViewController {
       v.addConstraint(constraintButtonWidth)
       
       v.addConstraint(NSLayoutConstraint(item: lbl, attribute: .Trailing, relatedBy: .Equal, toItem: v, attribute: .Trailing, multiplier: 1, constant: 2))
-      
+
     }
     
     return cell

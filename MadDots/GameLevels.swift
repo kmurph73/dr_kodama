@@ -170,39 +170,53 @@ class LevelMaker {
   }
 }
 
+func siblingizeLastTwo(arr: Array<GoodDot>) {
+  if let last = arr.last {
+    let secondlast = arr[arr.endIndex - 2]
+    last.sibling = secondlast; secondlast.sibling = last
+  }
+}
+
 func testScenario() -> (array:DotArray2D, pieces: Array<Piece>) {
   let arr = DotArray2D(columns: NumColumns, rows: NumRows)
   var seq = Array<Piece>()
+  var dots = Array<GoodDot>()
   
-  let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .Red)
-  let dot2 = GoodDot(column: 3, row: NumRows - 7, color: .Red)
-  dot1.sibling = dot2
-  dot2.sibling = dot1
+//  let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .Red)
+//  let dot2 = GoodDot(column: 3, row: NumRows - 7, color: .Red)
+//  dot1.sibling = dot2
+//  dot2.sibling = dot1
+//  
+//  arr.setDot(dot1)
+//  arr.setDot(dot2)
   
-  arr.setDot(dot1)
-  arr.setDot(dot2)
+  let column = 2
+  dots.append(GoodDot(column: column, row: NumRows - 1, color: .Yellow))
+  dots.append(GoodDot(column: column, row: NumRows - 2, color: .Yellow))
+  dots.append(GoodDot(column: column, row: NumRows - 3, color: .Yellow))
+  dots.append(GoodDot(column: column - 1, row: NumRows - 3, color: .Yellow))
+
+  siblingizeLastTwo(dots)
   
-  let dot3 = GoodDot(column: 1, row: NumRows - 1, color: .Yellow)
-  let dot4 = GoodDot(column: 1, row: NumRows - 2, color: .Yellow)
-  let dot5 = GoodDot(column: 1, row: NumRows - 3, color: .Yellow)
-  let dot6 = GoodDot(column: 1, row: NumRows - 4, color: .Blue)
+  dots.append(GoodDot(column: column, row: NumRows - 4, color: .Blue))
+
+  dots.append(GoodDot(column: column, row: NumRows - 5, color: .Blue))
+  dots.append(GoodDot(column: column - 1, row: NumRows - 5, color: .Blue))
   
-  arr.setDot(dot3)
-  arr.setDot(dot4)
-  arr.setDot(dot5)
-  arr.setDot(dot6)
+  siblingizeLastTwo(dots)
+  for dot in dots { arr.setDot(dot) }
   
-  for col in 0..<NumColumns {
-    let color: DotColor = col % 2 == 0 ? .Yellow : .Blue
-    arr.setDot(GoodDot(column: col, row: 5, color: color))
-  }
+//  for col in 0..<NumColumns {
+//    let color: DotColor = col % 2 == 0 ? .Yellow : .Blue
+//    arr.setDot(GoodDot(column: col, row: 5, color: color))
+//  }
 
   arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .Blue))
 
   seq.appendContentsOf([
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .Green, rightColor: .Green),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .Green, rightColor: .Green),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .Green, rightColor: .Green),
     Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow)
   ])
   

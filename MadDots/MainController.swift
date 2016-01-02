@@ -40,17 +40,19 @@ class MainController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    mainController = self
-    
+        
     let modelName = UIDevice.currentDevice().modelName
     let matches = matchesForRegexInText("^iPad", text: modelName)
     if matches.count > 0 {
       iPad = true
     }
     
-//    Products.store.restoreCompletedTransactions()
-    
+    if !RestoredPurchases {
+      Products.store.restoreCompletedTransactions()
+      RestoredPurchases = true
+      NSUserDefaults.standardUserDefaults().setBool(RestoredPurchases, forKey: "restoredPurchases")
+    }
+//
 //    iPad = true
     
     if iPad {

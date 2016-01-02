@@ -8,7 +8,7 @@
 
 import UIKit
 
-var mainController: MainController?
+var RestoredPurchases = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
 
+    if let restored = NSUserDefaults.standardUserDefaults().valueForKey("restoredPurchases") as? Bool {
+      RestoredPurchases = restored
+    }
+    
     return true
   }
 
