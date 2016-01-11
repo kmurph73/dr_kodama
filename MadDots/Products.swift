@@ -18,7 +18,7 @@ public enum Products {
   /// MARK: - Supported Product Identifiers
   public static let ShowNextPieceProduct = "shownextpiece"
   public static let FifthColorProduct = "fifthcolor"
-  public static let MoreLevelsProduct = "morelevels"
+  public static let MoreLevelsProduct = "morelevel"
   
   // All of the products assembled into a set of product identifiers.
   private static let productIdentifiers: Set<ProductIdentifier> = [Products.ShowNextPieceProduct, Products.FifthColorProduct, Products.MoreLevelsProduct]

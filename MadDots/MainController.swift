@@ -22,7 +22,7 @@ var FifthColorPurchased = false
 
 var iPad = false
 
-class MainController: UIViewController {
+class MainController: UIViewController, StoreViewCtrlDelegate {
 
   @IBOutlet weak var backgroundImg: UIImageView!
   @IBOutlet weak var playLabel: UIButton!
@@ -54,6 +54,7 @@ class MainController: UIViewController {
     }
 //
 //    iPad = true
+//    iPadPro = true
     
     if iPad {
       backgroundImg.image = UIImage(named: "ipadfantasybg")
@@ -71,10 +72,15 @@ class MainController: UIViewController {
     self.performSegueWithIdentifier("help", sender: self)
   }
   
+  func doneWithStore(ctrl: StoreViewController) {
+    ctrl.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "goStore" {
-//      let navigationController = segue.destinationViewController as! UINavigationController
-//      let vc = navigationController.viewControllers.first as! StoreController
+      let navigationController = segue.destinationViewController as! UINavigationController
+      let vc = navigationController.viewControllers.first as! StoreViewController
+      vc.delegate = self
     }
   }
 }

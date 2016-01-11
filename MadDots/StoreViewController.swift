@@ -10,9 +10,15 @@ import Foundation
 import UIKit
 import StoreKit
 
+protocol StoreViewCtrlDelegate {
+  func doneWithStore(ctrl: StoreViewController)
+}
+
 class StoreViewController: UITableViewController {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var subtitleLabel: UILabel!
+  
+  var delegate: StoreViewCtrlDelegate?
   
   var products = [SKProduct]()
   
@@ -22,7 +28,6 @@ class StoreViewController: UITableViewController {
     super.viewDidLoad()
     
     Products.store.requestProductsWithCompletionHandler { success, products in
-      print("prods: \(products)")
       self.products = products
       self.tableView.reloadData()
       self.stopSpinning()
@@ -57,7 +62,7 @@ class StoreViewController: UITableViewController {
   
   @IBAction func tapDone(sender: AnyObject) {
     Products.store.purchaseCompletedHandler = nil
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.delegate?.doneWithStore(self)
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

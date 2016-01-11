@@ -25,7 +25,7 @@ func assessState() {
     ShowBG = showBG
   }
   
-  if let moreLevels = NSUserDefaults.standardUserDefaults().valueForKey("morelevelsPurchased") as? Bool {
+  if let moreLevels = NSUserDefaults.standardUserDefaults().valueForKey("morelevelPurchased") as? Bool {
     MoreLevelsPurchased = moreLevels
   }
   
@@ -40,4 +40,10 @@ func assessState() {
   if let showNextPiece = NSUserDefaults.standardUserDefaults().valueForKey("showNextPiece") as? Bool {
     ShowNextPiece = showNextPiece
   }
+}
+
+func purchaseAll() {
+  NSUserDefaults.standardUserDefaults().setBool(true, forKey: "shownextpiecePurchased")
+  NSUserDefaults.standardUserDefaults().setBool(true, forKey: "fifthcolorPurchased")
+  NSUserDefaults.standardUserDefaults().setBool(true, forKey: "morelevelPurchased")
 }

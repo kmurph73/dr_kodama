@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizerDelegate {
+class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizerDelegate, StoreViewCtrlDelegate {
   var dotGame:DotGame!
   var scene: GameScene!
   var panPointReference:CGPoint?
@@ -25,19 +25,12 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
   @IBAction func swipeUp(sender: UISwipeGestureRecognizer) {
     dotGame.dropPiece()
-//    dotGame.movePieceRight()
   }
   
-  @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
-//    dotGame.movePieceRight()
-  }
-  
-  @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
-//    dotGame.movePieceLeft()
-  }
-  
-  @IBAction func swipeDown(sender: UISwipeGestureRecognizer) {
-//    dotGame.lowerPiece()
+  func doneWithStore(ctrl: StoreViewController) {
+    ctrl.dismissViewControllerAnimated(true, completion: { _ in
+      self.backToMenu()
+    })
   }
   
   func setLevelLabel() {
@@ -61,18 +54,12 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     alertController.addAction(menu)
     
     if showCancel {
-      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { action in
+      let cancelAction = UIAlertAction(title: "Resume", style: .Cancel, handler: { action in
         self.scene.resumeGame()
       })
       alertController.addAction(cancelAction)
     }
     
-    
-//    if let ml = self.scene.menuLabel {
-//      print("CMMMMMMMOOOOONNNNN")
-//      let size = CGSize(width: ml.yScale, height: ml.xScale)
-//      alertController.popoverPresentationController?.sourceRect = CGRect(origin: ml.position, size:size)
-//    }
     self.presentViewController(alertController, animated:true, completion: nil)
   }
   
@@ -144,9 +131,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
     // Configure the view.
     let skView = self.view as! SKView
-    skView.showsFPS = true
-    skView.showsNodeCount = true
-    skView.showsDrawCount = true
+//    skView.showsFPS = true
+//    skView.showsNodeCount = true
+//    skView.showsDrawCount = true
     skView.multipleTouchEnabled = false
     
     /* Sprite Kit applies additional optimizations to improve rendering performance */
@@ -185,6 +172,47 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     showSheet(msg, showCancel: false)
   }
   
+  func beatLevelAlert() {
+    let msg = "Congrats! You beat level \(GameLevel)"
+    let style: UIAlertControllerStyle = iPad ? .Alert : .ActionSheet
+    let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
+    
+    let nextLevel = UIAlertAction(title: "Play next level", style: .Default, handler: { action in
+      GameLevel += 1
+      self.dotGame.beginAnew()
+    })
+    
+    alertController.addAction(nextLevel)
+    
+    let menu = UIAlertAction(title: "Back to menu", style: .Default, handler: { _ in
+      self.backToMenu()
+    })
+    
+    alertController.addAction(menu)
+    
+    self.presentViewController(alertController, animated:true, completion: nil)
+  }
+  
+  func buyMoreLevelsAlert() {
+    let msg = "Congrats! You beat the last level... or did you?  Hint: no.  Buy the rest of the levels at the store!"
+    let style: UIAlertControllerStyle = iPad ? .Alert : .ActionSheet
+    let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
+    
+    let nextLevel = UIAlertAction(title: "Go to store", style: .Default, handler: { action in
+      self.performSegueWithIdentifier("goStore", sender: self)
+    })
+    
+    alertController.addAction(nextLevel)
+    
+    let menu = UIAlertAction(title: "Back to menu", style: .Default, handler: { _ in
+      self.backToMenu()
+    })
+    
+    alertController.addAction(menu)
+    
+    self.presentViewController(alertController, animated:true, completion: nil)
+  }
+  
   func gamePieceDidLand(dotGame: DotGame) {
     scene.stopTicking()
     self.view.userInteractionEnabled = false
@@ -198,7 +226,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
       scene.removeDots(dotsToRemove)
       if dotGame.dotArray.hasAchievedVictory() {
-        if GameLevel == 20 {
+        if !MoreLevelsPurchased && GameLevel == 11 {
+          buyMoreLevelsAlert()
+        } else if GameLevel == 20 {
           let msg = "You won!"
           let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .Alert)
           let okAction = UIAlertAction(title: "OMG pinch me", style: .Default, handler: { _ in
@@ -207,9 +237,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           alertController.addAction(okAction)
           self.presentViewController(alertController, animated: true, completion: nil)
         } else {
-          GameLevel += 1
           delay(0.5) {
-            dotGame.beginAnew()
+            self.beatLevelAlert()
           }
         }
       } else {
@@ -262,17 +291,21 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     }
     
     self.view.userInteractionEnabled = true
+    
+    self.scene.addMadDotsToScene(dotGame.madDots)
+    
+    delay(0.5) {
 
-    self.scene.addPieceToScene(dotGame.fallingPiece!) {
-      self.scene.addMadDotsToScene(dotGame.madDots)
-      
-      if let nextPiece = dotGame.nextPiece {
-        delay(0.65) {
-          self.scene.addPieceToScene(nextPiece, completion: nil)
+      self.scene.addPieceToScene(dotGame.fallingPiece!) {
+
+        if let nextPiece = dotGame.nextPiece {
+          delay(0.5) {
+            self.scene.addPieceToScene(nextPiece, completion: nil)
+          }
         }
-      }
 
-      self.scene.startTicking()
+        self.scene.startTicking()
+      }
     }
   }
   
@@ -301,8 +334,15 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       return true
   }
   
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "goStore" {
+      let navigationController = segue.destinationViewController as! UINavigationController
+      let vc = navigationController.viewControllers.first as! StoreViewController
+      vc.delegate = self
+    }
+  }
+  
   deinit {
     print("GameViewController is being deinitialized")
   }
-  
 }

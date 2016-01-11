@@ -13,6 +13,8 @@ let TickLengthLevelOne = 0.2
 var extraYSpace: CGFloat = 0
 typealias PointStore = (point: CGPoint, connectorPoints: [Side: CGPoint])
 var points: Array2D<PointStore>?
+var tinyScreen = false
+var iPadPro = false
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
@@ -38,16 +40,23 @@ class GameScene: SKScene {
   override init(size: CGSize) {
     super.init(size: size)
 
+    print("size: \(size)")
     self.tickLength = abs(Double(GameSpeed - 13)) * 0.1
 //    self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
 //    print("tickLengh: \(tickLengthMillis)")
 
     anchorPoint = CGPoint(x: 0, y: 1.0)
   
+    if size.height < 500 {
+      tinyScreen = true
+    } else if size.height > 1360 {
+      iPadPro = true
+    }
+    
     if ShowBG {
       setupBackground()
     }
-
+    
     drawGrid()
     dotLayer.position = LayerPosition
     self.addChild(dotLayer)
@@ -374,7 +383,13 @@ class GameScene: SKScene {
     
     var squareSize = rowSquare > colSquare ? colSquare : rowSquare
     if iPad {
-      squareSize -= 5
+      if iPadPro {
+        squareSize -= 15
+      } else {
+        squareSize -= 5
+      }
+    } else if tinyScreen {
+      squareSize -= 3
     }
     BlockSize = squareSize
     

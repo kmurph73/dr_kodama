@@ -35,8 +35,10 @@ class SettingsController: UIViewController {
     super.viewWillAppear(animated)
     
     print("GameLevel: \(GameLevel)")
-    speedSlider.value = Float(GameSpeed)
-    levelSlider.value = Float(GameLevel)
+    delay(0.2) {
+      self.speedSlider.value = Float(GameSpeed)
+      self.levelSlider.value = Float(GameLevel)
+    }
     
     bgSwitch.on = ShowBG
     

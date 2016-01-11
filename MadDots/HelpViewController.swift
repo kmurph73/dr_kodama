@@ -16,6 +16,7 @@ class HelpViewController: UIViewController {
   @IBOutlet weak var bluedot1: UIImageView!
   @IBOutlet weak var bluedot2: UIImageView!
   
+  @IBOutlet weak var textview: UITextView!
   @IBOutlet weak var aftertap1label: UILabel!
   @IBOutlet weak var bluedot3: UIImageView!
   
@@ -23,12 +24,15 @@ class HelpViewController: UIViewController {
   @IBOutlet weak var reddot3: UIImageView!
   @IBOutlet weak var whitedot3: UIImageView!
   @IBOutlet weak var trailingMargin: NSLayoutConstraint!
+  
   @IBAction func tapDone(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
+    
+    textview.sizeToFit()
     
     if iPad {
       self.trailingMargin.constant = view.bounds.size.width / 3.5
