@@ -25,15 +25,15 @@ func assessState() {
     ShowBG = showBG
   }
   
-  if let moreLevels = NSUserDefaults.standardUserDefaults().valueForKey("morelevelPurchased") as? Bool {
+  if let moreLevels = NSUserDefaults.standardUserDefaults().valueForKey("morelevels2Purchased") as? Bool {
     MoreLevelsPurchased = moreLevels
   }
   
-  if let fifthColor = NSUserDefaults.standardUserDefaults().valueForKey("fifthcolorPurchased") as? Bool {
+  if let fifthColor = NSUserDefaults.standardUserDefaults().valueForKey("fifthcolor2Purchased") as? Bool {
     FifthColorPurchased = fifthColor
   }
   
-  if let nextPiece = NSUserDefaults.standardUserDefaults().valueForKey("shownextpiecePurchased") as? Bool {
+  if let nextPiece = NSUserDefaults.standardUserDefaults().valueForKey("shownextpiece2Purchased") as? Bool {
     NextPiecePurchased = nextPiece
   }
   

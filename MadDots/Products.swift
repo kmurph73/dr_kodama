@@ -16,9 +16,9 @@ public enum Products {
   private static let Prefix = "com.blah.kmurphles.kodama."
     
   /// MARK: - Supported Product Identifiers
-  public static let ShowNextPieceProduct = "shownextpiece"
-  public static let FifthColorProduct = "fifthcolor"
-  public static let MoreLevelsProduct = "morelevel"
+  public static let ShowNextPieceProduct = "shownextpiece2"
+  public static let FifthColorProduct = "fifthcolor2"
+  public static let MoreLevelsProduct = "morelevels2"
   
   // All of the products assembled into a set of product identifiers.
   private static let productIdentifiers: Set<ProductIdentifier> = [Products.ShowNextPieceProduct, Products.FifthColorProduct, Products.MoreLevelsProduct]

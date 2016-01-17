@@ -47,11 +47,11 @@ class MainController: UIViewController, StoreViewCtrlDelegate {
       iPad = true
     }
     
-    if !RestoredPurchases {
-      Products.store.restoreCompletedTransactions()
-      RestoredPurchases = true
-      NSUserDefaults.standardUserDefaults().setBool(RestoredPurchases, forKey: "restoredPurchases")
-    }
+//    if !RestoredPurchases {
+//      Products.store.restoreCompletedTransactions()
+//      RestoredPurchases = true
+//      NSUserDefaults.standardUserDefaults().setBool(RestoredPurchases, forKey: "restoredPurchases")
+//    }
 //
 //    iPad = true
 //    iPadPro = true

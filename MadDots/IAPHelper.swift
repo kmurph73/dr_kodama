@@ -25,7 +25,7 @@ public typealias ProductIdentifier = String
 
 /// Completion handler called when products are fetched.
 public typealias RequestProductsCompletionHandler = (success: Bool, products: [SKProduct]) -> ()
-typealias PurchaseCompletedHandler = (success: Bool, productIdentifier: String) -> ()
+public typealias PurchaseCompletedHandler = (success: Bool, productIdentifier: String) -> ()
 typealias PurchasingHandler = (started: Bool, productIdentifier: String) -> ()
 
 /// A Helper class for In-App-Purchases, it can fetch products, tell you if a product has been purchased,
@@ -44,6 +44,7 @@ public class IAPHelper : NSObject  {
   private var completionHandler: RequestProductsCompletionHandler?
   var purchaseCompletedHandler: PurchaseCompletedHandler?
   var purchasingHandler: PurchasingHandler?
+  var restoreCompletedHandler: PurchaseCompletedHandler?
 
   /// MARK: - User facing API
   
@@ -91,6 +92,11 @@ public class IAPHelper : NSObject  {
   /// If the state of whether purchases have been made is lost  (e.g. the
   /// user deletes and reinstalls the app) this will recover the purchases.
   public func restoreCompletedTransactions() {
+    SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
+  }
+  
+  public func restoreCompletedTransactionsWithCompletionHandler(handler: PurchaseCompletedHandler) {
+    self.restoreCompletedHandler = handler
     SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
   }
   
@@ -179,6 +185,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
       NextPiecePurchased = true
       NSUserDefaults.standardUserDefaults().setValue(NextPiecePurchased, forKey: "shownextpiecePurchased")
     }
+    
+    restoreCompletedHandler?(success: true, productIdentifier: productIdentifier)
   }
   
   private func stopPurchasing(productIdentifier: String) {

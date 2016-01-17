@@ -24,6 +24,14 @@ class StoreViewController: UITableViewController {
   
   let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
 
+  @IBAction func tapRestore(sender: UIBarButtonItem) {
+    self.startSpinning()
+    Products.store.restoreCompletedTransactionsWithCompletionHandler { success, productId in
+      self.stopSpinning()
+      self.tableView.reloadData()
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -62,6 +70,8 @@ class StoreViewController: UITableViewController {
   
   @IBAction func tapDone(sender: AnyObject) {
     Products.store.purchaseCompletedHandler = nil
+    Products.store.purchasingHandler = nil
+    Products.store.restoreCompletedHandler = nil
     self.delegate?.doneWithStore(self)
   }
   
@@ -155,6 +165,10 @@ class StoreViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return products.count
+  }
+  
+  deinit {
+    print("StoreViewController is being deinitialized")
   }
   
 }

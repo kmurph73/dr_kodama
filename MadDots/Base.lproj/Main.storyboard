@@ -153,6 +153,11 @@
                                 <action selector="tapDone:" destination="pSh-1H-4rq" id="M8B-nC-qqQ"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Restore purchases" id="Zo0-Vc-nb9">
+                            <connections>
+                                <action selector="tapRestore:" destination="pSh-1H-4rq" id="3yb-bs-d8U"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46g-DZ-bWT" userLabel="First Responder" sceneMemberID="firstResponder"/>
