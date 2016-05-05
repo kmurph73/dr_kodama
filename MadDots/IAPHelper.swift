@@ -211,7 +211,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
     stopPurchasing(transaction.payment.productIdentifier)
 
     print("failedTransaction...")
-    if transaction.error!.code != SKErrorPaymentCancelled {
+    if transaction.error!.code != SKErrorCode.PaymentCancelled.rawValue {
       print("Transaction error: \(transaction.error!.localizedDescription)")
     }
     SKPaymentQueue.defaultQueue().finishTransaction(transaction)

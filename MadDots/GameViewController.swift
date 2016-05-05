@@ -63,6 +63,16 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.presentViewController(alertController, animated:true, completion: nil)
   }
   
+  func stopTimer() {
+    print("stop timer")
+    self.scene.stopTicking()
+  }
+  
+  func startTimer() {
+    print("start timer")
+    self.scene.startTicking()
+  }
+  
   func backToMenu() {
 //    self.scene.textureCache = Dictionary<String, SKTexture>()
     self.scene.ctrl = nil
@@ -295,7 +305,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.scene.addMadDotsToScene(dotGame.madDots)
     
     delay(0.5) {
-
       self.scene.addPieceToScene(dotGame.fallingPiece!) {
 
         if let nextPiece = dotGame.nextPiece {
