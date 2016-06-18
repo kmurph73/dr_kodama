@@ -15,6 +15,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   var panPointReference:CGPoint?
   var justEnded = false
   var panDistance: CGFloat?
+  var sheetShown = false
 
   @IBAction func didTap(sender: UITapGestureRecognizer) {
     if !scene.menuTapped {
@@ -55,12 +56,15 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     
     if showCancel {
       let cancelAction = UIAlertAction(title: "Resume", style: .Cancel, handler: { action in
+        self.sheetShown = false
         self.scene.resumeGame()
       })
       alertController.addAction(cancelAction)
     }
     
-    self.presentViewController(alertController, animated:true, completion: nil)
+    self.presentViewController(alertController, animated:true, completion: {
+      self.sheetShown = true
+    })
   }
   
   func stopTimer() {
@@ -275,12 +279,17 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         self.dotGame.fallingPiece = nextPiece
         self.dotGame.nextPiece = newPiece
         self.view.userInteractionEnabled = true
-        self.dotGame.lowerPiece()
-        self.panPointReference = nil
-        self.scene.startTicking()
-        delay(0.75) {
+        nextPiece.shiftBy(2, rows: 1)
+        self.scene.redrawPiece(nextPiece, duration: 0.2) {
+          self.scene.startTicking()
+          self.panPointReference = nil
+
+          //        delay(0.75) {
           self.scene.addPieceToScene(newPiece, completion: nil)
+          //        }
+          
         }
+      
       } else {
         let newPiece = self.dotGame.newPiece()
 

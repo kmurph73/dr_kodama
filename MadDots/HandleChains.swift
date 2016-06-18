@@ -141,7 +141,7 @@ func dropFallenDots(dotArray:DotArray2D) -> Array<GoodDot> {
       if let dot = dotArray[column, row] as? GoodDot {
         var newRow = row
         while (newRow < NumRows - 1 && dotArray[column, newRow + 1] == nil) {
-          newRow++
+          newRow += 1
         }
 
         if let sibling = dot.sibling {
@@ -150,7 +150,7 @@ func dropFallenDots(dotArray:DotArray2D) -> Array<GoodDot> {
             var newSiblingRow = sibling.row
             
             while (newSiblingRow < NumRows - 1 && dotArray[sibling.column, newSiblingRow + 1] == nil) {
-              newSiblingRow++
+              newSiblingRow += 1
             }
             
             newRow = min(newRow,newSiblingRow)

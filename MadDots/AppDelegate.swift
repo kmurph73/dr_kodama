@@ -64,7 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("pvc: \(presentedViewController)")
         
         if let gvc = presentedViewController as? GameViewController {
-          gvc.startTimer()
+          if !gvc.sheetShown {
+            gvc.startTimer()
+          }
           break
         } else {
           topController = presentedViewController

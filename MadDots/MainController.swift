@@ -16,9 +16,9 @@ var NumberOfColors = 4
 var ShowBG = false
 var ShowNextPiece = false
 
-var MoreLevelsPurchased = false
-var NextPiecePurchased = false
-var FifthColorPurchased = false
+var MoreLevelsPurchased = true
+var NextPiecePurchased = true
+var FifthColorPurchased = true
 
 var iPad = false
 

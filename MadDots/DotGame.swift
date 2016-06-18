@@ -75,7 +75,7 @@ class DotGame {
   }
   
   func newNextPiece() -> Piece {
-    return Piece.random(StartingColumn, startingRow: StartingRow - 1)
+    return Piece.random(StartingColumn - 2, startingRow: StartingRow - 1)
   }
   
   func dropPiece() {
