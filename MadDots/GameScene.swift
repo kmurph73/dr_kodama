@@ -350,9 +350,10 @@ class GameScene: SKScene {
           connector.runAction(movToAction)
         }
 
-        runAction(SKAction.waitForDuration(duration), completion: completion)
       }
     }
+    
+    runAction(SKAction.waitForDuration(duration), completion: completion)
   }
   
   func setupBackground() {

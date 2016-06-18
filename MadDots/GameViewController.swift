@@ -278,11 +278,11 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         let newPiece = self.dotGame.newNextPiece()
         self.dotGame.fallingPiece = nextPiece
         self.dotGame.nextPiece = newPiece
-        self.view.userInteractionEnabled = true
-        nextPiece.shiftBy(2, rows: 1)
+        nextPiece.shiftBy(3, rows: 1)
         self.scene.redrawPiece(nextPiece, duration: 0.2) {
-          self.scene.startTicking()
+          self.view.userInteractionEnabled = true
           self.panPointReference = nil
+          self.scene.startTicking()
 
           //        delay(0.75) {
           self.scene.addPieceToScene(newPiece, completion: nil)
@@ -340,6 +340,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
 
   func didTick() {
+    print("didTick")
     dotGame.lowerPiece()
   }
 
