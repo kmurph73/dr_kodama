@@ -10,17 +10,17 @@ import SpriteKit
 
 enum Side: CustomStringConvertible {
   
-  case Left, Right, Top, Bottom
+  case left, right, top, bottom
   
   var sideName: String {
     switch self {
-    case .Left:
+    case .left:
       return "left"
-    case .Right:
+    case .right:
       return "right"
-    case .Top:
+    case .top:
       return "top"
-    case .Bottom:
+    case .bottom:
       return "bottom"
     }
   }
@@ -37,13 +37,13 @@ class GoodDot: Dot {
   func sideOfSibling() -> Side? {
     if let s = self.sibling {
       if s.row > self.row {
-        return .Bottom
+        return .bottom
       } else if s.row < self.row {
-        return .Top
+        return .top
       } else if s.column < self.column {
-        return .Left
+        return .left
       } else {
-        return .Right
+        return .right
       }
     } else {
       return nil

@@ -10,21 +10,17 @@ import Foundation
 import UIKit
 import StoreKit
 
-func delay(delay:Double, closure:()->()) {
-  dispatch_after(
-    dispatch_time(
-      DISPATCH_TIME_NOW,
-      Int64(delay * Double(NSEC_PER_SEC))
-    ),
-    dispatch_get_main_queue(), closure)
+func delay(_ delay:Double, closure:@escaping ()->()) {
+  DispatchQueue.main.asyncAfter(
+    deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
-func matchesForRegexInText(regex: String!, text: String!) -> [String] {
+func matchesForRegexInText(_ regex: String!, text: String!) -> [String] {
   do {
     let regex = try NSRegularExpression(pattern: regex, options: [])
     let nsString = text as NSString
-    let results = regex.matchesInString(text, options: [], range: NSMakeRange(0, nsString.length))
-    return results.map { nsString.substringWithRange($0.range)}
+    let results = regex.matches(in: text, options: [], range: NSMakeRange(0, nsString.length))
+    return results.map { nsString.substring(with: $0.range)}
   } catch let error as NSError {
     print("invalid regex: \(error.localizedDescription)")
     return []
@@ -33,10 +29,10 @@ func matchesForRegexInText(regex: String!, text: String!) -> [String] {
 
 extension SKProduct {
   func localizedPrice() -> String {
-    let formatter = NSNumberFormatter()
-    formatter.numberStyle = .CurrencyStyle
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
     formatter.locale = self.priceLocale
-    return formatter.stringFromNumber(self.price)!
+    return formatter.string(from: self.price)!
   }
 }
 
@@ -46,7 +42,7 @@ public extension UIDevice {
     uname(&systemInfo)
     let machineMirror = Mirror(reflecting: systemInfo.machine)
     let identifier = machineMirror.children.reduce("") { identifier, element in
-      guard let value = element.value as? Int8 where value != 0 else { return identifier }
+      guard let value = element.value as? Int8, value != 0 else { return identifier }
       return identifier + String(UnicodeScalar(UInt8(value)))
     }
     

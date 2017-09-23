@@ -28,20 +28,20 @@ class ChainHandler: XCTestCase {
       let dotGame = DotGame()
       let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
       
-      let dot1 = GoodDot(column: 3, row: NumRows - 6, color: .Yellow)
-      let dot2 = GoodDot(column: 3, row: NumRows - 5, color: .Yellow)
+      let dot1 = GoodDot(column: 3, row: NumRows - 6, color: .yellow)
+      let dot2 = GoodDot(column: 3, row: NumRows - 5, color: .yellow)
       
       dot1.sibling = dot2
       dot2.sibling = dot1
       
       dotArray[3, NumRows - 6] = dot1
       dotArray[3, NumRows - 5] = dot2
-      let madDot = MadDot(column: 3, row: NumRows - 4, color: .Red)
+      let madDot = MadDot(column: 3, row: NumRows - 4, color: .red)
       
       dotArray[3, NumRows - 4] = madDot
-      let dot3 = GoodDot(column: 3, row: NumRows - 3, color: .Red)
-      let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Red)
-      let dot5 = GoodDot(column: 3, row: NumRows - 1, color: .Red)
+      let dot3 = GoodDot(column: 3, row: NumRows - 3, color: .red)
+      let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .red)
+      let dot5 = GoodDot(column: 3, row: NumRows - 1, color: .red)
       
       dotArray[3,NumRows - 3] = dot3
       dotArray[3,NumRows - 2] = dot4
@@ -63,24 +63,24 @@ class ChainHandler: XCTestCase {
     let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let leftRedDot = GoodDot(column: 4, row: NumRows - 6, color: .Red)
-    let rightRedDot = GoodDot(column: 3, row: NumRows - 6, color: .Red)
+    let leftRedDot = GoodDot(column: 4, row: NumRows - 6, color: .red)
+    let rightRedDot = GoodDot(column: 3, row: NumRows - 6, color: .red)
     leftRedDot.sibling = rightRedDot
     rightRedDot.sibling = leftRedDot
     dotArray.setDot(leftRedDot)
     dotArray.setDot(rightRedDot)
     
-    let leftBlueDot = GoodDot(column: 4, row: NumRows - 7, color: .Blue)
-    let rightBlueDot = GoodDot(column: 3, row: NumRows - 7, color: .Blue)
+    let leftBlueDot = GoodDot(column: 4, row: NumRows - 7, color: .blue)
+    let rightBlueDot = GoodDot(column: 3, row: NumRows - 7, color: .blue)
     leftBlueDot.sibling = rightBlueDot
     rightBlueDot.sibling = leftBlueDot
     dotArray.setDot(leftBlueDot)
     dotArray.setDot(rightBlueDot)
     
-    let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow)
-    let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow)
-    let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow)
-    let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .Yellow)
+    let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .yellow)
+    let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .yellow)
+    let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .yellow)
+    let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .yellow)
     
     dotArray.setDot(dot3)
     dotArray.setDot(dot4)
@@ -110,9 +110,9 @@ class ChainHandler: XCTestCase {
     let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let madDot = MadDot(column: 4, row: NumRows - 3, color: .Yellow)
-    let leftDot = GoodDot(column: 4, row: NumRows - 4, color: .Red)
-    let rightDot = GoodDot(column: 5, row: NumRows - 4, color: .Red)
+    let madDot = MadDot(column: 4, row: NumRows - 3, color: .yellow)
+    let leftDot = GoodDot(column: 4, row: NumRows - 4, color: .red)
+    let rightDot = GoodDot(column: 5, row: NumRows - 4, color: .red)
     
     leftDot.sibling = rightDot
     rightDot.sibling = leftDot
@@ -121,10 +121,10 @@ class ChainHandler: XCTestCase {
     dotArray.setDot(rightDot)
     dotArray.setDot(madDot)
     
-    let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .Yellow)
-    let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .Yellow)
-    let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .Yellow)
-    let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .Yellow)
+    let dot3 = GoodDot(column: 3, row: NumRows - 1, color: .yellow)
+    let dot4 = GoodDot(column: 3, row: NumRows - 2, color: .yellow)
+    let dot5 = GoodDot(column: 3, row: NumRows - 3, color: .yellow)
+    let dot6 = GoodDot(column: 3, row: NumRows - 4, color: .yellow)
     
     dotArray.setDot(dot3)
     dotArray.setDot(dot4)
@@ -153,15 +153,15 @@ class ChainHandler: XCTestCase {
     
     let col = NumColumns - 3
     
-    let red1 = GoodDot(column: col, row: 2, color: .Red)
-    let red2 = GoodDot(column: col, row: 3, color: .Red)
-    let mad = MadDot(column: col, row: 4, color: .Red)
+    let red1 = GoodDot(column: col, row: 2, color: .red)
+    let red2 = GoodDot(column: col, row: 3, color: .red)
+    let mad = MadDot(column: col, row: 4, color: .red)
     
     dotArray.setDot(red1)
     dotArray.setDot(red2)
     dotArray.setDot(mad)
     
-    let piece = Piece(column: col, row: 1, leftColor: .Red, rightColor: .Yellow)
+    let piece = Piece(column: col, row: 1, leftColor: .red, rightColor: .yellow)
     
     dotGame.fallingPiece = piece
     
@@ -181,7 +181,7 @@ class ChainHandler: XCTestCase {
 
   func testPerformanceExample() {
       // This is an example of a performance test case.
-      self.measureBlock {
+      self.measure {
           // Put the code you want to measure the time of here.
       }
   }

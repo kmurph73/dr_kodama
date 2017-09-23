@@ -25,14 +25,14 @@ class PieceRotationTests: XCTestCase {
     let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 3, row: NumRows - 5, color: .Red)
-    let red2 = GoodDot(column: 3, row: NumRows - 4, color: .Red)
-    let mad = MadDot(column: 3, row: NumRows - 3, color: .Yellow)
+    let red1 = GoodDot(column: 3, row: NumRows - 5, color: .red)
+    let red2 = GoodDot(column: 3, row: NumRows - 4, color: .red)
+    let mad = MadDot(column: 3, row: NumRows - 3, color: .yellow)
     dotArray.setDot(red1)
     dotArray.setDot(red2)
     dotArray.setDot(mad)
     
-    let piece = Piece(column: 2, row: NumRows - 6, leftColor: .Yellow, rightColor: .Yellow)
+    let piece = Piece(column: 2, row: NumRows - 6, leftColor: .yellow, rightColor: .yellow)
     dotArray.setPiece(piece)
     print("darray0: \(dotArray)")
 
@@ -73,23 +73,23 @@ class PieceRotationTests: XCTestCase {
     let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 3, row: NumRows - 3, color: .Red)
-    let red2 = GoodDot(column: 3, row: NumRows - 2, color: .Red)
-    let mad = MadDot(column: 3, row: NumRows - 1, color: .Yellow)
+    let red1 = GoodDot(column: 3, row: NumRows - 3, color: .red)
+    let red2 = GoodDot(column: 3, row: NumRows - 2, color: .red)
+    let mad = MadDot(column: 3, row: NumRows - 1, color: .yellow)
     
     dotArray.setDot(red1)
     dotArray.setDot(red2)
     dotArray.setDot(mad)
     
-    let red3 = GoodDot(column: 1, row: NumRows - 3, color: .Red)
-    let red4 = GoodDot(column: 1, row: NumRows - 2, color: .Red)
-    let mad2 = MadDot(column: 1, row: NumRows - 1, color: .Yellow)
+    let red3 = GoodDot(column: 1, row: NumRows - 3, color: .red)
+    let red4 = GoodDot(column: 1, row: NumRows - 2, color: .red)
+    let mad2 = MadDot(column: 1, row: NumRows - 1, color: .yellow)
     
     dotArray.setDot(red3)
     dotArray.setDot(red4)
     dotArray.setDot(mad2)
     
-    let piece = Piece(column: 2, row: NumRows - 4, leftColor: .Yellow, rightColor: .Yellow)
+    let piece = Piece(column: 2, row: NumRows - 4, leftColor: .yellow, rightColor: .yellow)
     dotGame.fallingPiece = piece
     dotArray.setPiece(piece)
     print("darray0: \(dotArray)")
@@ -146,15 +146,15 @@ class PieceRotationTests: XCTestCase {
     let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 1, row: 1, color: .Red)
-    let red2 = GoodDot(column: 2, row: 1, color: .Red)
-    let mad = MadDot(column: 3, row: 1, color: .Yellow)
+    let red1 = GoodDot(column: 1, row: 1, color: .red)
+    let red2 = GoodDot(column: 2, row: 1, color: .red)
+    let mad = MadDot(column: 3, row: 1, color: .yellow)
     
     dotArray.setDot(red1)
     dotArray.setDot(red2)
     dotArray.setDot(mad)
     
-    let piece = Piece(column: 1, row: 0, leftColor: .Yellow, rightColor: .Yellow)
+    let piece = Piece(column: 1, row: 0, leftColor: .yellow, rightColor: .yellow)
     
     dotGame.fallingPiece = piece
     dotArray.setPiece(piece)
@@ -183,23 +183,23 @@ class PieceRotationTests: XCTestCase {
     let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 1, row: 1, color: .Red)
-    let red2 = GoodDot(column: 2, row: 1, color: .Red)
-    let mad = MadDot(column: 3, row: 1, color: .Yellow)
+    let red1 = GoodDot(column: 1, row: 1, color: .red)
+    let red2 = GoodDot(column: 2, row: 1, color: .red)
+    let mad = MadDot(column: 3, row: 1, color: .yellow)
     
     dotArray.setDot(red1)
     dotArray.setDot(red2)
     dotArray.setDot(mad)
     
-    let red3 = GoodDot(column: 1, row: 3, color: .Red)
-    let red4 = GoodDot(column: 2, row: 3, color: .Red)
-    let mad2 = MadDot(column: 3, row: 3, color: .Yellow)
+    let red3 = GoodDot(column: 1, row: 3, color: .red)
+    let red4 = GoodDot(column: 2, row: 3, color: .red)
+    let mad2 = MadDot(column: 3, row: 3, color: .yellow)
     
     dotArray.setDot(red3)
     dotArray.setDot(red4)
     dotArray.setDot(mad2)
     
-    let piece = Piece(column: 1, row: 2, leftColor: .Yellow, rightColor: .Yellow)
+    let piece = Piece(column: 1, row: 2, leftColor: .yellow, rightColor: .yellow)
     
     dotGame.fallingPiece = piece
     dotArray.setPiece(piece)
@@ -221,21 +221,21 @@ class PieceRotationTests: XCTestCase {
     let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 1, row: 1, color: .Red)
-    let red2 = GoodDot(column: 2, row: 1, color: .Red)
-    let mad = MadDot(column: 3, row: 1, color: .Yellow)
+    let red1 = GoodDot(column: 1, row: 1, color: .red)
+    let red2 = GoodDot(column: 2, row: 1, color: .red)
+    let mad = MadDot(column: 3, row: 1, color: .yellow)
     
     dotArray.setDot(red1)
     dotArray.setDot(red2)
     dotArray.setDot(mad)
     
-    let red4 = GoodDot(column: 2, row: 3, color: .Red)
-    let mad2 = MadDot(column: 3, row: 3, color: .Yellow)
+    let red4 = GoodDot(column: 2, row: 3, color: .red)
+    let mad2 = MadDot(column: 3, row: 3, color: .yellow)
     
     dotArray.setDot(red4)
     dotArray.setDot(mad2)
     
-    let piece = Piece(column: 1, row: 2, leftColor: .Yellow, rightColor: .Yellow)
+    let piece = Piece(column: 1, row: 2, leftColor: .yellow, rightColor: .yellow)
     
     dotGame.fallingPiece = piece
 //    setPiece(dotArray, piece: piece)
@@ -258,15 +258,15 @@ class PieceRotationTests: XCTestCase {
     
     let col = NumColumns - 2
     
-    let red1 = GoodDot(column: col, row: 2, color: .Red)
-    let red2 = GoodDot(column: col, row: 4, color: .Red)
-    let mad = MadDot(column: col, row: 5, color: .Yellow)
+    let red1 = GoodDot(column: col, row: 2, color: .red)
+    let red2 = GoodDot(column: col, row: 4, color: .red)
+    let mad = MadDot(column: col, row: 5, color: .yellow)
     
     dotArray.setDot(red1)
     dotArray.setDot(red2)
     dotArray.setDot(mad)
     
-    let piece = Piece(column: col, row: 1, leftColor: .Yellow, rightColor: .Yellow)
+    let piece = Piece(column: col, row: 1, leftColor: .yellow, rightColor: .yellow)
     
     dotGame.fallingPiece = piece
     
@@ -308,17 +308,17 @@ class PieceRotationTests: XCTestCase {
     let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     dotGame.dotArray = dotArray
     
-    let red1 = GoodDot(column: 3, row: NumRows - 6, color: .Red)
-    let red2 = GoodDot(column: 3, row: NumRows - 5, color: .Red)
-    let mad = MadDot(column: 3, row: NumRows - 4, color: .Yellow)
+    let red1 = GoodDot(column: 3, row: NumRows - 6, color: .red)
+    let red2 = GoodDot(column: 3, row: NumRows - 5, color: .red)
+    let mad = MadDot(column: 3, row: NumRows - 4, color: .yellow)
     
     dotArray.setDot(red1)
     dotArray.setDot(red2)
     dotArray.setDot(mad)
     
-    let red3 = GoodDot(column: 1, row: NumRows - 6, color: .Red)
-    let red4 = GoodDot(column: 1, row: NumRows - 5, color: .Red)
-    let mad2 = MadDot(column: 1, row: NumRows - 4, color: .Yellow)
+    let red3 = GoodDot(column: 1, row: NumRows - 6, color: .red)
+    let red4 = GoodDot(column: 1, row: NumRows - 5, color: .red)
+    let mad2 = MadDot(column: 1, row: NumRows - 4, color: .yellow)
     
     dotArray.setDot(red3)
     dotArray.setDot(red4)
@@ -326,7 +326,7 @@ class PieceRotationTests: XCTestCase {
     
     print("darray-1: \(dotArray)")
 
-    let piece = Piece(column: 2, row: NumRows - 8, leftColor: .Yellow, rightColor: .Yellow)
+    let piece = Piece(column: 2, row: NumRows - 8, leftColor: .yellow, rightColor: .yellow)
     dotGame.fallingPiece = piece
 
     piece.rotateCounterClockwise(dotArray)

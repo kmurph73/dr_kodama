@@ -14,17 +14,17 @@ let DrawnRows = NumRows - 2
 let StartingColumn = 3
 let StartingRow = 1
 
-var RotateDir: Dir = .CounterClockwise
+var RotateDir: Dir = .counterClockwise
 
 enum MatrixDir: Int {
-  case Row = 0, Column
+  case row = 0, column
 }
 
 protocol DotGameDelegate {
-  func gameDidEnd(dotGame: DotGame)
-  func gameDidBegin(dotGame: DotGame)
-  func gamePieceDidMove(dotGame: DotGame, duration: NSTimeInterval, completion: (() -> ())?)
-  func gamePieceDidLand(dotGame: DotGame)
+  func gameDidEnd(_ dotGame: DotGame)
+  func gameDidBegin(_ dotGame: DotGame)
+  func gamePieceDidMove(_ dotGame: DotGame, duration: TimeInterval, completion: (() -> ())?)
+  func gamePieceDidLand(_ dotGame: DotGame)
 }
 
 class DotGame {
@@ -123,7 +123,7 @@ class DotGame {
       nextPiece = newNextPiece()
     }
     
-    self.madDots.appendContentsOf(levelMaker.makeRandomLevel(GameLevel))
+    self.madDots.append(contentsOf: levelMaker.makeRandomLevel(GameLevel))
     
 //    let sen = testScenario()
 //    dotArray = sen.array
@@ -189,7 +189,7 @@ class DotGame {
   
   func rotatePiece() {
     if let piece = fallingPiece {
-      if RotateDir == .Clockwise {
+      if RotateDir == .clockwise {
         piece.rotateClockwise(dotArray)
       } else {
         piece.rotateCounterClockwise(dotArray)

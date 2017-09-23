@@ -18,7 +18,7 @@ class MainScene: SKScene {
     anchorPoint = CGPoint(x: 0, y: 1.0)
     
     playButton = SKSpriteNode(texture: playButtonTex)
-    playButton.position = CGPointMake(frame.midX, frame.midY)
+    playButton.position = CGPoint(x: frame.midX, y: frame.midY)
     self.addChild(playButton)
   }
 

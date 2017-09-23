@@ -30,18 +30,18 @@ class MainController: UIViewController, StoreViewCtrlDelegate {
   
   @IBOutlet var viewery: UIView!
   
-  @IBAction func tapPlay(sender: AnyObject) {
-    self.performSegueWithIdentifier("goSettings", sender: self)
+  @IBAction func tapPlay(_ sender: AnyObject) {
+    self.performSegue(withIdentifier: "goSettings", sender: self)
   }
   
-  @IBAction func tapStore(sender: UIButton) {
-    self.performSegueWithIdentifier("goStore", sender: self)
+  @IBAction func tapStore(_ sender: UIButton) {
+    self.performSegue(withIdentifier: "goStore", sender: self)
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
         
-    let modelName = UIDevice.currentDevice().modelName
+    let modelName = UIDevice.current.modelName
     let matches = matchesForRegexInText("^iPad", text: modelName)
     if matches.count > 0 {
       iPad = true
@@ -64,21 +64,21 @@ class MainController: UIViewController, StoreViewCtrlDelegate {
     
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
   }
   
-  @IBAction func tapHelp(sender: AnyObject) {
-    self.performSegueWithIdentifier("help", sender: self)
+  @IBAction func tapHelp(_ sender: AnyObject) {
+    self.performSegue(withIdentifier: "help", sender: self)
   }
   
-  func doneWithStore(ctrl: StoreViewController) {
-    ctrl.dismissViewControllerAnimated(true, completion: nil)
+  func doneWithStore(_ ctrl: StoreViewController) {
+    ctrl.dismiss(animated: true, completion: nil)
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "goStore" {
-      let navigationController = segue.destinationViewController as! UINavigationController
+      let navigationController = segue.destination as! UINavigationController
       let vc = navigationController.viewControllers.first as! StoreViewController
       vc.delegate = self
     }

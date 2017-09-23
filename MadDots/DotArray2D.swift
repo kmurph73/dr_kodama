@@ -62,12 +62,12 @@ class DotArray2D: Array2D<Dot>, CustomStringConvertible {
     return false
   }
   
-  func removePiece(piece: Piece) {
+  func removePiece(_ piece: Piece) {
     removeDot(piece.dot1)
     removeDot(piece.dot2)
   }
   
-  func removeDot(dot: Dot) {
+  func removeDot(_ dot: Dot) {
     self[dot.column, dot.row] = nil
   }
   
@@ -97,16 +97,16 @@ class DotArray2D: Array2D<Dot>, CustomStringConvertible {
     return cnt
   }
   
-  func rmDot(dot: Dot) {
+  func rmDot(_ dot: Dot) {
     self[dot.column, dot.row] = nil
   }
   
   
-  func setDot(dot: Dot) {
+  func setDot(_ dot: Dot) {
     self[dot.column,dot.row] = dot
   }
   
-  func setPiece(piece: Piece) {
+  func setPiece(_ piece: Piece) {
     setDot(piece.dot1)
     setDot(piece.dot2)
   }

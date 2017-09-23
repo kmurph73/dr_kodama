@@ -13,25 +13,25 @@ import UIKit
 class AboutViewController: UIViewController, UIWebViewDelegate {
   @IBOutlet weak var webV: UIWebView!
   
-  @IBAction func tapClose(sender: AnyObject) {
+  @IBAction func tapClose(_ sender: AnyObject) {
     print("tap close")
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.dismiss(animated: true, completion: nil)
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     webV.delegate = self
-    if let htmlFile = NSBundle.mainBundle().pathForResource("about", ofType: "html") {
-      let htmlData = NSData(contentsOfFile: htmlFile)
-      let baseURL = NSURL.fileURLWithPath(NSBundle.mainBundle().bundlePath)
-      webV.loadData(htmlData!, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL: baseURL)
+    if let htmlFile = Bundle.main.path(forResource: "about", ofType: "html") {
+      let htmlData = try? Data(contentsOf: URL(fileURLWithPath: htmlFile))
+      let baseURL = URL(fileURLWithPath: Bundle.main.bundlePath)
+      webV.load(htmlData!, mimeType: "text/html", textEncodingName: "UTF-8", baseURL: baseURL)
     }
   }
   
-  func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-    if navigationType == UIWebViewNavigationType.LinkClicked {
-      UIApplication.sharedApplication().openURL(request.URL!)
+  func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    if navigationType == UIWebViewNavigationType.linkClicked {
+      UIApplication.shared.openURL(request.url!)
       return false;
     }
     return true;

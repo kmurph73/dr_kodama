@@ -27,7 +27,7 @@ class LevelMaker {
   
   var dotArray: DotArray2D
   
-  func randomNum(min: Int, max: Int) -> Int {
+  func randomNum(_ min: Int, max: Int) -> Int {
     return Int(arc4random_uniform(UInt32(max))) + min
   }
   
@@ -36,11 +36,11 @@ class LevelMaker {
     self.madDots = Array<MadDot>()
   }
   
-  func getRowNum(row:Int) {
+  func getRowNum(_ row:Int) {
     NumRows - row
   }
   
-  func placeRandomDot(col: Int, rowNum: Int) -> Bool {
+  func placeRandomDot(_ col: Int, rowNum: Int) -> Bool {
     let randNum = randomNum(0, max: 5)
     if randNum == 4 {
       return false
@@ -55,7 +55,8 @@ class LevelMaker {
     }
   }
   
-  func fillInDotsForRow(var numDotsRequiredForRow:Int, rowNum: Int) {
+  func fillInDotsForRow(_ numDotsRequiredForRow:Int, rowNum: Int) {
+    var numDotsRequiredForRow = numDotsRequiredForRow
     while numDotsRequiredForRow > 0 {
       let randColumn = randomNum(0, max: NumColumns)
       if dotArray[randColumn, rowNum] == nil {
@@ -66,21 +67,22 @@ class LevelMaker {
     }
   }
   
-  func removeDotsForRow(var numDotsRequiredForRow: Int, rowNum: Int) {
+  func removeDotsForRow(_ numDotsRequiredForRow: Int, rowNum: Int) {
+    var numDotsRequiredForRow = numDotsRequiredForRow
     while numDotsRequiredForRow < 0 {
       let randColumn = randomNum(0, max: NumColumns)
       
       if let dot = dotArray[randColumn, rowNum] as? MadDot {
         dotArray[randColumn, rowNum] = nil
-        if let index = madDots.indexOf(dot) {
-          madDots.removeAtIndex(index)
+        if let index = madDots.index(of: dot) {
+          madDots.remove(at: index)
         }
         numDotsRequiredForRow += 1
       }
     }
   }
   
-  func dotCountForRow(rowNum: Int) -> Int {
+  func dotCountForRow(_ rowNum: Int) -> Int {
     var cnt = 0
     for column in 0...NumColumns {
       if let _ = dotArray[column, rowNum] {
@@ -91,13 +93,13 @@ class LevelMaker {
     return cnt
   }
   
-  private func appendRandomDot(row: Int, col:Int) {
+  fileprivate func appendRandomDot(_ row: Int, col:Int) {
     let md = MadDot(column: col, row: row, color: DotColor.random())
     dotArray[col, row] = md
     self.madDots.append(md)
   }
   
-  func insertRandomDot(level: Level) -> Bool {
+  func insertRandomDot(_ level: Level) -> Bool {
     let randRow = randomNum(0, max: level.maxRows) + (NumRows - level.maxRows)
     let randCol = randomNum(0, max: NumColumns)
     
@@ -105,7 +107,7 @@ class LevelMaker {
       if let _ = dotArray[randCol, randRow] as? MadDot {
         return false
       } else {
-        if let rows = level.rows, row = rows[randRow] {
+        if let rows = level.rows, let row = rows[randRow] {
           if dotCountForRow(randRow) < row.max {
             appendRandomDot(randRow, col: randCol)
             
@@ -123,7 +125,7 @@ class LevelMaker {
     return false
   }
   
-  func insertRandomDot(offset:Int) -> Bool {
+  func insertRandomDot(_ offset:Int) -> Bool {
     let randRow = randomNum(offset, max: NumRows - offset)
     let randCol = randomNum(0, max: NumColumns)
     
@@ -136,7 +138,7 @@ class LevelMaker {
 
   }
   
-  func makeRandomLevel(levelNumber: Int) -> Array<MadDot> {
+  func makeRandomLevel(_ levelNumber: Int) -> Array<MadDot> {
     self.madDots = Array<MadDot>()
     var totalMadDots = levelNumber * 3
     
@@ -170,7 +172,7 @@ class LevelMaker {
   }
 }
 
-func siblingizeLastTwo(arr: Array<GoodDot>) {
+func siblingizeLastTwo(_ arr: Array<GoodDot>) {
   if let last = arr.last {
     let secondlast = arr[arr.endIndex - 2]
     last.sibling = secondlast; secondlast.sibling = last
@@ -191,17 +193,17 @@ func testScenario() -> (array:DotArray2D, pieces: Array<Piece>) {
 //  arr.setDot(dot2)
   
   let column = 2
-  dots.append(GoodDot(column: column, row: NumRows - 1, color: .Yellow))
-  dots.append(GoodDot(column: column, row: NumRows - 2, color: .Yellow))
-  dots.append(GoodDot(column: column, row: NumRows - 3, color: .Yellow))
-  dots.append(GoodDot(column: column - 1, row: NumRows - 3, color: .Yellow))
+  dots.append(GoodDot(column: column, row: NumRows - 1, color: .yellow))
+  dots.append(GoodDot(column: column, row: NumRows - 2, color: .yellow))
+  dots.append(GoodDot(column: column, row: NumRows - 3, color: .yellow))
+  dots.append(GoodDot(column: column - 1, row: NumRows - 3, color: .yellow))
 
   siblingizeLastTwo(dots)
   
-  dots.append(GoodDot(column: column, row: NumRows - 4, color: .Blue))
+  dots.append(GoodDot(column: column, row: NumRows - 4, color: .blue))
 
-  dots.append(GoodDot(column: column, row: NumRows - 5, color: .Blue))
-  dots.append(GoodDot(column: column - 1, row: NumRows - 5, color: .Blue))
+  dots.append(GoodDot(column: column, row: NumRows - 5, color: .blue))
+  dots.append(GoodDot(column: column - 1, row: NumRows - 5, color: .blue))
   
   siblingizeLastTwo(dots)
   for dot in dots { arr.setDot(dot) }
@@ -211,13 +213,13 @@ func testScenario() -> (array:DotArray2D, pieces: Array<Piece>) {
 //    arr.setDot(GoodDot(column: col, row: 5, color: color))
 //  }
 
-  arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .Blue))
+  arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .blue))
 
-  seq.appendContentsOf([
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Green, rightColor: .Green),
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Green, rightColor: .Green),
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Green, rightColor: .Green),
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow)
+  seq.append(contentsOf: [
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .green, rightColor: .green),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .green, rightColor: .green),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .green, rightColor: .green),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow)
   ])
   
   return (array:arr, pieces: seq)
@@ -227,18 +229,18 @@ func testScenario2() -> (array:DotArray2D, pieces: Array<Piece>) {
   let arr = DotArray2D(columns: NumColumns, rows: NumRows)
   var seq = Array<Piece>()
   
-  let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .Red)
-  let dot2 = GoodDot(column: 3, row: NumRows - 7, color: .Red)
+  let dot1 = GoodDot(column: 4, row: NumRows - 7, color: .red)
+  let dot2 = GoodDot(column: 3, row: NumRows - 7, color: .red)
   dot1.sibling = dot2
   dot2.sibling = dot1
   
   arr.setDot(dot1)
   arr.setDot(dot2)
   
-  let dot3 = GoodDot(column: 1, row: NumRows - 1, color: .Yellow)
-  let dot4 = GoodDot(column: 1, row: NumRows - 2, color: .Yellow)
-  let dot5 = GoodDot(column: 1, row: NumRows - 3, color: .Yellow)
-  let dot6 = GoodDot(column: 1, row: NumRows - 4, color: .Blue)
+  let dot3 = GoodDot(column: 1, row: NumRows - 1, color: .yellow)
+  let dot4 = GoodDot(column: 1, row: NumRows - 2, color: .yellow)
+  let dot5 = GoodDot(column: 1, row: NumRows - 3, color: .yellow)
+  let dot6 = GoodDot(column: 1, row: NumRows - 4, color: .blue)
   
   arr.setDot(dot3)
   arr.setDot(dot4)
@@ -246,17 +248,17 @@ func testScenario2() -> (array:DotArray2D, pieces: Array<Piece>) {
   arr.setDot(dot6)
   
   for col in 0..<NumColumns {
-    let color: DotColor = col % 2 == 0 ? .Yellow : .Blue
+    let color: DotColor = col % 2 == 0 ? .yellow : .blue
     arr.setDot(GoodDot(column: col, row: 5, color: color))
   }
   
-  arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .Blue))
+  arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .blue))
   
-  seq.appendContentsOf([
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow),
-    Piece(column: StartingColumn, row: StartingRow, leftColor: .Yellow, rightColor: .Yellow)
+  seq.append(contentsOf: [
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow)
     ])
   
   return (array:arr, pieces: seq)

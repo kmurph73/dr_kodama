@@ -13,7 +13,7 @@ import StoreKit
 public enum Products {
   
   /// TODO:  Change this to whatever you set on iTunes connect
-  private static let Prefix = "com.blah.kmurphles.kodama."
+  fileprivate static let Prefix = "com.blah.kmurphles.kodama."
     
   /// MARK: - Supported Product Identifiers
   public static let ShowNextPieceProduct = "shownextpiece2"
@@ -21,13 +21,13 @@ public enum Products {
   public static let MoreLevelsProduct = "morelevels2"
   
   // All of the products assembled into a set of product identifiers.
-  private static let productIdentifiers: Set<ProductIdentifier> = [Products.ShowNextPieceProduct, Products.FifthColorProduct, Products.MoreLevelsProduct]
+  fileprivate static let productIdentifiers: Set<ProductIdentifier> = [Products.ShowNextPieceProduct, Products.FifthColorProduct, Products.MoreLevelsProduct]
   
   /// Static instance of IAPHelper that for rage products.
   public static let store = IAPHelper(productIdentifiers: Products.productIdentifiers)
 }
 
 /// Return the resourcename for the product identifier.
-func resourceNameForProductIdentifier(productIdentifier: String) -> String? {
-  return productIdentifier.componentsSeparatedByString(".").last
+func resourceNameForProductIdentifier(_ productIdentifier: String) -> String? {
+  return productIdentifier.components(separatedBy: ".").last
 }

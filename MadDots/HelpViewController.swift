@@ -25,11 +25,11 @@ class HelpViewController: UIViewController {
   @IBOutlet weak var whitedot3: UIImageView!
   @IBOutlet weak var trailingMargin: NSLayoutConstraint!
   
-  @IBAction func tapDone(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func tapDone(_ sender: AnyObject) {
+    self.dismiss(animated: true, completion: nil)
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     textview.sizeToFit()

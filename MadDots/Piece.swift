@@ -9,13 +9,13 @@
 import SpriteKit
 
 enum Orientation: Int, CustomStringConvertible {
-  case Vertical, Horizontal
+  case vertical, horizontal
   
   var name: String {
     switch self {
-    case .Vertical:
+    case .vertical:
       return "vertical"
-    case .Horizontal:
+    case .horizontal:
       return "horizontal"
     }
   }
@@ -26,7 +26,7 @@ enum Orientation: Int, CustomStringConvertible {
 }
 
 enum Dir {
-  case Clockwise, CounterClockwise
+  case clockwise, counterClockwise
 }
 
 class Rotation {
@@ -40,7 +40,7 @@ class Rotation {
   }
   
   func undo() {
-    for (idx,dot) in self.dots.enumerate() {
+    for (idx,dot) in self.dots.enumerated() {
       let translation = translations[idx]
       dot.row += translation.rowDiff * -1
       dot.column += translation.columnDiff * -1
@@ -115,7 +115,7 @@ class Piece: CustomStringConvertible {
   
   var orientation: Orientation {
     get {
-      return self.leftDot == nil ? .Vertical : .Horizontal
+      return self.leftDot == nil ? .vertical : .horizontal
     }
   }
   
@@ -139,14 +139,14 @@ class Piece: CustomStringConvertible {
     shiftBy(-1, rows:0)
   }
   
-  final func shiftBy(columns: Int, rows: Int) {
+  final func shiftBy(_ columns: Int, rows: Int) {
     for dot in dots {
       dot.column += columns
       dot.row += rows
     }
   }
   
-  func checkBlockage(dotArray: DotArray2D) -> (blockedOnRight: Bool, blockedOnTop: Bool, blockedOnLeft: Bool) {
+  func checkBlockage(_ dotArray: DotArray2D) -> (blockedOnRight: Bool, blockedOnTop: Bool, blockedOnLeft: Bool) {
     var rightIsBlocked = false
     var topIsBlocked = false
     var leftIsBlocked = false
@@ -161,7 +161,7 @@ class Piece: CustomStringConvertible {
       }
 
     } else if let bdot = self.bottomDot {
-      if RotateDir == .CounterClockwise {
+      if RotateDir == .counterClockwise {
         let isOnRightEdge = bdot.column == NumColumns - 1
         
         if isOnRightEdge {
@@ -183,7 +183,7 @@ class Piece: CustomStringConvertible {
     return (blockedOnRight: rightIsBlocked, blockedOnTop: topIsBlocked, blockedOnLeft: leftIsBlocked)
   }
   
-  func getCounterClockwisePositionFor(dotArray: DotArray2D) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+  func getCounterClockwisePositionFor(_ dotArray: DotArray2D) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let results = checkBlockage(dotArray)
     
     if results.blockedOnRight {
@@ -191,7 +191,7 @@ class Piece: CustomStringConvertible {
     } else if results.blockedOnTop {
       return [(0, 1),(-1, 0)]
     } else {
-      if orientation == .Horizontal {
+      if orientation == .horizontal {
         return [(0,0), (-1,-1)]
       } else {
         return [(0,1), (1,0)]
@@ -199,7 +199,7 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  func getClockwisePosition(dotArray:DotArray2D) -> Array<(columnDiff: Int, rowDiff: Int)>? {
+  func getClockwisePosition(_ dotArray:DotArray2D) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let results = checkBlockage(dotArray)
     
     if results.blockedOnLeft {
@@ -208,7 +208,7 @@ class Piece: CustomStringConvertible {
       print("blocked on top")
       return [(1, 0), (0, 1)]
     } else {
-      if orientation == .Horizontal {
+      if orientation == .horizontal {
         return [(1,-1), (0,0)]
       } else {
         return [(0,1), (-1,0)]
@@ -216,12 +216,12 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  private final func rotatePieceCounterClockwise(dotArray: DotArray2D) {
+  fileprivate final func rotatePieceCounterClockwise(_ dotArray: DotArray2D) {
     if let pieceRowColumnTranslation = getCounterClockwisePositionFor(dotArray) {
       previousRotation = Rotation(dots: dots, translations: pieceRowColumnTranslation)
       let cachedDots = dots
 
-      for (idx, diff) in pieceRowColumnTranslation.enumerate() {
+      for (idx, diff) in pieceRowColumnTranslation.enumerated() {
         let dot = cachedDots[idx]
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
@@ -229,12 +229,12 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  private final func rotatePieceClockwise(dotArray: DotArray2D) {
+  fileprivate final func rotatePieceClockwise(_ dotArray: DotArray2D) {
     if let pieceRowColumnTranslation = getClockwisePosition(dotArray) {
       previousRotation = Rotation(dots: dots, translations: pieceRowColumnTranslation)
       let cachedDots = dots
 
-      for (idx, diff) in pieceRowColumnTranslation.enumerate() {
+      for (idx, diff) in pieceRowColumnTranslation.enumerated() {
         let dot = cachedDots[idx]
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
@@ -242,11 +242,11 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  final func rotateClockwise(dotArray: DotArray2D) {
+  final func rotateClockwise(_ dotArray: DotArray2D) {
     rotatePieceClockwise(dotArray)
   }
   
-  final func rotateCounterClockwise(dotArray: DotArray2D) {
+  final func rotateCounterClockwise(_ dotArray: DotArray2D) {
     rotatePieceCounterClockwise(dotArray)
   }
   
@@ -254,7 +254,7 @@ class Piece: CustomStringConvertible {
     previousRotation?.undo()
   }
   
-  final class func random(startingColumn:Int, startingRow:Int) -> Piece {
+  final class func random(_ startingColumn:Int, startingRow:Int) -> Piece {
     let leftSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
     let rightSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
     

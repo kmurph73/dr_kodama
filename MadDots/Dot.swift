@@ -10,19 +10,19 @@ import SpriteKit
 
 enum DotColor: Int, CustomStringConvertible {
   
-  case Red = 0, Green, Blue, Yellow, Orange
+  case red = 0, green, blue, yellow, orange
   
   var spriteName: String {
     switch self {
-    case .Red:
+    case .red:
       return "red"
-    case .Green:
+    case .green:
       return "green"
-    case .Blue:
+    case .blue:
       return "blue"
-    case .Yellow:
+    case .yellow:
       return "yellow"
-    case .Orange:
+    case .orange:
       return "orange"
     }
   }

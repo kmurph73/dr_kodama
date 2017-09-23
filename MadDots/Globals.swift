@@ -9,41 +9,44 @@
 import Foundation
 
 func assessState() {
-  if let gameSpeed = NSUserDefaults.standardUserDefaults().valueForKey("gameSpeed") as? Int {
+  if let gameSpeed = UserDefaults.standard.value(forKey: "gameSpeed") as? Int {
     GameSpeed = gameSpeed
   }
   
-  if let gameLevel = NSUserDefaults.standardUserDefaults().valueForKey("gameLevel") as? Int {
+  if let gameLevel = UserDefaults.standard.value(forKey: "gameLevel") as? Int {
     GameLevel = gameLevel
   }
   
-  if let numColors = NSUserDefaults.standardUserDefaults().valueForKey("numColors") as? Int {
+  if let numColors = UserDefaults.standard.value(forKey: "numColors") as? Int {
     NumberOfColors = numColors
   }
   
-  if let showBG = NSUserDefaults.standardUserDefaults().valueForKey("showBG") as? Bool {
+  if let showBG = UserDefaults.standard.value(forKey: "showBG") as? Bool {
     ShowBG = showBG
   }
   
-  if let moreLevels = NSUserDefaults.standardUserDefaults().valueForKey("morelevels2Purchased") as? Bool {
-    MoreLevelsPurchased = moreLevels
-  }
+//  if let moreLevels = UserDefaults.standard.value(forKey: "morelevels2Purchased") as? Bool {
+//    MoreLevelsPurchased = moreLevels
+//  }
+//  
+//  if let fifthColor = UserDefaults.standard.value(forKey: "fifthcolor2Purchased") as? Bool {
+//    FifthColorPurchased = fifthColor
+//  }
+    
+  MoreLevelsPurchased = true
+  FifthColorPurchased = true
+  NextPiecePurchased = true
+//  if let nextPiece = UserDefaults.standard.value(forKey: "shownextpiece2Purchased") as? Bool {
+//    NextPiecePurchased = nextPiece
+//  }
   
-  if let fifthColor = NSUserDefaults.standardUserDefaults().valueForKey("fifthcolor2Purchased") as? Bool {
-    FifthColorPurchased = fifthColor
-  }
-  
-  if let nextPiece = NSUserDefaults.standardUserDefaults().valueForKey("shownextpiece2Purchased") as? Bool {
-    NextPiecePurchased = nextPiece
-  }
-  
-  if let showNextPiece = NSUserDefaults.standardUserDefaults().valueForKey("showNextPiece") as? Bool {
+  if let showNextPiece = UserDefaults.standard.value(forKey: "showNextPiece") as? Bool {
     ShowNextPiece = showNextPiece
   }
 }
 
 func purchaseAll() {
-  NSUserDefaults.standardUserDefaults().setBool(true, forKey: "shownextpiecePurchased")
-  NSUserDefaults.standardUserDefaults().setBool(true, forKey: "fifthcolorPurchased")
-  NSUserDefaults.standardUserDefaults().setBool(true, forKey: "morelevelPurchased")
+  UserDefaults.standard.set(true, forKey: "shownextpiecePurchased")
+  UserDefaults.standard.set(true, forKey: "fifthcolorPurchased")
+  UserDefaults.standard.set(true, forKey: "morelevelPurchased")
 }

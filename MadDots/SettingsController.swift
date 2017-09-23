@@ -21,8 +21,8 @@ class SettingsController: UIViewController {
   @IBOutlet weak var nextPieceSwitch: UISwitch!
   @IBOutlet weak var bgSwitch: UISwitch!
   
-  @IBAction func tapCancel(sender: UIButton) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func tapCancel(_ sender: UIButton) {
+    self.dismiss(animated: true, completion: nil)
   }
   
   override func viewDidLoad() {
@@ -31,7 +31,7 @@ class SettingsController: UIViewController {
     setLabelColor()
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     print("GameLevel: \(GameLevel)")
@@ -40,7 +40,7 @@ class SettingsController: UIViewController {
       self.levelSlider.value = Float(GameLevel)
     }
     
-    bgSwitch.on = ShowBG
+    bgSwitch.isOn = ShowBG
     
     handleMoreLevels()
     handleFifthColor()
@@ -49,40 +49,40 @@ class SettingsController: UIViewController {
     updateLabels()
   }
   
-  @IBAction func tapStart(sender: UIButton) {
-    NSUserDefaults.standardUserDefaults().setValue(ShowNextPiece, forKey: "showNextPiece")
-    NSUserDefaults.standardUserDefaults().setValue(GameLevel, forKey: "gameLevel")
-    NSUserDefaults.standardUserDefaults().setValue(NumberOfColors, forKey: "numColors")
-    NSUserDefaults.standardUserDefaults().setValue(ShowBG, forKey: "showBG")
+  @IBAction func tapStart(_ sender: UIButton) {
+    UserDefaults.standard.setValue(ShowNextPiece, forKey: "showNextPiece")
+    UserDefaults.standard.setValue(GameLevel, forKey: "gameLevel")
+    UserDefaults.standard.setValue(NumberOfColors, forKey: "numColors")
+    UserDefaults.standard.setValue(ShowBG, forKey: "showBG")
     
-    self.performSegueWithIdentifier("gogo", sender: self)
+    self.performSegue(withIdentifier: "gogo", sender: self)
   }
   
-  @IBAction func speedSliderMoved(sender: UISlider) {
+  @IBAction func speedSliderMoved(_ sender: UISlider) {
     GameSpeed = lroundf(sender.value)
     updateLabels()
   }
   
-  @IBAction func levelSliderMoved(sender: UISlider) {
+  @IBAction func levelSliderMoved(_ sender: UISlider) {
     GameLevel = lroundf(sender.value)
     updateLabels()
   }
   
-  @IBAction func numColorsSwitchChanged(sender: UISwitch) {
-    NumberOfColors = sender.on ? 5 : 4
+  @IBAction func numColorsSwitchChanged(_ sender: UISwitch) {
+    NumberOfColors = sender.isOn ? 5 : 4
     updateLabels()
   }
   
-  @IBAction func bgSwitchChanged(sender: UISwitch) {
-    ShowBG = sender.on
+  @IBAction func bgSwitchChanged(_ sender: UISwitch) {
+    ShowBG = sender.isOn
   }
   
-  @IBAction func nextPieceSwitchChanged(sender: UISwitch) {
-    ShowNextPiece = sender.on
+  @IBAction func nextPieceSwitchChanged(_ sender: UISwitch) {
+    ShowNextPiece = sender.isOn
   }
   
   func setLabelColor() {
-    let color = iPad ? UIColor.whiteColor() : UIColor.blackColor()
+    let color = iPad ? UIColor.white : UIColor.black
     
     self.showBgLabel.textColor = color
     self.nextPieceLabel.textColor = color
@@ -97,16 +97,16 @@ class SettingsController: UIViewController {
   
   func handleNextPiece() {
     let hidden = NextPiecePurchased ? false : true
-    nextPieceSwitch.on = ShowNextPiece
-    nextPieceSwitch.hidden = hidden
-    nextPieceLabel.hidden = hidden
+    nextPieceSwitch.isOn = ShowNextPiece
+    nextPieceSwitch.isHidden = hidden
+    nextPieceLabel.isHidden = hidden
   }
   
   func handleFifthColor() {
     let hidden = FifthColorPurchased ? false : true
-    numColorsSwitch.on = NumberOfColors == 5
-    numColorsLabel.hidden = hidden
-    numColorsSwitch.hidden = hidden
+    numColorsSwitch.isOn = NumberOfColors == 5
+    numColorsLabel.isHidden = hidden
+    numColorsSwitch.isHidden = hidden
   }
   
   func handleMoreLevels() {

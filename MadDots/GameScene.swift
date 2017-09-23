@@ -31,9 +31,9 @@ class GameScene: SKScene {
   var menuLabel: SKLabelNode?
   var menuBtn: SKSpriteNode?
   var textureCache = Dictionary<String, SKTexture>()
-  var timer: NSTimer?
+  var timer: Timer?
   
-  override func didMoveToView(view: SKView) {
+  override func didMove(to view: SKView) {
       /* Setup your scene here */
   }
   
@@ -61,7 +61,7 @@ class GameScene: SKScene {
     dotLayer.position = LayerPosition
     self.addChild(dotLayer)
     
-    let y = CGRectGetMaxY(self.frame) - (extraYSpace - BlockSize)
+    let y = self.frame.maxY - (extraYSpace - BlockSize)
     
     menuBtn = SKSpriteNode(imageNamed: "menubtn")
     
@@ -78,7 +78,7 @@ class GameScene: SKScene {
       }
 
       let offset = iPad ? 20 : 2
-      menuBtn.position = CGPointMake(CGRectGetMaxX(self.frame) - (BlockSize * 2), y - CGFloat(offset))
+      menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 2), y: y - CGFloat(offset))
       self.addChild(menuBtn)
     }
     
@@ -89,7 +89,7 @@ class GameScene: SKScene {
     speedLabel.fontSize = 13
     speedLabel.zPosition = 5
     
-    speedLabel.position = CGPointMake(CGRectGetMidX(self.frame) - 80, y)
+    speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
     self.addChild(speedLabel)
     
     if points == nil {
@@ -104,10 +104,10 @@ class GameScene: SKScene {
     for row in 0..<NumRows {
       for col in 0..<NumColumns {
         arr[col,row] = (point: pointForColumn(col, row: row), connectorPoints: [
-          .Left: pointForSide(.Left, column: col, row: row),
-          .Right: pointForSide(.Right, column: col, row: row),
-          .Top: pointForSide(.Top, column: col, row: row),
-          .Bottom: pointForSide(.Bottom, column: col, row: row)
+          .left: pointForSide(.left, column: col, row: row),
+          .right: pointForSide(.right, column: col, row: row),
+          .top: pointForSide(.top, column: col, row: row),
+          .bottom: pointForSide(.bottom, column: col, row: row)
           ])
       }
     }
@@ -123,7 +123,7 @@ class GameScene: SKScene {
 //  }
   
   func levelLabelSetter() {
-    let y = CGRectGetMaxY(self.frame) - (extraYSpace - BlockSize)
+    let y = self.frame.maxY - (extraYSpace - BlockSize)
 
     if levelLabel != nil {
       levelLabel!.removeFromParent()
@@ -134,7 +134,7 @@ class GameScene: SKScene {
     levelLabel!.fontSize = 13
     levelLabel!.zPosition = 2
     
-    levelLabel!.position = CGPointMake(CGRectGetMidX(self.frame), y)
+    levelLabel!.position = CGPoint(x: self.frame.midX, y: y)
     self.addChild(levelLabel!)
   }
   
@@ -142,10 +142,10 @@ class GameScene: SKScene {
     fatalError("NSCoder not supported")
   }
   
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     if let t = touches.first {
-      let loc = t.locationInNode(self)
-      let node = self.nodeAtPoint(loc)
+      let loc = t.location(in: self)
+      let node = self.atPoint(loc)
       if node.name == "menu" {
         menuTapped = true
         if let c = ctrl {
@@ -160,13 +160,13 @@ class GameScene: SKScene {
     }
   }
 
-  func pointForColumn(column: Int, row: Int) -> CGPoint {
+  func pointForColumn(_ column: Int, row: Int) -> CGPoint {
     let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
     let y: CGFloat = LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1
-    return CGPointMake(x, y - (extraYSpace - BlockSize * 2))
+    return CGPoint(x: x, y: y - (extraYSpace - BlockSize * 2))
   }
   
-  func pointForSide(side: Side, column: Int, row: Int) -> CGPoint {
+  func pointForSide(_ side: Side, column: Int, row: Int) -> CGPoint {
     let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
     let y: CGFloat = (LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - (extraYSpace - BlockSize * 2)
     
@@ -174,23 +174,23 @@ class GameScene: SKScene {
     let pieceCenter = halfBlock * 1.25
     
     switch side {
-    case .Left:
-      return CGPointMake(x - pieceCenter, y)
-    case .Right:
-      return CGPointMake(x + pieceCenter, y)
-    case .Bottom:
-      return CGPointMake(x, y - pieceCenter)
-    case .Top:
-      return CGPointMake(x, y + pieceCenter)
+    case .left:
+      return CGPoint(x: x - pieceCenter, y: y)
+    case .right:
+      return CGPoint(x: x + pieceCenter, y: y)
+    case .bottom:
+      return CGPoint(x: x, y: y - pieceCenter)
+    case .top:
+      return CGPoint(x: x, y: y + pieceCenter)
     }
   }
   
-  func pointForConnector(dot: GoodDot) -> CGPoint? {
-    guard let s = dot.sibling where s.connector == nil else {
+  func pointForConnector(_ dot: GoodDot) -> CGPoint? {
+    guard let s = dot.sibling, s.connector == nil else {
       return nil
     }
     
-    if let side = dot.sideOfSibling(), p = points {
+    if let side = dot.sideOfSibling(), let p = points {
       return p[dot.column, dot.row]!.connectorPoints[side]
     } else {
       return nil
@@ -199,7 +199,7 @@ class GameScene: SKScene {
   }
   
   func resumeGame() {
-    self.timer = NSTimer.scheduledTimerWithTimeInterval(tickLength, target: self, selector: "didTick", userInfo: nil, repeats: true)
+    self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
   
 //  override func update(currentTime: CFTimeInterval) {
@@ -215,7 +215,7 @@ class GameScene: SKScene {
 //    }
 //  }
   
-  func addArrayToScene(array: DotArray2D) {
+  func addArrayToScene(_ array: DotArray2D) {
     for row in 0..<NumRows {
       for col in 0..<NumColumns {
         if let dot = array[col,row] {
@@ -225,7 +225,7 @@ class GameScene: SKScene {
     }
   }
   
-  func addDotToScene(dot:Dot, completion:(() -> ())?) {
+  func addDotToScene(_ dot:Dot, completion:(() -> ())?) {
     var texture = textureCache[dot.spriteName]
 
     if texture == nil {
@@ -257,7 +257,7 @@ class GameScene: SKScene {
           textureCache[name] = connTexture
         }
         
-        let connector = SKSpriteNode(texture: connTexture, size: CGSizeMake(size,size))
+        let connector = SKSpriteNode(texture: connTexture, size: CGSize(width: size,height: size))
 
         connector.position = p
         connector.zPosition = 12 // zPosition to change in which layer the barra appears.
@@ -268,12 +268,12 @@ class GameScene: SKScene {
     }
 
     if let c = completion {
-      runAction(SKAction.waitForDuration(0.2), completion: c)
+      run(SKAction.wait(forDuration: 0.2), completion: c)
     }
 
   }
   
-  func removeDots(dots: Array<Dot>) {
+  func removeDots(_ dots: Array<Dot>) {
     for dot in dots {
       dot.sprite?.removeFromParent()
       if let d = dot as? GoodDot {
@@ -283,41 +283,41 @@ class GameScene: SKScene {
     }
   }
   
-  func dropDots(fallenDots: Array<GoodDot>, completion:() -> ()) {
-    var longestDuration: NSTimeInterval = 0
+  func dropDots(_ fallenDots: Array<GoodDot>, completion:@escaping () -> ()) {
+    var longestDuration: TimeInterval = 0
 
-    for (columnIdx, dot) in fallenDots.enumerate() {
+    for (columnIdx, dot) in fallenDots.enumerated() {
       let newPosition = points![dot.column, dot.row]!.point
       let sprite = dot.sprite!
       
-      let delay = (NSTimeInterval(columnIdx) * 0.05) + (NSTimeInterval(columnIdx) * 0.05)
-      let duration = NSTimeInterval(((sprite.position.y - newPosition.y) / BlockSize) * 0.1)
-      let moveAction = SKAction.moveTo(newPosition, duration: duration)
+      let delay = (TimeInterval(columnIdx) * 0.05) + (TimeInterval(columnIdx) * 0.05)
+      let duration = TimeInterval(((sprite.position.y - newPosition.y) / BlockSize) * 0.1)
+      let moveAction = SKAction.move(to: newPosition, duration: duration)
       
-      moveAction.timingMode = .EaseIn
-      sprite.runAction(moveAction)
+      moveAction.timingMode = .easeIn
+      sprite.run(moveAction)
       
       if let p = pointForConnector(dot) {
         let connector = dot.connector!
 
-        let movAction = SKAction.moveTo(p, duration: duration)
-        movAction.timingMode = .EaseIn
+        let movAction = SKAction.move(to: p, duration: duration)
+        movAction.timingMode = .easeIn
 
-        connector.runAction(movAction)
+        connector.run(movAction)
       }
       
       longestDuration = max(longestDuration, duration + delay)
     }
     
-    runAction(SKAction.waitForDuration(longestDuration), completion:completion)
+    run(SKAction.wait(forDuration: longestDuration), completion:completion)
   }
   
-  func addPieceToScene(piece: Piece, completion: (() -> ())?) {
+  func addPieceToScene(_ piece: Piece, completion: (() -> ())?) {
     addDotToScene(piece.dot1, completion: nil)
     addDotToScene(piece.dot2, completion: completion)
   }
   
-  func addMadDotsToScene(madDots: Array<MadDot>) {
+  func addMadDotsToScene(_ madDots: Array<MadDot>) {
     for dot in madDots {
       addDotToScene(dot, completion: nil)
     }
@@ -328,7 +328,7 @@ class GameScene: SKScene {
   }
   
   func startTicking() {
-    self.timer = NSTimer.scheduledTimerWithTimeInterval(tickLength, target: self, selector: "didTick", userInfo: nil, repeats: true)
+    self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
   
   func stopTicking() {
@@ -336,24 +336,24 @@ class GameScene: SKScene {
     self.timer = nil
   }
 
-  func redrawPiece(piece: Piece, duration: NSTimeInterval, completion:() -> ()) {
+  func redrawPiece(_ piece: Piece, duration: TimeInterval, completion:@escaping () -> ()) {
     for dot in piece.dots {
       if let sprite = dot.sprite {
         let point = points![dot.column, dot.row]!.point
-        let moveToAction:SKAction = SKAction.moveTo(point, duration: duration)
-        sprite.runAction(moveToAction)
+        let moveToAction:SKAction = SKAction.move(to: point, duration: duration)
+        sprite.run(moveToAction)
         
         if let p = pointForConnector(dot) {
           let connector = dot.connector!
-          let movToAction:SKAction = SKAction.moveTo(p, duration: duration)
+          let movToAction:SKAction = SKAction.move(to: p, duration: duration)
           
-          connector.runAction(movToAction)
+          connector.run(movToAction)
         }
 
       }
     }
     
-    runAction(SKAction.waitForDuration(duration), completion: completion)
+    run(SKAction.wait(forDuration: duration), completion: completion)
   }
   
   func setupBackground() {
@@ -366,7 +366,7 @@ class GameScene: SKScene {
       textureCache[name] = texture
     }
     
-    let background = SKSpriteNode(texture: texture, size: CGSizeMake(size.width,size.height))
+    let background = SKSpriteNode(texture: texture, size: CGSize(width: size.width,height: size.height))
 
     background.anchorPoint = CGPoint(x: 0, y: 1.0)
     
@@ -408,7 +408,7 @@ class GameScene: SKScene {
     for row in 1..<totalRows {
       let y = squareSize * CGFloat(row) * -1
       
-      let barra = SKSpriteNode(color: SKColor.grayColor(), size: CGSizeMake(rowWidth, 0.5))
+      let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: rowWidth, height: 0.5))
       barra.position = CGPoint(x: centerX, y: y - extraYSpace)
       barra.zPosition = 9 // zPosition to change in which layer the barra appears.
       
@@ -418,7 +418,7 @@ class GameScene: SKScene {
     for col in 1..<totalCols {
       let x = squareSize * CGFloat(col)
       
-      let barra = SKSpriteNode(color: SKColor.grayColor(), size: CGSizeMake(0.5, colHeight))
+      let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: 0.5, height: colHeight))
       barra.position = CGPoint(x: x, y: centerY - extraYSpace)
       barra.zPosition = 9 // zPosition to change in which layer the barra appears.
       

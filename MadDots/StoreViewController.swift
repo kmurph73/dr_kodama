@@ -11,7 +11,7 @@ import UIKit
 import StoreKit
 
 protocol StoreViewCtrlDelegate {
-  func doneWithStore(ctrl: StoreViewController)
+  func doneWithStore(_ ctrl: StoreViewController)
 }
 
 class StoreViewController: UITableViewController {
@@ -22,9 +22,9 @@ class StoreViewController: UITableViewController {
   
   var products = [SKProduct]()
   
-  let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+  let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
-  @IBAction func tapRestore(sender: UIBarButtonItem) {
+  @IBAction func tapRestore(_ sender: UIBarButtonItem) {
     self.startSpinning()
     Products.store.restoreCompletedTransactionsWithCompletionHandler { success, productId in
       self.stopSpinning()
@@ -59,7 +59,7 @@ class StoreViewController: UITableViewController {
   
   func startSpinning() {
     delay(0.1) {
-      self.activityView.hidden = false
+      self.activityView.isHidden = false
       self.activityView.startAnimating()
     }
   }
@@ -68,17 +68,17 @@ class StoreViewController: UITableViewController {
     activityView.stopAnimating()
   }
   
-  @IBAction func tapDone(sender: AnyObject) {
+  @IBAction func tapDone(_ sender: AnyObject) {
     Products.store.purchaseCompletedHandler = nil
     Products.store.purchasingHandler = nil
     Products.store.restoreCompletedHandler = nil
     self.delegate?.doneWithStore(self)
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let product = self.products[indexPath.row]
     
-    let purchased = NSUserDefaults.standardUserDefaults().boolForKey(product.productIdentifier + "Purchased")
+    let purchased = UserDefaults.standard.bool(forKey: product.productIdentifier + "Purchased")
     let purchasing = Products.store.isProductBeingPurchased(product.productIdentifier)
 
     if !purchased && !purchasing {
@@ -86,12 +86,12 @@ class StoreViewController: UITableViewController {
       Products.store.purchaseProduct(product)
     }
     
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let product = products[indexPath.row]
-    let cell = tableView.dequeueReusableCellWithIdentifier("storeCell", forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath)
     
     let title = cell.viewWithTag(1) as! UILabel
     title.text = product.localizedTitle
@@ -99,7 +99,7 @@ class StoreViewController: UITableViewController {
     let subtitle = cell.viewWithTag(2) as! UILabel
     subtitle.text = product.localizedDescription
     
-    let purchased = NSUserDefaults.standardUserDefaults().boolForKey(product.productIdentifier + "Purchased")
+    let purchased = UserDefaults.standard.bool(forKey: product.productIdentifier + "Purchased")
     let v = cell.contentView
     
     if let btn = v.viewWithTag(20) {
@@ -112,7 +112,7 @@ class StoreViewController: UITableViewController {
     
     if purchased {
       guard let image = UIImage(named: "checkmark") else { return cell }
-      let tintedImage = image.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+      let tintedImage = image.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
       
       let imgView = UIImageView(image: tintedImage)
       imgView.tintColor = UIColor(red: (92 / 255.0), green: (184 / 255.0), blue: (92 / 255.0), alpha: 0.95)
@@ -121,9 +121,9 @@ class StoreViewController: UITableViewController {
       
       v.addSubview(imgView)
       
-      v.addConstraint(NSLayoutConstraint(item: imgView, attribute: .CenterY, relatedBy: .Equal, toItem: v, attribute: .CenterY, multiplier: 1, constant: 0))
+      v.addConstraint(NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: v, attribute: .centerY, multiplier: 1, constant: 0))
 
-      v.addConstraint(NSLayoutConstraint(item: imgView, attribute: .Trailing, relatedBy: .Equal, toItem: v, attribute: .Trailing, multiplier: 1, constant: -10))
+      v.addConstraint(NSLayoutConstraint(item: imgView, attribute: .trailing, relatedBy: .equal, toItem: v, attribute: .trailing, multiplier: 1, constant: -10))
     } else {
       let lbl = UILabel()
       
@@ -141,14 +141,14 @@ class StoreViewController: UITableViewController {
       v.addSubview(lbl)
 
       let constraintButtonWidth = NSLayoutConstraint(item: lbl,
-        attribute: NSLayoutAttribute.Width,
-        relatedBy: NSLayoutRelation.Equal,
+        attribute: NSLayoutAttribute.width,
+        relatedBy: NSLayoutRelation.equal,
         toItem: nil,
-        attribute: NSLayoutAttribute.NotAnAttribute,
+        attribute: NSLayoutAttribute.notAnAttribute,
         multiplier: 1,
         constant: 50)
 
-      let yConstraint = NSLayoutConstraint(item: lbl, attribute: .CenterY, relatedBy: .Equal, toItem: v, attribute: .CenterY, multiplier: 1, constant: 0)
+      let yConstraint = NSLayoutConstraint(item: lbl, attribute: .centerY, relatedBy: .equal, toItem: v, attribute: .centerY, multiplier: 1, constant: 0)
 
       v.addConstraint(yConstraint)
 
@@ -156,14 +156,14 @@ class StoreViewController: UITableViewController {
       
       v.addConstraint(constraintButtonWidth)
       
-      v.addConstraint(NSLayoutConstraint(item: lbl, attribute: .Trailing, relatedBy: .Equal, toItem: v, attribute: .Trailing, multiplier: 1, constant: 2))
+      v.addConstraint(NSLayoutConstraint(item: lbl, attribute: .trailing, relatedBy: .equal, toItem: v, attribute: .trailing, multiplier: 1, constant: 2))
 
     }
     
     return cell
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return products.count
   }
   
