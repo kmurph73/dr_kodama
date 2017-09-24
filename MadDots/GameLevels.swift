@@ -36,7 +36,7 @@ class LevelMaker {
     self.madDots = Array<MadDot>()
   }
   
-  func getRowNum(_ row:Int) {
+  func getRowNum(row: Int) {
     NumRows - row
   }
   

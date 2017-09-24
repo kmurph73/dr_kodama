@@ -137,8 +137,6 @@ func dropFallenDots(_ dotArray:DotArray2D) -> Array<GoodDot> {
   while row >= 0 {
     var fallingDots = Array<GoodDot>()
     
-    print("row: \(row)")
-
     for column in 0..<NumColumns {
       
       if let dot = dotArray[column, row] as? GoodDot {

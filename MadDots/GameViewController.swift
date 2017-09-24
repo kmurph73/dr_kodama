@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizerDelegate, StoreViewCtrlDelegate {
+class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizerDelegate {
   var dotGame:DotGame!
   var scene: GameScene!
   var panPointReference:CGPoint?
@@ -28,11 +28,11 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     dotGame.dropPiece()
   }
   
-  func doneWithStore(_ ctrl: StoreViewController) {
-    ctrl.dismiss(animated: true, completion: { _ in
-      self.backToMenu()
-    })
-  }
+//  func doneWithStore(_ ctrl: StoreViewController) {
+  //  ctrl.dismiss(animated: true, completion: { _ in
+    //  self.backToMenu()
+   // })
+ // }
   
   func setLevelLabel() {
     self.scene.levelLabelSetter()
@@ -340,7 +340,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
 
   func didTick() {
-    print("didTick")
     dotGame.lowerPiece()
   }
 
@@ -353,13 +352,13 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       return true
   }
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == "goStore" {
-      let navigationController = segue.destination as! UINavigationController
-      let vc = navigationController.viewControllers.first as! StoreViewController
-      vc.delegate = self
-    }
-  }
+//  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    if segue.identifier == "goStore" {
+//      let navigationController = segue.destination as! UINavigationController
+//      let vc = navigationController.viewControllers.first as! StoreViewController
+//      vc.delegate = self
+//    }
+//  }
   
   deinit {
     print("GameViewController is being deinitialized")

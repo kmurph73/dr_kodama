@@ -323,7 +323,7 @@ class GameScene: SKScene {
     }
   }
   
-  func didTick() {
+  @objc func didTick() {
     tick?()
   }
   
