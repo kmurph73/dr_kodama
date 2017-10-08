@@ -64,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let gvc = presentedViewController as? GameViewController {
           if !gvc.sheetShown {
+            gvc.stopTimer()
             gvc.startTimer()
           }
           break

@@ -214,7 +214,7 @@ func testScenario() -> (array:DotArray2D, pieces: Array<Piece>) {
 //  }
 
   arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .blue))
-
+  
   seq.append(contentsOf: [
     Piece(column: StartingColumn, row: StartingRow, leftColor: .green, rightColor: .green),
     Piece(column: StartingColumn, row: StartingRow, leftColor: .green, rightColor: .green),
@@ -253,6 +253,48 @@ func testScenario2() -> (array:DotArray2D, pieces: Array<Piece>) {
   }
   
   arr.setDot(MadDot(column: 3, row: NumRows - 1, color: .blue))
+  
+  seq.append(contentsOf: [
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow),
+    Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow)
+    ])
+  
+  return (array:arr, pieces: seq)
+}
+
+func testScenario3() -> (array:DotArray2D, pieces: Array<Piece>) {
+  let arr = DotArray2D(columns: NumColumns, rows: NumRows)
+  var seq = Array<Piece>()
+  var dots = Array<GoodDot>()
+  
+  let dot7 = GoodDot(column: 3, row: NumRows - 7, color: .yellow)
+  let dot8 = GoodDot(column: 3, row: NumRows - 8, color: .yellow)
+  let dot9 = GoodDot(column: 3, row: NumRows - 9, color: .yellow)
+  
+  let reddot7 = GoodDot(column: 4, row: NumRows - 7, color: .red)
+  let reddot9 = GoodDot(column: 4, row: NumRows - 9, color: .red)
+  
+  let reddot1 = GoodDot(column: 4, row: NumRows - 1, color: .red)
+  let reddot2 = GoodDot(column: 4, row: NumRows - 2, color: .red)
+  let reddot3 = GoodDot(column: 4, row: NumRows - 3, color: .red)
+  
+  arr.setDot(reddot1)
+  arr.setDot(reddot2)
+  arr.setDot(reddot3)
+  
+  arr.setDot(reddot7)
+  arr.setDot(reddot9)
+  
+  dot7.sibling = reddot7
+  dot9.sibling = reddot9
+  
+  arr.setDot(MadDot(column: 1, row: NumRows - 1, color: .blue))
+//  array.setDot(dot6)
+  arr.setDot(dot7)
+  arr.setDot(dot8)
+  arr.setDot(dot9)
   
   seq.append(contentsOf: [
     Piece(column: StartingColumn, row: StartingRow, leftColor: .yellow, rightColor: .yellow),

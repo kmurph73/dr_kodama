@@ -74,17 +74,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AD0B73F41BCC22C30085B244 /* DotGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotGame.swift; sourceTree = "<group>"; };
+		AD0B73F41BCC22C30085B244 /* DotGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DotGame.swift; sourceTree = "<group>"; tabWidth = 2; };
 		AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
 		AD34A8311C1364A90049D6B2 /* Background.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Background.atlas; sourceTree = "<group>"; };
 		AD34A8331C13D8800049D6B2 /* DotArray2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotArray2D.swift; sourceTree = "<group>"; };
 		AD5D0D091BEBD553005043A8 /* GoodDot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodDot.swift; sourceTree = "<group>"; };
-		AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevels.swift; sourceTree = "<group>"; };
+		AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = GameLevels.swift; sourceTree = "<group>"; tabWidth = 2; };
 		AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MadDotsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD5D0D141BEED5B8005043A8 /* MadDotsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadDotsTests.swift; sourceTree = "<group>"; };
 		AD5D0D161BEED5B8005043A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD5D0D1C1BEED7AF005043A8 /* GameLevelsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevelsTests.swift; sourceTree = "<group>"; };
-		AD5E50091BD409D900AE3858 /* HandleChains.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandleChains.swift; sourceTree = "<group>"; };
+		AD5E50091BD409D900AE3858 /* HandleChains.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HandleChains.swift; sourceTree = "<group>"; tabWidth = 2; };
 		AD66B19B1C370B2E00A42201 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		AD66B19F1C374DA900A42201 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AboutViewController.swift; path = ../AboutViewController.swift; sourceTree = "<group>"; };
 		AD66B1A11C3750DE00A42201 /* kodama.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kodama.png; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		ADC1DC891C262F54004CE42F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		ADD284F21BF90B3100A4732A /* PieceRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceRotation.swift; sourceTree = "<group>"; };
 		ADDBB15B1BF2C34800797A4C /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
-		ADF55A871BF573CE00F90381 /* ChainHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainHandler.swift; sourceTree = "<group>"; };
+		ADF55A871BF573CE00F90381 /* ChainHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ChainHandler.swift; sourceTree = "<group>"; tabWidth = 2; };
 		ADF807DD1BC4462300E45888 /* Dr. Kodama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dr. Kodama.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADF807E01BC4462300E45888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADF807E41BC4462300E45888 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };

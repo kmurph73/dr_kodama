@@ -149,6 +149,7 @@ class GameScene: SKScene {
       if node.name == "menu" {
         menuTapped = true
         if let c = ctrl {
+          stopTicking()
           c.showSheet("You rang?", showCancel: true)
           stopTicking()
 //          lastTick = nil
@@ -328,6 +329,7 @@ class GameScene: SKScene {
   }
   
   func startTicking() {
+    stopTicking()
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
   

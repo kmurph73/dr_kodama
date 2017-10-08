@@ -12,8 +12,10 @@ func findChainsForRows(_ dotArray: DotArray2D, realChains: inout Array<Dot>, sta
   var someChain = Array<Dot>()
   
   var previousDot: Dot?
+
+  var row = startRow - 1
   
-  for row in endRow..<startRow {
+  while (row >= endRow) {
     checkIfRealChain(someChain, realChains: &realChains)
     
     someChain = Array<Dot>()
@@ -43,6 +45,8 @@ func findChainsForRows(_ dotArray: DotArray2D, realChains: inout Array<Dot>, sta
         someChain = Array<Dot>()
       }
     }
+    
+    row -= 1
   }
   
   checkIfRealChain(someChain, realChains: &realChains)
@@ -55,7 +59,9 @@ func findChainsForColumns(_ dotArray: DotArray2D, realChains: inout Array<Dot>, 
   
   var previousDot: Dot?
   
-  for column in endColumn..<startColumn {
+  var column = startColumn - 1
+  
+  while (column >= endColumn) {
     checkIfRealChain(someChain, realChains: &realChains)
     
     someChain = Array<Dot>()
@@ -86,6 +92,8 @@ func findChainsForColumns(_ dotArray: DotArray2D, realChains: inout Array<Dot>, 
         someChain = Array<Dot>()
       }
     }
+    
+    column -= 1
   }
   
   checkIfRealChain(someChain, realChains: &realChains)

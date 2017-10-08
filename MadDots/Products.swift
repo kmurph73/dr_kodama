@@ -20,11 +20,11 @@ public enum Products {
   public static let FifthColorProduct = "fifthcolor2"
   public static let MoreLevelsProduct = "morelevels2"
   
-  // All of the products assembled into a set of product identifiers.
-  fileprivate static let productIdentifiers: Set<ProductIdentifier> = [Products.ShowNextPieceProduct, Products.FifthColorProduct, Products.MoreLevelsProduct]
-  
-  /// Static instance of IAPHelper that for rage products.
-  public static let store = IAPHelper(productIdentifiers: Products.productIdentifiers)
+//  // All of the products assembled into a set of product identifiers.
+//  fileprivate static let productIdentifiers: Set<ProductIdentifier> = [Products.ShowNextPieceProduct, Products.FifthColorProduct, Products.MoreLevelsProduct]
+//
+//  /// Static instance of IAPHelper that for rage products.
+//  public static let store = IAPHelper(productIdentifiers: Products.productIdentifiers)
 }
 
 /// Return the resourcename for the product identifier.

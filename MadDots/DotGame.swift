@@ -125,7 +125,7 @@ class DotGame {
     
     self.madDots.append(contentsOf: levelMaker.makeRandomLevel(GameLevel))
     
-//    let sen = testScenario()
+//    let sen = testScenario3()
 //    dotArray = sen.array
 //    seq = sen.pieces
 //    if let vc = delegate as? GameViewController {

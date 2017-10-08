@@ -145,6 +145,47 @@ class ChainHandler: XCTestCase {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
   }
+    
+  func testThatAllPiecesFallBeforeRemoving() {
+    let dotGame = DotGame()
+    let dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
+    dotGame.dotArray = dotArray
+    
+    let dot6 = GoodDot(column: 3, row: NumRows - 6, color: .yellow)
+    let dot7 = GoodDot(column: 3, row: NumRows - 7, color: .yellow)
+    let dot8 = GoodDot(column: 3, row: NumRows - 8, color: .yellow)
+    let dot9 = GoodDot(column: 3, row: NumRows - 9, color: .yellow)
+    
+    let reddot6 = GoodDot(column: 4, row: NumRows - 6, color: .red)
+    let reddot9 = GoodDot(column: 4, row: NumRows - 9, color: .red)
+    
+    let reddot1 = GoodDot(column: 4, row: NumRows - 1, color: .red)
+    let reddot2 = GoodDot(column: 4, row: NumRows - 2, color: .red)
+    let reddot3 = GoodDot(column: 4, row: NumRows - 3, color: .red)
+
+    dotArray.setDot(reddot1)
+    dotArray.setDot(reddot2)
+    dotArray.setDot(reddot3)
+
+    dotArray.setDot(reddot6)
+    dotArray.setDot(reddot9)
+    
+    dot6.sibling = reddot6
+    dot9.sibling = reddot9
+    
+    dotArray.setDot(dot6)
+    dotArray.setDot(dot7)
+    dotArray.setDot(dot8)
+    dotArray.setDot(dot9)
+    
+    let results = dotGame.removeCompletedDots()
+    
+    XCTAssertEqual(results.fallenDots.count, 2)
+    
+    let results2 = dotGame.removeCompletedDots()
+    
+    XCTAssertEqual(results2.dotsToRemove.count, 5)
+  }
   
   func testBug() {
     let dotGame = DotGame()

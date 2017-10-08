@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.629501"
+            timestampString = "528691105.512431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "312"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.629575"
+            timestampString = "528691105.512494"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "346"
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameScene.swift"
-            timestampString = "473565275.945171"
+            timestampString = "528691105.512545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "pointForColumn(_:row:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,13 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882280.219754"
+            timestampString = "528691105.512595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
             endingLineNumber = "53"
-            landmarkName = "settlePiece()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,13 +74,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882364.456718"
+            timestampString = "528691105.513083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
             endingLineNumber = "241"
-            landmarkName = "removeCompletedDots()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "527906780.629662"
+            timestampString = "528691105.51345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "dotIsSettled(_:sibling:dotArray:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -106,13 +106,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882364.456718"
+            timestampString = "528691105.513498"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
             endingLineNumber = "238"
-            landmarkName = "removeCompletedDots()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDotsTests/GameLevelsTests.swift"
-            timestampString = "470447499.931182"
+            timestampString = "528689430.783749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
@@ -138,13 +138,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882364.456718"
+            timestampString = "528691105.513848"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "removeCompletedDots()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameScene.swift"
-            timestampString = "473565275.945171"
+            timestampString = "528691105.514174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "dropDots(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "527906780.629744"
+            timestampString = "528691105.51422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "dropFallenDots(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "527906780.629782"
+            timestampString = "528691105.514257"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "dropFallenDots(_:)"
             landmarkType = "9">
             <Locations>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "527906780.629818"
+            timestampString = "528691105.514294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "dropFallenDots(_:)"
             landmarkType = "9">
             <Locations>
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.629853"
+            timestampString = "528691105.51433"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "164"
@@ -314,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.6299"
+            timestampString = "528691105.514384"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "261"
@@ -346,12 +346,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDotsTests/ChainHandler.swift"
-            timestampString = "469776406.918226"
+            timestampString = "528691105.514439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "149"
             endingLineNumber = "149"
-            landmarkName = "testBug()"
+            landmarkName = "testThatAllPiecesFallBeforeRemoving()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "527906780.629958"
+            timestampString = "528691105.514482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "findChainsForColumns(_:realChains:startColumn:endColumn:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -410,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameScene.swift"
-            timestampString = "487968755.192782"
+            timestampString = "528691105.514547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "drawGrid()"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,7 +442,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.630034"
+            timestampString = "528691105.514598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "240"
@@ -458,7 +458,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.630071"
+            timestampString = "528691105.514635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "243"
@@ -474,13 +474,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882364.456718"
+            timestampString = "528691105.51467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "257"
             endingLineNumber = "257"
-            landmarkName = "removeCompletedDots()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -522,11 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "527906780.630119"
+            timestampString = "528691105.514996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "dropFallenDots(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -538,11 +538,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "527906780.630155"
+            timestampString = "528691105.515035"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "dropFallenDots(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -554,7 +554,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.63019"
+            timestampString = "528691105.51507"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "265"
@@ -602,7 +602,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.630225"
+            timestampString = "528691105.515105"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
@@ -618,7 +618,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.63026"
+            timestampString = "528691105.51514"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "191"
@@ -634,13 +634,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882280.219754"
+            timestampString = "528691105.515174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
             endingLineNumber = "56"
-            landmarkName = "settlePiece()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -650,13 +650,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882280.219754"
+            timestampString = "528691105.515482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
             endingLineNumber = "57"
-            landmarkName = "settlePiece()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -666,13 +666,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882280.219754"
+            timestampString = "528691105.515779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
             endingLineNumber = "55"
-            landmarkName = "settlePiece()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -682,13 +682,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882280.219754"
+            timestampString = "528691105.516078"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "dropPiece()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -698,7 +698,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameViewController.swift"
-            timestampString = "527906780.630335"
+            timestampString = "528691105.516373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "341"
@@ -746,13 +746,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882364.456718"
+            timestampString = "528691105.516413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
             endingLineNumber = "247"
-            landmarkName = "removeCompletedDots()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -762,13 +762,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882364.456718"
+            timestampString = "528691105.516715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "253"
             endingLineNumber = "253"
-            landmarkName = "removeCompletedDots()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -778,13 +778,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/DotGame.swift"
-            timestampString = "472882280.219754"
+            timestampString = "528691105.517016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "94"
             endingLineNumber = "94"
-            landmarkName = "dropPiece()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -826,7 +826,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameLevels.swift"
-            timestampString = "527906780.630403"
+            timestampString = "528691105.51732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "155"
@@ -842,7 +842,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/MainController.swift"
-            timestampString = "472955230.384212"
+            timestampString = "528691105.517368"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "15"
@@ -932,28 +932,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MadDots/StoreViewController.swift"
-            timestampString = "474438945.958038"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "StoreViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "MadDots/HandleChains.swift"
-            timestampString = "527906780.63048"
+            timestampString = "528691105.517434"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "dropFallenDots(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -965,11 +949,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDots/GameScene.swift"
-            timestampString = "487968755.192782"
+            timestampString = "528691105.517471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "startTicking()"
             landmarkType = "7">
          </BreakpointContent>
@@ -981,11 +965,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MadDotsTests/ChainHandler.swift"
-            timestampString = "527901785.094141"
+            timestampString = "528691105.517507"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "testBug()"
             landmarkType = "7">
          </BreakpointContent>
