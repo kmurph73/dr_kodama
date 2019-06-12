@@ -39,7 +39,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func showSheet(_ msg: String?, showCancel: Bool) {
-    let style: UIAlertControllerStyle = iPad ? .alert : .actionSheet
+    let style: UIAlertController.Style = iPad ? .alert : .actionSheet
     let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
 
     let newGame = UIAlertAction(title: "New Game", style: .default, handler: { action in
@@ -188,7 +188,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   func beatLevelAlert() {
     let msg = "Congrats! You beat level \(GameLevel)"
-    let style: UIAlertControllerStyle = iPad ? .alert : .actionSheet
+    let style: UIAlertController.Style = iPad ? .alert : .actionSheet
     let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
     
     let nextLevel = UIAlertAction(title: "Play next level", style: .default, handler: { action in
@@ -209,7 +209,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   func buyMoreLevelsAlert() {
     let msg = "Congrats! You beat the last level... or did you?  Hint: no.  Buy the rest of the levels at the store!"
-    let style: UIAlertControllerStyle = iPad ? .alert : .actionSheet
+    let style: UIAlertController.Style = iPad ? .alert : .actionSheet
     let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
     
     let nextLevel = UIAlertAction(title: "Go to store", style: .default, handler: { action in

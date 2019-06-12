@@ -74,7 +74,7 @@ class LevelMaker {
       
       if let dot = dotArray[randColumn, rowNum] as? MadDot {
         dotArray[randColumn, rowNum] = nil
-        if let index = madDots.index(of: dot) {
+        if let index = madDots.firstIndex(of: dot) {
           madDots.remove(at: index)
         }
         numDotsRequiredForRow += 1
