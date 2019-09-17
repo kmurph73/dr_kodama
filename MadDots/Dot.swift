@@ -76,11 +76,9 @@ class Dot: Hashable, CustomStringConvertible {
     
     let onDeck = dot.piece?.onDeck == true
     
-    let size = onDeck ? dotSize : dotSize
-    
     var point: CGPoint;
     
-    if let d = dot as? GoodDot, onDeck == true {
+    if onDeck == true {
       point = onDeckPoints![dot.column, dot.row]!.point
     } else {
       point = points![dot.column, dot.row]!.point
@@ -88,7 +86,7 @@ class Dot: Hashable, CustomStringConvertible {
   
     sprite.xScale = dotSize
     sprite.yScale = dotSize
-    sprite.size = CGSize(width: size, height: size)
+    sprite.size = CGSize(width: dotSize, height: dotSize)
     sprite.zPosition = 5
     sprite.position = point
     dot.sprite = sprite

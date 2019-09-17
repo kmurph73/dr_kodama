@@ -36,10 +36,6 @@ class LevelMaker {
     self.madDots = Array<MadDot>()
   }
   
-  func getRowNum(row: Int) -> Int {
-    return NumRows - row
-  }
-  
   func placeRandomDot(_ col: Int, rowNum: Int) -> Bool {
     let randNum = randomNum(0, max: 5)
     if randNum == 4 {
