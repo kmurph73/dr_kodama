@@ -55,6 +55,7 @@ class Piece: CustomStringConvertible {
   var dot1, dot2: GoodDot
   
   var settled = false
+  var onDeck = false
   
   var previousRotation: Rotation?
   
@@ -63,6 +64,8 @@ class Piece: CustomStringConvertible {
     self.dot2 = GoodDot(column: column + 1, row: row, color: rightColor)
     self.dot1.sibling = dot2
     self.dot2.sibling = dot1
+    self.dot1.piece = self
+    self.dot2.piece = self
   }
   
   var dots: [GoodDot] {
@@ -258,7 +261,8 @@ class Piece: CustomStringConvertible {
     let leftSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
     let rightSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
     
-    return Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
+    let piece = Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
+    return piece
   }
   
   func hasDotsAboveGrid() -> Bool {
@@ -275,7 +279,7 @@ class Piece: CustomStringConvertible {
   }
   
   deinit {
-//    print("\(self) is being deinitialized")
+    print("\(self) is being deinitialized")
   }
   
 }

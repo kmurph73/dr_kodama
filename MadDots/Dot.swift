@@ -40,11 +40,11 @@ class Dot: Hashable, CustomStringConvertible {
   // Constants
   let color: DotColor
   
-  // Variables
+  weak var piece: Piece?
+
   var column: Int
   var row: Int
   
-  // Lazy loading
   var sprite: SKSpriteNode?
 
   var spriteName: String {
@@ -67,6 +67,33 @@ class Dot: Hashable, CustomStringConvertible {
   
   func removeFromScene() {
     self.sprite?.removeFromParent()
+  }
+    
+  static func createSprite(dot: Dot, texture: SKTexture) -> SKSpriteNode {
+    let sprite = SKSpriteNode(texture: texture)
+  
+    let dotSize = BlockSize - 5
+    
+    let onDeck = dot.piece?.onDeck == true
+    
+    let size = onDeck ? dotSize : dotSize
+    
+    var point: CGPoint;
+    
+    if let d = dot as? GoodDot, onDeck == true {
+      point = onDeckPoints![dot.column, dot.row]!.point
+    } else {
+      point = points![dot.column, dot.row]!.point
+    }
+  
+    sprite.xScale = dotSize
+    sprite.yScale = dotSize
+    sprite.size = CGSize(width: size, height: size)
+    sprite.zPosition = 5
+    sprite.position = point
+    dot.sprite = sprite
+    
+    return sprite
   }
   
   deinit {

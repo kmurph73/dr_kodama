@@ -16,10 +16,6 @@ var NumberOfColors = 4
 var ShowBG = false
 var ShowNextPiece = false
 
-var MoreLevelsPurchased = true
-var NextPiecePurchased = true
-var FifthColorPurchased = true
-
 var iPad = false
 
 class MainController: UIViewController {

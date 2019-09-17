@@ -36,8 +36,8 @@ class LevelMaker {
     self.madDots = Array<MadDot>()
   }
   
-  func getRowNum(row: Int) {
-    NumRows - row
+  func getRowNum(row: Int) -> Int {
+    return NumRows - row
   }
   
   func placeRandomDot(_ col: Int, rowNum: Int) -> Bool {
@@ -267,7 +267,6 @@ func testScenario2() -> (array:DotArray2D, pieces: Array<Piece>) {
 func testScenario3() -> (array:DotArray2D, pieces: Array<Piece>) {
   let arr = DotArray2D(columns: NumColumns, rows: NumRows)
   var seq = Array<Piece>()
-  var dots = Array<GoodDot>()
   
   let dot7 = GoodDot(column: 3, row: NumRows - 7, color: .yellow)
   let dot8 = GoodDot(column: 3, row: NumRows - 8, color: .yellow)

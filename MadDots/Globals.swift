@@ -33,9 +33,6 @@ func assessState() {
 //    FifthColorPurchased = fifthColor
 //  }
     
-  MoreLevelsPurchased = true
-  FifthColorPurchased = true
-  NextPiecePurchased = true
 //  if let nextPiece = UserDefaults.standard.value(forKey: "shownextpiece2Purchased") as? Bool {
 //    NextPiecePurchased = nextPiece
 //  }
@@ -43,10 +40,4 @@ func assessState() {
   if let showNextPiece = UserDefaults.standard.value(forKey: "showNextPiece") as? Bool {
     ShowNextPiece = showNextPiece
   }
-}
-
-func purchaseAll() {
-  UserDefaults.standard.set(true, forKey: "shownextpiecePurchased")
-  UserDefaults.standard.set(true, forKey: "fifthcolorPurchased")
-  UserDefaults.standard.set(true, forKey: "morelevelPurchased")
 }

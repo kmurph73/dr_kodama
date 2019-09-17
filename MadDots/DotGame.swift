@@ -12,7 +12,9 @@ let NumRows = 16
 let DrawnRows = NumRows - 2
 
 let StartingColumn = 3
-let StartingRow = 1
+let StartingRow = 0
+
+var CanMovePiece = false
 
 var RotateDir: Dir = .counterClockwise
 
@@ -75,7 +77,9 @@ class DotGame {
   }
   
   func newNextPiece() -> Piece {
-    return Piece.random(StartingColumn - 3, startingRow: StartingRow - 1)
+    let piece = Piece.random(StartingColumn - 3, startingRow: 0)
+    piece.onDeck = true
+    return piece
   }
   
   func dropPiece() {

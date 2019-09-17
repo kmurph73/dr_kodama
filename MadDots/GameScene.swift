@@ -13,6 +13,8 @@ let TickLengthLevelOne = 0.2
 var extraYSpace: CGFloat = 0
 typealias PointStore = (point: CGPoint, connectorPoints: [Side: CGPoint])
 var points: Array2D<PointStore>?
+var onDeckPoints: Array2D<PointStore>?
+
 var tinyScreen = false
 var iPadPro = false
 
@@ -95,6 +97,7 @@ class GameScene: SKScene {
     if points == nil {
       print("crate points")
       points = createPoints()
+      onDeckPoints = createOnDeckPoints()
     }
   }
   
@@ -114,9 +117,23 @@ class GameScene: SKScene {
     
     return arr
   }
-
   
-
+  func createOnDeckPoints() -> Array2D<PointStore> {
+    let arr = Array2D<PointStore>(columns: NumColumns, rows: NumRows)
+    
+    for row in 0..<1 {
+      for col in 0..<4 {
+        arr[col,row] = (point: pointForOnDeckColumn(col, row: row), connectorPoints: [
+          .left: pointForOnDeckSide(.left, column: col, row: row),
+          .right: pointForOnDeckSide(.right, column: col, row: row),
+          .top: pointForOnDeckSide(.top, column: col, row: row),
+          .bottom: pointForOnDeckSide(.bottom, column: col, row: row)
+          ])
+      }
+    }
+    
+    return arr
+  }
   
 //  func startTicking() {
 //    NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: "newTick", userInfo: nil, repeats: true)
@@ -143,6 +160,7 @@ class GameScene: SKScene {
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
     if let t = touches.first {
       let loc = t.location(in: self)
       let node = self.atPoint(loc)
@@ -162,16 +180,46 @@ class GameScene: SKScene {
   }
 
   func pointForColumn(_ column: Int, row: Int) -> CGPoint {
-    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
-    let y: CGFloat = LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1
-    return CGPoint(x: x, y: y - (extraYSpace - BlockSize * 2))
+    let squareSize = BlockSize
+    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * squareSize) + (squareSize / 2)) + squareSize - 1
+    let y: CGFloat = LayerPosition.y - (((CGFloat(row) * squareSize) + (squareSize / 2))) - squareSize - 1
+    return CGPoint(x: x, y: y - (extraYSpace - squareSize * 2))
+  }
+  
+  func pointForOnDeckColumn(_ column: Int, row: Int) -> CGPoint {
+    let squareSize = BlockSize
+    let x: CGFloat = 0 + ((CGFloat(column) * squareSize) + (squareSize / 2)) + squareSize - 1
+    let y: CGFloat = BlockSize - (((CGFloat(row) * squareSize) + (squareSize / 2))) - squareSize - 1
+    return CGPoint(x: x, y: y - (extraYSpace - squareSize * 2))
   }
   
   func pointForSide(_ side: Side, column: Int, row: Int) -> CGPoint {
-    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
-    let y: CGFloat = (LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - (extraYSpace - BlockSize * 2)
+    let squareSize = BlockSize
+    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * squareSize) + (squareSize / 2)) + squareSize - 1
+    let y: CGFloat = (LayerPosition.y - (((CGFloat(row) * squareSize) + (squareSize / 2))) - squareSize - 1) - (extraYSpace - squareSize * 2)
     
-    let halfBlock = BlockSize / 2 - ((BlockSize / 6) / 2)
+    let halfBlock = squareSize / 2 - ((squareSize / 6) / 2)
+    let pieceCenter = halfBlock * 1.25
+    
+    switch side {
+    case .left:
+      return CGPoint(x: x - pieceCenter, y: y)
+    case .right:
+      return CGPoint(x: x + pieceCenter, y: y)
+    case .bottom:
+      return CGPoint(x: x, y: y - pieceCenter)
+    case .top:
+      return CGPoint(x: x, y: y + pieceCenter)
+    }
+  }
+  
+  func pointForOnDeckSide(_ side: Side, column: Int, row: Int) -> CGPoint {
+    let squareSize = BlockSize
+    
+    let x: CGFloat = 0 + ((CGFloat(column) * squareSize) + (squareSize / 2)) + squareSize - 1
+    let y: CGFloat = (BlockSize - (((CGFloat(row) * squareSize) + (squareSize / 2))) - squareSize - 1) - (extraYSpace - squareSize * 2)
+    
+    let halfBlock = squareSize / 2 - ((squareSize / 6) / 2)
     let pieceCenter = halfBlock * 1.25
     
     switch side {
@@ -191,12 +239,13 @@ class GameScene: SKScene {
       return nil
     }
     
-    if let side = dot.sideOfSibling(), let p = points {
+    if let side = dot.sideOfSibling(), dot.piece?.onDeck == true, let p = onDeckPoints {
+      return p[dot.column, dot.row]!.connectorPoints[side]
+    } else if let side = dot.sideOfSibling(), let p = points {
       return p[dot.column, dot.row]!.connectorPoints[side]
     } else {
       return nil
     }
-
   }
   
   func resumeGame() {
@@ -228,25 +277,15 @@ class GameScene: SKScene {
   
   func addDotToScene(_ dot:Dot, completion:(() -> ())?) {
     var texture = textureCache[dot.spriteName]
-
+    
     if texture == nil {
       texture = SKTexture(imageNamed: dot.spriteName)
       textureCache[dot.spriteName] = texture
     }
     
-    let sprite = SKSpriteNode(texture: texture)
-    
-    let dotSize = BlockSize - 5
-
-    sprite.xScale = dotSize
-    sprite.yScale = dotSize
-    sprite.size = CGSize(width: dotSize, height: dotSize)
-    sprite.zPosition = 5
-    sprite.position = points![dot.column, dot.row]!.point
-    dot.sprite = sprite
-    
+    let sprite = Dot.createSprite(dot: dot, texture: texture!)
     dotLayer.addChild(sprite)
-        
+    
     if let d = dot as? GoodDot {
       if let p = pointForConnector(d) {
         let size = BlockSize / 4
@@ -261,7 +300,7 @@ class GameScene: SKScene {
         let connector = SKSpriteNode(texture: connTexture, size: CGSize(width: size,height: size))
 
         connector.position = p
-        connector.zPosition = 12 // zPosition to change in which layer the barra appears.
+        connector.zPosition = 12
         d.connector = connector
         
         dotLayer.addChild(connector)
@@ -348,7 +387,7 @@ class GameScene: SKScene {
         if let p = pointForConnector(dot) {
           let connector = dot.connector!
           let movToAction:SKAction = SKAction.move(to: p, duration: duration)
-          
+
           connector.run(movToAction)
         }
 
