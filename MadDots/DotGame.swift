@@ -8,8 +8,8 @@
 import Foundation
 
 let NumColumns = 8
-let NumRows = 16
-let DrawnRows = NumRows - 2
+let NumRows = 17
+let DrawnRows = NumRows - 3
 
 let StartingColumn = 3
 let StartingRow = 1

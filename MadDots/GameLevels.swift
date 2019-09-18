@@ -138,7 +138,7 @@ class LevelMaker {
     self.madDots = Array<MadDot>()
     var totalMadDots = levelNumber * 3
     
-    let offset = GameLevel > 5 ? GameLevel > 10 ? 6 : 7 : 8
+    let offset = GameLevel > 5 ? (GameLevel > 10 ? 7 : 7) : 8
     
     while true {
       print("makeRandomLevel")

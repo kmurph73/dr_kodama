@@ -62,9 +62,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       alertController.addAction(cancelAction)
     }
     
-    self.present(alertController, animated:true, completion: {
-      self.sheetShown = true
-    })
+    self.sheetShown = true
+    self.present(alertController, animated:true)
   }
   
   func stopTimer() {
@@ -263,24 +262,22 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         nextPiece.shiftBy(columns: 3, rows: 1)
 
         self.scene.redrawPiece(nextPiece, duration: 0.2) {
-
-          CanMovePiece = true
           self.panPointReference = nil
-          self.scene.startTicking()
+          if !self.sheetShown {
+            self.scene.startTicking()
+          }
 
-          //        delay(0.75) {
-          self.scene.addPieceToScene(newPiece, completion: nil)
-          //        }
-          
+          self.scene.addPieceToScene(newPiece, completion: nil)          
         }
       
       } else {
         let newPiece = self.dotGame.newPiece()
 
         self.dotGame.fallingPiece = newPiece
-        CanMovePiece = true
         self.scene.addPieceToScene(newPiece) {
-          self.scene.startTicking()
+          if !self.sheetShown {
+            self.scene.startTicking()
+          }
           self.panPointReference = nil
         }
       }
@@ -293,12 +290,12 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       scene.tick = didTick
     }
     
-    CanMovePiece = true
-    
     self.scene.addMadDotsToScene(dotGame.madDots)
     
     delay(0.5) {
+      
       self.scene.addPieceToScene(dotGame.fallingPiece!) {
+        CanMovePiece = true
 
         if let nextPiece = dotGame.nextPiece {
           delay(0.5) {
