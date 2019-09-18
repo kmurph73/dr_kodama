@@ -74,15 +74,9 @@ class Dot: Hashable, CustomStringConvertible {
   
     let dotSize = BlockSize - 5
     
-    let onDeck = dot.piece?.onDeck == true
-    
     var point: CGPoint;
     
-    if onDeck == true {
-      point = onDeckPoints![dot.column, dot.row]!.point
-    } else {
-      point = points![dot.column, dot.row]!.point
-    }
+    point = points![dot.column, dot.row]!.point
   
     sprite.xScale = dotSize
     sprite.yScale = dotSize

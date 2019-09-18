@@ -12,7 +12,7 @@ let NumRows = 16
 let DrawnRows = NumRows - 2
 
 let StartingColumn = 3
-let StartingRow = 0
+let StartingRow = 1
 
 var CanMovePiece = false
 
@@ -78,7 +78,6 @@ class DotGame {
   
   func newNextPiece() -> Piece {
     let piece = Piece.random(StartingColumn - 3, startingRow: 0)
-    piece.onDeck = true
     return piece
   }
   

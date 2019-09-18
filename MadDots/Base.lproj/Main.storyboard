@@ -588,9 +588,6 @@ Tap to rotate it counter-clockwise:
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="gtL-3E-gFp"/>
-                    <connections>
-                        <segue destination="kQX-68-ZJZ" kind="showDetail" identifier="goStore" id="bct-jd-0es"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="zxA-l8-ecy">
@@ -623,7 +620,4 @@ Tap to rotate it counter-clockwise:
         <image name="whitecircle" width="70" height="70"/>
         <image name="whitecircle.png" width="70" height="70"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="O08-IW-CfW"/>
-    </inferredMetricsTieBreakers>
 </document>

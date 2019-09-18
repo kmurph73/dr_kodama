@@ -52,7 +52,7 @@ class DotArray2D: Array2D<Dot>, CustomStringConvertible {
     for row in 0..<NumRows {
       for col in 0..<NumColumns {
         if let dot = self[col,row] {
-          if dot.row < 2 {
+          if dot.row < 3 {
             return true
           }
         }

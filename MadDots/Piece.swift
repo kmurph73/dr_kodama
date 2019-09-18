@@ -55,7 +55,6 @@ class Piece: CustomStringConvertible {
   var dot1, dot2: GoodDot
   
   var settled = false
-  var onDeck = false
   
   var previousRotation: Rotation?
   
@@ -127,22 +126,22 @@ class Piece: CustomStringConvertible {
   }
   
   final func lowerByOneRow() {
-    shiftBy(0, rows:1)
+    shiftBy(columns: 0, rows:1)
   }
   
   final func raiseByOneRow() {
-    shiftBy(0, rows:-1)
+    shiftBy(columns: 0, rows:-1)
   }
   
   final func shiftRightByOneColumn() {
-    shiftBy(1, rows:0)
+    shiftBy(columns: 1, rows:0)
   }
   
   final func shiftLeftByOneColumn() {
-    shiftBy(-1, rows:0)
+    shiftBy(columns: -1, rows:0)
   }
   
-  final func shiftBy(_ columns: Int, rows: Int) {
+  final func shiftBy(columns: Int, rows: Int) {
     for dot in dots {
       dot.column += columns
       dot.row += rows
@@ -266,7 +265,7 @@ class Piece: CustomStringConvertible {
   }
   
   func hasDotsAboveGrid() -> Bool {
-    if dot1.row < 2 || dot2.row < 2 {
+    if dot1.row < 3 || dot2.row < 3 {
       return true
     }
     

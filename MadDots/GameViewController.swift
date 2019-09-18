@@ -260,8 +260,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         let newPiece = self.dotGame.newNextPiece()
         self.dotGame.fallingPiece = nextPiece
         self.dotGame.nextPiece = newPiece
-        nextPiece.shiftBy(3, rows: 0)
-        nextPiece.onDeck = false
+        nextPiece.shiftBy(columns: 3, rows: 1)
 
         self.scene.redrawPiece(nextPiece, duration: 0.2) {
 
