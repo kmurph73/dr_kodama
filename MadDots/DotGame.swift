@@ -12,7 +12,7 @@ let DrawnColumns = NumColumns - 1
 let NumRows = 17
 let DrawnRows = NumRows - 3
 
-let StartingColumn = 3
+let StartingColumn = 4
 let StartingRow = 1
 
 var CanMovePiece = false
@@ -79,7 +79,7 @@ class DotGame {
   }
   
   func newNextPiece() -> Piece {
-    let piece = Piece.random(StartingColumn - 1, startingRow: 0)
+    let piece = Piece.random(StartingColumn - 2, startingRow: 0)
     piece.onDeck = true
     return piece
   }
@@ -158,7 +158,7 @@ class DotGame {
   func detectIllegalPlacement() -> Bool {
     if let piece = fallingPiece {
       for dot in piece.dots {
-        if dot.column < 0 || dot.column >= NumColumns
+        if dot.column < 1 || dot.column >= NumColumns
           || dot.row < 0 || dot.row >= NumRows {
             return true
         } else if dotArray[dot.column, dot.row] != nil {

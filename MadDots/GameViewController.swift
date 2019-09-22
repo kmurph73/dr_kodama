@@ -215,7 +215,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   func gamePieceDidLand(_ dotGame: DotGame) {
     scene.stopTicking()
-    CanMovePiece = true
+    CanMovePiece = false
 
     let results = dotGame.removeCompletedDots()
     let dotsToRemove = results.dotsToRemove
@@ -265,7 +265,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           self.dotGame.nextPiece = self.dotGame.nextNextPiece
           self.dotGame.nextNextPiece = newPiece
           
-          nextNextPiece.shiftBy(columns: 3, rows: 0)
+          nextNextPiece.shiftBy(columns: 2, rows: 0)
           nextPiece.incrementZpos()
           
           nextPiece.shiftBy(columns: 2, rows: 1)
