@@ -55,6 +55,8 @@ class Piece: CustomStringConvertible {
   var dot1, dot2: GoodDot
   
   var settled = false
+  var onDeck = false
+  var inTheHole = false
   
   var previousRotation: Rotation?
   
@@ -118,6 +120,14 @@ class Piece: CustomStringConvertible {
   var orientation: Orientation {
     get {
       return self.leftDot == nil ? .vertical : .horizontal
+    }
+  }
+  
+  final func incrementZpos() {
+    for dot in self.dots {
+      if let s = dot.sprite {
+        s.zPosition = s.zPosition + 3
+      }
     }
   }
   
@@ -261,6 +271,7 @@ class Piece: CustomStringConvertible {
     let rightSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
     
     let piece = Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
+    
     return piece
   }
   

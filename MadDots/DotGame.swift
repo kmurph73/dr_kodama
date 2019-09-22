@@ -35,6 +35,7 @@ class DotGame {
 
   var fallingPiece:Piece?
   var nextPiece:Piece?
+  var nextNextPiece:Piece?
 
   var levelMaker: LevelMaker
 
@@ -77,7 +78,14 @@ class DotGame {
   }
   
   func newNextPiece() -> Piece {
-    let piece = Piece.random(StartingColumn - 3, startingRow: 0)
+    let piece = Piece.random(StartingColumn - 1, startingRow: 0)
+    piece.onDeck = true
+    return piece
+  }
+  
+  func newNextNextPiece() -> Piece {
+    let piece = Piece.random(0, startingRow: 0)
+    piece.inTheHole = true
     return piece
   }
   
@@ -86,6 +94,7 @@ class DotGame {
       if let ctrl = delegate as? GameViewController {
         ctrl.scene.stopTicking()
       }
+      
       while true {
         piece.lowerByOneRow()
         if detectIllegalPlacement() {
@@ -107,8 +116,11 @@ class DotGame {
 
     fallingPiece?.removeFromScene()
     nextPiece?.removeFromScene()
+    nextNextPiece?.removeFromScene()
+
     fallingPiece = nil
     nextPiece = nil
+    nextNextPiece = nil
     dotArray.removeDotsFromScene()
     dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     madDots = Array<MadDot>()
@@ -124,6 +136,10 @@ class DotGame {
     
     if (nextPiece == nil && ShowNextPiece) {
       nextPiece = newNextPiece()
+    }
+    
+    if (nextNextPiece == nil && ShowNextNextPiece) {
+      nextNextPiece = newNextNextPiece()
     }
     
     self.madDots.append(contentsOf: levelMaker.makeRandomLevel(GameLevel))

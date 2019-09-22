@@ -43,12 +43,14 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
 
     let newGame = UIAlertAction(title: "New Game", style: .default, handler: { action in
+      self.sheetShown = false
       self.dotGame.beginAnew()
     })
     
     alertController.addAction(newGame)
     
     let menu = UIAlertAction(title: "Menu", style: .default, handler: { _ in
+      self.sheetShown = false
       self.backToMenu()
     })
     
@@ -56,6 +58,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     
     if showCancel {
       let cancelAction = UIAlertAction(title: "Resume", style: .cancel, handler: { action in
+        print("cancel")
         self.sheetShown = false
         self.scene.resumeGame()
       })
@@ -256,28 +259,56 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   func newPiece() {
     delay(0.3) {
       if let nextPiece = self.dotGame.nextPiece {
-        let newPiece = self.dotGame.newNextPiece()
-        self.dotGame.fallingPiece = nextPiece
-        self.dotGame.nextPiece = newPiece
-        nextPiece.shiftBy(columns: 3, rows: 1)
-
-        self.scene.redrawPiece(nextPiece, duration: 0.2) {
-          self.panPointReference = nil
-          if !self.sheetShown {
-            self.scene.startTicking()
+        if let nextNextPiece = self.dotGame.nextNextPiece {
+          let newPiece = self.dotGame.newNextNextPiece()
+          self.dotGame.fallingPiece = nextPiece
+          self.dotGame.nextPiece = self.dotGame.nextNextPiece
+          self.dotGame.nextNextPiece = newPiece
+          
+          nextNextPiece.shiftBy(columns: 2, rows: 0)
+          nextPiece.incrementZpos()
+          
+          nextPiece.shiftBy(columns: 1, rows: 1)
+          nextPiece.incrementZpos()
+          
+          self.scene.redrawPiece(nextPiece, duration: 0.2) {
+            self.panPointReference = nil
+            print("sheet shown", self.sheetShown)
+            if !self.sheetShown {
+              self.scene.startTicking()
+            }
+            
+            self.scene.addPieceToScene(newPiece, completion: nil)
           }
-
-          self.scene.addPieceToScene(newPiece, completion: nil)          
+          
+          self.scene.redrawPiece(nextNextPiece, duration: 0.2) {}
+          
+        } else {
+          let newPiece = self.dotGame.newNextPiece()
+          self.dotGame.fallingPiece = nextPiece
+          self.dotGame.nextPiece = newPiece
+          nextPiece.shiftBy(columns: 1, rows: 1)
+          nextPiece.incrementZpos()
+          
+          self.scene.redrawPiece(nextPiece, duration: 0.2) {
+            self.panPointReference = nil
+            print("sheet shown", self.sheetShown)
+            if !self.sheetShown {
+              self.scene.startTicking()
+            }
+            
+            self.scene.addPieceToScene(newPiece, completion: nil)
+            
+          }
         }
-      
       } else {
         let newPiece = self.dotGame.newPiece()
 
         self.dotGame.fallingPiece = newPiece
         self.scene.addPieceToScene(newPiece) {
-          if !self.sheetShown {
+//          if !self.sheetShown {
             self.scene.startTicking()
-          }
+//          }
           self.panPointReference = nil
         }
       }
@@ -300,6 +331,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         if let nextPiece = dotGame.nextPiece {
           delay(0.5) {
             self.scene.addPieceToScene(nextPiece, completion: nil)
+            if let nextNextPiece = dotGame.nextNextPiece {
+              self.scene.addPieceToScene(nextNextPiece, completion: nil)
+            }
           }
         }
 

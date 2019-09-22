@@ -81,7 +81,11 @@ class Dot: Hashable, CustomStringConvertible {
     sprite.xScale = dotSize
     sprite.yScale = dotSize
     sprite.size = CGSize(width: dotSize, height: dotSize)
-    sprite.zPosition = 5
+    if dot is GoodDot {
+      sprite.zPosition = 10
+    } else {
+      sprite.zPosition = 5
+    }
     sprite.position = point
     dot.sprite = sprite
     

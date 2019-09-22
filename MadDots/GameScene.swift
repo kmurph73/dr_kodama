@@ -79,7 +79,7 @@ class GameScene: SKScene {
       }
 
       let offset = iPad ? 20 : 10
-      menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 3), y: CGFloat(-14 - offset))
+      menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 2), y: CGFloat(-14 - offset))
       self.addChild(menuBtn)
     }
     
@@ -91,7 +91,7 @@ class GameScene: SKScene {
     speedLabel.zPosition = 5
     
     speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
-    self.addChild(speedLabel)
+//    self.addChild(speedLabel)
     
     if points == nil {
       points = createPoints()
@@ -140,7 +140,6 @@ class GameScene: SKScene {
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
     for t: UITouch in touches{
       let loc = t.location(in: self)
       let node = self.atPoint(loc)
@@ -152,12 +151,10 @@ class GameScene: SKScene {
           stopTicking()
           c.showSheet("You rang?", showCancel: true)
           stopTicking()
-//          lastTick = nil
         }
       } else {
         menuTapped = false
       }
-      
     }
   }
 
@@ -204,19 +201,6 @@ class GameScene: SKScene {
     startTicking()
   }
   
-//  override func update(currentTime: CFTimeInterval) {
-//    /* Called before each frame is rendered */
-//    
-//    guard let lastTick = self.lastTick else { return }
-//    
-//    let timePassed = lastTick.timeIntervalSinceNow * -1000.0
-//    
-//    if timePassed > tickLengthMillis {
-//      self.lastTick = NSDate()
-//      tick?()
-//    }
-//  }
-  
   func addArrayToScene(_ array: DotArray2D) {
     for row in 0..<NumRows {
       for col in 0..<NumColumns {
@@ -252,7 +236,7 @@ class GameScene: SKScene {
         let connector = SKSpriteNode(texture: connTexture, size: CGSize(width: size,height: size))
 
         connector.position = p
-        connector.zPosition = 12
+        connector.zPosition = sprite.zPosition + 20
         d.connector = connector
         
         dotLayer.addChild(connector)
@@ -394,6 +378,7 @@ class GameScene: SKScene {
     } else if tinyScreen {
       squareSize -= 3
     }
+    
     BlockSize = squareSize
     
     let rowWidth = (CGFloat(NumColumns) * squareSize)

@@ -15,6 +15,7 @@ var NumberOfColors = 4
 
 var ShowBG = false
 var ShowNextPiece = false
+var ShowNextNextPiece = false
 
 var iPad = false
 

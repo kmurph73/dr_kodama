@@ -460,6 +460,12 @@ Tap to rotate it counter-clockwise:
                                 <color key="textColor" red="0.87209990530303028" green="0.091673802129981746" blue="0.66055502036334024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="show next next piece :)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uce-vn-ZMd">
+                                <rect key="frame" x="0.0" y="409" width="209" height="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.87209990530000003" green="0.091673802129999996" blue="0.66055502040000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="# of colors: 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayU-iS-LSk">
                                 <rect key="frame" x="20" y="280" width="101" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -502,7 +508,7 @@ Tap to rotate it counter-clockwise:
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0z-LO-0i3">
-                                <rect key="frame" x="256" y="407" width="88" height="42"/>
+                                <rect key="frame" x="168" y="502" width="88" height="42"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="START!">
                                     <color key="titleColor" red="0.13645239875045109" green="0.97411616161616166" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -517,6 +523,12 @@ Tap to rotate it counter-clockwise:
                                     <action selector="nextPieceSwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="12Q-nU-pO9"/>
                                 </connections>
                             </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X9r-Fk-3Vy" userLabel="Next Next Piece Switch">
+                                <rect key="frame" x="188" y="404" width="51" height="31"/>
+                                <connections>
+                                    <action selector="nextNextPieceChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="pd8-Xl-aQB"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -526,6 +538,7 @@ Tap to rotate it counter-clockwise:
                             <constraint firstItem="kRa-wh-pG5" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" id="56J-qg-WaG"/>
                             <constraint firstItem="3Ul-lu-SaJ" firstAttribute="top" secondItem="FPJ-mQ-04m" secondAttribute="bottom" constant="40" id="7bf-si-KiN"/>
                             <constraint firstItem="TPW-oI-20y" firstAttribute="leading" secondItem="6O8-uF-YuM" secondAttribute="leading" id="7z5-Cg-6Tf"/>
+                            <constraint firstItem="Uce-vn-ZMd" firstAttribute="top" secondItem="vQL-DH-YgL" secondAttribute="bottom" constant="40" id="BbZ-Ir-K4y"/>
                             <constraint firstItem="Doc-yd-z96" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="C24-hd-TYM"/>
                             <constraint firstItem="FPJ-mQ-04m" firstAttribute="top" secondItem="Doc-yd-z96" secondAttribute="bottom" constant="35" id="C7N-3C-Z9P"/>
                             <constraint firstItem="Doc-yd-z96" firstAttribute="top" secondItem="xFw-Ib-RHr" secondAttribute="bottom" constant="8" symbolic="YES" id="EAo-3y-gyP"/>
@@ -538,14 +551,17 @@ Tap to rotate it counter-clockwise:
                             <constraint firstAttribute="bottom" secondItem="kRa-wh-pG5" secondAttribute="bottom" id="LR7-Zm-Tq7"/>
                             <constraint firstItem="uX8-Am-Xix" firstAttribute="centerY" secondItem="ayU-iS-LSk" secondAttribute="centerY" id="T5S-V0-j0y"/>
                             <constraint firstAttribute="trailing" secondItem="kRa-wh-pG5" secondAttribute="trailing" id="Tlj-Tm-k16"/>
-                            <constraint firstItem="6O8-uF-YuM" firstAttribute="leading" secondItem="rMd-JF-joh" secondAttribute="trailing" constant="30" id="Tog-ay-O5i"/>
+                            <constraint firstItem="6O8-uF-YuM" firstAttribute="leading" secondItem="rMd-JF-joh" secondAttribute="trailing" constant="45" id="Tog-ay-O5i"/>
                             <constraint firstItem="rMd-JF-joh" firstAttribute="top" secondItem="3Ul-lu-SaJ" secondAttribute="bottom" constant="40" id="TzE-0M-Ku1"/>
                             <constraint firstItem="ThG-BX-tYK" firstAttribute="centerY" secondItem="3Ul-lu-SaJ" secondAttribute="centerY" id="Vaj-ie-AgF"/>
-                            <constraint firstItem="N0z-LO-0i3" firstAttribute="top" secondItem="TPW-oI-20y" secondAttribute="bottom" constant="40" id="W3M-2Z-ZFH"/>
+                            <constraint firstItem="Uce-vn-ZMd" firstAttribute="leading" secondItem="vQL-DH-YgL" secondAttribute="leading" id="a0h-EZ-rqP"/>
+                            <constraint firstItem="X9r-Fk-3Vy" firstAttribute="centerY" secondItem="Uce-vn-ZMd" secondAttribute="centerY" id="cM0-Mc-2ZS"/>
                             <constraint firstItem="uX8-Am-Xix" firstAttribute="leading" secondItem="6O8-uF-YuM" secondAttribute="leading" id="fR1-NP-Vu6"/>
                             <constraint firstItem="ayU-iS-LSk" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="gxx-cv-qfK"/>
                             <constraint firstItem="ThG-BX-tYK" firstAttribute="leading" secondItem="3Ul-lu-SaJ" secondAttribute="trailing" constant="25" id="ir3-Gc-T41"/>
+                            <constraint firstItem="N0z-LO-0i3" firstAttribute="top" secondItem="X9r-Fk-3Vy" secondAttribute="bottom" constant="40" id="jaC-VV-zxe"/>
                             <constraint firstItem="N0z-LO-0i3" firstAttribute="centerX" secondItem="IdS-7d-PHO" secondAttribute="centerX" id="ksD-WT-GkB"/>
+                            <constraint firstItem="X9r-Fk-3Vy" firstAttribute="leading" secondItem="TPW-oI-20y" secondAttribute="leading" id="qL3-Ef-2nz"/>
                             <constraint firstItem="m0N-Bp-2Cw" firstAttribute="centerY" secondItem="FPJ-mQ-04m" secondAttribute="centerY" id="s5m-3h-NeN"/>
                             <constraint firstItem="6O8-uF-YuM" firstAttribute="centerY" secondItem="rMd-JF-joh" secondAttribute="centerY" id="y91-cU-xbS"/>
                         </constraints>
@@ -554,6 +570,8 @@ Tap to rotate it counter-clockwise:
                         <outlet property="bgSwitch" destination="6O8-uF-YuM" id="QUa-0x-L5a"/>
                         <outlet property="levelLabel" destination="3Ul-lu-SaJ" id="Ffa-yw-WR6"/>
                         <outlet property="levelSlider" destination="ThG-BX-tYK" id="2Oc-Td-iAl"/>
+                        <outlet property="nextNextPieceLabel" destination="Uce-vn-ZMd" id="Ey9-l7-9jn"/>
+                        <outlet property="nextNextPieceSwitch" destination="X9r-Fk-3Vy" id="e9a-oh-G4h"/>
                         <outlet property="nextPieceLabel" destination="vQL-DH-YgL" id="2gm-pb-BuA"/>
                         <outlet property="nextPieceSwitch" destination="TPW-oI-20y" id="g1a-x8-Zdy"/>
                         <outlet property="numColorsLabel" destination="ayU-iS-LSk" id="YqY-ay-vzK"/>
@@ -566,7 +584,7 @@ Tap to rotate it counter-clockwise:
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IkH-Fn-4Fd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="489" y="259"/>
+            <point key="canvasLocation" x="488.80000000000001" y="258.62068965517244"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
