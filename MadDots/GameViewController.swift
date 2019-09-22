@@ -265,10 +265,10 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           self.dotGame.nextPiece = self.dotGame.nextNextPiece
           self.dotGame.nextNextPiece = newPiece
           
-          nextNextPiece.shiftBy(columns: 2, rows: 0)
+          nextNextPiece.shiftBy(columns: 3, rows: 0)
           nextPiece.incrementZpos()
           
-          nextPiece.shiftBy(columns: 1, rows: 1)
+          nextPiece.shiftBy(columns: 2, rows: 1)
           nextPiece.incrementZpos()
           
           self.scene.redrawPiece(nextPiece, duration: 0.2) {
@@ -287,7 +287,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           let newPiece = self.dotGame.newNextPiece()
           self.dotGame.fallingPiece = nextPiece
           self.dotGame.nextPiece = newPiece
-          nextPiece.shiftBy(columns: 1, rows: 1)
+          nextPiece.shiftBy(columns: 2, rows: 1)
           nextPiece.incrementZpos()
           
           self.scene.redrawPiece(nextPiece, duration: 0.2) {

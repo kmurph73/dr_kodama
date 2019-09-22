@@ -7,7 +7,8 @@
 //
 import Foundation
 
-let NumColumns = 8
+let NumColumns = 9
+let DrawnColumns = NumColumns - 1
 let NumRows = 17
 let DrawnRows = NumRows - 3
 

@@ -160,14 +160,14 @@ class GameScene: SKScene {
 
   func pointForColumn(_ column: Int, row: Int) -> CGPoint {
     let squareSize = BlockSize
-    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * squareSize) + (squareSize / 2)) + squareSize - 1
+    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * squareSize) + (squareSize / 2)) - 1
     let y: CGFloat = LayerPosition.y - (((CGFloat(row) * squareSize) + (squareSize / 2))) - 1
     return CGPoint(x: x, y: y - (extraYSpace - squareSize * 2))
   }
   
   func pointForSide(_ side: Side, column: Int, row: Int) -> CGPoint {
     let squareSize = BlockSize
-    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * squareSize) + (squareSize / 2)) + squareSize - 1
+    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * squareSize) + (squareSize / 2)) - 1
     let y: CGFloat = (LayerPosition.y - (((CGFloat(row) * squareSize) + (squareSize / 2))) - 1) - (extraYSpace - squareSize * 2)
     
     let halfBlock = squareSize / 2 - ((squareSize / 6) / 2)
@@ -357,7 +357,7 @@ class GameScene: SKScene {
   
   func drawGrid() {
     let totalRows = NumRows
-    let totalCols = NumColumns + 2
+    let totalCols = DrawnColumns + 2
    
     let rowSquare = ((self.frame.minY - CGFloat(totalRows)) / CGFloat(totalRows)) * -1
     let colSquare = self.frame.maxX / CGFloat(totalCols)
@@ -381,10 +381,10 @@ class GameScene: SKScene {
     
     BlockSize = squareSize
     
-    let rowWidth = (CGFloat(NumColumns) * squareSize)
+    let rowWidth = (CGFloat(DrawnColumns) * squareSize)
     let colHeight = (CGFloat(DrawnRows) * squareSize)
     
-    let centerX = ((squareSize * CGFloat(NumColumns + 1)) + squareSize) / 2
+    let centerX = ((squareSize * CGFloat(DrawnColumns + 1)) + squareSize) / 2
     let centerY = ((squareSize * CGFloat(DrawnRows + 1)) + squareSize) / 2 * -1
     
     extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 1.33)

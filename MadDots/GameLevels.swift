@@ -27,7 +27,7 @@ class LevelMaker {
   
   var dotArray: DotArray2D
   
-  func randomNum(_ min: Int, max: Int) -> Int {
+  func randomNum(min: Int, max: Int) -> Int {
     return Int(arc4random_uniform(UInt32(max))) + min
   }
   
@@ -37,7 +37,7 @@ class LevelMaker {
   }
   
   func placeRandomDot(_ col: Int, rowNum: Int) -> Bool {
-    let randNum = randomNum(0, max: 5)
+    let randNum = randomNum(min: 0, max: 5)
     if randNum == 4 {
       return false
     } else {
@@ -54,7 +54,7 @@ class LevelMaker {
   func fillInDotsForRow(_ numDotsRequiredForRow:Int, rowNum: Int) {
     var numDotsRequiredForRow = numDotsRequiredForRow
     while numDotsRequiredForRow > 0 {
-      let randColumn = randomNum(0, max: NumColumns)
+      let randColumn = randomNum(min: 0, max: NumColumns)
       if dotArray[randColumn, rowNum] == nil {
         if placeRandomDot(randColumn, rowNum: rowNum) {
           numDotsRequiredForRow -= 1
@@ -66,7 +66,7 @@ class LevelMaker {
   func removeDotsForRow(_ numDotsRequiredForRow: Int, rowNum: Int) {
     var numDotsRequiredForRow = numDotsRequiredForRow
     while numDotsRequiredForRow < 0 {
-      let randColumn = randomNum(0, max: NumColumns)
+      let randColumn = randomNum(min: 0, max: NumColumns)
       
       if let dot = dotArray[randColumn, rowNum] as? MadDot {
         dotArray[randColumn, rowNum] = nil
@@ -96,8 +96,9 @@ class LevelMaker {
   }
   
   func insertRandomDot(_ level: Level) -> Bool {
-    let randRow = randomNum(0, max: level.maxRows) + (NumRows - level.maxRows)
-    let randCol = randomNum(0, max: NumColumns)
+    let randRow = randomNum(min: 0, max: level.maxRows) + (NumRows - level.maxRows)
+    let randCol = randomNum(min: 1, max: NumColumns)
+    print("randCol:", randCol)
     
     if let everyRow = level.everyRow {
       if let _ = dotArray[randCol, randRow] as? MadDot {
@@ -122,8 +123,9 @@ class LevelMaker {
   }
   
   func insertRandomDot(_ offset:Int) -> Bool {
-    let randRow = randomNum(offset, max: NumRows - offset)
-    let randCol = randomNum(0, max: NumColumns)
+    let randRow = randomNum(min: offset, max: NumRows - offset)
+    let randCol = randomNum(min: 1, max: NumColumns - 1)
+    print("randCol: ", randCol)
     
     if let _ = dotArray[randCol, randRow] as? MadDot {
       return false
@@ -141,7 +143,6 @@ class LevelMaker {
     let offset = GameLevel > 5 ? (GameLevel > 10 ? 7 : 7) : 8
     
     while true {
-      print("makeRandomLevel")
       while totalMadDots > 0 {
         if insertRandomDot(offset) {
           totalMadDots -= 1
