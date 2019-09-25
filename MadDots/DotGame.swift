@@ -7,12 +7,15 @@
 //
 import Foundation
 
-let NumColumns = 8
-let NumRows = 16
-let DrawnRows = NumRows - 2
+let NumColumns = 9
+let DrawnColumns = NumColumns - 1
+let NumRows = 17
+let DrawnRows = NumRows - 3
 
-let StartingColumn = 3
+let StartingColumn = 4
 let StartingRow = 1
+
+var CanMovePiece = false
 
 var RotateDir: Dir = .counterClockwise
 
@@ -33,6 +36,7 @@ class DotGame {
 
   var fallingPiece:Piece?
   var nextPiece:Piece?
+  var nextNextPiece:Piece?
 
   var levelMaker: LevelMaker
 
@@ -75,7 +79,15 @@ class DotGame {
   }
   
   func newNextPiece() -> Piece {
-    return Piece.random(StartingColumn - 3, startingRow: StartingRow - 1)
+    let piece = Piece.random(StartingColumn - 2, startingRow: 0)
+    piece.onDeck = true
+    return piece
+  }
+  
+  func newNextNextPiece() -> Piece {
+    let piece = Piece.random(0, startingRow: 0)
+    piece.inTheHole = true
+    return piece
   }
   
   func dropPiece() {
@@ -83,6 +95,7 @@ class DotGame {
       if let ctrl = delegate as? GameViewController {
         ctrl.scene.stopTicking()
       }
+      
       while true {
         piece.lowerByOneRow()
         if detectIllegalPlacement() {
@@ -104,8 +117,11 @@ class DotGame {
 
     fallingPiece?.removeFromScene()
     nextPiece?.removeFromScene()
+    nextNextPiece?.removeFromScene()
+
     fallingPiece = nil
     nextPiece = nil
+    nextNextPiece = nil
     dotArray.removeDotsFromScene()
     dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     madDots = Array<MadDot>()
@@ -123,6 +139,10 @@ class DotGame {
       nextPiece = newNextPiece()
     }
     
+    if (nextNextPiece == nil && ShowNextNextPiece) {
+      nextNextPiece = newNextNextPiece()
+    }
+    
     self.madDots.append(contentsOf: levelMaker.makeRandomLevel(GameLevel))
     
 //    let sen = testScenario3()
@@ -138,7 +158,7 @@ class DotGame {
   func detectIllegalPlacement() -> Bool {
     if let piece = fallingPiece {
       for dot in piece.dots {
-        if dot.column < 0 || dot.column >= NumColumns
+        if dot.column < 1 || dot.column >= NumColumns
           || dot.row < 0 || dot.row >= NumRows {
             return true
         } else if dotArray[dot.column, dot.row] != nil {

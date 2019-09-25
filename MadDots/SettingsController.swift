@@ -16,7 +16,9 @@ class SettingsController: UIViewController {
   @IBOutlet weak var levelSlider: UISlider!
   @IBOutlet weak var speedSlider: UISlider!
   @IBOutlet weak var showBgLabel: UILabel!
+  @IBOutlet weak var nextNextPieceLabel: UILabel!
   
+  @IBOutlet weak var nextNextPieceSwitch: UISwitch!
   @IBOutlet weak var numColorsSwitch: UISwitch!
   @IBOutlet weak var nextPieceSwitch: UISwitch!
   @IBOutlet weak var bgSwitch: UISwitch!
@@ -24,7 +26,7 @@ class SettingsController: UIViewController {
   @IBAction func tapCancel(_ sender: UIButton) {
     self.dismiss(animated: true, completion: nil)
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -51,6 +53,7 @@ class SettingsController: UIViewController {
   
   @IBAction func tapStart(_ sender: UIButton) {
     UserDefaults.standard.setValue(ShowNextPiece, forKey: "showNextPiece")
+    UserDefaults.standard.setValue(ShowNextNextPiece, forKey: "showNextNextPiece")
     UserDefaults.standard.setValue(GameLevel, forKey: "gameLevel")
     UserDefaults.standard.setValue(NumberOfColors, forKey: "numColors")
     UserDefaults.standard.setValue(ShowBG, forKey: "showBG")
@@ -79,6 +82,18 @@ class SettingsController: UIViewController {
   
   @IBAction func nextPieceSwitchChanged(_ sender: UISwitch) {
     ShowNextPiece = sender.isOn
+    if (!sender.isOn) {
+      nextNextPieceSwitch.isOn = false
+      ShowNextNextPiece = false
+    }
+  }
+  
+  @IBAction func nextNextPieceChanged(_ sender: UISwitch) {
+    ShowNextNextPiece = sender.isOn
+    if (sender.isOn) {
+      nextNextPieceSwitch.isOn = true
+      ShowNextNextPiece = true
+    }
   }
   
   func setLabelColor() {
@@ -86,6 +101,7 @@ class SettingsController: UIViewController {
     
     self.showBgLabel.textColor = color
     self.nextPieceLabel.textColor = color
+    self.nextNextPieceLabel.textColor = color
     self.numColorsLabel.textColor = color
   }
   
@@ -96,24 +112,15 @@ class SettingsController: UIViewController {
   }
   
   func handleNextPiece() {
-    let hidden = NextPiecePurchased ? false : true
     nextPieceSwitch.isOn = ShowNextPiece
-    nextPieceSwitch.isHidden = hidden
-    nextPieceLabel.isHidden = hidden
+    nextNextPieceSwitch.isOn = ShowNextNextPiece
   }
   
   func handleFifthColor() {
-    let hidden = FifthColorPurchased ? false : true
     numColorsSwitch.isOn = NumberOfColors == 5
-    numColorsLabel.isHidden = hidden
-    numColorsSwitch.isHidden = hidden
   }
   
   func handleMoreLevels() {
-    if MoreLevelsPurchased {
-      levelSlider.maximumValue = 20.0
-    } else {
-      levelSlider.maximumValue = 11.0
-    }
+    levelSlider.maximumValue = 20.0
   }
 }

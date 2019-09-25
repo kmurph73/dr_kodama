@@ -13,13 +13,14 @@ let TickLengthLevelOne = 0.2
 var extraYSpace: CGFloat = 0
 typealias PointStore = (point: CGPoint, connectorPoints: [Side: CGPoint])
 var points: Array2D<PointStore>?
+
 var tinyScreen = false
 var iPadPro = false
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
   let dotLayer = SKNode()
-  let LayerPosition = CGPoint(x: 1, y: 1)
+  let LayerPosition = CGPoint(x: 0, y: 0)
   
   var ctrl: GameViewController?
   var tick:(() -> ())?
@@ -61,7 +62,7 @@ class GameScene: SKScene {
     dotLayer.position = LayerPosition
     self.addChild(dotLayer)
     
-    let y = self.frame.maxY - (extraYSpace - BlockSize)
+    let y = self.frame.maxY
     
     menuBtn = SKSpriteNode(imageNamed: "menubtn")
     
@@ -74,11 +75,11 @@ class GameScene: SKScene {
       if iPad {
         menuBtn.size = CGSize(width: 201, height: 65)
       } else {
-        menuBtn.size = CGSize(width: 123, height: 40)
+        menuBtn.size = CGSize(width: 130, height: 42)
       }
 
-      let offset = iPad ? 20 : 2
-      menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 2), y: y - CGFloat(offset))
+      let offset = iPad ? 20 : 10
+      menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 2), y: CGFloat(-14 - offset))
       self.addChild(menuBtn)
     }
     
@@ -90,10 +91,9 @@ class GameScene: SKScene {
     speedLabel.zPosition = 5
     
     speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
-    self.addChild(speedLabel)
+//    self.addChild(speedLabel)
     
     if points == nil {
-      print("crate points")
       points = createPoints()
     }
   }
@@ -114,16 +114,13 @@ class GameScene: SKScene {
     
     return arr
   }
-
-  
-
   
 //  func startTicking() {
 //    NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: "newTick", userInfo: nil, repeats: true)
 //  }
   
   func levelLabelSetter() {
-    let y = self.frame.maxY - (extraYSpace - BlockSize)
+    let y = CGFloat(-14)
 
     if levelLabel != nil {
       levelLabel!.removeFromParent()
@@ -143,35 +140,37 @@ class GameScene: SKScene {
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    if let t = touches.first {
+    for t: UITouch in touches{
       let loc = t.location(in: self)
       let node = self.atPoint(loc)
       if node.name == "menu" {
         menuTapped = true
+        stopTicking()
+
         if let c = ctrl {
           stopTicking()
           c.showSheet("You rang?", showCancel: true)
           stopTicking()
-//          lastTick = nil
         }
       } else {
         menuTapped = false
       }
-      
     }
   }
 
   func pointForColumn(_ column: Int, row: Int) -> CGPoint {
-    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
-    let y: CGFloat = LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1
-    return CGPoint(x: x, y: y - (extraYSpace - BlockSize * 2))
+    let squareSize = BlockSize
+    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * squareSize) + (squareSize / 2)) - 1
+    let y: CGFloat = LayerPosition.y - (((CGFloat(row) * squareSize) + (squareSize / 2))) - 1
+    return CGPoint(x: x, y: y - (extraYSpace - squareSize * 2))
   }
   
   func pointForSide(_ side: Side, column: Int, row: Int) -> CGPoint {
-    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
-    let y: CGFloat = (LayerPosition.y - (((CGFloat(row) * BlockSize) + (BlockSize / 2))) - BlockSize - 1) - (extraYSpace - BlockSize * 2)
+    let squareSize = BlockSize
+    let x: CGFloat = LayerPosition.x + ((CGFloat(column) * squareSize) + (squareSize / 2)) - 1
+    let y: CGFloat = (LayerPosition.y - (((CGFloat(row) * squareSize) + (squareSize / 2))) - 1) - (extraYSpace - squareSize * 2)
     
-    let halfBlock = BlockSize / 2 - ((BlockSize / 6) / 2)
+    let halfBlock = squareSize / 2 - ((squareSize / 6) / 2)
     let pieceCenter = halfBlock * 1.25
     
     switch side {
@@ -196,25 +195,11 @@ class GameScene: SKScene {
     } else {
       return nil
     }
-
   }
   
   func resumeGame() {
-    self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
+    startTicking()
   }
-  
-//  override func update(currentTime: CFTimeInterval) {
-//    /* Called before each frame is rendered */
-//    
-//    guard let lastTick = self.lastTick else { return }
-//    
-//    let timePassed = lastTick.timeIntervalSinceNow * -1000.0
-//    
-//    if timePassed > tickLengthMillis {
-//      self.lastTick = NSDate()
-//      tick?()
-//    }
-//  }
   
   func addArrayToScene(_ array: DotArray2D) {
     for row in 0..<NumRows {
@@ -228,25 +213,15 @@ class GameScene: SKScene {
   
   func addDotToScene(_ dot:Dot, completion:(() -> ())?) {
     var texture = textureCache[dot.spriteName]
-
+    
     if texture == nil {
       texture = SKTexture(imageNamed: dot.spriteName)
       textureCache[dot.spriteName] = texture
     }
     
-    let sprite = SKSpriteNode(texture: texture)
-    
-    let dotSize = BlockSize - 5
-
-    sprite.xScale = dotSize
-    sprite.yScale = dotSize
-    sprite.size = CGSize(width: dotSize, height: dotSize)
-    sprite.zPosition = 5
-    sprite.position = points![dot.column, dot.row]!.point
-    dot.sprite = sprite
-    
+    let sprite = Dot.createSprite(dot: dot, texture: texture!)
     dotLayer.addChild(sprite)
-        
+    
     if let d = dot as? GoodDot {
       if let p = pointForConnector(d) {
         let size = BlockSize / 4
@@ -261,7 +236,7 @@ class GameScene: SKScene {
         let connector = SKSpriteNode(texture: connTexture, size: CGSize(width: size,height: size))
 
         connector.position = p
-        connector.zPosition = 12 // zPosition to change in which layer the barra appears.
+        connector.zPosition = sprite.zPosition + 20
         d.connector = connector
         
         dotLayer.addChild(connector)
@@ -330,11 +305,14 @@ class GameScene: SKScene {
   
   func startTicking() {
     stopTicking()
+    CanMovePiece = true
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
+    
   }
   
   func stopTicking() {
     self.timer?.invalidate()
+    CanMovePiece = false
     self.timer = nil
   }
 
@@ -348,7 +326,7 @@ class GameScene: SKScene {
         if let p = pointForConnector(dot) {
           let connector = dot.connector!
           let movToAction:SKAction = SKAction.move(to: p, duration: duration)
-          
+
           connector.run(movToAction)
         }
 
@@ -379,12 +357,18 @@ class GameScene: SKScene {
   
   func drawGrid() {
     let totalRows = NumRows
-    let totalCols = NumColumns + 2
-    
-    let rowSquare = self.frame.minY  / CGFloat(totalRows) * -1
+    let totalCols = DrawnColumns + 2
+   
+    let rowSquare = ((self.frame.minY - CGFloat(totalRows)) / CGFloat(totalRows)) * -1
     let colSquare = self.frame.maxX / CGFloat(totalCols)
     
     var squareSize = rowSquare > colSquare ? colSquare : rowSquare
+    
+//    // we want the grid to end with a third of a square left
+//    let thirdOfASquare = squareSize / 3
+//
+//    squareSize = ((self.frame.minY - thirdOfASquare) / CGFloat(totalRows)) * -1
+    
     if iPad {
       if iPadPro {
         squareSize -= 15
@@ -394,43 +378,43 @@ class GameScene: SKScene {
     } else if tinyScreen {
       squareSize -= 3
     }
+    
     BlockSize = squareSize
     
-    let rowWidth = (CGFloat(NumColumns) * squareSize)
+    let rowWidth = (CGFloat(DrawnColumns) * squareSize)
     let colHeight = (CGFloat(DrawnRows) * squareSize)
     
-    let centerX = ((squareSize * CGFloat(NumColumns + 1)) + squareSize) / 2
+    let centerX = ((squareSize * CGFloat(DrawnColumns + 1)) + squareSize) / 2
     let centerY = ((squareSize * CGFloat(DrawnRows + 1)) + squareSize) / 2 * -1
     
-    extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
+    extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 1.33)
 //    if iPad {
 //      extraYSpace += CGFloat(100)
 //    }
     
-    for row in 1..<totalRows {
+    for row in 1..<(totalRows) {
       let y = squareSize * CGFloat(row) * -1
       
-      let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: rowWidth, height: 0.5))
-      barra.position = CGPoint(x: centerX, y: y - extraYSpace)
-      barra.zPosition = 9 // zPosition to change in which layer the barra appears.
+      let bar = SKSpriteNode(color: SKColor.gray, size: CGSize(width: rowWidth, height: 0.5))
+      bar.position = CGPoint(x: centerX, y: y - extraYSpace)
+      bar.zPosition = 9 // zPosition to change in which layer the barra appears.
       
-      gridLayer.addChild(barra)
+      gridLayer.addChild(bar)
     }
     
     for col in 1..<totalCols {
       let x = squareSize * CGFloat(col)
       
-      let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: 0.5, height: colHeight))
-      barra.position = CGPoint(x: x, y: centerY - extraYSpace)
-      barra.zPosition = 9 // zPosition to change in which layer the barra appears.
+      let bar = SKSpriteNode(color: SKColor.gray, size: CGSize(width: 0.5, height: colHeight))
+      bar.position = CGPoint(x: x, y: centerY - extraYSpace)
+      bar.zPosition = 9 // zPosition to change in which layer the barra appears.
       
-      gridLayer.addChild(barra)
+      gridLayer.addChild(bar)
     }
     
     gridLayer.position = LayerPosition
 
     self.addChild(gridLayer)
-    
   }
   
   deinit {
