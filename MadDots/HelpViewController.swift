@@ -40,4 +40,6 @@ class HelpViewController: UIViewController {
       self.trailingMargin.constant = view.bounds.size.width / 5
     }
   }
+
+  
 }
