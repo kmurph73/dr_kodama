@@ -17,9 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
-    // purchaseAll()
+
+//    purchaseAll()
 
     assessState()
+    if let restored = UserDefaults.standard.value(forKey: "restoredPurchases") as? Bool {
+      RestoredPurchases = restored
+    }
     
     return true
   }

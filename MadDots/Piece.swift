@@ -55,8 +55,6 @@ class Piece: CustomStringConvertible {
   var dot1, dot2: GoodDot
   
   var settled = false
-  var onDeck = false
-  var inTheHole = false
   
   var previousRotation: Rotation?
   
@@ -65,8 +63,6 @@ class Piece: CustomStringConvertible {
     self.dot2 = GoodDot(column: column + 1, row: row, color: rightColor)
     self.dot1.sibling = dot2
     self.dot2.sibling = dot1
-    self.dot1.piece = self
-    self.dot2.piece = self
   }
   
   var dots: [GoodDot] {
@@ -123,35 +119,27 @@ class Piece: CustomStringConvertible {
     }
   }
   
-  final func incrementZpos() {
-    for dot in self.dots {
-      if let s = dot.sprite {
-        s.zPosition = s.zPosition + 3
-      }
-    }
-  }
-  
   var description: String {
     return "piece: \(dot1), \(dot2)"
   }
   
   final func lowerByOneRow() {
-    shiftBy(columns: 0, rows:1)
+    shiftBy(0, rows:1)
   }
   
   final func raiseByOneRow() {
-    shiftBy(columns: 0, rows:-1)
+    shiftBy(0, rows:-1)
   }
   
   final func shiftRightByOneColumn() {
-    shiftBy(columns: 1, rows:0)
+    shiftBy(1, rows:0)
   }
   
   final func shiftLeftByOneColumn() {
-    shiftBy(columns: -1, rows:0)
+    shiftBy(-1, rows:0)
   }
   
-  final func shiftBy(columns: Int, rows: Int) {
+  final func shiftBy(_ columns: Int, rows: Int) {
     for dot in dots {
       dot.column += columns
       dot.row += rows
@@ -270,13 +258,11 @@ class Piece: CustomStringConvertible {
     let leftSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
     let rightSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
     
-    let piece = Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
-    
-    return piece
+    return Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
   }
   
   func hasDotsAboveGrid() -> Bool {
-    if dot1.row < 3 || dot2.row < 3 {
+    if dot1.row < 2 || dot2.row < 2 {
       return true
     }
     
@@ -289,7 +275,7 @@ class Piece: CustomStringConvertible {
   }
   
   deinit {
-    print("\(self) is being deinitialized")
+//    print("\(self) is being deinitialized")
   }
   
 }
