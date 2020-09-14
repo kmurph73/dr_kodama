@@ -13,6 +13,7 @@ let DrawnRows = NumRows - 2
 
 let StartingColumn = 3
 let StartingRow = 1
+var CanMovePiece = false
 
 var RotateDir: Dir = .counterClockwise
 

@@ -330,11 +330,14 @@ class GameScene: SKScene {
   
   func startTicking() {
     stopTicking()
+    CanMovePiece = true
+
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
   
   func stopTicking() {
     self.timer?.invalidate()
+    CanMovePiece = false
     self.timer = nil
   }
 

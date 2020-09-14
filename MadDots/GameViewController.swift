@@ -18,7 +18,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   var sheetShown = false
 
   @IBAction func didTap(_ sender: UITapGestureRecognizer) {
-    if !scene.menuTapped {
+    if !scene.menuTapped && CanMovePiece {
       dotGame.rotatePiece()
       scene.menuTapped = false
     }
@@ -43,12 +43,14 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
 
     let newGame = UIAlertAction(title: "New Game", style: .default, handler: { action in
+      self.sheetShown = false
       self.dotGame.beginAnew()
     })
     
     alertController.addAction(newGame)
     
     let menu = UIAlertAction(title: "Menu", style: .default, handler: { _ in
+      self.sheetShown = false
       self.backToMenu()
     })
     
@@ -62,18 +64,16 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       alertController.addAction(cancelAction)
     }
     
-    self.present(alertController, animated:true, completion: {
-      self.sheetShown = true
-    })
+    self.sheetShown = true
+    self.present(alertController, animated:true)
   }
   
   func stopTimer() {
-    print("stop timer")
+
     self.scene.stopTicking()
   }
   
   func startTimer() {
-    print("start timer")
     self.scene.startTicking()
   }
   
@@ -92,6 +92,10 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   @IBAction func didPan(_ sender: UIPanGestureRecognizer) {
     guard let panD = panDistance else {
+      return
+    }
+    
+    if !CanMovePiece {
       return
     }
 
@@ -207,29 +211,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.present(alertController, animated:true, completion: nil)
   }
   
-  func buyMoreLevelsAlert() {
-    let msg = "Congrats! You beat the last level... or did you?  Hint: no.  Buy the rest of the levels at the store!"
-    let style: UIAlertController.Style = iPad ? .alert : .actionSheet
-    let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
-    
-    let nextLevel = UIAlertAction(title: "Go to store", style: .default, handler: { action in
-      self.performSegue(withIdentifier: "goStore", sender: self)
-    })
-    
-    alertController.addAction(nextLevel)
-    
-    let menu = UIAlertAction(title: "Back to menu", style: .default, handler: { _ in
-      self.backToMenu()
-    })
-    
-    alertController.addAction(menu)
-    
-    self.present(alertController, animated:true, completion: nil)
-  }
-  
   func gamePieceDidLand(_ dotGame: DotGame) {
     scene.stopTicking()
-    self.view.isUserInteractionEnabled = false
+    CanMovePiece = false
 
     let results = dotGame.removeCompletedDots()
     let dotsToRemove = results.dotsToRemove
@@ -240,20 +224,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
       scene.removeDots(dotsToRemove)
       if dotGame.dotArray.hasAchievedVictory() {
-        if !MoreLevelsPurchased && GameLevel == 11 {
-          buyMoreLevelsAlert()
-        } else if GameLevel == 20 {
-          let msg = "You won!"
-          let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-          let okAction = UIAlertAction(title: "OMG pinch me", style: .default, handler: { _ in
-            self.backToMenu()
-          })
-          alertController.addAction(okAction)
-          self.present(alertController, animated: true, completion: nil)
-        } else {
-          delay(0.5) {
-            self.beatLevelAlert()
-          }
+        delay(0.5) {
+          self.beatLevelAlert()
         }
       } else {
         scene.dropDots(fallenDots) {
@@ -280,13 +252,11 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         self.dotGame.nextPiece = newPiece
         nextPiece.shiftBy(3, rows: 1)
         self.scene.redrawPiece(nextPiece, duration: 0.2) {
-          self.view.isUserInteractionEnabled = true
           self.panPointReference = nil
           self.scene.startTicking()
-
-          //        delay(0.75) {
+          CanMovePiece = true
+          
           self.scene.addPieceToScene(newPiece, completion: nil)
-          //        }
           
         }
       
@@ -294,8 +264,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         let newPiece = self.dotGame.newPiece()
 
         self.dotGame.fallingPiece = newPiece
-        self.view.isUserInteractionEnabled = true
         self.scene.addPieceToScene(newPiece) {
+          CanMovePiece = true
           self.scene.startTicking()
           self.panPointReference = nil
         }
@@ -309,7 +279,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       scene.tick = didTick
     }
     
-    self.view.isUserInteractionEnabled = true
+    CanMovePiece = true
     
     self.scene.addMadDotsToScene(dotGame.madDots)
     
