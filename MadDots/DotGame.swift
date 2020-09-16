@@ -152,6 +152,9 @@ class DotGame {
   }
   
   func movePieceLeft() {
+    if (!CanMovePiece) {
+      return
+    }
     if let piece = fallingPiece {
       piece.shiftLeftByOneColumn()
       if detectIllegalPlacement() {
@@ -165,6 +168,9 @@ class DotGame {
   }
   
   func movePieceRight() {
+    if (!CanMovePiece) {
+      return
+    }
     if let piece = fallingPiece {
       piece.shiftRightByOneColumn()
       if detectIllegalPlacement() {
@@ -177,6 +183,9 @@ class DotGame {
   }
   
   func movePieceDown() {
+    if (!CanMovePiece) {
+      return
+    }
     if let piece = fallingPiece {
       piece.lowerByOneRow()
       if detectIllegalPlacement() {
@@ -189,6 +198,9 @@ class DotGame {
   }
   
   func rotatePiece() {
+    if (!CanMovePiece) {
+      return
+    }
     if let piece = fallingPiece {
       if RotateDir == .clockwise {
         piece.rotateClockwise(dotArray)
@@ -205,6 +217,7 @@ class DotGame {
   }
   
   func detectTouch() -> Bool {
+
     if let piece = fallingPiece {
       for bottomDot in piece.bottomDots {
         if bottomDot.row == NumRows - 1 ||
@@ -217,6 +230,9 @@ class DotGame {
   }
   
   func lowerPiece() {
+    if (!CanMovePiece) {
+      return
+    }
     if let piece = fallingPiece {
       piece.lowerByOneRow()
       if detectIllegalPlacement() {

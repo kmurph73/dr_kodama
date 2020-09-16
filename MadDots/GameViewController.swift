@@ -28,12 +28,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     dotGame.dropPiece()
   }
   
-//  func doneWithStore(_ ctrl: StoreViewController) {
-  //  ctrl.dismiss(animated: true, completion: { _ in
-    //  self.backToMenu()
-   // })
- // }
-  
   func setLevelLabel() {
     self.scene.levelLabelSetter()
   }
@@ -78,11 +72,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func backToMenu() {
-//    self.scene.textureCache = Dictionary<String, SKTexture>()
     self.scene.ctrl = nil
     self.scene.tick = nil
     self.scene.stopTicking()
-//    self.scene.lastTick = nil
     self.scene = nil
     
     self.dotGame.delegate = nil
@@ -92,10 +84,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   @IBAction func didPan(_ sender: UIPanGestureRecognizer) {
     guard let panD = panDistance else {
-      return
-    }
-    
-    if !CanMovePiece {
       return
     }
 
@@ -257,7 +245,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           CanMovePiece = true
           
           self.scene.addPieceToScene(newPiece, completion: nil)
-          
         }
       
       } else {
