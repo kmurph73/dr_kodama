@@ -86,6 +86,10 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     guard let panD = panDistance else {
       return
     }
+    
+    if !CanMovePiece {
+      return
+    }
 
     let currentPoint = sender.translation(in: self.view)
 

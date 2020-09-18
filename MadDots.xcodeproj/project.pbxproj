@@ -37,8 +37,6 @@
 		AD9CAE701C08E32700BD3E9B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */; };
 		ADAD42BD1C35E9E5002B0493 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAD42BC1C35E9E5002B0493 /* Globals.swift */; };
 		ADB66DA91BF2CC1D0039C006 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB66DA81BF2CC1D0039C006 /* MainController.swift */; };
-		ADB73FED1C3091BC00365022 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB73FEC1C3091BC00365022 /* Products.swift */; };
-		ADB73FEE1C3092FA00365022 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB73FEC1C3091BC00365022 /* Products.swift */; };
 		ADC1DC8A1C262F54004CE42F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC1DC891C262F54004CE42F /* SettingsController.swift */; };
 		ADD284F31BF90B3100A4732A /* PieceRotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD284F21BF90B3100A4732A /* PieceRotation.swift */; };
 		ADD284F41BFADABA00A4732A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807E41BC4462300E45888 /* GameScene.swift */; };
@@ -89,7 +87,6 @@
 		AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		ADAD42BC1C35E9E5002B0493 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		ADB66DA81BF2CC1D0039C006 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
-		ADB73FEC1C3091BC00365022 /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		ADC1DC891C262F54004CE42F /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		ADD284F21BF90B3100A4732A /* PieceRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceRotation.swift; sourceTree = "<group>"; };
 		ADDBB15B1BF2C34800797A4C /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
@@ -183,7 +180,6 @@
 				AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */,
 				AD34A8331C13D8800049D6B2 /* DotArray2D.swift */,
 				ADC1DC891C262F54004CE42F /* SettingsController.swift */,
-				ADB73FEC1C3091BC00365022 /* Products.swift */,
 				ADAD42BC1C35E9E5002B0493 /* Globals.swift */,
 				AD66B1A41C375B3E00A42201 /* bluemaddot.png */,
 				AD66B1A11C3750DE00A42201 /* kodama.png */,
@@ -322,7 +318,6 @@
 				AD51B03C1BEEDC1900CB2FE7 /* Array2D.swift in Sources */,
 				ADD284F31BF90B3100A4732A /* PieceRotation.swift in Sources */,
 				ADD284F41BFADABA00A4732A /* GameScene.swift in Sources */,
-				ADB73FEE1C3092FA00365022 /* Products.swift in Sources */,
 				AD51B03D1BEEDC4400CB2FE7 /* Dot.swift in Sources */,
 				AD34A8351C13DA0C0049D6B2 /* DotArray2D.swift in Sources */,
 			);
@@ -349,7 +344,6 @@
 				ADDBB15C1BF2C34800797A4C /* MainScene.swift in Sources */,
 				ADAD42BD1C35E9E5002B0493 /* Globals.swift in Sources */,
 				ADF807F71BC446A400E45888 /* Dot.swift in Sources */,
-				ADB73FED1C3091BC00365022 /* Products.swift in Sources */,
 				ADB66DA91BF2CC1D0039C006 /* MainController.swift in Sources */,
 				ADF807F91BC4479A00E45888 /* Array2D.swift in Sources */,
 			);
@@ -525,6 +519,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 5YW22MKNYB;
 				INFOPLIST_FILE = MadDots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -541,6 +536,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 5YW22MKNYB;
 				INFOPLIST_FILE = MadDots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

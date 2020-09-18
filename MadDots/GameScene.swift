@@ -14,7 +14,6 @@ var extraYSpace: CGFloat = 0
 typealias PointStore = (point: CGPoint, connectorPoints: [Side: CGPoint])
 var points: Array2D<PointStore>?
 var tinyScreen = false
-var iPadPro = false
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
@@ -49,8 +48,6 @@ class GameScene: SKScene {
   
     if size.height < 500 {
       tinyScreen = true
-    } else if size.height > 1360 {
-      iPadPro = true
     }
     
     if ShowBG {
@@ -146,7 +143,7 @@ class GameScene: SKScene {
     if let t = touches.first {
       let loc = t.location(in: self)
       let node = self.atPoint(loc)
-      if node.name == "menu" {
+      if CanMovePiece && node.name == "menu" {
         menuTapped = true
         if let c = ctrl {
           stopTicking()
@@ -382,20 +379,17 @@ class GameScene: SKScene {
   }
   
   func drawGrid() {
-    let totalRows = NumRows
+    let totalRows = NumRows + 2
     let totalCols = NumColumns + 2
     
-    let rowSquare = self.frame.minY  / CGFloat(totalRows) * -1
-    let colSquare = self.frame.maxX / CGFloat(totalCols)
+    let screenSize: CGRect = UIScreen.main.bounds
+    
+    let rowSquare = screenSize.maxY  / CGFloat(totalRows)
+    let colSquare = screenSize.maxX / CGFloat(totalCols)
     
     var squareSize = rowSquare > colSquare ? colSquare : rowSquare
-    if iPad {
-      if iPadPro {
-        squareSize -= 15
-      } else {
-        squareSize -= 5
-      }
-    } else if tinyScreen {
+    
+    if tinyScreen {
       squareSize -= 3
     }
     BlockSize = squareSize
@@ -407,9 +401,6 @@ class GameScene: SKScene {
     let centerY = ((squareSize * CGFloat(DrawnRows + 1)) + squareSize) / 2 * -1
     
     extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
-//    if iPad {
-//      extraYSpace += CGFloat(100)
-//    }
     
     for row in 1..<totalRows {
       let y = squareSize * CGFloat(row) * -1
