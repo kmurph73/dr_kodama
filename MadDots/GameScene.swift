@@ -77,7 +77,7 @@ class GameScene: SKScene {
 
     let speedLabel = SKLabelNode(fontNamed: "Arial")
     speedLabel.text = "Speed \(GameSpeed)"
-    speedLabel.fontSize = iPad ? 25 : 13
+    speedLabel.fontSize = 13
     speedLabel.zPosition = 5
     
     speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
@@ -114,13 +114,11 @@ class GameScene: SKScene {
 
     levelLabel = SKLabelNode(fontNamed: "Arial")
     levelLabel!.text = "Level \(GameLevel)"
-    levelLabel!.fontSize = iPad ? 25 : 13
+    levelLabel!.fontSize = 13
     levelLabel!.zPosition = 2
     
-    let x = iPad ? self.frame.midX + 20 : self.frame.midX
+    let x = self.frame.midX
     let y = self.frame.maxY - (extraYSpace - BlockSize)
-
-    
     
     levelLabel!.position = CGPoint(x: x, y: y)
     self.addChild(levelLabel!)
