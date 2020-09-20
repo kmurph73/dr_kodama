@@ -23,8 +23,6 @@ class GameScene: SKScene {
   var ctrl: GameViewController?
   var tick:(() -> ())?
   var tickLength = TickLengthLevelOne
-//  var tickLengthMillis = TickLengthLevelOne
-//  var lastTick:NSDate?
   var menuTapped = false
   var levelLabel: SKLabelNode?
   var menuLabel: SKLabelNode?
@@ -41,8 +39,6 @@ class GameScene: SKScene {
 
     print("size: \(size)")
     self.tickLength = abs(Double(GameSpeed - 13)) * 0.1
-//    self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
-//    print("tickLengh: \(tickLengthMillis)")
 
     anchorPoint = CGPoint(x: 0, y: 1.0)
   
@@ -63,10 +59,8 @@ class GameScene: SKScene {
     menuBtn = SKSpriteNode(imageNamed: "menubtn")
     
     if let menuBtn = menuBtn {
-//      menuLabel.text = "Menu"
       menuBtn.name = "menu"
-//      menuLabel.fontSize = iPad ? 40 : 25
-//      menuLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
+
       menuBtn.zPosition = 5
       if iPad {
         menuBtn.size = CGSize(width: 201, height: 65)
@@ -83,7 +77,7 @@ class GameScene: SKScene {
 
     let speedLabel = SKLabelNode(fontNamed: "Arial")
     speedLabel.text = "Speed \(GameSpeed)"
-    speedLabel.fontSize = 13
+    speedLabel.fontSize = iPad ? 25 : 13
     speedLabel.zPosition = 5
     
     speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
@@ -111,16 +105,8 @@ class GameScene: SKScene {
     
     return arr
   }
-
-  
-
-  
-//  func startTicking() {
-//    NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: "newTick", userInfo: nil, repeats: true)
-//  }
   
   func levelLabelSetter() {
-    let y = self.frame.maxY - (extraYSpace - BlockSize)
 
     if levelLabel != nil {
       levelLabel!.removeFromParent()
@@ -128,10 +114,15 @@ class GameScene: SKScene {
 
     levelLabel = SKLabelNode(fontNamed: "Arial")
     levelLabel!.text = "Level \(GameLevel)"
-    levelLabel!.fontSize = 13
+    levelLabel!.fontSize = iPad ? 25 : 13
     levelLabel!.zPosition = 2
     
-    levelLabel!.position = CGPoint(x: self.frame.midX, y: y)
+    let x = iPad ? self.frame.midX + 20 : self.frame.midX
+    let y = self.frame.maxY - (extraYSpace - BlockSize)
+
+    
+    
+    levelLabel!.position = CGPoint(x: x, y: y)
     self.addChild(levelLabel!)
   }
   
@@ -201,19 +192,6 @@ class GameScene: SKScene {
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
   
-//  override func update(currentTime: CFTimeInterval) {
-//    /* Called before each frame is rendered */
-//    
-//    guard let lastTick = self.lastTick else { return }
-//    
-//    let timePassed = lastTick.timeIntervalSinceNow * -1000.0
-//    
-//    if timePassed > tickLengthMillis {
-//      self.lastTick = NSDate()
-//      tick?()
-//    }
-//  }
-  
   func addArrayToScene(_ array: DotArray2D) {
     for row in 0..<NumRows {
       for col in 0..<NumColumns {
@@ -259,7 +237,7 @@ class GameScene: SKScene {
         let connector = SKSpriteNode(texture: connTexture, size: CGSize(width: size,height: size))
 
         connector.position = p
-        connector.zPosition = 12 // zPosition to change in which layer the barra appears.
+        connector.zPosition = 12
         d.connector = connector
         
         dotLayer.addChild(connector)
@@ -407,7 +385,7 @@ class GameScene: SKScene {
       
       let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: rowWidth, height: 0.5))
       barra.position = CGPoint(x: centerX, y: y - extraYSpace)
-      barra.zPosition = 9 // zPosition to change in which layer the barra appears.
+      barra.zPosition = 9
       
       gridLayer.addChild(barra)
     }
@@ -417,7 +395,7 @@ class GameScene: SKScene {
       
       let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: 0.5, height: colHeight))
       barra.position = CGPoint(x: x, y: centerY - extraYSpace)
-      barra.zPosition = 9 // zPosition to change in which layer the barra appears.
+      barra.zPosition = 9
       
       gridLayer.addChild(barra)
     }

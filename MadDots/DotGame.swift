@@ -15,6 +15,7 @@ let StartingColumn = 3
 let StartingRow = 1
 var CanMovePiece = false
 
+
 var RotateDir: Dir = .counterClockwise
 
 enum MatrixDir: Int {
@@ -223,7 +224,6 @@ class DotGame {
         piece.raiseByOneRow()
         if detectIllegalPlacement() {
           delegate?.gameDidEnd(self)
-//          endGame()
         } else {
           settlePiece()
         }

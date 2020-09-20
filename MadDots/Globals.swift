@@ -24,10 +24,6 @@ func assessState() {
   if let showBG = UserDefaults.standard.value(forKey: "showBG") as? Bool {
     ShowBG = showBG
   }
-    
-  MoreLevelsPurchased = true
-  FifthColorPurchased = true
-  NextPiecePurchased = true
   
   if let showNextPiece = UserDefaults.standard.value(forKey: "showNextPiece") as? Bool {
     ShowNextPiece = showNextPiece

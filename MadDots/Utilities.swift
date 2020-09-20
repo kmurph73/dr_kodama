@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 func delay(_ delay:Double, closure:@escaping ()->()) {
   DispatchQueue.main.asyncAfter(
@@ -25,3 +24,4 @@ func matchesForRegexInText(_ regex: String!, text: String!) -> [String] {
     return []
   }
 }
+

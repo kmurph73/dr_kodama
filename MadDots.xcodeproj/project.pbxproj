@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AD0AE11E1C0124FC000FBB6F /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8E24D51C00E295006D2696 /* HelpViewController.swift */; };
 		AD0B73F51BCC22C30085B244 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
+		AD0F41032516B7E4006512BD /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0F41022516B7E4006512BD /* DeviceType.swift */; };
 		AD34A8301C0D4EAF0049D6B2 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */; };
 		AD34A8321C1364A90049D6B2 /* Background.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AD34A8311C1364A90049D6B2 /* Background.atlas */; };
 		AD34A8341C13D8800049D6B2 /* DotArray2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34A8331C13D8800049D6B2 /* DotArray2D.swift */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		AD0B73F41BCC22C30085B244 /* DotGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DotGame.swift; sourceTree = "<group>"; tabWidth = 2; };
+		AD0F41022516B7E4006512BD /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
 		AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
 		AD34A8311C1364A90049D6B2 /* Background.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Background.atlas; sourceTree = "<group>"; };
 		AD34A8331C13D8800049D6B2 /* DotArray2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotArray2D.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				AD66B1A41C375B3E00A42201 /* bluemaddot.png */,
 				AD66B1A11C3750DE00A42201 /* kodama.png */,
 				AD66B19B1C370B2E00A42201 /* about.html */,
+				AD0F41022516B7E4006512BD /* DeviceType.swift */,
 			);
 			path = MadDots;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				AD66B1A01C374DA900A42201 /* AboutViewController.swift in Sources */,
 				ADF807E51BC4462300E45888 /* GameScene.swift in Sources */,
 				AD5E500A1BD409D900AE3858 /* HandleChains.swift in Sources */,
+				AD0F41032516B7E4006512BD /* DeviceType.swift in Sources */,
 				AD9CAE6F1C080D4200BD3E9B /* Utilities.swift in Sources */,
 				AD0B73F51BCC22C30085B244 /* DotGame.swift in Sources */,
 				ADF807E71BC4462300E45888 /* GameViewController.swift in Sources */,
