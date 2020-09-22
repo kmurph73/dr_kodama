@@ -37,22 +37,20 @@ enum DotColor: Int, CustomStringConvertible {
 }
 
 class Dot: Hashable, CustomStringConvertible {
-  // Constants
   let color: DotColor
   
-  // Variables
   var column: Int
   var row: Int
   
-  // Lazy loading
   var sprite: SKSpriteNode?
 
   var spriteName: String {
     return color.description
   }
   
-  var hashValue: Int {
-    return self.column ^ self.row
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(column)
+    hasher.combine(row)
   }
   
   var description: String {
@@ -68,11 +66,6 @@ class Dot: Hashable, CustomStringConvertible {
   func removeFromScene() {
     self.sprite?.removeFromParent()
   }
-  
-  deinit {
-//    print("\(self) is being deinitialized")
-  }
-  
 }
 
 func ==(lhs: Dot, rhs: Dot) -> Bool {

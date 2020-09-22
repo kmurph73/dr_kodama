@@ -15,7 +15,6 @@ let StartingColumn = 3
 let StartingRow = 1
 var CanMovePiece = false
 
-
 var RotateDir: Dir = .counterClockwise
 
 enum MatrixDir: Int {

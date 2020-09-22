@@ -42,6 +42,7 @@ struct DeviceType
     static let IS_IPHONE_6P_7P         = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
     static let IS_IPAD              = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1024.0
     static let IS_IPAD_PRO          = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1366.0
+    static let IS_IPAD_AIR          = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1180.0
 }
 
-var iPad = DeviceType.IS_IPAD || DeviceType.IS_IPAD_PRO
+var iPad = DeviceType.IS_IPAD || DeviceType.IS_IPAD_PRO || DeviceType.IS_IPAD_AIR
