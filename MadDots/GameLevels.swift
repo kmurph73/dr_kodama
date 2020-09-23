@@ -137,11 +137,10 @@ class LevelMaker {
   func makeRandomLevel(_ levelNumber: Int) -> Array<MadDot> {
     self.madDots = Array<MadDot>()
     var totalMadDots = levelNumber * 3
-    
+//    var totalMadDots = 1
     let offset = GameLevel > 5 ? GameLevel > 10 ? 6 : 7 : 8
     
     while true {
-      print("makeRandomLevel")
       while totalMadDots > 0 {
         if insertRandomDot(offset) {
           totalMadDots -= 1
@@ -163,9 +162,6 @@ class LevelMaker {
     return self.madDots
   }
   
-  deinit {
-//    print("levelmaker was deinitialized")
-  }
 }
 
 func siblingizeLastTwo(_ arr: Array<GoodDot>) {

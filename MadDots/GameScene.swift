@@ -14,6 +14,7 @@ var extraYSpace: CGFloat = 0
 typealias PointStore = (point: CGPoint, connectorPoints: [Side: CGPoint])
 var points: Array2D<PointStore>?
 var tinyScreen = false
+var iPad = UIDevice.current.userInterfaceIdiom == .pad
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
@@ -378,7 +379,7 @@ class GameScene: SKScene {
     
     extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
     
-    for row in 1..<totalRows {
+    for row in 1..<(totalRows-2) {
       let y = squareSize * CGFloat(row) * -1
       
       let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: rowWidth, height: 0.5))

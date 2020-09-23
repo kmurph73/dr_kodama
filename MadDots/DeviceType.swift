@@ -11,21 +11,6 @@ import UIKit
 
 // https://stackoverflow.com/a/29622324/548170
 
-public enum UIUserInterfaceIdiom : Int {
-
-    case unspecified
-
-    case phone // iPhone and iPod touch style UI
-
-    case pad // iPad style UI
-
-    @available(iOS 9.0, *)
-    case tv // Apple TV style UI
-
-    @available(iOS 9.0, *)
-    case carPlay // CarPlay style UI
-}
-
 struct ScreenSize
 {
     static let SCREEN_WIDTH         = UIScreen.main.bounds.size.width
@@ -40,9 +25,8 @@ struct DeviceType
     static let IS_IPHONE_5          = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
     static let IS_IPHONE_6_7          = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
     static let IS_IPHONE_6P_7P         = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
-    static let IS_IPAD              = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1024.0
-    static let IS_IPAD_PRO          = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1366.0
+    static let IS_IPAD              = UIDevice.current.userInterfaceIdiom == .pad && (ScreenSize.SCREEN_MAX_LENGTH == 1024.0 || ScreenSize.SCREEN_MAX_LENGTH == 1080.0)
+    static let IS_IPAD_PRO          = UIDevice.current.userInterfaceIdiom == .pad && (ScreenSize.SCREEN_MAX_LENGTH == 1366.0 || ScreenSize.SCREEN_MAX_LENGTH == 1194.0)
     static let IS_IPAD_AIR          = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1180.0
 }
 
-var iPad = DeviceType.IS_IPAD || DeviceType.IS_IPAD_PRO || DeviceType.IS_IPAD_AIR

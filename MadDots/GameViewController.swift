@@ -216,8 +216,18 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
       scene.removeDots(dotsToRemove)
       if dotGame.dotArray.hasAchievedVictory() {
-        delay(0.5) {
-          self.beatLevelAlert()
+        if GameLevel == 20 {
+          let msg = "You won!"
+          let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+          let okAction = UIAlertAction(title: "OMG pinch me", style: .default, handler: { _ in
+            self.backToMenu()
+          })
+          alertController.addAction(okAction)
+          self.present(alertController, animated: true, completion: nil)
+        } else {
+          delay(0.5) {
+            self.beatLevelAlert()
+          }
         }
       } else {
         scene.dropDots(fallenDots) {
