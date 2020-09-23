@@ -15,12 +15,7 @@ var NumberOfColors = 4
 
 var ShowBG = false
 var ShowNextPiece = false
-
-var MoreLevelsPurchased = true
-var NextPiecePurchased = true
-var FifthColorPurchased = true
-
-var iPad = false
+var LargerScreen = UIScreen.main.bounds.width > 600
 
 class MainController: UIViewController {
 
@@ -41,21 +36,6 @@ class MainController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
         
-    let modelName = UIDevice.current.modelName
-    let matches = matchesForRegexInText("^iPad", text: modelName)
-    if matches.count > 0 {
-      iPad = true
-    }
-    
-//    if !RestoredPurchases {
-//      Products.store.restoreCompletedTransactions()
-//      RestoredPurchases = true
-//      NSUserDefaults.standardUserDefaults().setBool(RestoredPurchases, forKey: "restoredPurchases")
-//    }
-//
-//    iPad = true
-//    iPadPro = true
-    
     if iPad {
       backgroundImg.image = UIImage(named: "ipadfantasybg")
     } else {

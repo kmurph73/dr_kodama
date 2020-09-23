@@ -13,6 +13,7 @@ let DrawnRows = NumRows - 2
 
 let StartingColumn = 3
 let StartingRow = 1
+var CanMovePiece = false
 
 var RotateDir: Dir = .counterClockwise
 
@@ -222,7 +223,6 @@ class DotGame {
         piece.raiseByOneRow()
         if detectIllegalPlacement() {
           delegate?.gameDidEnd(self)
-//          endGame()
         } else {
           settlePiece()
         }

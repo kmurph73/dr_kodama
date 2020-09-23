@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MaybeSo</title>
-    <meta charset="utf-8">
+    <title>Dr K</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta charset="utf-8" />
       <style type="text/css">
         html { background: black; }
         body {
+          background-color: black;
           padding-top: 15px;
           color: rgb(240,240,240);
           font: 15px Arial, Helvetica, sans-serif;
@@ -64,6 +67,13 @@
     <p>Questions or feedback?  Email me at <a href='mailto:kmurph73@gmail.com'>kmurph73@gmail.com</a></p>
     <p>Thank you for playing!</p>
     
+    <script>
+      const ele = document.getElementById('x');
+      console.log('wat');
+      ele.addEventListener('click', () => {
+        window.webkit.messageHandlers.js.postMessage("close");
+      })
+    </script>
   </body>
   </html>
     

@@ -14,7 +14,7 @@ var extraYSpace: CGFloat = 0
 typealias PointStore = (point: CGPoint, connectorPoints: [Side: CGPoint])
 var points: Array2D<PointStore>?
 var tinyScreen = false
-var iPadPro = false
+var iPad = UIDevice.current.userInterfaceIdiom == .pad
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
@@ -24,8 +24,6 @@ class GameScene: SKScene {
   var ctrl: GameViewController?
   var tick:(() -> ())?
   var tickLength = TickLengthLevelOne
-//  var tickLengthMillis = TickLengthLevelOne
-//  var lastTick:NSDate?
   var menuTapped = false
   var levelLabel: SKLabelNode?
   var menuLabel: SKLabelNode?
@@ -42,15 +40,11 @@ class GameScene: SKScene {
 
     print("size: \(size)")
     self.tickLength = abs(Double(GameSpeed - 13)) * 0.1
-//    self.tickLengthMillis = NSTimeInterval(Double(abs(GameSpeed - 14)) * 102.4)
-//    print("tickLengh: \(tickLengthMillis)")
 
     anchorPoint = CGPoint(x: 0, y: 1.0)
   
     if size.height < 500 {
       tinyScreen = true
-    } else if size.height > 1360 {
-      iPadPro = true
     }
     
     if ShowBG {
@@ -66,10 +60,8 @@ class GameScene: SKScene {
     menuBtn = SKSpriteNode(imageNamed: "menubtn")
     
     if let menuBtn = menuBtn {
-//      menuLabel.text = "Menu"
       menuBtn.name = "menu"
-//      menuLabel.fontSize = iPad ? 40 : 25
-//      menuLabel.fontColor = UIColor(red: 0.1, green: 0.6 , blue: 0.6, alpha: 1)
+
       menuBtn.zPosition = 5
       if iPad {
         menuBtn.size = CGSize(width: 201, height: 65)
@@ -114,16 +106,8 @@ class GameScene: SKScene {
     
     return arr
   }
-
-  
-
-  
-//  func startTicking() {
-//    NSTimer.scheduledTimerWithTimeInterval(0.7, target: self, selector: "newTick", userInfo: nil, repeats: true)
-//  }
   
   func levelLabelSetter() {
-    let y = self.frame.maxY - (extraYSpace - BlockSize)
 
     if levelLabel != nil {
       levelLabel!.removeFromParent()
@@ -134,7 +118,10 @@ class GameScene: SKScene {
     levelLabel!.fontSize = 13
     levelLabel!.zPosition = 2
     
-    levelLabel!.position = CGPoint(x: self.frame.midX, y: y)
+    let x = self.frame.midX
+    let y = self.frame.maxY - (extraYSpace - BlockSize)
+    
+    levelLabel!.position = CGPoint(x: x, y: y)
     self.addChild(levelLabel!)
   }
   
@@ -146,7 +133,7 @@ class GameScene: SKScene {
     if let t = touches.first {
       let loc = t.location(in: self)
       let node = self.atPoint(loc)
-      if node.name == "menu" {
+      if CanMovePiece && node.name == "menu" {
         menuTapped = true
         if let c = ctrl {
           stopTicking()
@@ -200,21 +187,9 @@ class GameScene: SKScene {
   }
   
   func resumeGame() {
+    CanMovePiece = true
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
-  
-//  override func update(currentTime: CFTimeInterval) {
-//    /* Called before each frame is rendered */
-//    
-//    guard let lastTick = self.lastTick else { return }
-//    
-//    let timePassed = lastTick.timeIntervalSinceNow * -1000.0
-//    
-//    if timePassed > tickLengthMillis {
-//      self.lastTick = NSDate()
-//      tick?()
-//    }
-//  }
   
   func addArrayToScene(_ array: DotArray2D) {
     for row in 0..<NumRows {
@@ -261,7 +236,7 @@ class GameScene: SKScene {
         let connector = SKSpriteNode(texture: connTexture, size: CGSize(width: size,height: size))
 
         connector.position = p
-        connector.zPosition = 12 // zPosition to change in which layer the barra appears.
+        connector.zPosition = 12
         d.connector = connector
         
         dotLayer.addChild(connector)
@@ -330,11 +305,14 @@ class GameScene: SKScene {
   
   func startTicking() {
     stopTicking()
+    CanMovePiece = true
+
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
   
   func stopTicking() {
     self.timer?.invalidate()
+    CanMovePiece = false
     self.timer = nil
   }
 
@@ -378,20 +356,17 @@ class GameScene: SKScene {
   }
   
   func drawGrid() {
-    let totalRows = NumRows
+    let totalRows = NumRows + 2
     let totalCols = NumColumns + 2
     
-    let rowSquare = self.frame.minY  / CGFloat(totalRows) * -1
-    let colSquare = self.frame.maxX / CGFloat(totalCols)
+    let screenSize: CGRect = UIScreen.main.bounds
+    
+    let rowSquare = screenSize.maxY  / CGFloat(totalRows)
+    let colSquare = screenSize.maxX / CGFloat(totalCols)
     
     var squareSize = rowSquare > colSquare ? colSquare : rowSquare
-    if iPad {
-      if iPadPro {
-        squareSize -= 15
-      } else {
-        squareSize -= 5
-      }
-    } else if tinyScreen {
+    
+    if tinyScreen {
       squareSize -= 3
     }
     BlockSize = squareSize
@@ -403,16 +378,13 @@ class GameScene: SKScene {
     let centerY = ((squareSize * CGFloat(DrawnRows + 1)) + squareSize) / 2 * -1
     
     extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
-//    if iPad {
-//      extraYSpace += CGFloat(100)
-//    }
     
-    for row in 1..<totalRows {
+    for row in 1..<(totalRows-2) {
       let y = squareSize * CGFloat(row) * -1
       
       let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: rowWidth, height: 0.5))
       barra.position = CGPoint(x: centerX, y: y - extraYSpace)
-      barra.zPosition = 9 // zPosition to change in which layer the barra appears.
+      barra.zPosition = 9
       
       gridLayer.addChild(barra)
     }
@@ -422,7 +394,7 @@ class GameScene: SKScene {
       
       let barra = SKSpriteNode(color: SKColor.gray, size: CGSize(width: 0.5, height: colHeight))
       barra.position = CGPoint(x: x, y: centerY - extraYSpace)
-      barra.zPosition = 9 // zPosition to change in which layer the barra appears.
+      barra.zPosition = 9
       
       gridLayer.addChild(barra)
     }

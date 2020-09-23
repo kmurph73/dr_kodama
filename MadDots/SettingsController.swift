@@ -96,24 +96,15 @@ class SettingsController: UIViewController {
   }
   
   func handleNextPiece() {
-    let hidden = NextPiecePurchased ? false : true
     nextPieceSwitch.isOn = ShowNextPiece
-    nextPieceSwitch.isHidden = hidden
-    nextPieceLabel.isHidden = hidden
   }
   
   func handleFifthColor() {
-    let hidden = FifthColorPurchased ? false : true
     numColorsSwitch.isOn = NumberOfColors == 5
-    numColorsLabel.isHidden = hidden
-    numColorsSwitch.isHidden = hidden
+
   }
   
   func handleMoreLevels() {
-    if MoreLevelsPurchased {
-      levelSlider.maximumValue = 20.0
-    } else {
-      levelSlider.maximumValue = 11.0
-    }
+    levelSlider.maximumValue = 20.0
   }
 }
