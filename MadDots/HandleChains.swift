@@ -8,7 +8,7 @@
 
 import Foundation
 
-func findChainsForRows(_ dotArray: DotArray2D, realChains: inout Array<Dot>, startRow: Int, endRow: Int) -> Array<Dot> {
+@discardableResult func findChainsForRows(_ dotArray: DotArray2D, realChains: inout Array<Dot>, startRow: Int, endRow: Int) -> Array<Dot> {
   var someChain = Array<Dot>()
   
   var previousDot: Dot?
@@ -54,7 +54,7 @@ func findChainsForRows(_ dotArray: DotArray2D, realChains: inout Array<Dot>, sta
   return realChains
 }
 
-func findChainsForColumns(_ dotArray: DotArray2D, realChains: inout Array<Dot>, startColumn: Int, endColumn: Int) -> Array<Dot> {
+@discardableResult func findChainsForColumns(_ dotArray: DotArray2D, realChains: inout Array<Dot>, startColumn: Int, endColumn: Int) -> Array<Dot> {
   var someChain = Array<Dot>()
   
   var previousDot: Dot?

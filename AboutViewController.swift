@@ -9,32 +9,59 @@
 import Foundation
 
 import UIKit
+import WebKit
 
-class AboutViewController: UIViewController, UIWebViewDelegate {
-  @IBOutlet weak var webV: UIWebView!
+class AboutViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler {
+  var webView: WKWebView!
   
-  @IBAction func tapClose(_ sender: AnyObject) {
-    print("tap close")
-    self.dismiss(animated: true, completion: nil)
+  override func loadView() {
+    let contentController = WKUserContentController();
+    contentController.add(self, name: "js")
+    
+    let config = WKWebViewConfiguration()
+    config.userContentController = contentController
+    self.webView = WKWebView(frame: .zero, configuration: config)
+    self.webView.uiDelegate = self
+    
+    // https://stackoverflow.com/a/15670274/548170
+    self.webView.isOpaque = false
+    self.webView.backgroundColor = UIColor.clear
+  
+    view = self.webView
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    webV.delegate = self
-    if let htmlFile = Bundle.main.path(forResource: "about", ofType: "html") {
-      let htmlData = try? Data(contentsOf: URL(fileURLWithPath: htmlFile))
-      let baseURL = URL(fileURLWithPath: Bundle.main.bundlePath)
-      webV.load(htmlData!, mimeType: "text/html", textEncodingName: "UTF-8", baseURL: baseURL)
-    }
+    // https://stackoverflow.com/a/49638654/548170
+    let url = Bundle.main.url(forResource: "about", withExtension: "html")!
+    webView.loadFileURL(url, allowingReadAccessTo: url)
+    let request = URLRequest(url: url)
+    webView.load(request)
+
+//    if let htmlFile = Bundle.main.path(forResource: "about", ofType: "html") {
+//      let htmlData = try? Data(contentsOf: URL(fileURLWithPath: htmlFile))
+//      let baseURL = URL(fileURLWithPath: Bundle.main.bundlePath)
+//      webView.load(htmlData!, mimeType: "text/html", textEncodingName: "UTF-8", baseURL: baseURL)
+//    }
   }
   
-  func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-    if navigationType == UIWebView.NavigationType.linkClicked {
-      UIApplication.shared.openURL(request.url!)
-      return false;
-    }
-    return true;
+  func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    //This function handles the events coming from javascript. We'll configure the javascript side of this later.
+    //We can access properties through the message body, like this:
+    guard let response = message.body as? String else { return }
+    self.dismiss(animated: true, completion: nil)
+    print(response)
   }
-  
+
+//  func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+//        if navigationAction.navigationType == WKNavigationType.linkActivated {
+//          print("link")
+//          decisionHandler(WKNavigationActionPolicy.cancel)
+//          return
+//        }
+//        print("no link")
+//        decisionHandler(WKNavigationActionPolicy.allow)
+//   }
+
 }
