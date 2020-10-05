@@ -38,7 +38,6 @@ class GameScene: SKScene {
   override init(size: CGSize) {
     super.init(size: size)
 
-    print("size: \(size)")
     self.tickLength = abs(Double(GameSpeed - 13)) * 0.1
 
     anchorPoint = CGPoint(x: 0, y: 1.0)
@@ -85,7 +84,6 @@ class GameScene: SKScene {
     self.addChild(speedLabel)
     
     if points == nil {
-      print("crate points")
       points = createPoints()
     }
   }

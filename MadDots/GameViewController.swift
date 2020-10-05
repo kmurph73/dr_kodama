@@ -137,9 +137,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print("\(self) did load")
 
-    // Configure the view.
     let skView = self.view as! SKView
 //    skView.showsFPS = true
 //    skView.showsNodeCount = true
