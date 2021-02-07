@@ -27,6 +27,21 @@ enum DotColor: Int, CustomStringConvertible {
     }
   }
   
+  var uiColor: UIColor {
+    switch self {
+    case .red:
+      return UIColor.red
+    case .green:
+      return UIColor.green
+    case .blue:
+      return UIColor.blue
+    case .yellow:
+      return UIColor.yellow
+    case .orange:
+      return UIColor.orange
+    }
+  }
+  
   var description: String {
     return self.spriteName
   }
@@ -42,7 +57,7 @@ class Dot: Hashable, CustomStringConvertible {
   var column: Int
   var row: Int
   
-  var sprite: SKSpriteNode?
+  var sprite: SKShapeNode?
 
   var spriteName: String {
     return color.description

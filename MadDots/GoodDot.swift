@@ -31,7 +31,7 @@ enum Side: CustomStringConvertible {
 }
 
 class GoodDot: Dot {
-  var connector: SKSpriteNode?
+  var connector: SKShapeNode?
   weak var sibling: GoodDot?
   
   func sideOfSibling() -> Side? {

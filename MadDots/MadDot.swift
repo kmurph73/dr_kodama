@@ -6,7 +6,13 @@
 //  Copyright © 2015 Kyle Murphy. All rights reserved.
 //
 
+import SpriteKit
+
 class MadDot: Dot {
+  var leftEye: SKShapeNode?
+  var rightEye: SKShapeNode?
+  var mouth: SKShapeNode?
+
   override init(column:Int, row:Int, color:DotColor) {
     super.init(column: column,row: row,color: color)
   }

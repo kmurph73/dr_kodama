@@ -17,40 +17,39 @@ var tinyScreen = false
 var iPad = UIDevice.current.userInterfaceIdiom == .pad
 
 class GameScene: SKScene {
-  let gridLayer = SKNode()
-  let dotLayer = SKNode()
-  let LayerPosition = CGPoint(x: 1, y: 1)
-  
-  var ctrl: GameViewController?
-  var tick:(() -> ())?
-  var tickLength = TickLengthLevelOne
-  var menuTapped = false
-  var levelLabel: SKLabelNode?
-  var menuLabel: SKLabelNode?
-  var menuBtn: SKSpriteNode?
-  var textureCache = Dictionary<String, SKTexture>()
-  var timer: Timer?
-  
-  override func didMove(to view: SKView) {
-      /* Setup your scene here */
+let gridLayer = SKNode()
+let dotLayer = SKNode()
+let LayerPosition = CGPoint(x: 1, y: 1)
+
+var ctrl: GameViewController?
+var tick:(() -> ())?
+var tickLength = TickLengthLevelOne
+var menuTapped = false
+var levelLabel: SKLabelNode?
+var menuLabel: SKLabelNode?
+var menuBtn: SKSpriteNode?
+var timer: Timer?
+
+override func didMove(to view: SKView) {
+    /* Setup your scene here */
+}
+
+override init(size: CGSize) {
+  super.init(size: size)
+
+  self.tickLength = abs(Double(GameSpeed - 13)) * 0.1
+
+  anchorPoint = CGPoint(x: 0, y: 1.0)
+
+  if size.height < 500 {
+    tinyScreen = true
   }
   
-  override init(size: CGSize) {
-    super.init(size: size)
-
-    self.tickLength = abs(Double(GameSpeed - 13)) * 0.1
-
-    anchorPoint = CGPoint(x: 0, y: 1.0)
+  if ShowBG {
+    setupBackground()
+  }
   
-    if size.height < 500 {
-      tinyScreen = true
-    }
-    
-    if ShowBG {
-      setupBackground()
-    }
-    
-    drawGrid()
+  drawGrid()
     dotLayer.position = LayerPosition
     self.addChild(dotLayer)
     
@@ -200,50 +199,84 @@ class GameScene: SKScene {
   }
   
   func addDotToScene(_ dot:Dot, completion:(() -> ())?) {
-    var texture = textureCache[dot.spriteName]
-
-    if texture == nil {
-      texture = SKTexture(imageNamed: dot.spriteName)
-      textureCache[dot.spriteName] = texture
-    }
-    
-    let sprite = SKSpriteNode(texture: texture)
-    
     let dotSize = BlockSize - 5
-
-    sprite.xScale = dotSize
-    sprite.yScale = dotSize
-    sprite.size = CGSize(width: dotSize, height: dotSize)
+    
+    let sprite = SKShapeNode(circleOfRadius:dotSize / 2)
+    let fill = dot.color.uiColor
+    sprite.lineWidth = 1
+    
+    sprite.fillColor = fill
+    sprite.strokeColor = fill
+    //      sprite.xScale = dotSize
+    //      sprite.yScale = dotSize
+    //      sprite.size = CGSize(width: dotSize, height: dotSize)
     sprite.zPosition = 5
     sprite.position = points![dot.column, dot.row]!.point
+    
     dot.sprite = sprite
     
     dotLayer.addChild(sprite)
-        
+    
     if let d = dot as? GoodDot {
       if let p = pointForConnector(d) {
-        let size = BlockSize / 4
-        let name = "whitecircle"
-        var connTexture = textureCache[name]
+        let size = BlockSize / 9
         
-        if connTexture == nil {
-          connTexture = SKTexture(imageNamed:name)
-          textureCache[name] = connTexture
-        }
-        
-        let connector = SKSpriteNode(texture: connTexture, size: CGSize(width: size,height: size))
-
+        let connector = SKShapeNode(circleOfRadius: size)
+        connector.fillColor = .white
+        connector.strokeColor = .white
+        connector.lineWidth = 1
         connector.position = p
         connector.zPosition = 12
         d.connector = connector
         
         dotLayer.addChild(connector)
       }
+    } else if let d = dot as? MadDot {
+      var shape = SKShapeNode()
+      var size = BlockSize / 7
+      var xpos = BlockSize / 5
+      var ypos = BlockSize / 20
+      let color = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0)
+      shape.position = points![d.column, d.row]!.point
+      shape.zPosition = 15
+      shape.path = UIBezierPath(rect: CGRect(x: xpos, y: ypos, width: size, height: size)).cgPath
+      shape.fillColor = color
+      shape.lineWidth = 1
+      shape.strokeColor = color
+      d.rightEye = shape
+      dotLayer.addChild(shape)
+      
+      shape = SKShapeNode()
+      size = BlockSize / 5
+      xpos = BlockSize / -5
+      ypos = BlockSize / 20
+      shape.position = points![d.column, d.row]!.point
+      shape.zPosition = 15
+      shape.path = UIBezierPath(rect: CGRect(x: xpos, y: ypos, width: size, height: size)).cgPath
+      shape.fillColor = color
+      shape.lineWidth = 1
+      shape.strokeColor = color
+      d.leftEye = shape
+      dotLayer.addChild(shape)
+      
+      shape = SKShapeNode(ellipseOf: CGSize(width: size, height: size / 2))
+      xpos = BlockSize / 20
+      ypos = BlockSize / 5
+      let point = points![d.column, d.row]!.point
+      shape.position = CGPoint(x: point.x + xpos, y: point.y - ypos)
+      shape.zPosition = 15
+      shape.fillColor = color
+      shape.zRotation = 25
+      shape.lineWidth = 1
+      shape.strokeColor = color
+      d.mouth = shape
+      dotLayer.addChild(shape)
     }
-
+    
     if let c = completion {
       run(SKAction.wait(forDuration: 0.2), completion: c)
     }
+    
 
   }
   
@@ -253,6 +286,10 @@ class GameScene: SKScene {
       if let d = dot as? GoodDot {
         d.connector?.removeFromParent()
         d.sibling?.connector?.removeFromParent()
+      } else if let d = dot as? MadDot {
+        d.leftEye?.removeFromParent()
+        d.rightEye?.removeFromParent()
+        d.mouth?.removeFromParent()
       }
     }
   }
@@ -336,13 +373,8 @@ class GameScene: SKScene {
   
   func setupBackground() {
     let name = iPad ? "ipadfantasybg" : "fantasyforest"
-
-    var texture = textureCache[name]
     
-    if texture == nil {
-      texture = SKTexture(imageNamed: name)
-      textureCache[name] = texture
-    }
+    let texture = SKTexture(imageNamed: name)
     
     let background = SKSpriteNode(texture: texture, size: CGSize(width: size.width,height: size.height))
 
@@ -400,7 +432,6 @@ class GameScene: SKScene {
     gridLayer.position = LayerPosition
 
     self.addChild(gridLayer)
-    
   }
   
   deinit {
