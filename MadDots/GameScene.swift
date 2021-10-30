@@ -21,15 +21,20 @@ class GameScene: SKScene {
   let dotLayer = SKNode()
   let LayerPosition = CGPoint(x: 1, y: 1)
   
+  private var node = SKSpriteNode()
+
   var ctrl: GameViewController?
   var tick:(() -> ())?
+  var count:(() -> ())?
   var tickLength = TickLengthLevelOne
   var menuTapped = false
   var levelLabel: SKLabelNode?
+  var counterLabel: SKLabelNode?
   var menuLabel: SKLabelNode?
   var menuBtn: SKSpriteNode?
   var textureCache = Dictionary<String, SKTexture>()
   var timer: Timer?
+  var counter: Timer?
   
   override func didMove(to view: SKView) {
       /* Setup your scene here */
@@ -74,6 +79,7 @@ class GameScene: SKScene {
     }
     
     levelLabelSetter()
+    counterLabelSetter()
 
     let speedLabel = SKLabelNode(fontNamed: "Arial")
     speedLabel.text = "Speed \(GameSpeed)"
@@ -82,6 +88,7 @@ class GameScene: SKScene {
     
     speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
     self.addChild(speedLabel)
+    
     
     if points == nil {
       points = createPoints()
@@ -106,7 +113,6 @@ class GameScene: SKScene {
   }
   
   func levelLabelSetter() {
-
     if levelLabel != nil {
       levelLabel!.removeFromParent()
     }
@@ -123,6 +129,23 @@ class GameScene: SKScene {
     self.addChild(levelLabel!)
   }
   
+  func counterLabelSetter() {
+    if counterLabel != nil {
+      counterLabel!.removeFromParent()
+    }
+
+    counterLabel = SKLabelNode(fontNamed: "Arial")
+    counterLabel!.text = "\(currentAngryCountdown)"
+    counterLabel!.fontSize = 13
+    counterLabel!.zPosition = 2
+    
+    let y = self.frame.maxY - (extraYSpace - BlockSize)
+    
+    counterLabel!.position = CGPoint(x: self.frame.midX - 120, y: y)
+
+    self.addChild(counterLabel!)
+  }
+  
   required init(coder aDecoder: NSCoder) {
     fatalError("NSCoder not supported")
   }
@@ -137,7 +160,6 @@ class GameScene: SKScene {
           stopTicking()
           c.showSheet("You rang?", showCancel: true)
           stopTicking()
-//          lastTick = nil
         }
       } else {
         menuTapped = false
@@ -181,7 +203,6 @@ class GameScene: SKScene {
     } else {
       return nil
     }
-
   }
   
   func resumeGame() {
@@ -291,6 +312,78 @@ class GameScene: SKScene {
     addDotToScene(piece.dot2, completion: completion)
   }
   
+  func makeDotAngry(_ dot: MadDot, completion:(() -> ())?) {
+    dot.removeFromScene()
+    addAngryDotToScene(dot, completion: nil)
+  }
+  
+  func pacifyDot(_ dot: MadDot, completion:(() -> ())?) {
+    print("pacifyDot: \(dot)")
+    dot.angry = false
+//    dot.sprite?.removeAllActions()
+    dot.removeFromScene()
+    addDotToScene(dot, completion: completion)
+  }
+  
+  func dropThreeDots() {
+    let color1 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
+    let color2 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
+    let color3 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
+    
+    let colors = [color1, color2, color3]
+    var cols: Set<Int> = []
+    
+    while (cols.count < 3) {
+      let num = randomNum(0, max: NumberOfColors)
+      cols.insert(num)
+    }
+    
+    let dots = cols.enumerated().map { (index, col) in
+      GoodDot(column: col, row: 1, color: colors[index]!)
+    }
+    
+    for dot in dots {
+      addDotToScene(dot, completion: nil)
+    }
+    
+  }
+    
+  func addAngryDotToScene(_ dot: Dot, completion:(() -> ())?) {
+    let atlas = SKTextureAtlas(named: "AngryKodama")
+    let f1 = atlas.textureNamed("angry_\(dot.color.description)_kodama1")
+    let f2 = atlas.textureNamed("angry_\(dot.color.description)_kodama2")
+    let f3 = atlas.textureNamed("angry_\(dot.color.description)_kodama3")
+
+    let textures = [f1, f2, f3]
+    
+    node = SKSpriteNode(texture: f1)
+    let dotSize = BlockSize + (BlockSize / 5.0)
+    let yOffset = BlockSize / 10.0
+
+    node.xScale = dotSize
+    node.yScale = dotSize
+    node.size = CGSize(width: dotSize, height: dotSize)
+    let point = points![dot.column, dot.row]!.point
+    node.position = CGPoint(x: point.x, y: point.y + yOffset)
+  
+    dot.sprite = node
+    
+    let action = SKAction.repeatForever(
+      SKAction.animate(with: textures,
+                       timePerFrame: 0.3,
+                       resize: false,
+                       restore: true))
+    
+    
+    node.run(action,
+             withKey:"angry \(dot.description)")
+    
+    
+    
+    dotLayer.addChild(node)
+  }
+    
+  
   func addMadDotsToScene(_ madDots: Array<MadDot>) {
     for dot in madDots {
       addDotToScene(dot, completion: nil)
@@ -299,6 +392,10 @@ class GameScene: SKScene {
   
   @objc func didTick() {
     tick?()
+  }
+  
+  @objc func didCount() {
+    count?()
   }
   
   func startTicking() {
@@ -312,6 +409,15 @@ class GameScene: SKScene {
     self.timer?.invalidate()
     CanMovePiece = false
     self.timer = nil
+  }
+  
+  func startCounting() {
+    self.counter = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameScene.didCount), userInfo: nil, repeats: true)
+  }
+  
+  func stopCounting() {
+    self.counter?.invalidate()
+    self.counter = nil
   }
 
   func redrawPiece(_ piece: Piece, duration: TimeInterval, completion:@escaping () -> ()) {
@@ -358,7 +464,6 @@ class GameScene: SKScene {
     let totalCols = NumColumns + 2
     
     let screenSize: CGRect = UIScreen.main.bounds
-    
     let rowSquare = screenSize.maxY  / CGFloat(totalRows)
     let colSquare = screenSize.maxX / CGFloat(totalCols)
     
@@ -400,7 +505,6 @@ class GameScene: SKScene {
     gridLayer.position = LayerPosition
 
     self.addChild(gridLayer)
-    
   }
   
   deinit {

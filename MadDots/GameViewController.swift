@@ -74,6 +74,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   func backToMenu() {
     self.scene.ctrl = nil
     self.scene.tick = nil
+    self.scene.count = nil
     self.scene.stopTicking()
     self.scene = nil
     
@@ -152,6 +153,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     scene.ctrl = self
     scene.scaleMode = .aspectFill
     scene.tick = didTick
+    scene.count = didCount
+
     panDistance = BlockSize * 0.45
     
     dotGame = DotGame()
@@ -176,6 +179,10 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   func gameDidEnd(_ dotGame: DotGame) {
     scene.tick = nil
+    scene.count = nil
+    scene.stopCounting()
+    CanMovePiece = false
+
     let msg = "You blew it!"
     showSheet(msg, showCancel: false)
   }
@@ -184,6 +191,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let msg = "Congrats! You beat level \(GameLevel)"
     let style: UIAlertController.Style = iPad ? .alert : .actionSheet
     let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
+    
+    scene.stopCounting()
     
     let nextLevel = UIAlertAction(title: "Play next level", style: .default, handler: { action in
       GameLevel += 1
@@ -233,7 +242,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         }
       }
     } else {
-
       if dotGame.dotArray.hasDotsAboveGrid() {
         gameDidEnd(dotGame)
       } else {
@@ -278,9 +286,17 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       scene.tick = didTick
     }
     
+    if scene.count == nil {
+      scene.count = didCount
+    }
+    
     CanMovePiece = true
     
+    currentAngryCountdown = currentAngryCountdownDefault
+    nextAngryCountdown = nextAngryCountdownDefault
+    
     self.scene.addMadDotsToScene(dotGame.madDots)
+    self.scene.counterLabelSetter()
     
     delay(0.5) {
       self.scene.addPieceToScene(dotGame.fallingPiece!) {
@@ -292,6 +308,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         }
 
         self.scene.startTicking()
+        self.scene.startCounting()
       }
     }
   }
@@ -310,6 +327,40 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
   func didTick() {
     dotGame.lowerPiece()
+  }
+  
+  func didCount() {
+    if CanMovePiece && currentAngryCountdown == 0 {
+      nextAngryCountdown = nextAngryCountdownDefault
+      currentAngryCountdown = currentAngryCountdownDefault
+      scene.counterLabel?.text = "\(currentAngryCountdown)/\(nextAngryCountdown)"
+      
+      if let angryDot = self.dotGame.madDots.first(where: { $0.angry }) {
+        scene.pacifyDot(angryDot, completion: nil)
+      }
+      
+      return
+    }
+    
+    if !CanMovePiece || currentAngryCountdown == 0 {
+      return
+    }
+    
+    if nextAngryCountdown == 0 {
+      currentAngryCountdown -= 1
+      
+      let angryDot = self.dotGame.madDots.first(where: { $0.angry })
+      if angryDot == nil && self.dotGame.madDots.count > 0 {
+        let dot = findRandomTopDot(dots: self.dotGame.madDots)
+        dot.angry = true
+        dot.sprite?.removeFromParent()
+        self.scene.addAngryDotToScene(dot, completion: nil)
+      }
+    } else if nextAngryCountdown > 0 {
+      nextAngryCountdown -= 1
+    }
+    
+    scene.counterLabel?.text = "\(currentAngryCountdown)/\(nextAngryCountdown)"
   }
 
   override func didReceiveMemoryWarning() {

@@ -14,6 +14,10 @@ let DrawnRows = NumRows - 2
 let StartingColumn = 3
 let StartingRow = 1
 var CanMovePiece = false
+var currentAngryCountdownDefault = 3
+var currentAngryCountdown = currentAngryCountdownDefault
+var nextAngryCountdownDefault = 2
+var nextAngryCountdown = nextAngryCountdownDefault
 
 var RotateDir: Dir = .counterClockwise
 
@@ -230,7 +234,6 @@ class DotGame {
         delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
       }
     }
-
   }
   
   func removeCompletedDots() -> (dotsToRemove:Array<Dot>,fallenDots:Array<GoodDot>) {
