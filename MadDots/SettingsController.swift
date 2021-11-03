@@ -13,6 +13,11 @@ class SettingsController: UIViewController {
   @IBOutlet weak var levelLabel: UILabel!
   @IBOutlet weak var numColorsLabel: UILabel!
   @IBOutlet weak var nextPieceLabel: UILabel!
+  
+  @IBOutlet weak var angryLabel: UILabel!
+  @IBOutlet weak var intervalLabel: UILabel!
+  @IBOutlet weak var lengthLabel: UILabel!
+  
   @IBOutlet weak var levelSlider: UISlider!
   @IBOutlet weak var speedSlider: UISlider!
   @IBOutlet weak var showBgLabel: UILabel!
@@ -20,6 +25,11 @@ class SettingsController: UIViewController {
   @IBOutlet weak var numColorsSwitch: UISwitch!
   @IBOutlet weak var nextPieceSwitch: UISwitch!
   @IBOutlet weak var bgSwitch: UISwitch!
+  
+  @IBOutlet weak var angrySwitch: UISwitch!
+  @IBOutlet weak var angryLengthSlider: UISlider!
+  @IBOutlet weak var angryIntervalSlider: UISlider!
+  
   
   @IBAction func tapCancel(_ sender: UIButton) {
     self.dismiss(animated: true, completion: nil)
@@ -34,17 +44,19 @@ class SettingsController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    print("GameLevel: \(GameLevel)")
-    delay(0.2) {
+    delay(0.1) {
       self.speedSlider.value = Float(GameSpeed)
       self.levelSlider.value = Float(GameLevel)
+      self.angryLengthSlider.value = Float(AngryLengthDefault)
+      self.angryIntervalSlider.value = Float(AngryIntervalDefault)
     }
     
-    bgSwitch.isOn = ShowBG
+    self.bgSwitch.isOn = ShowBG
     
     handleMoreLevels()
     handleFifthColor()
     handleNextPiece()
+    self.angrySwitch.isOn = AngryKodama
     
     updateLabels()
   }
@@ -54,6 +66,10 @@ class SettingsController: UIViewController {
     UserDefaults.standard.setValue(GameLevel, forKey: "gameLevel")
     UserDefaults.standard.setValue(NumberOfColors, forKey: "numColors")
     UserDefaults.standard.setValue(ShowBG, forKey: "showBG")
+    UserDefaults.standard.setValue(AngryKodama, forKey: "angryKodama")
+    UserDefaults.standard.setValue(AngryIntervalDefault, forKey: "angryIntervalDefault")
+    UserDefaults.standard.setValue(AngryLengthDefault, forKey: "angryLengthDefault")
+
     
     self.performSegue(withIdentifier: "gogo", sender: self)
   }
@@ -66,6 +82,20 @@ class SettingsController: UIViewController {
   @IBAction func levelSliderMoved(_ sender: UISlider) {
     GameLevel = lroundf(sender.value)
     updateLabels()
+  }
+  
+  @IBAction func intervalSliderMoved(_ sender: UISlider) {
+    AngryIntervalDefault = lroundf(sender.value)
+    updateLabels()
+  }
+  
+  @IBAction func lengthSliderMoved(_ sender: UISlider) {
+    AngryLengthDefault = lroundf(sender.value)
+    updateLabels()
+  }
+  
+  @IBAction func angrySwitchChanged(_ sender: UISwitch) {
+    AngryKodama = sender.isOn
   }
   
   @IBAction func numColorsSwitchChanged(_ sender: UISwitch) {
@@ -87,12 +117,17 @@ class SettingsController: UIViewController {
     self.showBgLabel.textColor = color
     self.nextPieceLabel.textColor = color
     self.numColorsLabel.textColor = color
+    self.lengthLabel.textColor = color
+    self.intervalLabel.textColor = color
+    self.angryLabel.textColor = color
   }
   
   func updateLabels() {
     self.speedLabel.text = "Speed: \(GameSpeed)"
     self.levelLabel.text = "Level: \(GameLevel)"
     self.numColorsLabel.text = "# of colors: \(NumberOfColors)"
+    self.lengthLabel.text = "L: \(AngryLengthDefault)"
+    self.intervalLabel.text = "I: \(AngryIntervalDefault)"
   }
   
   func handleNextPiece() {
@@ -101,7 +136,6 @@ class SettingsController: UIViewController {
   
   func handleFifthColor() {
     numColorsSwitch.isOn = NumberOfColors == 5
-
   }
   
   func handleMoreLevels() {

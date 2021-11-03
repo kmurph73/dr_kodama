@@ -142,7 +142,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let skView = self.view as! SKView
 //    skView.showsFPS = true
 //    skView.showsNodeCount = true
-//    skView.showsDrawCount = true
+    skView.showsDrawCount = true
     skView.isMultipleTouchEnabled = false
     
     /* Sprite Kit applies additional optimizations to improve rendering performance */
@@ -210,6 +210,13 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.present(alertController, animated:true, completion: nil)
   }
   
+  func resetAngry() {
+    NeedAngryDot = true
+    angryIntervalCountdown = AngryIntervalDefault
+    angryLengthCountdown = AngryLengthDefault
+    scene.counterLabel?.text = "\(angryIntervalCountdown)/\(angryLengthCountdown)"
+  }
+  
   func gamePieceDidLand(_ dotGame: DotGame) {
     scene.stopTicking()
     CanMovePiece = false
@@ -246,13 +253,53 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         gameDidEnd(dotGame)
       } else {
         dotGame.fallingPiece = nil
-        newPiece()
+        
+        if angryLengthCountdown == 0 {
+          resetAngry()
+          
+          if let angryDot = self.dotGame.madDots.first(where: { $0.angry }) {
+            print("angryDot: \(angryDot)")
+            scene.pacifyDot(angryDot, completion: nil)
+    
+            let dots = dotGame.addThreeRandomThreeDots()
+            for dot in dots {
+              scene.addDotToScene(dot, completion: nil)
+            }
+            
+            let result = dropFallenDots(dotGame.dotArray)
+
+            delay(1) {
+              self.scene.dropDots(result, completion: {
+                self.gamePieceDidLand(dotGame)
+              })
+            }
+          } else {
+            newPiece()
+          }
+          
+        } else if angryIntervalCountdown == 0 && NeedAngryDot {
+          let angryDot = self.dotGame.madDots.first(where: { $0.angry })
+          if angryDot == nil && self.dotGame.madDots.count > 0 {
+            let dot = findRealRandomTopDot(dots: self.dotGame.madDots, dotArray: self.dotGame.dotArray)
+            dot.angry = true
+            dot.sprite?.removeFromParent()
+            self.scene.addAngryDotToScene(dot)
+            delay(0.5) {
+              self.newPiece()
+            }
+          } else {
+            newPiece()
+          }
+        } else {
+          newPiece()
+        }
       }
 
     }
   }
   
   func newPiece() {
+
     delay(0.3) {
       if let nextPiece = self.dotGame.nextPiece {
         let newPiece = self.dotGame.newNextPiece()
@@ -286,17 +333,22 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       scene.tick = didTick
     }
     
-    if scene.count == nil {
+    if scene.count == nil && AngryKodama {
       scene.count = didCount
     }
     
+    self.scene.stopTicking()
+    self.scene.stopCounting()
+    
     CanMovePiece = true
     
-    currentAngryCountdown = currentAngryCountdownDefault
-    nextAngryCountdown = nextAngryCountdownDefault
+    angryLengthCountdown = AngryLengthDefault
+    angryIntervalCountdown = AngryIntervalDefault
     
     self.scene.addMadDotsToScene(dotGame.madDots)
-    self.scene.counterLabelSetter()
+    if AngryKodama {
+      self.scene.counterLabelSetter()
+    }
     
     delay(0.5) {
       self.scene.addPieceToScene(dotGame.fallingPiece!) {
@@ -330,37 +382,19 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func didCount() {
-    if CanMovePiece && currentAngryCountdown == 0 {
-      nextAngryCountdown = nextAngryCountdownDefault
-      currentAngryCountdown = currentAngryCountdownDefault
-      scene.counterLabel?.text = "\(currentAngryCountdown)/\(nextAngryCountdown)"
-      
-      if let angryDot = self.dotGame.madDots.first(where: { $0.angry }) {
-        scene.pacifyDot(angryDot, completion: nil)
-      }
-      
+    if !CanMovePiece || angryLengthCountdown == 0 {
       return
     }
     
-    if !CanMovePiece || currentAngryCountdown == 0 {
-      return
-    }
-    
-    if nextAngryCountdown == 0 {
-      currentAngryCountdown -= 1
-      
-      let angryDot = self.dotGame.madDots.first(where: { $0.angry })
-      if angryDot == nil && self.dotGame.madDots.count > 0 {
-        let dot = findRandomTopDot(dots: self.dotGame.madDots)
-        dot.angry = true
-        dot.sprite?.removeFromParent()
-        self.scene.addAngryDotToScene(dot, completion: nil)
+    if angryIntervalCountdown == 0 {
+      if !NeedAngryDot {
+        angryLengthCountdown -= 1
       }
-    } else if nextAngryCountdown > 0 {
-      nextAngryCountdown -= 1
+    } else if angryIntervalCountdown > 0 {
+      angryIntervalCountdown -= 1
     }
     
-    scene.counterLabel?.text = "\(currentAngryCountdown)/\(nextAngryCountdown)"
+    scene.counterLabel?.text = "\(angryIntervalCountdown)/\(angryLengthCountdown)"
   }
 
   override func didReceiveMemoryWarning() {

@@ -15,6 +15,8 @@ var NumberOfColors = 4
 
 var ShowBG = false
 var ShowNextPiece = false
+var AngryKodama = false
+
 var LargerScreen = UIScreen.main.bounds.width > 600
 
 class MainController: UIViewController {

@@ -79,7 +79,9 @@ class GameScene: SKScene {
     }
     
     levelLabelSetter()
-    counterLabelSetter()
+    if AngryKodama {
+      counterLabelSetter()
+    }
 
     let speedLabel = SKLabelNode(fontNamed: "Arial")
     speedLabel.text = "Speed \(GameSpeed)"
@@ -135,7 +137,7 @@ class GameScene: SKScene {
     }
 
     counterLabel = SKLabelNode(fontNamed: "Arial")
-    counterLabel!.text = "\(currentAngryCountdown)"
+    counterLabel!.text = "\(angryLengthCountdown)/\(angryIntervalCountdown)"
     counterLabel!.fontSize = 13
     counterLabel!.zPosition = 2
     
@@ -270,6 +272,7 @@ class GameScene: SKScene {
   
   func removeDots(_ dots: Array<Dot>) {
     for dot in dots {
+      dot.sprite?.removeAllActions()
       dot.sprite?.removeFromParent()
       if let d = dot as? GoodDot {
         d.connector?.removeFromParent()
@@ -314,41 +317,18 @@ class GameScene: SKScene {
   
   func makeDotAngry(_ dot: MadDot, completion:(() -> ())?) {
     dot.removeFromScene()
-    addAngryDotToScene(dot, completion: nil)
+    addAngryDotToScene(dot)
   }
   
   func pacifyDot(_ dot: MadDot, completion:(() -> ())?) {
-    print("pacifyDot: \(dot)")
     dot.angry = false
-//    dot.sprite?.removeAllActions()
+    dot.sprite?.removeAllActions()
     dot.removeFromScene()
     addDotToScene(dot, completion: completion)
   }
-  
-  func dropThreeDots() {
-    let color1 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
-    let color2 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
-    let color3 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
     
-    let colors = [color1, color2, color3]
-    var cols: Set<Int> = []
+  func addAngryDotToScene(_ dot: Dot) {
     
-    while (cols.count < 3) {
-      let num = randomNum(0, max: NumberOfColors)
-      cols.insert(num)
-    }
-    
-    let dots = cols.enumerated().map { (index, col) in
-      GoodDot(column: col, row: 1, color: colors[index]!)
-    }
-    
-    for dot in dots {
-      addDotToScene(dot, completion: nil)
-    }
-    
-  }
-    
-  func addAngryDotToScene(_ dot: Dot, completion:(() -> ())?) {
     let atlas = SKTextureAtlas(named: "AngryKodama")
     let f1 = atlas.textureNamed("angry_\(dot.color.description)_kodama1")
     let f2 = atlas.textureNamed("angry_\(dot.color.description)_kodama2")
@@ -356,7 +336,7 @@ class GameScene: SKScene {
 
     let textures = [f1, f2, f3]
     
-    node = SKSpriteNode(texture: f1)
+    let node = SKSpriteNode(texture: f1)
     let dotSize = BlockSize + (BlockSize / 5.0)
     let yOffset = BlockSize / 10.0
 
@@ -370,17 +350,19 @@ class GameScene: SKScene {
     
     let action = SKAction.repeatForever(
       SKAction.animate(with: textures,
-                       timePerFrame: 0.3,
+                       timePerFrame: 0.38,
                        resize: false,
                        restore: true))
     
-    
+//    SKAction.run(action)
     node.run(action,
              withKey:"angry \(dot.description)")
     
-    
-    
+//    run(action)
+        
     dotLayer.addChild(node)
+    
+    NeedAngryDot = false
   }
     
   
@@ -412,6 +394,10 @@ class GameScene: SKScene {
   }
   
   func startCounting() {
+    if !AngryKodama {
+      return
+    }
+    
     self.counter = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameScene.didCount), userInfo: nil, repeats: true)
   }
   

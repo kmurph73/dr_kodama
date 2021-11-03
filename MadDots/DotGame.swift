@@ -14,10 +14,11 @@ let DrawnRows = NumRows - 2
 let StartingColumn = 3
 let StartingRow = 1
 var CanMovePiece = false
-var currentAngryCountdownDefault = 3
-var currentAngryCountdown = currentAngryCountdownDefault
-var nextAngryCountdownDefault = 2
-var nextAngryCountdown = nextAngryCountdownDefault
+var AngryLengthDefault = 5
+var angryLengthCountdown = AngryLengthDefault
+var AngryIntervalDefault = 5
+var angryIntervalCountdown = AngryIntervalDefault
+var NeedAngryDot = AngryKodama
 
 var RotateDir: Dir = .counterClockwise
 
@@ -128,6 +129,8 @@ class DotGame {
       nextPiece = newNextPiece()
     }
     
+    NeedAngryDot = true
+    
     self.madDots.append(contentsOf: levelMaker.makeRandomLevel(GameLevel))
     
 //    let sen = testScenario3()
@@ -154,6 +157,31 @@ class DotGame {
     
     return false
   }
+  
+  func addThreeRandomThreeDots() -> Array<GoodDot> {
+    let color1 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
+    let color2 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
+    let color3 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
+    
+    let colors = [color1, color2, color3]
+    var cols: Set<Int> = []
+    
+    while (cols.count < 3) {
+      let num = randomNum(0, max: NumColumns)
+      cols.insert(num)
+    }
+    
+    let dots = cols.enumerated().map { (index, col) in
+      GoodDot(column: col, row: 1, color: colors[index]!)
+    }
+    
+    for dot in dots {
+      dotArray[dot.column, dot.row] = dot
+    }
+    
+    return dots
+  }
+    
   
   func movePieceLeft() {
     if let piece = fallingPiece {

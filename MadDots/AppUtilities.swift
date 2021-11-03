@@ -48,11 +48,29 @@ func findTopDots(dots: Array<MadDot>) -> Array<MadDot> {
 func findRandomTopDot(dots: Array<MadDot>) -> MadDot {
   let topDots = findTopDots(dots: dots)
   let num = randomNum(0, max: topDots.count)
-  
-  print("num: \(num)")
-  debugPrint(topDots)
-  
+    
   return topDots[num]
+}
+
+func findRealRandomTopDot(dots: Array<MadDot>, dotArray: DotArray2D) -> MadDot {
+  let topDots = findRealTopDots(dots: dots, dotArray: dotArray)
+  let num = randomNum(0, max: topDots.count)
+    
+  return topDots[num]
+}
+
+func findRealTopDots(dots: Array<MadDot>, dotArray: DotArray2D) -> Array<MadDot> {
+  var arr = Array<MadDot>()
+  for col in 0..<NumColumns {
+    for row in 3..<NumRows {
+      if let maddot = dotArray[col, row] as? MadDot {
+        arr.append(maddot)
+        break
+      }
+    }
+  }
+  
+  return arr
 }
 
 func randomNum(_ min: Int, max: Int) -> Int {
