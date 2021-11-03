@@ -258,7 +258,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           resetAngry()
           
           if let angryDot = self.dotGame.madDots.first(where: { $0.angry }) {
-            print("angryDot: \(angryDot)")
             scene.pacifyDot(angryDot, completion: nil)
     
             let dots = dotGame.addThreeRandomThreeDots()
@@ -299,7 +298,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func newPiece() {
-
     delay(0.3) {
       if let nextPiece = self.dotGame.nextPiece {
         let newPiece = self.dotGame.newNextPiece()

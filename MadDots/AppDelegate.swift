@@ -33,8 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     if var topController = UIApplication.shared.keyWindow?.rootViewController {
       while let presentedViewController = topController.presentedViewController {
-        print("pvc: \(presentedViewController)")
-        
         if let gvc = presentedViewController as? GameViewController {
           gvc.stopTimer()
           break
@@ -59,9 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationDidBecomeActive(_ application: UIApplication) {
     if var topController = UIApplication.shared.keyWindow?.rootViewController {
-      while let presentedViewController = topController.presentedViewController {
-        print("pvc: \(presentedViewController)")
-        
+      while let presentedViewController = topController.presentedViewController {        
         if let gvc = presentedViewController as? GameViewController {
           if !gvc.sheetShown {
             gvc.stopTimer()

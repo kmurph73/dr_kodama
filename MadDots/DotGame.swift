@@ -161,12 +161,15 @@ class DotGame {
   func addThreeRandomThreeDots() -> Array<GoodDot> {
     let color1 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
     let color2 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
-    let color3 = DotColor(rawValue: randomNum(0, max: NumberOfColors))
     
-    let colors = [color1, color2, color3]
+    let zeroOrOne = randomNum(0, max: 2)
+    let numDots = zeroOrOne == 1 ? 2 : 3
+
+    let colors = numDots == 2 ? [color1, color2] : [color1, color2, DotColor(rawValue: randomNum(0, max: NumberOfColors))]
+  
     var cols: Set<Int> = []
     
-    while (cols.count < 3) {
+    while (cols.count < numDots) {
       let num = randomNum(0, max: NumColumns)
       cols.insert(num)
     }

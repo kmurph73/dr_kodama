@@ -53,7 +53,10 @@ func findRandomTopDot(dots: Array<MadDot>) -> MadDot {
 }
 
 func findRealRandomTopDot(dots: Array<MadDot>, dotArray: DotArray2D) -> MadDot {
-  let topDots = findRealTopDots(dots: dots, dotArray: dotArray)
+  let zeroOrOne = randomNum(0, max: 2)
+  print("zeroOrOne: \(zeroOrOne)")
+
+  let topDots = zeroOrOne == 0 ? findTopDots(dots: dots) : findRealTopDots(dots: dots, dotArray: dotArray)
   let num = randomNum(0, max: topDots.count)
     
   return topDots[num]
