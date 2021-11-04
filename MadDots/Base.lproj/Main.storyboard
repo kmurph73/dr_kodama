@@ -311,15 +311,15 @@ Tap to rotate it counter-clockwise:
                         <viewControllerLayoutGuide type="top" id="xFw-Ib-RHr"/>
                         <viewControllerLayoutGuide type="bottom" id="685-Yp-Ytl"/>
                     </layoutGuides>
-                    <view key="view" alpha="0.0" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="IdS-7d-PHO" customClass="UIScrollView">
+                    <view key="view" contentMode="top" translatesAutoresizingMaskIntoConstraints="NO" id="IdS-7d-PHO">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="iphonebg2" translatesAutoresizingMaskIntoConstraints="NO" id="kRa-wh-pG5">
+                                <rect key="frame" x="0.0" y="-21" width="1024" height="1408"/>
+                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oqp-4C-sDa">
-                                <rect key="frame" x="0.0" y="-4" width="1024" height="1370"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1370"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iphonebg2" translatesAutoresizingMaskIntoConstraints="NO" id="kRa-wh-pG5">
-                                        <rect key="frame" x="0.0" y="0.0" width="750" height="1408"/>
-                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Doc-yd-z96">
                                         <rect key="frame" x="0.0" y="8" width="120" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -451,27 +451,25 @@ Tap to rotate it counter-clockwise:
                                     </slider>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="vQL-DH-YgL" firstAttribute="top" secondItem="ayU-iS-LSk" secondAttribute="bottom" constant="20" id="2Mz-kb-DeU"/>
+                                    <constraint firstItem="vQL-DH-YgL" firstAttribute="top" secondItem="ayU-iS-LSk" secondAttribute="bottom" constant="30" id="2Mz-kb-DeU"/>
                                     <constraint firstItem="vQL-DH-YgL" firstAttribute="leading" secondItem="ayU-iS-LSk" secondAttribute="leading" id="3l3-H2-OxT"/>
                                     <constraint firstItem="zd7-Wh-uJc" firstAttribute="leading" secondItem="vQL-DH-YgL" secondAttribute="leading" id="47Q-Oy-iTQ"/>
                                     <constraint firstItem="N0z-LO-0i3" firstAttribute="top" secondItem="sDW-NS-Bb7" secondAttribute="bottom" constant="30" id="66R-6E-jR9"/>
-                                    <constraint firstAttribute="bottom" secondItem="kRa-wh-pG5" secondAttribute="bottom" id="6w5-g8-1wf"/>
                                     <constraint firstItem="6O8-uF-YuM" firstAttribute="centerY" secondItem="rMd-JF-joh" secondAttribute="centerY" id="8Pr-Gg-Yuk"/>
                                     <constraint firstItem="FPJ-mQ-04m" firstAttribute="leading" secondItem="Oqp-4C-sDa" secondAttribute="leading" constant="10" id="8dM-Rh-f0D"/>
-                                    <constraint firstItem="Doc-yd-z96" firstAttribute="leading" secondItem="Oqp-4C-sDa" secondAttribute="leading" id="Fdm-94-jGe"/>
-                                    <constraint firstItem="1UH-je-Kev" firstAttribute="top" secondItem="iZD-2Z-JcO" secondAttribute="bottom" constant="20" id="IL3-cM-Dcn"/>
+                                    <constraint firstItem="Doc-yd-z96" firstAttribute="leading" secondItem="Oqp-4C-sDa" secondAttribute="leading" constant="20" id="Fdm-94-jGe"/>
+                                    <constraint firstItem="1UH-je-Kev" firstAttribute="top" secondItem="iZD-2Z-JcO" secondAttribute="bottom" constant="100" id="IL3-cM-Dcn"/>
                                     <constraint firstItem="1UH-je-Kev" firstAttribute="leading" secondItem="iZD-2Z-JcO" secondAttribute="leading" id="IqS-Bp-tbB"/>
-                                    <constraint firstItem="ayU-iS-LSk" firstAttribute="top" secondItem="rMd-JF-joh" secondAttribute="bottom" constant="20" id="KFf-ev-wfA"/>
+                                    <constraint firstItem="ayU-iS-LSk" firstAttribute="top" secondItem="rMd-JF-joh" secondAttribute="bottom" constant="30" id="KFf-ev-wfA"/>
                                     <constraint firstItem="uX8-Am-Xix" firstAttribute="leading" secondItem="ayU-iS-LSk" secondAttribute="trailing" constant="10" id="LYg-Ot-bXM"/>
-                                    <constraint firstItem="FPJ-mQ-04m" firstAttribute="top" secondItem="Doc-yd-z96" secondAttribute="bottom" constant="15" id="MEq-jt-rF0"/>
-                                    <constraint firstAttribute="trailing" secondItem="kRa-wh-pG5" secondAttribute="trailing" id="NdI-KZ-xfY"/>
+                                    <constraint firstItem="FPJ-mQ-04m" firstAttribute="top" secondItem="Doc-yd-z96" secondAttribute="bottom" constant="30" id="MEq-jt-rF0"/>
+                                    <constraint firstAttribute="bottom" secondItem="1UH-je-Kev" secondAttribute="bottom" constant="300" id="NOT-FH-hLj"/>
                                     <constraint firstItem="sDW-NS-Bb7" firstAttribute="leading" secondItem="zd7-Wh-uJc" secondAttribute="trailing" constant="10" id="O23-cM-W4J"/>
                                     <constraint firstItem="m0N-Bp-2Cw" firstAttribute="leading" secondItem="FPJ-mQ-04m" secondAttribute="trailing" constant="20" id="PMK-KG-1ON"/>
                                     <constraint firstItem="4rr-zb-c46" firstAttribute="centerY" secondItem="iZD-2Z-JcO" secondAttribute="centerY" id="ReR-H2-Ejq"/>
                                     <constraint firstItem="sDW-NS-Bb7" firstAttribute="centerY" secondItem="zd7-Wh-uJc" secondAttribute="centerY" id="Ros-py-k8r"/>
                                     <constraint firstItem="uX8-Am-Xix" firstAttribute="centerY" secondItem="ayU-iS-LSk" secondAttribute="centerY" id="Uyn-eC-w5T"/>
                                     <constraint firstItem="N0z-LO-0i3" firstAttribute="centerX" secondItem="Oqp-4C-sDa" secondAttribute="centerX" id="XdB-Yc-OXH"/>
-                                    <constraint firstItem="kRa-wh-pG5" firstAttribute="leading" secondItem="Oqp-4C-sDa" secondAttribute="leading" id="YGz-Z2-Wd2"/>
                                     <constraint firstItem="6O8-uF-YuM" firstAttribute="leading" secondItem="rMd-JF-joh" secondAttribute="trailing" constant="10" id="Yvq-El-0XW"/>
                                     <constraint firstItem="ThG-BX-tYK" firstAttribute="centerY" secondItem="3Ul-lu-SaJ" secondAttribute="centerY" id="aIv-N3-Chz"/>
                                     <constraint firstItem="ThG-BX-tYK" firstAttribute="leading" secondItem="3Ul-lu-SaJ" secondAttribute="trailing" constant="20" id="ayD-G9-94X"/>
@@ -482,25 +480,28 @@ Tap to rotate it counter-clockwise:
                                     <constraint firstItem="pLF-X9-FCv" firstAttribute="centerY" secondItem="1UH-je-Kev" secondAttribute="centerY" id="iFd-2K-Zzr"/>
                                     <constraint firstItem="iZD-2Z-JcO" firstAttribute="top" secondItem="N0z-LO-0i3" secondAttribute="bottom" constant="30" id="iTw-X2-nrV"/>
                                     <constraint firstItem="iZD-2Z-JcO" firstAttribute="leading" secondItem="zd7-Wh-uJc" secondAttribute="leading" id="irv-65-F3Y"/>
-                                    <constraint firstItem="zd7-Wh-uJc" firstAttribute="top" secondItem="vQL-DH-YgL" secondAttribute="bottom" constant="10" id="so3-z6-Bk1"/>
+                                    <constraint firstItem="zd7-Wh-uJc" firstAttribute="top" secondItem="vQL-DH-YgL" secondAttribute="bottom" constant="30" id="so3-z6-Bk1"/>
                                     <constraint firstItem="rMd-JF-joh" firstAttribute="leading" secondItem="3Ul-lu-SaJ" secondAttribute="leading" id="tGE-48-ZlT"/>
-                                    <constraint firstItem="3Ul-lu-SaJ" firstAttribute="top" secondItem="FPJ-mQ-04m" secondAttribute="bottom" constant="20" id="uJF-Uu-28n"/>
+                                    <constraint firstItem="3Ul-lu-SaJ" firstAttribute="top" secondItem="FPJ-mQ-04m" secondAttribute="bottom" constant="30" id="uJF-Uu-28n"/>
                                     <constraint firstItem="TPW-oI-20y" firstAttribute="centerY" secondItem="vQL-DH-YgL" secondAttribute="centerY" id="vlT-tU-VMv"/>
-                                    <constraint firstItem="Doc-yd-z96" firstAttribute="top" secondItem="Oqp-4C-sDa" secondAttribute="top" id="vp9-vr-f8X"/>
+                                    <constraint firstItem="Doc-yd-z96" firstAttribute="top" secondItem="Oqp-4C-sDa" secondAttribute="top" constant="30" id="vp9-vr-f8X"/>
                                     <constraint firstItem="ayU-iS-LSk" firstAttribute="leading" secondItem="rMd-JF-joh" secondAttribute="leading" id="wK4-NE-7ht"/>
-                                    <constraint firstItem="kRa-wh-pG5" firstAttribute="top" secondItem="Oqp-4C-sDa" secondAttribute="top" id="wdX-Um-aBV"/>
-                                    <constraint firstItem="rMd-JF-joh" firstAttribute="top" secondItem="3Ul-lu-SaJ" secondAttribute="bottom" constant="20" id="yJB-cr-It8"/>
+                                    <constraint firstItem="rMd-JF-joh" firstAttribute="top" secondItem="3Ul-lu-SaJ" secondAttribute="bottom" constant="30" id="yJB-cr-It8"/>
                                     <constraint firstItem="m0N-Bp-2Cw" firstAttribute="centerY" secondItem="FPJ-mQ-04m" secondAttribute="centerY" id="yYl-rb-0ne"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Pm0-Cb-1NK"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="RgU-d2-dRF"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Oqp-4C-sDa" secondAttribute="trailing" id="2Zk-zm-efJ"/>
+                            <constraint firstItem="kRa-wh-pG5" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" id="0nT-fV-gtv"/>
+                            <constraint firstItem="Oqp-4C-sDa" firstAttribute="top" secondItem="xFw-Ib-RHr" secondAttribute="bottom" id="1jf-Wo-30s"/>
+                            <constraint firstItem="kRa-wh-pG5" firstAttribute="width" secondItem="IdS-7d-PHO" secondAttribute="width" id="53B-tv-C8m"/>
+                            <constraint firstAttribute="trailing" secondItem="kRa-wh-pG5" secondAttribute="trailing" id="AbR-LT-fMS"/>
                             <constraint firstItem="Oqp-4C-sDa" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" id="I46-kt-hG2"/>
                             <constraint firstItem="Oqp-4C-sDa" firstAttribute="width" secondItem="IdS-7d-PHO" secondAttribute="width" id="Vd1-kf-nRr"/>
+                            <constraint firstItem="Oqp-4C-sDa" firstAttribute="height" secondItem="IdS-7d-PHO" secondAttribute="height" multiplier="1.00293" id="fTq-Lj-ER6"/>
+                            <constraint firstItem="kRa-wh-pG5" firstAttribute="height" secondItem="IdS-7d-PHO" secondAttribute="height" multiplier="1.03075" id="ykb-Ly-oeg"/>
                         </constraints>
                     </view>
                     <connections>
@@ -517,6 +518,7 @@ Tap to rotate it counter-clockwise:
                         <outlet property="nextPieceSwitch" destination="TPW-oI-20y" id="g1a-x8-Zdy"/>
                         <outlet property="numColorsLabel" destination="ayU-iS-LSk" id="YqY-ay-vzK"/>
                         <outlet property="numColorsSwitch" destination="uX8-Am-Xix" id="R6F-NL-KxX"/>
+                        <outlet property="scrollView" destination="Oqp-4C-sDa" id="0kf-4y-2wQ"/>
                         <outlet property="showBgLabel" destination="rMd-JF-joh" id="Gz5-cS-jaF"/>
                         <outlet property="speedLabel" destination="FPJ-mQ-04m" id="exX-Dq-AuU"/>
                         <outlet property="speedSlider" destination="m0N-Bp-2Cw" id="8hd-dD-Loj"/>

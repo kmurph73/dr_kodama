@@ -14,6 +14,7 @@ class SettingsController: UIViewController {
   @IBOutlet weak var numColorsLabel: UILabel!
   @IBOutlet weak var nextPieceLabel: UILabel!
   
+  @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet weak var angryLabel: UILabel!
   @IBOutlet weak var intervalLabel: UILabel!
   @IBOutlet weak var lengthLabel: UILabel!
@@ -43,6 +44,7 @@ class SettingsController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    self.scrollView.contentSize  = CGSize(width:400, height: 1500)
     
     delay(0.1) {
       self.speedSlider.value = Float(GameSpeed)
