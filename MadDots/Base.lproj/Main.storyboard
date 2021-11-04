@@ -330,10 +330,10 @@ Tap to rotate it counter-clockwise:
                                 <color key="textColor" red="0.98263888889999995" green="0.98263888889999995" blue="0.98263888889999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="pLF-X9-FCv">
+                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="4" maxValue="40" translatesAutoresizingMaskIntoConstraints="NO" id="pLF-X9-FCv">
                                 <rect key="frame" x="114" y="449" width="329" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="Ezb-Ys-O5q"/>
+                                    <constraint firstAttribute="width" constant="260" id="Ezb-Ys-O5q"/>
                                 </constraints>
                                 <connections>
                                     <action selector="intervalSliderMoved:" destination="yOc-6N-67v" eventType="valueChanged" id="xUE-gn-y5o"/>
@@ -445,10 +445,10 @@ Tap to rotate it counter-clockwise:
                                     <action selector="nextPieceSwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="AyO-cD-s4x"/>
                                 </connections>
                             </switch>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="4rr-zb-c46">
+                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="1" maxValue="40" translatesAutoresizingMaskIntoConstraints="NO" id="4rr-zb-c46">
                                 <rect key="frame" x="110" y="530" width="254" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="rxK-7v-YQm"/>
+                                    <constraint firstAttribute="width" constant="260" id="rxK-7v-YQm"/>
                                 </constraints>
                                 <connections>
                                     <action selector="lengthSliderMoved:" destination="yOc-6N-67v" eventType="valueChanged" id="Jdo-O5-XKX"/>
