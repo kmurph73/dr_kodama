@@ -20,11 +20,9 @@ class SettingsController: UIViewController {
   
   @IBOutlet weak var levelSlider: UISlider!
   @IBOutlet weak var speedSlider: UISlider!
-  @IBOutlet weak var showBgLabel: UILabel!
   
   @IBOutlet weak var numColorsSwitch: UISwitch!
   @IBOutlet weak var nextPieceSwitch: UISwitch!
-  @IBOutlet weak var bgSwitch: UISwitch!
   
   @IBOutlet weak var angrySwitch: UISwitch!
   @IBOutlet weak var angryLengthSlider: UISlider!
@@ -50,9 +48,7 @@ class SettingsController: UIViewController {
       self.angryLengthSlider.value = Float(AngryLengthDefault)
       self.angryIntervalSlider.value = Float(AngryIntervalDefault)
     }
-    
-    self.bgSwitch.isOn = ShowBG
-    
+        
     handleMoreLevels()
     handleFifthColor()
     handleNextPiece()
@@ -65,7 +61,6 @@ class SettingsController: UIViewController {
     UserDefaults.standard.setValue(ShowNextPiece, forKey: "showNextPiece")
     UserDefaults.standard.setValue(GameLevel, forKey: "gameLevel")
     UserDefaults.standard.setValue(NumberOfColors, forKey: "numColors")
-    UserDefaults.standard.setValue(ShowBG, forKey: "showBG")
     UserDefaults.standard.setValue(AngryKodama, forKey: "angryKodama")
     UserDefaults.standard.setValue(AngryIntervalDefault, forKey: "angryIntervalDefault")
     UserDefaults.standard.setValue(AngryLengthDefault, forKey: "angryLengthDefault")
@@ -103,10 +98,6 @@ class SettingsController: UIViewController {
     updateLabels()
   }
   
-  @IBAction func bgSwitchChanged(_ sender: UISwitch) {
-    ShowBG = sender.isOn
-  }
-  
   @IBAction func nextPieceSwitchChanged(_ sender: UISwitch) {
     ShowNextPiece = sender.isOn
   }
@@ -114,7 +105,6 @@ class SettingsController: UIViewController {
   func setLabelColor() {
     let color = iPad ? UIColor.white : UIColor.black
     
-    self.showBgLabel.textColor = color
     self.nextPieceLabel.textColor = color
     self.numColorsLabel.textColor = color
     self.lengthLabel.textColor = color

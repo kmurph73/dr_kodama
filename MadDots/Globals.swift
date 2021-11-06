@@ -21,9 +21,9 @@ func assessState() {
     NumberOfColors = numColors
   }
   
-  if let showBG = UserDefaults.standard.value(forKey: "showBG") as? Bool {
-    ShowBG = showBG
-  }
+//  if let showBG = UserDefaults.standard.value(forKey: "showBG") as? Bool {
+//    ShowBG = showBG
+//  }
   
   if let showNextPiece = UserDefaults.standard.value(forKey: "showNextPiece") as? Bool {
     ShowNextPiece = showNextPiece

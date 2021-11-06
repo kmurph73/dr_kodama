@@ -357,32 +357,20 @@ Tap to rotate it counter-clockwise:
                                     <action selector="levelSliderMoved:" destination="yOc-6N-67v" eventType="valueChanged" id="1at-TA-Nym"/>
                                 </connections>
                             </slider>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6O8-uF-YuM">
-                                <rect key="frame" x="186" y="215" width="51" height="31"/>
-                                <connections>
-                                    <action selector="bgSwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="Bqd-fq-mZe"/>
-                                </connections>
-                            </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uX8-Am-Xix">
-                                <rect key="frame" x="186" y="275.5" width="51" height="31"/>
+                                <rect key="frame" x="186" y="188" width="51" height="31"/>
                                 <connections>
                                     <action selector="numColorsSwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="Zev-Gn-qhp"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="show next piece:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQL-DH-YgL">
-                                <rect key="frame" x="-8.5" y="341" width="152" height="24"/>
+                                <rect key="frame" x="17" y="252" width="152" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.87209990530303028" green="0.091673802129981746" blue="0.66055502036334024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="# of colors: 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayU-iS-LSk">
-                                <rect key="frame" x="20" y="280" width="101" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="0.87209990530303028" green="0.091673802129981746" blue="0.66055502036334024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="show background:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMd-JF-joh">
-                                <rect key="frame" x="-10" y="220" width="166" height="24"/>
+                                <rect key="frame" x="17" y="193" width="101" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.87209990530303028" green="0.091673802129981746" blue="0.66055502036334024" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -416,30 +404,20 @@ Tap to rotate it counter-clockwise:
                                 <color key="textColor" red="0.9755958017676768" green="0.9755958017676768" blue="0.9755958017676768" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0z-LO-0i3">
-                                <rect key="frame" x="172" y="17" width="88" height="42"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <state key="normal" title="START!">
-                                    <color key="titleColor" red="0.13645239875045109" green="0.97411616161616166" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapStart:" destination="yOc-6N-67v" eventType="touchUpInside" id="2lI-3B-F3u"/>
-                                </connections>
-                            </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TPW-oI-20y">
-                                <rect key="frame" x="186" y="336" width="51" height="31"/>
+                                <rect key="frame" x="186" y="252" width="51" height="31"/>
                                 <connections>
                                     <action selector="nextPieceSwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="12Q-nU-pO9"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="angry kodama" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Wh-uJc">
-                                <rect key="frame" x="4" y="394" width="152" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="angry kodama:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Wh-uJc">
+                                <rect key="frame" x="17" y="311" width="152" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.87209990530000003" green="0.091673802129999996" blue="0.66055502040000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sDW-NS-Bb7">
-                                <rect key="frame" x="192" y="394" width="51" height="31"/>
+                                <rect key="frame" x="186" y="311" width="51" height="31"/>
                                 <connections>
                                     <action selector="angrySwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="jFL-zE-ByA"/>
                                     <action selector="nextPieceSwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="AyO-cD-s4x"/>
@@ -460,20 +438,30 @@ Tap to rotate it counter-clockwise:
                                 <color key="textColor" red="0.98263888889999995" green="0.98263888889999995" blue="0.98263888889999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0z-LO-0i3">
+                                <rect key="frame" x="168" y="378" width="88" height="42"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <state key="normal" title="START!">
+                                    <color key="titleColor" red="0.13645239875045109" green="0.97411616161616166" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapStart:" destination="yOc-6N-67v" eventType="touchUpInside" id="2lI-3B-F3u"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="vQL-DH-YgL" firstAttribute="top" secondItem="ayU-iS-LSk" secondAttribute="bottom" constant="40" id="0ZL-XQ-PRf"/>
-                            <constraint firstItem="N0z-LO-0i3" firstAttribute="centerY" secondItem="Doc-yd-z96" secondAttribute="centerY" id="0eb-YP-1xT"/>
-                            <constraint firstItem="rMd-JF-joh" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="3WF-E8-zbr"/>
+                            <constraint firstItem="vQL-DH-YgL" firstAttribute="top" secondItem="ayU-iS-LSk" secondAttribute="bottom" constant="25" id="0ZL-XQ-PRf"/>
+                            <constraint firstItem="ayU-iS-LSk" firstAttribute="top" secondItem="3Ul-lu-SaJ" secondAttribute="bottom" constant="25" id="4Ym-KW-zCm"/>
                             <constraint firstItem="kRa-wh-pG5" firstAttribute="top" secondItem="IdS-7d-PHO" secondAttribute="top" id="4jW-Sq-8RL"/>
                             <constraint firstItem="kRa-wh-pG5" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" id="56J-qg-WaG"/>
-                            <constraint firstItem="3Ul-lu-SaJ" firstAttribute="top" secondItem="FPJ-mQ-04m" secondAttribute="bottom" constant="40" id="7bf-si-KiN"/>
-                            <constraint firstItem="TPW-oI-20y" firstAttribute="leading" secondItem="6O8-uF-YuM" secondAttribute="leading" id="7z5-Cg-6Tf"/>
+                            <constraint firstItem="N0z-LO-0i3" firstAttribute="top" secondItem="sDW-NS-Bb7" secondAttribute="bottom" constant="20" id="5Wp-6M-nbg"/>
+                            <constraint firstItem="zd7-Wh-uJc" firstAttribute="top" secondItem="vQL-DH-YgL" secondAttribute="bottom" constant="25" id="7W4-1s-TKG"/>
+                            <constraint firstItem="3Ul-lu-SaJ" firstAttribute="top" secondItem="FPJ-mQ-04m" secondAttribute="bottom" constant="25" id="7bf-si-KiN"/>
+                            <constraint firstItem="sDW-NS-Bb7" firstAttribute="leading" secondItem="TPW-oI-20y" secondAttribute="leading" id="90W-9b-Yrh"/>
                             <constraint firstItem="Doc-yd-z96" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="C24-hd-TYM"/>
-                            <constraint firstItem="FPJ-mQ-04m" firstAttribute="top" secondItem="Doc-yd-z96" secondAttribute="bottom" constant="35" id="C7N-3C-Z9P"/>
+                            <constraint firstItem="FPJ-mQ-04m" firstAttribute="top" secondItem="Doc-yd-z96" secondAttribute="bottom" constant="20" id="C7N-3C-Z9P"/>
                             <constraint firstItem="pLF-X9-FCv" firstAttribute="leading" secondItem="1UH-je-Kev" secondAttribute="trailing" constant="20" id="Db4-q7-Rs3"/>
-                            <constraint firstItem="ayU-iS-LSk" firstAttribute="top" secondItem="rMd-JF-joh" secondAttribute="bottom" constant="40" id="F5G-2c-u6Z"/>
                             <constraint firstItem="3Ul-lu-SaJ" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="G6P-wu-Zd7"/>
                             <constraint firstItem="1UH-je-Kev" firstAttribute="centerY" secondItem="pLF-X9-FCv" secondAttribute="centerY" id="HTG-EP-8H0"/>
                             <constraint firstItem="TPW-oI-20y" firstAttribute="centerY" secondItem="vQL-DH-YgL" secondAttribute="centerY" id="Hsb-bS-xwF"/>
@@ -482,27 +470,23 @@ Tap to rotate it counter-clockwise:
                             <constraint firstItem="FPJ-mQ-04m" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="LK0-ri-wqR"/>
                             <constraint firstAttribute="bottom" secondItem="kRa-wh-pG5" secondAttribute="bottom" id="LR7-Zm-Tq7"/>
                             <constraint firstItem="Doc-yd-z96" firstAttribute="top" secondItem="xFw-Ib-RHr" secondAttribute="bottom" constant="8" symbolic="YES" id="MUt-22-GcO"/>
-                            <constraint firstItem="pLF-X9-FCv" firstAttribute="top" secondItem="sDW-NS-Bb7" secondAttribute="bottom" constant="30" id="Otj-uG-5nN"/>
                             <constraint firstItem="uX8-Am-Xix" firstAttribute="centerY" secondItem="ayU-iS-LSk" secondAttribute="centerY" id="T5S-V0-j0y"/>
                             <constraint firstAttribute="trailing" secondItem="kRa-wh-pG5" secondAttribute="trailing" id="Tlj-Tm-k16"/>
-                            <constraint firstItem="6O8-uF-YuM" firstAttribute="leading" secondItem="rMd-JF-joh" secondAttribute="trailing" constant="30" id="Tog-ay-O5i"/>
-                            <constraint firstItem="rMd-JF-joh" firstAttribute="top" secondItem="3Ul-lu-SaJ" secondAttribute="bottom" constant="40" id="TzE-0M-Ku1"/>
                             <constraint firstItem="ThG-BX-tYK" firstAttribute="centerY" secondItem="3Ul-lu-SaJ" secondAttribute="centerY" id="Vaj-ie-AgF"/>
-                            <constraint firstItem="zd7-Wh-uJc" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="4" id="XVE-EE-yX5"/>
+                            <constraint firstItem="zd7-Wh-uJc" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="17" id="XVE-EE-yX5"/>
+                            <constraint firstItem="pLF-X9-FCv" firstAttribute="top" secondItem="N0z-LO-0i3" secondAttribute="bottom" constant="20" id="YZz-1g-xBp"/>
+                            <constraint firstItem="N0z-LO-0i3" firstAttribute="centerX" secondItem="IdS-7d-PHO" secondAttribute="centerX" id="bpB-ty-F7s"/>
                             <constraint firstItem="iZD-2Z-JcO" firstAttribute="centerY" secondItem="4rr-zb-c46" secondAttribute="centerY" id="fEf-QK-3DX"/>
-                            <constraint firstItem="uX8-Am-Xix" firstAttribute="leading" secondItem="6O8-uF-YuM" secondAttribute="leading" id="fR1-NP-Vu6"/>
-                            <constraint firstItem="N0z-LO-0i3" firstAttribute="leading" secondItem="Doc-yd-z96" secondAttribute="trailing" constant="108" id="fS6-wD-a46"/>
+                            <constraint firstItem="TPW-oI-20y" firstAttribute="leading" secondItem="vQL-DH-YgL" secondAttribute="trailing" constant="15" id="ggP-jM-WaU"/>
                             <constraint firstItem="ayU-iS-LSk" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="gxx-cv-qfK"/>
                             <constraint firstItem="1UH-je-Kev" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="4" id="hk8-uL-MGA"/>
+                            <constraint firstItem="uX8-Am-Xix" firstAttribute="leading" secondItem="TPW-oI-20y" secondAttribute="leading" id="hrG-MZ-QGD"/>
                             <constraint firstItem="ThG-BX-tYK" firstAttribute="leading" secondItem="3Ul-lu-SaJ" secondAttribute="trailing" constant="25" id="ir3-Gc-T41"/>
-                            <constraint firstItem="sDW-NS-Bb7" firstAttribute="top" secondItem="TPW-oI-20y" secondAttribute="bottom" constant="27" id="obM-c7-cmA"/>
-                            <constraint firstItem="sDW-NS-Bb7" firstAttribute="leading" secondItem="zd7-Wh-uJc" secondAttribute="trailing" constant="40" id="rGw-AM-0i4"/>
                             <constraint firstItem="iZD-2Z-JcO" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="4" id="s44-fx-Gnm"/>
                             <constraint firstItem="m0N-Bp-2Cw" firstAttribute="centerY" secondItem="FPJ-mQ-04m" secondAttribute="centerY" id="s5m-3h-NeN"/>
                             <constraint firstItem="zd7-Wh-uJc" firstAttribute="centerY" secondItem="sDW-NS-Bb7" secondAttribute="centerY" id="uzm-Uf-95H"/>
                             <constraint firstItem="4rr-zb-c46" firstAttribute="leading" secondItem="iZD-2Z-JcO" secondAttribute="trailing" constant="20" id="wXQ-vJ-1jr"/>
                             <constraint firstItem="4rr-zb-c46" firstAttribute="top" secondItem="pLF-X9-FCv" secondAttribute="bottom" constant="34" id="xGb-zi-Axc"/>
-                            <constraint firstItem="6O8-uF-YuM" firstAttribute="centerY" secondItem="rMd-JF-joh" secondAttribute="centerY" id="y91-cU-xbS"/>
                         </constraints>
                     </view>
                     <connections>
@@ -510,7 +494,6 @@ Tap to rotate it counter-clockwise:
                         <outlet property="angryLabel" destination="zd7-Wh-uJc" id="Jbh-02-pDJ"/>
                         <outlet property="angryLengthSlider" destination="4rr-zb-c46" id="x2p-Ir-2Qg"/>
                         <outlet property="angrySwitch" destination="sDW-NS-Bb7" id="d7s-Oz-Hmb"/>
-                        <outlet property="bgSwitch" destination="6O8-uF-YuM" id="QUa-0x-L5a"/>
                         <outlet property="intervalLabel" destination="1UH-je-Kev" id="EWf-1p-njF"/>
                         <outlet property="lengthLabel" destination="iZD-2Z-JcO" id="q6Q-mw-hzq"/>
                         <outlet property="levelLabel" destination="3Ul-lu-SaJ" id="Ffa-yw-WR6"/>
@@ -519,7 +502,6 @@ Tap to rotate it counter-clockwise:
                         <outlet property="nextPieceSwitch" destination="TPW-oI-20y" id="g1a-x8-Zdy"/>
                         <outlet property="numColorsLabel" destination="ayU-iS-LSk" id="YqY-ay-vzK"/>
                         <outlet property="numColorsSwitch" destination="uX8-Am-Xix" id="R6F-NL-KxX"/>
-                        <outlet property="showBgLabel" destination="rMd-JF-joh" id="Gz5-cS-jaF"/>
                         <outlet property="speedLabel" destination="FPJ-mQ-04m" id="exX-Dq-AuU"/>
                         <outlet property="speedSlider" destination="m0N-Bp-2Cw" id="8hd-dD-Loj"/>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="gogo" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="7qR-co-OcG"/>
