@@ -106,6 +106,7 @@ class DotGame {
   func beginAnew() {
     if let vc = delegate as? GameViewController {
       vc.setLevelLabel()
+      vc.scene.menuTapped = false
     }
 
     fallingPiece?.removeFromScene()

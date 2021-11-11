@@ -531,6 +531,9 @@ Tap to rotate it counter-clockwise:
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="gtL-3E-gFp"/>
+                    <connections>
+                        <outlet property="view" destination="3se-qz-xqx" id="u0S-fB-HRS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="zxA-l8-ecy">

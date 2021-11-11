@@ -9,6 +9,15 @@
 import UIKit
 import SpriteKit
 
+extension UILabel{
+  func setCharacterSpacing(_ spacing: CGFloat){
+      let attributedStr = NSMutableAttributedString(string: self.text ?? "")
+      attributedStr.addAttribute(NSAttributedString.Key.kern, value: spacing, range: NSMakeRange(0, attributedStr.length))
+      self.attributedText = attributedStr
+   }
+}
+
+
 class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizerDelegate {
   var dotGame:DotGame!
   var scene: GameScene!
@@ -17,13 +26,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   var panDistance: CGFloat?
   var sheetShown = false
 
-  @IBAction func didTap(_ sender: UITapGestureRecognizer) {
-    if !scene.menuTapped && CanMovePiece {
-      dotGame.rotatePiece()
-      scene.menuTapped = false
-    }
-  }
-
+  @IBOutlet var viewy: SKView!
+  
   @IBAction func swipeUp(_ sender: UISwipeGestureRecognizer) {
     dotGame.dropPiece()
   }
@@ -38,6 +42,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
     let newGame = UIAlertAction(title: "New Game", style: .default, handler: { action in
       self.sheetShown = false
+      self.scene.stopTicking()
       self.dotGame.beginAnew()
     })
     
@@ -81,6 +86,66 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     self.dotGame.delegate = nil
     self.dotGame = nil
     self.dismiss(animated: true, completion: nil)
+  }
+  
+  @IBAction func didTap(_ sender: UITapGestureRecognizer) {
+    if CanMovePiece {
+      dotGame.rotatePiece()
+    }
+  }
+  
+  @objc func buttonAction(_ sender:UIButton!) {
+    if CanMovePiece {
+      self.scene.menuTapped = true
+      self.scene.stopTicking()
+      self.showSheet("You rang?", showCancel: true)
+      self.scene.stopTicking()
+    }
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+//    let offset = iPad ? 20 : 2
+    let x = self.scene.frame.maxX - (BlockSize * 4)
+    var y = extraYSpace - (BlockSize * 2) //self.scene.frame.maxY + (BlockSize * 4)
+    
+//    print("x,y: \(x),\(y)")
+    let offset = iPad ? 20 : 2
+    y = y + CGFloat(offset)
+
+    let myButton = UIButton(type: .system)
+    if iPad {
+      myButton.frame = CGRect(x: x, y: y, width: 201, height: 70)
+    } else {
+      myButton.frame = CGRect(x: x, y: y, width: 120, height: 70)
+    }
+    
+    myButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
+    
+    
+    myButton.setTitle("MENU", for: .normal)
+    myButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+    myButton.titleLabel?.setCharacterSpacing(4)
+//    myButton.layer.borderWidth = 1
+    self.view?.addSubview(myButton)
+
+    
+//    if #available(iOS 15.0, *) {
+//
+//
+//      var conf = self.menuButton.configuration
+//
+//      conf?.buttonSize = .small
+//    }
+
+    
+//    self.menuButton.zPosition = 5
+//    if iPad {
+//      self.menuButton.size = CGSize(width: 201, height: 65)
+//    } else {
+//      self.menuButton.size = CGSize(width: 123, height: 40)
+//    }
   }
   
   @IBAction func didPan(_ sender: UIPanGestureRecognizer) {
@@ -275,7 +340,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           } else {
             newPiece()
           }
-          
         } else if angryIntervalCountdown == 0 && NeedAngryDot {
           let angryDot = self.dotGame.madDots.first(where: { $0.angry })
           if angryDot == nil && self.dotGame.madDots.count > 0 {

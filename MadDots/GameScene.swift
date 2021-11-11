@@ -55,28 +55,29 @@ class GameScene: SKScene {
       setupBackground()
     }
     
+    print("drawGrid")
     drawGrid()
     dotLayer.position = LayerPosition
     self.addChild(dotLayer)
     
     let y = self.frame.maxY - (extraYSpace - BlockSize)
     
-    menuBtn = SKSpriteNode(imageNamed: "menubtn")
-    
-    if let menuBtn = menuBtn {
-      menuBtn.name = "menu"
-
-      menuBtn.zPosition = 5
-      if iPad {
-        menuBtn.size = CGSize(width: 201, height: 65)
-      } else {
-        menuBtn.size = CGSize(width: 123, height: 40)
-      }
-
-      let offset = iPad ? 20 : 2
-      menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 2), y: y - CGFloat(offset))
-      self.addChild(menuBtn)
-    }
+//    menuBtn = SKSpriteNode(imageNamed: "menubtn")
+//    
+//    if let menuBtn = menuBtn {
+//      menuBtn.name = "menu"
+//
+//      menuBtn.zPosition = 5
+//      if iPad {
+//        menuBtn.size = CGSize(width: 201, height: 65)
+//      } else {
+//        menuBtn.size = CGSize(width: 123, height: 40)
+//      }
+//
+//      let offset = iPad ? 20 : 2
+//      menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 2), y: y - CGFloat(offset))
+//      self.addChild(menuBtn)
+//    }
     
     levelLabelSetter()
     if AngryKodama {
@@ -90,7 +91,6 @@ class GameScene: SKScene {
     
     speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
     self.addChild(speedLabel)
-    
     
     if points == nil {
       points = createPoints()
@@ -153,21 +153,21 @@ class GameScene: SKScene {
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    if let t = touches.first {
-      let loc = t.location(in: self)
-      let node = self.atPoint(loc)
-      if CanMovePiece && node.name == "menu" {
-        menuTapped = true
-        if let c = ctrl {
-          stopTicking()
-          c.showSheet("You rang?", showCancel: true)
-          stopTicking()
-        }
-      } else {
-        menuTapped = false
-      }
-      
-    }
+//    if let t = touches.first {
+//      let loc = t.location(in: self)
+//      let node = self.atPoint(loc)
+//      if CanMovePiece && node.name == "menu" {
+//        menuTapped = true
+//        if let c = ctrl {
+//          stopTicking()
+//          c.showSheet("You rang?", showCancel: true)
+//          stopTicking()
+//        }
+//      } else {
+//        menuTapped = false
+//      }
+//
+//    }
   }
 
   func pointForColumn(_ column: Int, row: Int) -> CGPoint {
@@ -209,6 +209,7 @@ class GameScene: SKScene {
   
   func resumeGame() {
     CanMovePiece = true
+    menuTapped = false
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
   
