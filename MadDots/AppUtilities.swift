@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 func findTopRow(dots: Array<MadDot>) -> Int {
   var topRow = NumRows
@@ -51,6 +52,29 @@ func findRandomTopDot(dots: Array<MadDot>) -> MadDot {
     
   return topDots[num]
 }
+
+//func dotColorToUIColor(color: DotColor) -> UIColor {
+//  switch color {
+//  case .red.spriteName:
+//    return UIColor(hex: "#BB0C0C")!
+//  case .blue:
+//    return UIColor(hex: "#3880E1")!
+//  case .yellow:
+//    return UIColor(hex: "#EFEF19")!
+//  case .green:
+//    return UIColor(hex: "#63B237")!
+//  case .orange:
+//    return UIColor(hex: "#FFB01E")!
+//  }
+//}
+
+let colormap = [
+  "red": UIColor(red: 187/255, green: 12/255, blue: 12/255, alpha: 1),
+  "blue": UIColor(red: 56/255, green: 128/255, blue: 225/255, alpha: 1),
+  "orange": UIColor(red: 1, green: 176/255, blue: 30/255, alpha: 1),
+  "green": UIColor(red: 99/255, green: 178/255, blue: 55/255, alpha: 1),
+  "yellow": UIColor(red: 239/255, green: 239/255, blue: 25/255, alpha: 1),
+]
 
 func findRealRandomTopDot(dots: Array<MadDot>, dotArray: DotArray2D) -> MadDot {
   let zeroOrOne = randomNum(0, max: 2)

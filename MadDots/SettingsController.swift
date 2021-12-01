@@ -113,11 +113,11 @@ class SettingsController: UIViewController {
   }
   
   func updateLabels() {
-    self.speedLabel.text = "Speed: \(GameSpeed)"
+//    self.speedLabel.text = "Speed: \(GameSpeed)"
     self.levelLabel.text = "Level: \(GameLevel)"
     self.numColorsLabel.text = "# of colors: \(NumberOfColors)"
-    self.lengthLabel.text = "L: \(AngryLengthDefault)"
-    self.intervalLabel.text = "I: \(AngryIntervalDefault)"
+//    self.lengthLabel.text = "L: \(AngryLengthDefault)"
+//    self.intervalLabel.text = "I: \(AngryIntervalDefault)"
   }
   
   func handleNextPiece() {

@@ -142,7 +142,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let skView = self.view as! SKView
 //    skView.showsFPS = true
 //    skView.showsNodeCount = true
-    skView.showsDrawCount = true
+//    skView.showsDrawCount = true
     skView.isMultipleTouchEnabled = false
     
     /* Sprite Kit applies additional optimizations to improve rendering performance */
@@ -267,11 +267,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
             
             let result = dropFallenDots(dotGame.dotArray)
 
-            delay(1) {
-              self.scene.dropDots(result, completion: {
-                self.gamePieceDidLand(dotGame)
-              })
-            }
+            self.scene.dropDots(result, completion: {
+              self.gamePieceDidLand(dotGame)
+            })
           } else {
             newPiece()
           }
@@ -283,9 +281,10 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
             dot.angry = true
             dot.sprite?.removeFromParent()
             self.scene.addAngryDotToScene(dot)
-            delay(0.5) {
-              self.newPiece()
-            }
+//            let color = colormap[dot.color.spriteName]!
+//            self.drawRectOverSquare(col: dot.column, row: dot.row, color: color )
+            
+            self.newPiece()
           } else {
             newPiece()
           }
@@ -326,6 +325,26 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     }
   }
   
+  func drawRectOverSquare(col: Int, row: Int, color: UIColor) {
+    let shape = SKShapeNode()
+//    let point = points![col, row]!.point
+    let x = (BlockSize * CGFloat(col)) + BlockSize
+    let y = extraYSpace + (BlockSize * CGFloat(row))
+    print("point: \(x),\(-y)")
+    shape.path = UIBezierPath(rect: CGRect(x: x + 1, y: -(y - 0.2), width: BlockSize, height: BlockSize)).cgPath
+//    shape.position = CGPoint(x: -point.x, y: -point.y)
+//    shape.fillColor = UIColor.red
+    shape.strokeColor = color
+    shape.lineWidth = 3
+    shape.zPosition = 99
+    self.scene.addChild(shape)
+    
+    delay(3.5, closure: { shape.removeFromParent()})
+    
+//    let action = SKAction.fadeOut(withDuration: 5)
+//    shape.run(action)
+  }
+  
   func gameDidBegin(_ dotGame: DotGame) {
     if scene.tick == nil {
       scene.tick = didTick
@@ -344,9 +363,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     angryIntervalCountdown = AngryIntervalDefault
     
     self.scene.addMadDotsToScene(dotGame.madDots)
-    if AngryKodama {
-      self.scene.counterLabelSetter()
-    }
+//    if AngryKodama {
+//      self.scene.counterLabelSetter()
+//    }
     
     delay(0.5) {
       self.scene.addPieceToScene(dotGame.fallingPiece!) {

@@ -14,9 +14,9 @@ let DrawnRows = NumRows - 2
 let StartingColumn = 3
 let StartingRow = 1
 var CanMovePiece = false
-var AngryLengthDefault = 5
+var AngryLengthDefault = 25
 var angryLengthCountdown = AngryLengthDefault
-var AngryIntervalDefault = 5
+var AngryIntervalDefault = 20
 var angryIntervalCountdown = AngryIntervalDefault
 var NeedAngryDot = AngryKodama
 

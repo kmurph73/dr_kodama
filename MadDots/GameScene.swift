@@ -79,17 +79,17 @@ class GameScene: SKScene {
     }
     
     levelLabelSetter()
-    if AngryKodama {
-      counterLabelSetter()
-    }
+//    if AngryKodama {
+//      counterLabelSetter()
+//    }
 
-    let speedLabel = SKLabelNode(fontNamed: "Arial")
-    speedLabel.text = "Speed \(GameSpeed)"
-    speedLabel.fontSize = 13
-    speedLabel.zPosition = 5
-    
-    speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
-    self.addChild(speedLabel)
+//    let speedLabel = SKLabelNode(fontNamed: "Arial")
+//    speedLabel.text = "Speed \(GameSpeed)"
+//    speedLabel.fontSize = 13
+//    speedLabel.zPosition = 5
+//
+//    speedLabel.position = CGPoint(x: self.frame.midX - 80, y: y)
+//    self.addChild(speedLabel)
     
     
     if points == nil {
@@ -328,7 +328,6 @@ class GameScene: SKScene {
   }
     
   func addAngryDotToScene(_ dot: Dot) {
-    
     let atlas = SKTextureAtlas(named: "AngryKodama")
     let f1 = atlas.textureNamed("angry_\(dot.color.description)_kodama1")
     let f2 = atlas.textureNamed("angry_\(dot.color.description)_kodama2")
