@@ -27,7 +27,10 @@ class SettingsController: UIViewController {
   @IBOutlet weak var angrySwitch: UISwitch!
   @IBOutlet weak var angryLengthSlider: UISlider!
   @IBOutlet weak var angryIntervalSlider: UISlider!
-  
+    
+  @IBAction func tapHuh(_ sender: UIButton) {
+    self.performSegue(withIdentifier: "aboutAngry", sender: self)
+  }
   
   @IBAction func tapCancel(_ sender: UIButton) {
     self.dismiss(animated: true, completion: nil)

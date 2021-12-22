@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lig-pX-0ps">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lig-pX-0ps">
     <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -315,7 +316,7 @@ Tap to rotate it counter-clockwise:
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="iphonebg2" translatesAutoresizingMaskIntoConstraints="NO" id="kRa-wh-pG5">
-                                <rect key="frame" x="-35" y="-42" width="750" height="1408"/>
+                                <rect key="frame" x="-220" y="28" width="750" height="1408"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level: 18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oo8-rV-ha8">
                                 <rect key="frame" x="-25" y="-32" width="67" height="20.5"/>
@@ -442,21 +443,32 @@ Tap to rotate it counter-clockwise:
                                 <rect key="frame" x="168" y="378" width="88" height="42"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="START!">
-                                    <color key="titleColor" red="0.13645239875045109" green="0.97411616161616166" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.46274507050000002" green="0.96078431610000004" blue="0.2941176593" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="tapStart:" destination="yOc-6N-67v" eventType="touchUpInside" id="2lI-3B-F3u"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hd7-6T-ttm">
+                                <rect key="frame" x="269" y="309" width="77" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="¿huh?">
+                                    <color key="titleColor" red="0.46274507050000002" green="0.96078431610000004" blue="0.2941176593" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapHuh:" destination="yOc-6N-67v" eventType="touchUpInside" id="6Ep-j4-oHq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="vQL-DH-YgL" firstAttribute="top" secondItem="ayU-iS-LSk" secondAttribute="bottom" constant="25" id="0ZL-XQ-PRf"/>
+                            <constraint firstItem="vQL-DH-YgL" firstAttribute="top" secondItem="ayU-iS-LSk" secondAttribute="bottom" constant="30" id="0ZL-XQ-PRf"/>
                             <constraint firstItem="ayU-iS-LSk" firstAttribute="top" secondItem="3Ul-lu-SaJ" secondAttribute="bottom" constant="40" id="4Ym-KW-zCm"/>
                             <constraint firstItem="kRa-wh-pG5" firstAttribute="top" secondItem="IdS-7d-PHO" secondAttribute="top" id="4jW-Sq-8RL"/>
                             <constraint firstItem="kRa-wh-pG5" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" id="56J-qg-WaG"/>
-                            <constraint firstItem="N0z-LO-0i3" firstAttribute="top" secondItem="sDW-NS-Bb7" secondAttribute="bottom" constant="20" id="5Wp-6M-nbg"/>
-                            <constraint firstItem="zd7-Wh-uJc" firstAttribute="top" secondItem="vQL-DH-YgL" secondAttribute="bottom" constant="25" id="7W4-1s-TKG"/>
+                            <constraint firstItem="N0z-LO-0i3" firstAttribute="top" secondItem="sDW-NS-Bb7" secondAttribute="bottom" constant="25" id="5Wp-6M-nbg"/>
+                            <constraint firstItem="zd7-Wh-uJc" firstAttribute="top" secondItem="vQL-DH-YgL" secondAttribute="bottom" constant="30" id="7W4-1s-TKG"/>
                             <constraint firstItem="3Ul-lu-SaJ" firstAttribute="top" secondItem="FPJ-mQ-04m" secondAttribute="bottom" constant="25" id="7bf-si-KiN"/>
                             <constraint firstItem="sDW-NS-Bb7" firstAttribute="leading" secondItem="TPW-oI-20y" secondAttribute="leading" id="90W-9b-Yrh"/>
                             <constraint firstItem="Doc-yd-z96" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="C24-hd-TYM"/>
@@ -477,11 +489,13 @@ Tap to rotate it counter-clockwise:
                             <constraint firstItem="pLF-X9-FCv" firstAttribute="top" secondItem="N0z-LO-0i3" secondAttribute="bottom" constant="20" id="YZz-1g-xBp"/>
                             <constraint firstItem="N0z-LO-0i3" firstAttribute="centerX" secondItem="IdS-7d-PHO" secondAttribute="centerX" id="bpB-ty-F7s"/>
                             <constraint firstItem="iZD-2Z-JcO" firstAttribute="centerY" secondItem="4rr-zb-c46" secondAttribute="centerY" id="fEf-QK-3DX"/>
+                            <constraint firstItem="hd7-6T-ttm" firstAttribute="centerY" secondItem="sDW-NS-Bb7" secondAttribute="centerY" id="fSw-30-wqQ"/>
                             <constraint firstItem="TPW-oI-20y" firstAttribute="leading" secondItem="vQL-DH-YgL" secondAttribute="trailing" constant="15" id="ggP-jM-WaU"/>
                             <constraint firstItem="ayU-iS-LSk" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="20" symbolic="YES" id="gxx-cv-qfK"/>
                             <constraint firstItem="1UH-je-Kev" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="4" id="hk8-uL-MGA"/>
                             <constraint firstItem="uX8-Am-Xix" firstAttribute="leading" secondItem="TPW-oI-20y" secondAttribute="leading" id="hrG-MZ-QGD"/>
                             <constraint firstItem="ThG-BX-tYK" firstAttribute="leading" secondItem="3Ul-lu-SaJ" secondAttribute="trailing" constant="25" id="ir3-Gc-T41"/>
+                            <constraint firstItem="hd7-6T-ttm" firstAttribute="leading" secondItem="sDW-NS-Bb7" secondAttribute="trailing" constant="25" id="pkt-Rd-0Mq"/>
                             <constraint firstItem="iZD-2Z-JcO" firstAttribute="leading" secondItem="IdS-7d-PHO" secondAttribute="leading" constant="4" id="s44-fx-Gnm"/>
                             <constraint firstItem="m0N-Bp-2Cw" firstAttribute="centerY" secondItem="FPJ-mQ-04m" secondAttribute="centerY" id="s5m-3h-NeN"/>
                             <constraint firstItem="zd7-Wh-uJc" firstAttribute="centerY" secondItem="sDW-NS-Bb7" secondAttribute="centerY" id="uzm-Uf-95H"/>
@@ -505,6 +519,7 @@ Tap to rotate it counter-clockwise:
                         <outlet property="speedLabel" destination="FPJ-mQ-04m" id="exX-Dq-AuU"/>
                         <outlet property="speedSlider" destination="m0N-Bp-2Cw" id="8hd-dD-Loj"/>
                         <segue destination="BV1-FR-VrT" kind="presentation" identifier="gogo" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="7qR-co-OcG"/>
+                        <segue destination="Tkc-r6-osL" kind="presentation" identifier="aboutAngry" id="uaB-dA-b7F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IkH-Fn-4Fd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -552,8 +567,90 @@ Tap to rotate it counter-clockwise:
             </objects>
             <point key="canvasLocation" x="1193" y="259"/>
         </scene>
+        <!--About Angry View Controller-->
+        <scene sceneID="Ar8-VP-t2n">
+            <objects>
+                <viewController id="Tkc-r6-osL" customClass="AboutAngryViewController" customModule="Dr__Kodama" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3YQ-Ky-rdH"/>
+                        <viewControllerLayoutGuide type="bottom" id="77f-LM-0af"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="TopLeft" id="jqu-QV-klX">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="995.5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Angry Kodama" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHd-bS-3US">
+                                <rect key="frame" x="296" y="25.5" width="112" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akF-E4-eDp">
+                                <rect key="frame" x="20" y="20" width="58.5" height="32"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="tintColor"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Done" cornerStyle="medium">
+                                    <backgroundConfiguration key="background"/>
+                                    <color key="baseForegroundColor" systemColor="tintColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="tapDone:" destination="Tkc-r6-osL" eventType="touchUpInside" id="Vrr-FI-rO2"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lNo-VJ-Yrj">
+                                <rect key="frame" x="10" y="229" width="684" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="zV1-mg-MkU"/>
+                                </constraints>
+                                <string key="text">Enabling "angry kodama" will cause a random top Kodama to periodically "get angry."
+
+Once angry, you have a limited amount of time to wipe them out before 2 to 3 random dots are dropped on you!
+
+There's no downside to destroying them as quickly as possible - it won't reset the timer.
+
+Try it out to add a bit of dynamism/difficulty to the game.  Good luck!
+</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="angry_red_kodama_ok" translatesAutoresizingMaskIntoConstraints="NO" id="SH0-7k-FBS">
+                                <rect key="frame" x="292" y="109" width="120" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="pYy-27-vvH"/>
+                                    <constraint firstAttribute="width" constant="70" id="vc4-Lw-x9u"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SH0-7k-FBS" firstAttribute="top" secondItem="uHd-bS-3US" secondAttribute="bottom" constant="20" id="17C-i6-zZ8"/>
+                            <constraint firstItem="uHd-bS-3US" firstAttribute="centerX" secondItem="jqu-QV-klX" secondAttribute="centerX" id="5a5-rg-PXO"/>
+                            <constraint firstItem="lNo-VJ-Yrj" firstAttribute="top" secondItem="SH0-7k-FBS" secondAttribute="bottom" constant="20" id="BXN-z2-6Kh"/>
+                            <constraint firstItem="uHd-bS-3US" firstAttribute="centerY" secondItem="akF-E4-eDp" secondAttribute="centerY" id="E9e-ab-2UL"/>
+                            <constraint firstItem="uHd-bS-3US" firstAttribute="top" secondItem="3YQ-Ky-rdH" secondAttribute="bottom" constant="25.5" id="FGa-Iq-WBh"/>
+                            <constraint firstItem="akF-E4-eDp" firstAttribute="top" secondItem="3YQ-Ky-rdH" secondAttribute="bottom" constant="20" id="QGC-Fu-U3j"/>
+                            <constraint firstAttribute="trailing" secondItem="lNo-VJ-Yrj" secondAttribute="trailing" constant="10" id="UA0-P7-19e"/>
+                            <constraint firstItem="SH0-7k-FBS" firstAttribute="centerX" secondItem="jqu-QV-klX" secondAttribute="centerX" id="abh-cf-GoU"/>
+                            <constraint firstItem="akF-E4-eDp" firstAttribute="leading" secondItem="jqu-QV-klX" secondAttribute="leading" constant="20" id="lx1-ym-cYv"/>
+                            <constraint firstItem="lNo-VJ-Yrj" firstAttribute="centerX" secondItem="jqu-QV-klX" secondAttribute="centerX" id="m2Y-jI-48p"/>
+                            <constraint firstItem="lNo-VJ-Yrj" firstAttribute="leading" secondItem="jqu-QV-klX" secondAttribute="leading" constant="10" id="yKV-cC-BwG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="angryDot" destination="SH0-7k-FBS" id="ZAn-Ji-XTR"/>
+                        <outlet property="textView" destination="lNo-VJ-Yrj" id="WxN-fU-RHP"/>
+                        <outlet property="textViewHeight" destination="zV1-mg-MkU" id="9bo-t0-PwR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aNc-jz-DNZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="925.78124999999989" y="-681.25915080527079"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="angry_red_kodama_ok" width="600" height="600"/>
         <image name="bluedot" width="234" height="234"/>
         <image name="bluedot.png" width="234" height="234"/>
         <image name="fantasyforest" width="474" height="813"/>
@@ -562,5 +659,8 @@ Tap to rotate it counter-clockwise:
         <image name="rotating-arrow" width="626" height="626"/>
         <image name="whitecircle" width="70" height="70"/>
         <image name="whitecircle.png" width="70" height="70"/>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

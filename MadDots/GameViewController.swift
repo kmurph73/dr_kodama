@@ -154,8 +154,15 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     scene.scaleMode = .aspectFill
     scene.tick = didTick
     scene.count = didCount
+    
+    let cutoff = 41.0
 
-    panDistance = BlockSize * 0.45
+    if BlockSize > cutoff {
+      panDistance = BlockSize * 0.45
+    } else {
+      panDistance = cutoff * 0.45
+    }
+    
     
     dotGame = DotGame()
     dotGame.delegate = self
@@ -265,11 +272,13 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
               scene.addDotToScene(dot, completion: nil)
             }
             
-            let result = dropFallenDots(dotGame.dotArray)
+            delay(1) {
+              let result = dropFallenDots(dotGame.dotArray)
 
-            self.scene.dropDots(result, completion: {
-              self.gamePieceDidLand(dotGame)
-            })
+              self.scene.dropDots(result, completion: {
+                self.gamePieceDidLand(dotGame)
+              })
+            }
           } else {
             newPiece()
           }
