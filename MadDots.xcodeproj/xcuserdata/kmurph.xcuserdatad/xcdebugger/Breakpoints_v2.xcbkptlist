@@ -15,10 +15,10 @@
             timestampString = "528691105.512431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
-            landmarkName = "gameDidBegin(_:)"
-            landmarkType = "7">
+            startingLineNumber = "443"
+            endingLineNumber = "443"
+            landmarkName = "GameViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -32,10 +32,8 @@
             timestampString = "528691105.512494"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "346"
-            endingLineNumber = "346"
-            landmarkName = "didReceiveMemoryWarning()"
-            landmarkType = "7">
+            startingLineNumber = "477"
+            endingLineNumber = "477">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -49,10 +47,10 @@
             timestampString = "528691105.512545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "pointForSide(_:column:row:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -66,8 +64,8 @@
             timestampString = "528691105.512595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "settlePiece()"
             landmarkType = "7">
          </BreakpointContent>
@@ -83,8 +81,8 @@
             timestampString = "528691105.513083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "removeCompletedDots()"
             landmarkType = "7">
          </BreakpointContent>
@@ -117,8 +115,8 @@
             timestampString = "528691105.513498"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "removeCompletedDots()"
             landmarkType = "7">
          </BreakpointContent>
@@ -151,8 +149,8 @@
             timestampString = "528691105.513848"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "removeCompletedDots()"
             landmarkType = "7">
          </BreakpointContent>
@@ -168,10 +166,10 @@
             timestampString = "528691105.514174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "315"
+            endingLineNumber = "315"
+            landmarkName = "addPieceToScene(_:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -304,9 +302,9 @@
             timestampString = "528691105.51433"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "gamePieceDidLand(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -338,9 +336,9 @@
             timestampString = "528691105.514384"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
-            landmarkName = "gamePieceDidLand(_:)"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
+            landmarkName = "gamePieceDidMove(_:duration:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -440,8 +438,10 @@
             timestampString = "528691105.514547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "413"
-            endingLineNumber = "413">
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "drawGrid()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -472,9 +472,9 @@
             timestampString = "528691105.514598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
-            landmarkName = "gamePieceDidLand(_:)"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "newPiece()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -489,9 +489,9 @@
             timestampString = "528691105.514635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
-            landmarkName = "gamePieceDidLand(_:)"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
+            landmarkName = "gameDidBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -506,8 +506,8 @@
             timestampString = "528691105.51467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "removeCompletedDots()"
             landmarkType = "7">
             <Locations>
@@ -591,9 +591,9 @@
             timestampString = "528691105.51507"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
-            landmarkName = "gamePieceDidLand(_:)"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "didTick()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -642,9 +642,9 @@
             timestampString = "528691105.515105"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "gamePieceDidLand(_:)"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
+            landmarkName = "gameDidBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -659,9 +659,9 @@
             timestampString = "528691105.51514"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "beatLevelAlert()"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "gamePieceDidLand(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -676,8 +676,8 @@
             timestampString = "528691105.515174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "settlePiece()"
             landmarkType = "7">
          </BreakpointContent>
@@ -693,8 +693,8 @@
             timestampString = "528691105.515482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "settlePiece()"
             landmarkType = "7">
          </BreakpointContent>
@@ -710,8 +710,8 @@
             timestampString = "528691105.515779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "settlePiece()"
             landmarkType = "7">
          </BreakpointContent>
@@ -727,8 +727,8 @@
             timestampString = "528691105.516078"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "dropPiece()"
             landmarkType = "7">
          </BreakpointContent>
@@ -744,10 +744,8 @@
             timestampString = "528691105.516373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
-            landmarkName = "GameViewController"
-            landmarkType = "3">
+            startingLineNumber = "481"
+            endingLineNumber = "481">
             <Locations>
                <Location
                   uuid = "684C7F71-2272-4B71-8068-CEDDE9CAE26A - 732b7883bcbf4b09"
@@ -795,8 +793,8 @@
             timestampString = "528691105.516413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "removeCompletedDots()"
             landmarkType = "7">
          </BreakpointContent>
@@ -812,8 +810,8 @@
             timestampString = "528691105.516715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "removeCompletedDots()"
             landmarkType = "7">
          </BreakpointContent>
@@ -829,8 +827,8 @@
             timestampString = "528691105.517016"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "dropPiece()"
             landmarkType = "7">
             <Locations>
@@ -880,10 +878,10 @@
             timestampString = "528691105.51732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "makeRandomLevel(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1011,10 +1009,10 @@
             timestampString = "528691105.517471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "425"
+            endingLineNumber = "425"
+            landmarkName = "redrawPiece(_:duration:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1032,6 +1030,38 @@
             endingLineNumber = "215"
             landmarkName = "testBug()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "69B52106-6AF1-4159-8A7D-AC835E63BA3B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MadDots/HelpViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F80F7061-0AD9-4A45-AD1B-8C409096DA0E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MadDots/AppUtilities.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

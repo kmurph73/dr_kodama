@@ -74,6 +74,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   func backToMenu() {
     self.scene.ctrl = nil
     self.scene.tick = nil
+    self.scene.count = nil
     self.scene.stopTicking()
     self.scene = nil
     
@@ -152,7 +153,16 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     scene.ctrl = self
     scene.scaleMode = .aspectFill
     scene.tick = didTick
-    panDistance = BlockSize * 0.45
+    scene.count = didCount
+    
+    let cutoff = 38.0
+
+    if BlockSize > cutoff {
+      panDistance = BlockSize * 0.45
+    } else {
+      panDistance = cutoff * 0.45
+    }
+    
     
     dotGame = DotGame()
     dotGame.delegate = self
@@ -176,6 +186,10 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   
   func gameDidEnd(_ dotGame: DotGame) {
     scene.tick = nil
+    scene.count = nil
+    scene.stopCounting()
+    CanMovePiece = false
+
     let msg = "You blew it!"
     showSheet(msg, showCancel: false)
   }
@@ -184,6 +198,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     let msg = "Congrats! You beat level \(GameLevel)"
     let style: UIAlertController.Style = iPad ? .alert : .actionSheet
     let alertController = UIAlertController(title: nil, message: msg, preferredStyle: style)
+    
+    scene.stopCounting()
     
     let nextLevel = UIAlertAction(title: "Play next level", style: .default, handler: { action in
       GameLevel += 1
@@ -199,6 +215,13 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     alertController.addAction(menu)
     
     self.present(alertController, animated:true, completion: nil)
+  }
+  
+  func resetAngry() {
+    NeedAngryDot = true
+    angryIntervalCountdown = AngryIntervalDefault
+    angryLengthCountdown = AngryLengthDefault
+    scene.counterLabel?.text = "\(angryIntervalCountdown)/\(angryLengthCountdown)"
   }
   
   func gamePieceDidLand(_ dotGame: DotGame) {
@@ -233,12 +256,50 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         }
       }
     } else {
-
       if dotGame.dotArray.hasDotsAboveGrid() {
         gameDidEnd(dotGame)
       } else {
         dotGame.fallingPiece = nil
-        newPiece()
+        
+        if angryLengthCountdown == 0 {
+          resetAngry()
+          
+          if let angryDot = self.dotGame.madDots.first(where: { $0.angry }) {
+            scene.pacifyDot(angryDot, completion: nil)
+    
+            let dots = dotGame.addThreeRandomThreeDots()
+            for dot in dots {
+              scene.addDotToScene(dot, completion: nil)
+            }
+            
+            delay(1) {
+              let result = dropFallenDots(dotGame.dotArray)
+
+              self.scene.dropDots(result, completion: {
+                self.gamePieceDidLand(dotGame)
+              })
+            }
+          } else {
+            newPiece()
+          }
+          
+        } else if angryIntervalCountdown == 0 && NeedAngryDot {
+          let angryDot = self.dotGame.madDots.first(where: { $0.angry })
+          if angryDot == nil && self.dotGame.madDots.count > 0 {
+            let dot = findRealRandomTopDot(dots: self.dotGame.madDots, dotArray: self.dotGame.dotArray)
+            dot.angry = true
+            dot.sprite?.removeFromParent()
+            self.scene.addAngryDotToScene(dot)
+//            let color = colormap[dot.color.spriteName]!
+//            self.drawRectOverSquare(col: dot.column, row: dot.row, color: color )
+            
+            self.newPiece()
+          } else {
+            newPiece()
+          }
+        } else {
+          newPiece()
+        }
       }
 
     }
@@ -273,14 +334,47 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     }
   }
   
+  func drawRectOverSquare(col: Int, row: Int, color: UIColor) {
+    let shape = SKShapeNode()
+//    let point = points![col, row]!.point
+    let x = (BlockSize * CGFloat(col)) + BlockSize
+    let y = extraYSpace + (BlockSize * CGFloat(row))
+    print("point: \(x),\(-y)")
+    shape.path = UIBezierPath(rect: CGRect(x: x + 1, y: -(y - 0.2), width: BlockSize, height: BlockSize)).cgPath
+//    shape.position = CGPoint(x: -point.x, y: -point.y)
+//    shape.fillColor = UIColor.red
+    shape.strokeColor = color
+    shape.lineWidth = 3
+    shape.zPosition = 99
+    self.scene.addChild(shape)
+    
+    delay(3.5, closure: { shape.removeFromParent()})
+    
+//    let action = SKAction.fadeOut(withDuration: 5)
+//    shape.run(action)
+  }
+  
   func gameDidBegin(_ dotGame: DotGame) {
     if scene.tick == nil {
       scene.tick = didTick
     }
     
+    if scene.count == nil && AngryKodama {
+      scene.count = didCount
+    }
+    
+    self.scene.stopTicking()
+    self.scene.stopCounting()
+    
     CanMovePiece = true
     
+    angryLengthCountdown = AngryLengthDefault
+    angryIntervalCountdown = AngryIntervalDefault
+    
     self.scene.addMadDotsToScene(dotGame.madDots)
+//    if AngryKodama {
+//      self.scene.counterLabelSetter()
+//    }
     
     delay(0.5) {
       self.scene.addPieceToScene(dotGame.fallingPiece!) {
@@ -292,6 +386,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         }
 
         self.scene.startTicking()
+        self.scene.startCounting()
       }
     }
   }
@@ -310,6 +405,22 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
 
   func didTick() {
     dotGame.lowerPiece()
+  }
+  
+  func didCount() {
+    if !CanMovePiece || angryLengthCountdown == 0 {
+      return
+    }
+    
+    if angryIntervalCountdown == 0 {
+      if !NeedAngryDot {
+        angryLengthCountdown -= 1
+      }
+    } else if angryIntervalCountdown > 0 {
+      angryIntervalCountdown -= 1
+    }
+    
+    scene.counterLabel?.text = "\(angryIntervalCountdown)/\(angryLengthCountdown)"
   }
 
   override func didReceiveMemoryWarning() {

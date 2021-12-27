@@ -21,11 +21,23 @@ func assessState() {
     NumberOfColors = numColors
   }
   
-  if let showBG = UserDefaults.standard.value(forKey: "showBG") as? Bool {
-    ShowBG = showBG
-  }
+//  if let showBG = UserDefaults.standard.value(forKey: "showBG") as? Bool {
+//    ShowBG = showBG
+//  }
   
   if let showNextPiece = UserDefaults.standard.value(forKey: "showNextPiece") as? Bool {
     ShowNextPiece = showNextPiece
   }
+  
+  if let angryKodama = UserDefaults.standard.value(forKey: "angryKodama") as? Bool {
+    AngryKodama = angryKodama
+  }
+  
+//  if let angryIntervalDefault = UserDefaults.standard.value(forKey: "angryIntervalDefault") as? Int {
+//    AngryIntervalDefault = angryIntervalDefault
+//  }
+//
+//  if let angryLengthDefault = UserDefaults.standard.value(forKey: "angryLengthDefault") as? Int {
+//    AngryLengthDefault = angryLengthDefault
+//  }
 }

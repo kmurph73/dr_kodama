@@ -15,7 +15,7 @@ func delay(_ delay:Double, closure:@escaping ()->()) {
 
 func matchesForRegexInText(_ regex: String!, text: String!) -> [String] {
   do {
-    let regex = try NSRegularExpression(pattern: regex, options: [])
+    let regex =  try NSRegularExpression(pattern: regex, options: [])
     let nsString = text as NSString
     let results = regex.matches(in: text, options: [], range: NSMakeRange(0, nsString.length))
     return results.map { nsString.substring(with: $0.range)}

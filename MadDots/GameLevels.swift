@@ -27,10 +27,6 @@ class LevelMaker {
   
   var dotArray: DotArray2D
   
-  func randomNum(_ min: Int, max: Int) -> Int {
-    return Int(arc4random_uniform(UInt32(max))) + min
-  }
-  
   init(dotArray: DotArray2D) {
     self.dotArray = dotArray
     self.madDots = Array<MadDot>()
@@ -158,6 +154,8 @@ class LevelMaker {
         break
       }
     }
+    
+//    self.madDots[0].angry = true
     
     return self.madDots
   }
