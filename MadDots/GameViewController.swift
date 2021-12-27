@@ -155,7 +155,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     scene.tick = didTick
     scene.count = didCount
     
-    let cutoff = 41.0
+    let cutoff = 38.0
 
     if BlockSize > cutoff {
       panDistance = BlockSize * 0.45
