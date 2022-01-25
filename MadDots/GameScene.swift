@@ -73,7 +73,7 @@ class GameScene: SKScene {
         menuBtn.size = CGSize(width: 123, height: 40)
       }
 
-      let offset = iPad ? 20 : 2
+      let offset = iPad ? 20 : 5
       menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 2), y: y - CGFloat(offset))
       self.addChild(menuBtn)
     }
@@ -449,6 +449,10 @@ class GameScene: SKScene {
     let totalCols = NumColumns + 2
     
     let screenSize: CGRect = UIScreen.main.bounds
+    
+    let window = UIApplication.shared.windows.first
+    var topNotchHeight = window!.safeAreaInsets.top
+
     let rowSquare = screenSize.maxY  / CGFloat(totalRows)
     let colSquare = screenSize.maxX / CGFloat(totalCols)
     
@@ -465,7 +469,11 @@ class GameScene: SKScene {
     let centerX = ((squareSize * CGFloat(NumColumns + 1)) + squareSize) / 2
     let centerY = ((squareSize * CGFloat(DrawnRows + 1)) + squareSize) / 2 * -1
     
-    extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
+    if topNotchHeight > 0 {
+      topNotchHeight += 5
+    }
+//    extraYSpace = (self.frame.minY * -1) - colHeight - (squareSize * 2)
+    extraYSpace = squareSize + topNotchHeight
     
     for row in 1..<(totalRows-2) {
       let y = squareSize * CGFloat(row) * -1
