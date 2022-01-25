@@ -421,7 +421,6 @@ Tap to rotate it counter-clockwise:
                                 <rect key="frame" x="186" y="311" width="51" height="31"/>
                                 <connections>
                                     <action selector="angrySwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="jFL-zE-ByA"/>
-                                    <action selector="nextPieceSwitchChanged:" destination="yOc-6N-67v" eventType="valueChanged" id="AyO-cD-s4x"/>
                                 </connections>
                             </switch>
                             <slider hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="1" maxValue="40" translatesAutoresizingMaskIntoConstraints="NO" id="4rr-zb-c46">
@@ -450,10 +449,10 @@ Tap to rotate it counter-clockwise:
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hd7-6T-ttm">
-                                <rect key="frame" x="269" y="309" width="77" height="38"/>
+                                <rect key="frame" x="269" y="309" width="77" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="¿huh?">
+                                <state key="normal" title="huh?">
                                     <color key="titleColor" red="0.46274507050000002" green="0.96078431610000004" blue="0.2941176593" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>

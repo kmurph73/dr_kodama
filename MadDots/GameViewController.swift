@@ -63,19 +63,18 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func stopTimer() {
-
-    self.scene.stopTicking()
+    self.scene?.stopTicking()
   }
   
   func startTimer() {
-    self.scene.startTicking()
+    self.scene?.startTicking()
   }
   
   func backToMenu() {
     self.scene.ctrl = nil
     self.scene.tick = nil
     self.scene.count = nil
-    self.scene.stopTicking()
+    self.scene?.stopTicking()
     self.scene = nil
     
     self.dotGame.delegate = nil
@@ -107,9 +106,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           panPointReference = currentPoint
         }
         
-        if velocity.y > 2100 {
-          dotGame.lowerPiece()
-        }
       } else if horizontalDistance > panD {
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
@@ -121,7 +117,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           if !justEnded {
             dotGame.movePieceLeft()
             panPointReference = currentPoint
-            if velocity.x > 2200 {
+            if velocity.x < -2200 {
               dotGame.movePieceLeft()
             }
           }
