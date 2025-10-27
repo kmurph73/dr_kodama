@@ -100,5 +100,5 @@ func findRealTopDots(dots: Array<MadDot>, dotArray: DotArray2D) -> Array<MadDot>
 }
 
 func randomNum(_ min: Int, max: Int) -> Int {
-  return Int(arc4random_uniform(UInt32(max))) + min
+  return Int.random(in: min..<(min + max))
 }

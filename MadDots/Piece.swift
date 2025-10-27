@@ -51,18 +51,27 @@ class Rotation {
 
 class Piece: CustomStringConvertible {
 //  var column, row:Int
-  
+
   var dot1, dot2: GoodDot
-  
+
   var settled = false
-  
+
   var previousRotation: Rotation?
+
+  // Cached orientation to avoid recomputing
+  private var _cachedOrientation: Orientation?
   
   init(column:Int, row:Int, leftColor: DotColor, rightColor: DotColor) {
     self.dot1 = GoodDot(column: column, row: row, color: leftColor)
     self.dot2 = GoodDot(column: column + 1, row: row, color: rightColor)
     self.dot1.sibling = dot2
     self.dot2.sibling = dot1
+    self._cachedOrientation = .horizontal
+  }
+
+  // Invalidate cached values when piece moves or rotates
+  private func invalidateCache() {
+    _cachedOrientation = nil
   }
   
   var dots: [GoodDot] {
@@ -115,7 +124,12 @@ class Piece: CustomStringConvertible {
   
   var orientation: Orientation {
     get {
-      return self.leftDot == nil ? .vertical : .horizontal
+      if let cached = _cachedOrientation {
+        return cached
+      }
+      let result: Orientation = self.leftDot == nil ? .vertical : .horizontal
+      _cachedOrientation = result
+      return result
     }
   }
   
@@ -226,9 +240,10 @@ class Piece: CustomStringConvertible {
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
       }
+      invalidateCache()
     }
   }
-  
+
   fileprivate final func rotatePieceClockwise(_ dotArray: DotArray2D) {
     if let pieceRowColumnTranslation = getClockwisePosition(dotArray) {
       previousRotation = Rotation(dots: dots, translations: pieceRowColumnTranslation)
@@ -239,6 +254,7 @@ class Piece: CustomStringConvertible {
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
       }
+      invalidateCache()
     }
   }
   
@@ -255,9 +271,9 @@ class Piece: CustomStringConvertible {
   }
   
   final class func random(_ startingColumn:Int, startingRow:Int) -> Piece {
-    let leftSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
-    let rightSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
-    
+    let leftSide = DotColor(rawValue: Int.random(in: 0..<NumberOfColors))!
+    let rightSide = DotColor(rawValue: Int.random(in: 0..<NumberOfColors))!
+
     return Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
   }
   

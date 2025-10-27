@@ -96,6 +96,34 @@ class GameScene: SKScene {
     if points == nil {
       points = createPoints()
     }
+
+    // Preload all textures to avoid stuttering during gameplay
+    preloadTextures()
+  }
+
+  func preloadTextures() {
+    // Preload dot color textures
+    let dotColors = ["red", "green", "blue", "yellow", "orange"]
+    for color in dotColors {
+      if textureCache[color] == nil {
+        let texture = SKTexture(imageNamed: color)
+        texture.filteringMode = .nearest
+        textureCache[color] = texture
+      }
+    }
+
+    // Preload connector texture
+    let connectorName = "whitecircle"
+    if textureCache[connectorName] == nil {
+      let texture = SKTexture(imageNamed: connectorName)
+      texture.filteringMode = .nearest
+      textureCache[connectorName] = texture
+    }
+
+    // Preload angry Kodama atlas
+    if angryKodamaAtlas == nil {
+      angryKodamaAtlas = SKTextureAtlas(named: "AngryKodama")
+    }
   }
   
   func createPoints() -> Array2D<PointStore> {
@@ -232,11 +260,9 @@ class GameScene: SKScene {
     }
     
     let sprite = SKSpriteNode(texture: texture)
-    
+
     let dotSize = BlockSize - 5
 
-    sprite.xScale = dotSize
-    sprite.yScale = dotSize
     sprite.size = CGSize(width: dotSize, height: dotSize)
     sprite.zPosition = 5
     sprite.position = points![dot.column, dot.row]!.point
@@ -265,10 +291,7 @@ class GameScene: SKScene {
       }
     }
 
-    if let c = completion {
-      run(SKAction.wait(forDuration: 0.2), completion: c)
-    }
-
+    completion?()
   }
   
   func removeDots(_ dots: Array<Dot>) {

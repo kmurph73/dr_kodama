@@ -32,7 +32,7 @@ enum DotColor: Int, CustomStringConvertible {
   }
   
   static func random() -> DotColor {
-    return DotColor(rawValue:Int(arc4random_uniform(UInt32(NumberOfColors))))!
+    return DotColor(rawValue: Int.random(in: 0..<NumberOfColors))!
   }
 }
 
