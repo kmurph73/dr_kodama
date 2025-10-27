@@ -17,7 +17,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "308"
             endingLineNumber = "308"
-            landmarkName = "newPiece()"
+            landmarkName = "gamePieceDidLand(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -34,7 +34,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "342"
             endingLineNumber = "342"
-            landmarkName = "drawRectOverSquare(col:row:color:)"
+            landmarkName = "newPiece()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -68,7 +68,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
             endingLineNumber = "53"
-            landmarkName = "settlePiece()"
+            landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -85,8 +85,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
             endingLineNumber = "241"
-            landmarkName = "removeCompletedDots()"
-            landmarkType = "7">
+            landmarkName = "DotGame"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -119,7 +119,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
             endingLineNumber = "238"
-            landmarkName = "removeCompletedDots()"
+            landmarkName = "rotatePiece()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,7 +153,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "removeCompletedDots()"
+            landmarkName = "lowerPiece()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -206,40 +206,6 @@
             endingLineNumber = "150"
             landmarkName = "dropFallenDots(_:)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "33949AA7-1E88-4970-9F8C-BE6E694322CC - e2ed691da0a547f6"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.dropFallenDots (MadDots.Array2D&lt;MadDots.Dot&gt;) -&gt; Swift.Array&lt;MadDots.GoodDot&gt;"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/HandleChains.swift"
-                  timestampString = "469133059.206653"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "795">
-               </Location>
-               <Location
-                  uuid = "33949AA7-1E88-4970-9F8C-BE6E694322CC - 973728775a18bb46"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDotsTests.dropFallenDots (MadDotsTests.Array2D&lt;MadDotsTests.Dot&gt;) -&gt; Swift.Array&lt;MadDotsTests.GoodDot&gt;"
-                  moduleName = "MadDotsTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/HandleChains.swift"
-                  timestampString = "469133059.207046"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "140"
-                  endingLineNumber = "140"
-                  offsetFromSymbolStart = "795">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -257,40 +223,6 @@
             endingLineNumber = "158"
             landmarkName = "dropFallenDots(_:)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "6333CF24-2094-4A8E-B6D9-1519D6D91D18 - e2ed691da0a54619"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.dropFallenDots (MadDots.Array2D&lt;MadDots.Dot&gt;) -&gt; Swift.Array&lt;MadDots.GoodDot&gt;"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/HandleChains.swift"
-                  timestampString = "469165822.820937"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "153"
-                  endingLineNumber = "153"
-                  offsetFromSymbolStart = "1823">
-               </Location>
-               <Location
-                  uuid = "6333CF24-2094-4A8E-B6D9-1519D6D91D18 - 973728775a18baa9"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDotsTests.dropFallenDots (MadDotsTests.Array2D&lt;MadDotsTests.Dot&gt;) -&gt; Swift.Array&lt;MadDotsTests.GoodDot&gt;"
-                  moduleName = "MadDotsTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/HandleChains.swift"
-                  timestampString = "469165822.821233"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "153"
-                  endingLineNumber = "153"
-                  offsetFromSymbolStart = "1823">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -442,8 +374,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "413"
             endingLineNumber = "413"
-            landmarkName = "redrawPiece(_:duration:completion:)"
-            landmarkType = "7">
+            landmarkName = "GameScene"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -510,42 +442,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "257"
             endingLineNumber = "257"
-            landmarkName = "removeCompletedDots()"
+            landmarkName = "lowerPiece()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D50C1420-4A30-4B03-A939-8DDE9AA8BC89 - ba7f73d51c8b6ba8"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Dr__Kodama.DotGame.removeCompletedDots () -&gt; (dotsToRemove : Swift.Array&lt;Dr__Kodama.Dot&gt;, fallenDots : Swift.Array&lt;Dr__Kodama.GoodDot&gt;)"
-                  moduleName = "Dr. Kodama"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/maddots/MadDots/DotGame.swift"
-                  timestampString = "527902201.133214"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "257"
-                  endingLineNumber = "257"
-                  offsetFromSymbolStart = "1124">
-               </Location>
-               <Location
-                  uuid = "D50C1420-4A30-4B03-A939-8DDE9AA8BC89 - 6d230f966a3c9c25"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDotsTests.DotGame.removeCompletedDots () -&gt; (dotsToRemove : Swift.Array&lt;MadDotsTests.Dot&gt;, fallenDots : Swift.Array&lt;MadDotsTests.GoodDot&gt;)"
-                  moduleName = "MadDotsTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/maddots/MadDots/DotGame.swift"
-                  timestampString = "527902202.362686"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "257"
-                  endingLineNumber = "257"
-                  offsetFromSymbolStart = "1124">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -597,40 +495,6 @@
             endingLineNumber = "261"
             landmarkName = "gamePieceDidLand(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E4D3A70D-CC5A-48D7-A7CA-2A3E94C26163 - 2e40600b2fe294ea"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.GameViewController.gamePieceDidLand (MadDots.GameViewController)(MadDots.DotGame) -&gt; ()"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/GameViewController.swift"
-                  timestampString = "470171286.812312"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "199"
-                  endingLineNumber = "199"
-                  offsetFromSymbolStart = "2111">
-               </Location>
-               <Location
-                  uuid = "E4D3A70D-CC5A-48D7-A7CA-2A3E94C26163 - 6fab0f4ff01edbe5"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.GameViewController.(gamePieceDidLand (MadDots.GameViewController) -&gt; (MadDots.DotGame) -&gt; ()).(closure #2)"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/GameViewController.swift"
-                  timestampString = "470171286.812709"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "200"
-                  endingLineNumber = "200"
-                  offsetFromSymbolStart = "23">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -663,8 +527,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "187"
             endingLineNumber = "187"
-            landmarkName = "gameDidEnd(_:)"
-            landmarkType = "7">
+            landmarkName = "supportedInterfaceOrientations"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -714,8 +578,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
             endingLineNumber = "55"
-            landmarkName = "settlePiece()"
-            landmarkType = "7">
+            landmarkName = "DotGame"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -748,42 +612,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "337"
             endingLineNumber = "337"
-            landmarkName = "drawRectOverSquare(col:row:color:)"
+            landmarkName = "newPiece()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "684C7F71-2272-4B71-8068-CEDDE9CAE26A - 732b7883bcbf4b09"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.GameViewController.gamePieceDidMove (MadDots.GameViewController)(MadDots.DotGame, completion : Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/GameViewController.swift"
-                  timestampString = "470458090.336212"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "270"
-                  endingLineNumber = "270"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "684C7F71-2272-4B71-8068-CEDDE9CAE26A - cc16f653a533641"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.GameViewController.(gamePieceDidMove (MadDots.GameViewController) -&gt; (MadDots.DotGame, completion : Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()).(closure #1)"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/GameViewController.swift"
-                  timestampString = "470458090.336585"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "271"
-                  endingLineNumber = "271"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -799,7 +629,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
             endingLineNumber = "247"
-            landmarkName = "removeCompletedDots()"
+            landmarkName = "detectTouch()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -816,8 +646,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "253"
             endingLineNumber = "253"
-            landmarkName = "removeCompletedDots()"
-            landmarkType = "7">
+            landmarkName = "DotGame"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -835,40 +665,6 @@
             endingLineNumber = "94"
             landmarkName = "dropPiece()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1AED3FCA-104D-4FB5-9022-9A2FC1349C85 - 121342fe2574fb2"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.DotGame.dropPiece (MadDots.DotGame)() -&gt; ()"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/DotGame.swift"
-                  timestampString = "470974642.564838"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86"
-                  offsetFromSymbolStart = "520">
-               </Location>
-               <Location
-                  uuid = "1AED3FCA-104D-4FB5-9022-9A2FC1349C85 - 7ad459cf69b530e"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.DotGame.(dropPiece (MadDots.DotGame) -&gt; () -&gt; ()).(closure #1)"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/DotGame.swift"
-                  timestampString = "470974642.565155"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -884,8 +680,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "155"
             endingLineNumber = "155"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "makeRandomLevel(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -903,56 +699,6 @@
             endingLineNumber = "15"
             landmarkName = "unknown"
             landmarkType = "0">
-            <Locations>
-               <Location
-                  uuid = "33EA16BB-DB0D-44A2-B0BA-AB95B0CFEF1D - 96232a5932e19e7"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.MainController.__deallocating_deinit"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/MainController.swift"
-                  timestampString = "470976334.408742"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  uuid = "33EA16BB-DB0D-44A2-B0BA-AB95B0CFEF1D - dfbd00e1e0e92076"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.MainController.init (MadDots.MainController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; MadDots.MainController"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/MainController.swift"
-                  timestampString = "470976334.40907"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "68">
-               </Location>
-               <Location
-                  uuid = "33EA16BB-DB0D-44A2-B0BA-AB95B0CFEF1D - 50aecc66556d93eb"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MadDots.MainController.init (MadDots.MainController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;MadDots.MainController&gt;"
-                  moduleName = "MadDots"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kmurph/code/cocoa/MadDots/MadDots/MainController.swift"
-                  timestampString = "470976334.409343"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

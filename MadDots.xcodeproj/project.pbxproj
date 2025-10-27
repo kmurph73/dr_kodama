@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97F352DB101C4B9F9C98F224D2215026 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4ABB8C01ED4BBD8E9D1E004BA32D2A /* SceneDelegate.swift */; };
 		AD0AE11E1C0124FC000FBB6F /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8E24D51C00E295006D2696 /* HelpViewController.swift */; };
 		AD0B73F51BCC22C30085B244 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
 		AD0F41032516B7E4006512BD /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0F41022516B7E4006512BD /* DeviceType.swift */; };
@@ -74,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F4ABB8C01ED4BBD8E9D1E004BA32D2A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AD0B73F41BCC22C30085B244 /* DotGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DotGame.swift; sourceTree = "<group>"; tabWidth = 2; };
 		AD0F41022516B7E4006512BD /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
 		AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				ADF807F01BC4462300E45888 /* Info.plist */,
 				AD4616E827728E2D001F046C /* AboutAngryViewController.swift */,
 				ADF807E01BC4462300E45888 /* AppDelegate.swift */,
+				5F4ABB8C01ED4BBD8E9D1E004BA32D2A /* SceneDelegate.swift */,
 				ADF807F81BC4479A00E45888 /* Array2D.swift */,
 				ADF807F61BC446A400E45888 /* Dot.swift */,
 				ADF807FA1BC447BF00E45888 /* Piece.swift */,
@@ -344,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97F352DB101C4B9F9C98F224D2215026 /* SceneDelegate.swift in Sources */,
 				AD4616E927728E2D001F046C /* AboutAngryViewController.swift in Sources */,
 				ADC1DC8A1C262F54004CE42F /* SettingsController.swift in Sources */,
 				AD5D0D0A1BEBD553005043A8 /* GoodDot.swift in Sources */,
