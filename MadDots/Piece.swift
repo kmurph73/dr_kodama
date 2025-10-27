@@ -58,20 +58,11 @@ class Piece: CustomStringConvertible {
 
   var previousRotation: Rotation?
 
-  // Cached orientation to avoid recomputing
-  private var _cachedOrientation: Orientation?
-  
   init(column:Int, row:Int, leftColor: DotColor, rightColor: DotColor) {
     self.dot1 = GoodDot(column: column, row: row, color: leftColor)
     self.dot2 = GoodDot(column: column + 1, row: row, color: rightColor)
     self.dot1.sibling = dot2
     self.dot2.sibling = dot1
-    self._cachedOrientation = .horizontal
-  }
-
-  // Invalidate cached values when piece moves or rotates
-  private func invalidateCache() {
-    _cachedOrientation = nil
   }
   
   var dots: [GoodDot] {
@@ -123,14 +114,7 @@ class Piece: CustomStringConvertible {
   }
   
   var orientation: Orientation {
-    get {
-      if let cached = _cachedOrientation {
-        return cached
-      }
-      let result: Orientation = self.leftDot == nil ? .vertical : .horizontal
-      _cachedOrientation = result
-      return result
-    }
+    return leftDot == nil ? .vertical : .horizontal
   }
   
   var description: String {
@@ -215,11 +199,10 @@ class Piece: CustomStringConvertible {
   
   func getClockwisePosition(_ dotArray:DotArray2D) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let results = checkBlockage(dotArray)
-    
+
     if results.blockedOnLeft {
       return [(1,1), (0, 0)]
     } else if results.blockedOnTop {
-      print("blocked on top")
       return [(1, 0), (0, 1)]
     } else {
       if orientation == .horizontal {
@@ -240,7 +223,6 @@ class Piece: CustomStringConvertible {
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
       }
-      invalidateCache()
     }
   }
 
@@ -254,7 +236,6 @@ class Piece: CustomStringConvertible {
         dot.column = dot.column + diff.columnDiff
         dot.row = dot.row + diff.rowDiff
       }
-      invalidateCache()
     }
   }
   

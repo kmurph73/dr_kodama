@@ -46,10 +46,13 @@ func findTopDots(dots: Array<MadDot>) -> Array<MadDot> {
   return topDots
 }
 
-func findRandomTopDot(dots: Array<MadDot>) -> MadDot {
+func findRandomTopDot(dots: Array<MadDot>) -> MadDot? {
+  guard !dots.isEmpty else { return nil }
+
   let topDots = findTopDots(dots: dots)
+  guard !topDots.isEmpty else { return nil }
+
   let num = randomNum(0, max: topDots.count)
-    
   return topDots[num]
 }
 
@@ -76,12 +79,14 @@ let colormap = [
   "yellow": UIColor(red: 239/255, green: 239/255, blue: 25/255, alpha: 1),
 ]
 
-func findRealRandomTopDot(dots: Array<MadDot>, dotArray: DotArray2D) -> MadDot {
-  let zeroOrOne = randomNum(0, max: 2)
+func findRealRandomTopDot(dots: Array<MadDot>, dotArray: DotArray2D) -> MadDot? {
+  guard !dots.isEmpty else { return nil }
 
+  let zeroOrOne = randomNum(0, max: 2)
   let topDots = zeroOrOne == 0 ? findTopDots(dots: dots) : findRealTopDots(dots: dots, dotArray: dotArray)
+  guard !topDots.isEmpty else { return nil }
+
   let num = randomNum(0, max: topDots.count)
-    
   return topDots[num]
 }
 

@@ -237,6 +237,7 @@ class GameScene: SKScene {
   }
   
   func resumeGame() {
+    stopTicking()
     CanMovePiece = true
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }

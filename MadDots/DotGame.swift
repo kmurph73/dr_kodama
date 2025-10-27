@@ -26,7 +26,7 @@ enum MatrixDir: Int {
   case row = 0, column
 }
 
-protocol DotGameDelegate {
+protocol DotGameDelegate: AnyObject {
   func gameDidEnd(_ dotGame: DotGame)
   func gameDidBegin(_ dotGame: DotGame)
   func gamePieceDidMove(_ dotGame: DotGame, duration: TimeInterval, completion: (() -> ())?)
@@ -42,7 +42,7 @@ class DotGame {
 
   var levelMaker: LevelMaker
 
-  var delegate:DotGameDelegate?
+  weak var delegate: DotGameDelegate?
   var seq: Array<Piece>?
   
   init() {
@@ -116,7 +116,15 @@ class DotGame {
     dotArray = DotArray2D(columns: NumColumns, rows: NumRows)
     madDots = Array<MadDot>()
     levelMaker.dotArray = dotArray
-    
+
+    // Reset test mode counter
+    cnt = 0
+
+    // Reset angry dot state
+    angryLengthCountdown = AngryLengthDefault
+    angryIntervalCountdown = AngryIntervalDefault
+    NeedAngryDot = AngryKodama
+
     beginGame()
   }
   
@@ -283,13 +291,11 @@ class DotGame {
     if let piece = fallingPiece {
       piece.lowerByOneRow()
       if detectIllegalPlacement() {
+        // Piece hit something, raise it back and settle
         piece.raiseByOneRow()
-        if detectIllegalPlacement() {
-          delegate?.gameDidEnd(self)
-        } else {
-          settlePiece()
-        }
+        settlePiece()
       } else {
+        // Piece moved successfully
         delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
       }
     }

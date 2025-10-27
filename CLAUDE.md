@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**MadDots (Dr. Kodama)** is a tile-matching puzzle game for iOS written in Swift, similar to Dr. Mario or Puyo Puyo. Players rotate and move falling 2-dot pieces on an 8x16 grid, clearing chains of 3+ same-colored dots. The game features 20 levels with special "MadDots" obstacles and an "Angry Kodama" pressure mechanic.
+**MadDots (Dr. Kodama)** is a tile-matching puzzle game for iOS written in Swift, similar to Dr. Mario or Puyo Puyo. Players rotate and move falling 2-dot pieces on an 8x16 grid, clearing chains of 4+ same-colored dots. The game features 20 levels with special "MadDots" obstacles and an "Angry Kodama" pressure mechanic.
 
 Published on App Store: https://apps.apple.com/us/app/dr-kodama/id1060934796
 
@@ -60,7 +60,7 @@ Data Model Layer (Dot, Piece, DotArray2D, Level)
 | **GameViewController** | `GameViewController.swift` | Input handling (gestures), game flow coordination, UI alerts, delegates to DotGame |
 | **Piece** | `Piece.swift` | 2-dot falling piece model with rotation system and sibling relationships |
 | **DotArray2D** | `DotArray2D.swift` | 8x16 game grid management using generic `Array2D<T>` base class |
-| **HandleChains** | `HandleChains.swift` | Chain detection algorithm (scans for 3+ consecutive same-colored dots) |
+| **HandleChains** | `HandleChains.swift` | Chain detection algorithm (scans for 4+ consecutive same-colored dots) |
 | **GameLevels** | `GameLevels.swift` | Procedural level generation with MadDot obstacle placement |
 
 ### Key Architectural Patterns

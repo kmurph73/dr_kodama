@@ -1,0 +1,3 @@
+ #17 - dropPiece timer recovery (MEDIUM severity)
+  - Stops timer but relies on callback chain to restart
+  - If callback fails, game freezes

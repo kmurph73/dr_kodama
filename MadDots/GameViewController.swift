@@ -294,13 +294,14 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         } else if angryIntervalCountdown == 0 && NeedAngryDot {
           let angryDot = self.dotGame.madDots.first(where: { $0.angry })
           if angryDot == nil && self.dotGame.madDots.count > 0 {
-            let dot = findRealRandomTopDot(dots: self.dotGame.madDots, dotArray: self.dotGame.dotArray)
-            dot.angry = true
-            dot.sprite?.removeFromParent()
-            self.scene.addAngryDotToScene(dot)
+            if let dot = findRealRandomTopDot(dots: self.dotGame.madDots, dotArray: self.dotGame.dotArray) {
+              dot.angry = true
+              dot.sprite?.removeFromParent()
+              self.scene.addAngryDotToScene(dot)
 //            let color = colormap[dot.color.spriteName]!
 //            self.drawRectOverSquare(col: dot.column, row: dot.row, color: color )
-            
+            }
+
             self.newPiece()
           } else {
             newPiece()
