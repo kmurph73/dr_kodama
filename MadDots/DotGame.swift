@@ -225,15 +225,43 @@ class DotGame {
   
   func rotatePiece() {
     if let piece = fallingPiece {
+      // Try rotating in current position
       if RotateDir == .clockwise {
         piece.rotateClockwise(dotArray)
       } else {
         piece.rotateCounterClockwise(dotArray)
       }
+
       if detectIllegalPlacement() {
+        // Rotation failed in current position, undo it
         piece.undoPreviousRotation()
-//        piece.rotateClockwise(dotArray)
+
+        // Try lowering by one row and rotating again
+        piece.lowerByOneRow()
+
+        // Check if we can even lower the piece
+        if !detectIllegalPlacement() {
+          // Lower was successful, now try rotating again
+          if RotateDir == .clockwise {
+            piece.rotateClockwise(dotArray)
+          } else {
+            piece.rotateCounterClockwise(dotArray)
+          }
+
+          if detectIllegalPlacement() {
+            // Still can't rotate after lowering, undo everything
+            piece.undoPreviousRotation()
+            piece.raiseByOneRow()
+          } else {
+            // Success! Lowered and rotated
+            delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
+          }
+        } else {
+          // Can't even lower the piece, undo the lower
+          piece.raiseByOneRow()
+        }
       } else {
+        // Rotation succeeded in current position
         delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
       }
     }

@@ -97,6 +97,14 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
       panPointReference = currentPoint
     }
 
+    // Always cleanup state when gesture ends, even if input is locked
+    if sender.state == .ended || sender.state == .cancelled {
+      panPointReference = nil
+      isPanActive = false
+      currentPanPoint = nil
+      return
+    }
+
     if !CanMovePiece {
       return
     }
@@ -131,15 +139,9 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           }
         }
       }
-    } else if isPanActive && CanMovePiece {
+    } else if isPanActive {
       // Re-establish reference point if pan is active but reference was cleared (e.g., after new piece spawned)
       panPointReference = currentPoint
-    }
-
-    if sender.state == .ended || sender.state == .cancelled {
-      panPointReference = nil
-      isPanActive = false
-      currentPanPoint = nil
     }
   }
   
@@ -169,7 +171,6 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     } else {
       panDistance = cutoff * 0.45
     }
-    
     
     dotGame = DotGame()
     dotGame.delegate = self
