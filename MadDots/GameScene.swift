@@ -33,6 +33,7 @@ class GameScene: SKScene {
   var menuLabel: SKLabelNode?
   var menuBtn: SKSpriteNode?
   var textureCache = Dictionary<String, SKTexture>()
+  var angryKodamaAtlas: SKTextureAtlas?
   var timer: Timer?
   var counter: Timer?
   
@@ -328,7 +329,12 @@ class GameScene: SKScene {
   }
     
   func addAngryDotToScene(_ dot: Dot) {
-    let atlas = SKTextureAtlas(named: "AngryKodama")
+    // Create and cache the atlas on first use
+    if angryKodamaAtlas == nil {
+      angryKodamaAtlas = SKTextureAtlas(named: "AngryKodama")
+    }
+
+    let atlas = angryKodamaAtlas!
     let f1 = atlas.textureNamed("angry_\(dot.color.description)_kodama1")
     let f2 = atlas.textureNamed("angry_\(dot.color.description)_kodama2")
     let f3 = atlas.textureNamed("angry_\(dot.color.description)_kodama3")

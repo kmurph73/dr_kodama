@@ -16,6 +16,8 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   var justEnded = false
   var panDistance: CGFloat?
   var sheetShown = false
+  var isPanActive = false
+  var currentPanPoint: CGPoint?
 
   @IBAction func didTap(_ sender: UITapGestureRecognizer) {
     if !scene.menuTapped && CanMovePiece {
@@ -86,18 +88,24 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     guard let panD = panDistance else {
       return
     }
-    
+
+    let currentPoint = sender.translation(in: self.view)
+    currentPanPoint = currentPoint
+
+    if sender.state == .began {
+      isPanActive = true
+      panPointReference = currentPoint
+    }
+
     if !CanMovePiece {
       return
     }
-
-    let currentPoint = sender.translation(in: self.view)
 
     if let originalPoint = panPointReference {
       let velocity = sender.velocity(in: self.view)
       let downDistance = abs(currentPoint.y - originalPoint.y)
       let horizontalDistance = abs(currentPoint.x - originalPoint.x)
-      
+
       if downDistance > panD {
         if velocity.y > CGFloat(0) {
           dotGame.lowerPiece()
@@ -105,7 +113,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         } else {
           panPointReference = currentPoint
         }
-        
+
       } else if horizontalDistance > panD {
         if velocity.x > CGFloat(0) {
           dotGame.movePieceRight()
@@ -123,12 +131,15 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
           }
         }
       }
-    } else if sender.state == .began {
+    } else if isPanActive && CanMovePiece {
+      // Re-establish reference point if pan is active but reference was cleared (e.g., after new piece spawned)
       panPointReference = currentPoint
     }
-    
-    if sender.state == .ended {
+
+    if sender.state == .ended || sender.state == .cancelled {
       panPointReference = nil
+      isPanActive = false
+      currentPanPoint = nil
     }
   }
   
@@ -309,13 +320,19 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         self.dotGame.nextPiece = newPiece
         nextPiece.shiftBy(3, rows: 1)
         self.scene.redrawPiece(nextPiece, duration: 0.2) {
-          self.panPointReference = nil
+          // Only reset pan reference if user is not currently panning
+          if !self.isPanActive {
+            self.panPointReference = nil
+          } else if let currentPoint = self.currentPanPoint {
+            // Re-establish reference point at current touch location for new piece
+            self.panPointReference = currentPoint
+          }
           self.scene.startTicking()
           CanMovePiece = true
-          
+
           self.scene.addPieceToScene(newPiece, completion: nil)
         }
-      
+
       } else {
         let newPiece = self.dotGame.newPiece()
 
@@ -323,7 +340,13 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
         self.scene.addPieceToScene(newPiece) {
           CanMovePiece = true
           self.scene.startTicking()
-          self.panPointReference = nil
+          // Only reset pan reference if user is not currently panning
+          if !self.isPanActive {
+            self.panPointReference = nil
+          } else if let currentPoint = self.currentPanPoint {
+            // Re-establish reference point at current touch location for new piece
+            self.panPointReference = currentPoint
+          }
         }
       }
 
