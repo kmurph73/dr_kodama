@@ -33,6 +33,7 @@ class GameScene: SKScene {
   var menuLabel: SKLabelNode?
   var menuBtn: SKSpriteNode?
   var textureCache = Dictionary<String, SKTexture>()
+  var angryKodamaAtlas: SKTextureAtlas?
   var timer: Timer?
   var counter: Timer?
   
@@ -94,6 +95,34 @@ class GameScene: SKScene {
     
     if points == nil {
       points = createPoints()
+    }
+
+    // Preload all textures to avoid stuttering during gameplay
+    preloadTextures()
+  }
+
+  func preloadTextures() {
+    // Preload dot color textures
+    let dotColors = ["red", "green", "blue", "yellow", "orange"]
+    for color in dotColors {
+      if textureCache[color] == nil {
+        let texture = SKTexture(imageNamed: color)
+        texture.filteringMode = .nearest
+        textureCache[color] = texture
+      }
+    }
+
+    // Preload connector texture
+    let connectorName = "whitecircle"
+    if textureCache[connectorName] == nil {
+      let texture = SKTexture(imageNamed: connectorName)
+      texture.filteringMode = .nearest
+      textureCache[connectorName] = texture
+    }
+
+    // Preload angry Kodama atlas
+    if angryKodamaAtlas == nil {
+      angryKodamaAtlas = SKTextureAtlas(named: "AngryKodama")
     }
   }
   
@@ -208,6 +237,7 @@ class GameScene: SKScene {
   }
   
   func resumeGame() {
+    stopTicking()
     CanMovePiece = true
     self.timer = Timer.scheduledTimer(timeInterval: tickLength, target: self, selector: #selector(GameScene.didTick), userInfo: nil, repeats: true)
   }
@@ -231,11 +261,9 @@ class GameScene: SKScene {
     }
     
     let sprite = SKSpriteNode(texture: texture)
-    
+
     let dotSize = BlockSize - 5
 
-    sprite.xScale = dotSize
-    sprite.yScale = dotSize
     sprite.size = CGSize(width: dotSize, height: dotSize)
     sprite.zPosition = 5
     sprite.position = points![dot.column, dot.row]!.point
@@ -264,10 +292,7 @@ class GameScene: SKScene {
       }
     }
 
-    if let c = completion {
-      run(SKAction.wait(forDuration: 0.2), completion: c)
-    }
-
+    completion?()
   }
   
   func removeDots(_ dots: Array<Dot>) {
@@ -328,7 +353,12 @@ class GameScene: SKScene {
   }
     
   func addAngryDotToScene(_ dot: Dot) {
-    let atlas = SKTextureAtlas(named: "AngryKodama")
+    // Create and cache the atlas on first use
+    if angryKodamaAtlas == nil {
+      angryKodamaAtlas = SKTextureAtlas(named: "AngryKodama")
+    }
+
+    let atlas = angryKodamaAtlas!
     let f1 = atlas.textureNamed("angry_\(dot.color.description)_kodama1")
     let f2 = atlas.textureNamed("angry_\(dot.color.description)_kodama2")
     let f3 = atlas.textureNamed("angry_\(dot.color.description)_kodama3")

@@ -76,12 +76,12 @@ class LevelMaker {
   
   func dotCountForRow(_ rowNum: Int) -> Int {
     var cnt = 0
-    for column in 0...NumColumns {
+    for column in 0..<NumColumns {
       if let _ = dotArray[column, rowNum] {
         cnt += 1
       }
     }
-    
+
     return cnt
   }
   

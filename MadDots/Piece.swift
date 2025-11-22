@@ -51,13 +51,13 @@ class Rotation {
 
 class Piece: CustomStringConvertible {
 //  var column, row:Int
-  
+
   var dot1, dot2: GoodDot
-  
+
   var settled = false
-  
+
   var previousRotation: Rotation?
-  
+
   init(column:Int, row:Int, leftColor: DotColor, rightColor: DotColor) {
     self.dot1 = GoodDot(column: column, row: row, color: leftColor)
     self.dot2 = GoodDot(column: column + 1, row: row, color: rightColor)
@@ -114,9 +114,7 @@ class Piece: CustomStringConvertible {
   }
   
   var orientation: Orientation {
-    get {
-      return self.leftDot == nil ? .vertical : .horizontal
-    }
+    return leftDot == nil ? .vertical : .horizontal
   }
   
   var description: String {
@@ -201,11 +199,10 @@ class Piece: CustomStringConvertible {
   
   func getClockwisePosition(_ dotArray:DotArray2D) -> Array<(columnDiff: Int, rowDiff: Int)>? {
     let results = checkBlockage(dotArray)
-    
+
     if results.blockedOnLeft {
       return [(1,1), (0, 0)]
     } else if results.blockedOnTop {
-      print("blocked on top")
       return [(1, 0), (0, 1)]
     } else {
       if orientation == .horizontal {
@@ -228,7 +225,7 @@ class Piece: CustomStringConvertible {
       }
     }
   }
-  
+
   fileprivate final func rotatePieceClockwise(_ dotArray: DotArray2D) {
     if let pieceRowColumnTranslation = getClockwisePosition(dotArray) {
       previousRotation = Rotation(dots: dots, translations: pieceRowColumnTranslation)
@@ -255,9 +252,9 @@ class Piece: CustomStringConvertible {
   }
   
   final class func random(_ startingColumn:Int, startingRow:Int) -> Piece {
-    let leftSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
-    let rightSide = DotColor(rawValue: Int(arc4random_uniform(UInt32(NumberOfColors))))!
-    
+    let leftSide = DotColor(rawValue: Int.random(in: 0..<NumberOfColors))!
+    let rightSide = DotColor(rawValue: Int.random(in: 0..<NumberOfColors))!
+
     return Piece(column: startingColumn, row: startingRow, leftColor: leftSide, rightColor: rightSide)
   }
   

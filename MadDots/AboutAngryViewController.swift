@@ -17,7 +17,7 @@ class AboutAngryViewController: UIViewController {
   @IBOutlet weak var angryDot: UIImageView!
   override func viewWillAppear(_ animated: Bool) {
     self.textView.textContainer.lineBreakMode = .byWordWrapping
-
+    
 //    let height = self.textView.contentSize.height
 //    self.textViewHeight.constant = height + 10
     
