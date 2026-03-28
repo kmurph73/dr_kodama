@@ -14,7 +14,24 @@ var extraYSpace: CGFloat = 0
 typealias PointStore = (point: CGPoint, connectorPoints: [Side: CGPoint])
 var points: Array2D<PointStore>?
 var tinyScreen = false
+
+#if os(iOS)
+import UIKit
 var iPad = UIDevice.current.userInterfaceIdiom == .pad
+#elseif os(macOS)
+import AppKit
+var iPad = false
+#endif
+
+protocol GameSceneDelegate: AnyObject {
+  func showSheet(_ msg: String?, showCancel: Bool)
+}
+
+#if os(macOS)
+protocol GameSceneKeyboardDelegate: AnyObject {
+  func handleKeyDown(_ event: NSEvent)
+}
+#endif
 
 class GameScene: SKScene {
   let gridLayer = SKNode()
@@ -23,7 +40,10 @@ class GameScene: SKScene {
   
   private var node = SKSpriteNode()
 
-  var ctrl: GameViewController?
+  weak var sceneDelegate: GameSceneDelegate?
+  #if os(macOS)
+  weak var keyboardDelegate: GameSceneKeyboardDelegate?
+  #endif
   var tick:(() -> ())?
   var count:(() -> ())?
   var tickLength = TickLengthLevelOne
@@ -181,23 +201,33 @@ class GameScene: SKScene {
     fatalError("NSCoder not supported")
   }
   
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    if let t = touches.first {
-      let loc = t.location(in: self)
-      let node = self.atPoint(loc)
-      if CanMovePiece && node.name == "menu" {
-        menuTapped = true
-        if let c = ctrl {
-          stopTicking()
-          c.showSheet("You rang?", showCancel: true)
-          stopTicking()
-        }
-      } else {
-        menuTapped = false
-      }
-      
+  func handleMenuTap(at location: CGPoint) {
+    let node = self.atPoint(location)
+    if CanMovePiece && node.name == "menu" {
+      menuTapped = true
+      stopTicking()
+      sceneDelegate?.showSheet("You rang?", showCancel: true)
+      stopTicking()
+    } else {
+      menuTapped = false
     }
   }
+
+  #if os(iOS)
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    if let t = touches.first {
+      handleMenuTap(at: t.location(in: self))
+    }
+  }
+  #elseif os(macOS)
+  override func mouseDown(with event: NSEvent) {
+    handleMenuTap(at: event.location(in: self))
+  }
+
+  override func keyDown(with event: NSEvent) {
+    keyboardDelegate?.handleKeyDown(event)
+  }
+  #endif
 
   func pointForColumn(_ column: Int, row: Int) -> CGPoint {
     let x: CGFloat = LayerPosition.x + ((CGFloat(column) * BlockSize) + (BlockSize / 2)) + BlockSize - 1
@@ -309,17 +339,15 @@ class GameScene: SKScene {
   func dropDots(_ fallenDots: Array<GoodDot>, completion:@escaping () -> ()) {
     var longestDuration: TimeInterval = 0
 
-    for (columnIdx, dot) in fallenDots.enumerated() {
+    for dot in fallenDots {
       let newPosition = points![dot.column, dot.row]!.point
       let sprite = dot.sprite!
 
-      let delay = TimeInterval(columnIdx) * 0.1
       let duration = TimeInterval(((sprite.position.y - newPosition.y) / BlockSize) * 0.1)
       let moveAction = SKAction.move(to: newPosition, duration: duration)
 
       moveAction.timingMode = .easeIn
-      let sequence = SKAction.sequence([SKAction.wait(forDuration: delay), moveAction])
-      sprite.run(sequence)
+      sprite.run(moveAction)
 
       if let p = pointForConnector(dot) {
         let connector = dot.connector!
@@ -327,11 +355,10 @@ class GameScene: SKScene {
         let movAction = SKAction.move(to: p, duration: duration)
         movAction.timingMode = .easeIn
 
-        let connSequence = SKAction.sequence([SKAction.wait(forDuration: delay), movAction])
-        connector.run(connSequence)
+        connector.run(movAction)
       }
 
-      longestDuration = max(longestDuration, duration + delay)
+      longestDuration = max(longestDuration, duration)
     }
     
     run(SKAction.wait(forDuration: longestDuration), completion:completion)
@@ -479,20 +506,24 @@ class GameScene: SKScene {
   func drawGrid() {
     let totalRows = NumRows + 2
     let totalCols = NumColumns + 2
-    
+
+    #if os(iOS)
     let screenSize: CGRect = UIScreen.main.bounds
-    
     let window = UIApplication.shared.connectedScenes
       .compactMap { $0 as? UIWindowScene }
       .flatMap { $0.windows }
       .first { $0.isKeyWindow }
     var topNotchHeight = window?.safeAreaInsets.top ?? 0
+    #elseif os(macOS)
+    let screenSize = self.size
+    var topNotchHeight: CGFloat = 0
+    #endif
 
-    let rowSquare = screenSize.maxY  / CGFloat(totalRows)
-    let colSquare = screenSize.maxX / CGFloat(totalCols)
-    
+    let rowSquare = screenSize.height / CGFloat(totalRows)
+    let colSquare = screenSize.width / CGFloat(totalCols)
+
     var squareSize = rowSquare > colSquare ? colSquare : rowSquare
-    
+
     if tinyScreen {
       squareSize -= 3
     }

@@ -7,7 +7,11 @@
 //
 
 import Foundation
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 func findTopRow(dots: Array<MadDot>) -> Int {
   var topRow = NumRows
@@ -71,12 +75,18 @@ func findRandomTopDot(dots: Array<MadDot>) -> MadDot? {
 //  }
 //}
 
-let colormap = [
-  "red": UIColor(red: 187/255, green: 12/255, blue: 12/255, alpha: 1),
-  "blue": UIColor(red: 56/255, green: 128/255, blue: 225/255, alpha: 1),
-  "orange": UIColor(red: 1, green: 176/255, blue: 30/255, alpha: 1),
-  "green": UIColor(red: 99/255, green: 178/255, blue: 55/255, alpha: 1),
-  "yellow": UIColor(red: 239/255, green: 239/255, blue: 25/255, alpha: 1),
+#if os(iOS)
+typealias PlatformColor = UIColor
+#elseif os(macOS)
+typealias PlatformColor = NSColor
+#endif
+
+let colormap: [String: PlatformColor] = [
+  "red": PlatformColor(red: 187/255, green: 12/255, blue: 12/255, alpha: 1),
+  "blue": PlatformColor(red: 56/255, green: 128/255, blue: 225/255, alpha: 1),
+  "orange": PlatformColor(red: 1, green: 176/255, blue: 30/255, alpha: 1),
+  "green": PlatformColor(red: 99/255, green: 178/255, blue: 55/255, alpha: 1),
+  "yellow": PlatformColor(red: 239/255, green: 239/255, blue: 25/255, alpha: 1),
 ]
 
 func findRealRandomTopDot(dots: Array<MadDot>, dotArray: DotArray2D) -> MadDot? {

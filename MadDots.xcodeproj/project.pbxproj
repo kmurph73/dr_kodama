@@ -7,7 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00BCC89BEAFA3F437571F228 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
+		164AC69005FDF487F90EF36A /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */; };
+		21E7A7337F47C730F73D0358 /* Background.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AD34A8311C1364A90049D6B2 /* Background.atlas */; };
+		343F9214642B11001A01F6D7 /* Dot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F61BC446A400E45888 /* Dot.swift */; };
+		35CD099D6A3A0AD9225F6CC5 /* HandleChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5E50091BD409D900AE3858 /* HandleChains.swift */; };
+		43F77C09A0A4819D646F2F48 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FA1BC447BF00E45888 /* Piece.swift */; };
+		4C2BC2A0954BE47FB52EE752 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADF807EB1BC4462300E45888 /* Assets.xcassets */; };
+		4E4480A950BF80BC5C2ACB90 /* GameLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */; };
+		5E17DAB6CB76925E24F37018 /* MacGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DB174B40F9D9520B75A284 /* MacGameViewController.swift */; };
+		5FF423188562403C9F5453C5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD59587273DC806001F4297 /* Extensions.swift */; };
+		6EB1EA273E760CBC5FC8B196 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6DC3E27CFFEF6641DAD98E6 /* Cocoa.framework */; };
+		77649430325CD80A7F2E0F0E /* DotArray2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34A8331C13D8800049D6B2 /* DotArray2D.swift */; };
+		7EEBACE4EFD211B7DD4572A3 /* AngryKodama.atlas in Resources */ = {isa = PBXBuildFile; fileRef = ADD6F238272AE4EE00666701 /* AngryKodama.atlas */; };
+		8097EABE06602C135886EDD4 /* MadDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FC1BC447D100E45888 /* MadDot.swift */; };
+		9223E686780C60935BDF8703 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F81BC4479A00E45888 /* Array2D.swift */; };
 		97F352DB101C4B9F9C98F224D2215026 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4ABB8C01ED4BBD8E9D1E004BA32D2A /* SceneDelegate.swift */; };
+		A3C31D14FF94E6FBFDB9D2E7 /* GoodDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D091BEBD553005043A8 /* GoodDot.swift */; };
+		A3F798DE5BEB24CA26905DC6 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8ADD2114F70E04078A90191 /* SpriteKit.framework */; };
+		AC50296B45B805E089832B8C /* AppUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD6F257272D8DFF00666701 /* AppUtilities.swift */; };
 		AD0AE11E1C0124FC000FBB6F /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8E24D51C00E295006D2696 /* HelpViewController.swift */; };
 		AD0B73F51BCC22C30085B244 /* DotGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0B73F41BCC22C30085B244 /* DotGame.swift */; };
 		AD0F41032516B7E4006512BD /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0F41022516B7E4006512BD /* DeviceType.swift */; };
@@ -62,6 +80,11 @@
 		ADF807F91BC4479A00E45888 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F81BC4479A00E45888 /* Array2D.swift */; };
 		ADF807FB1BC447BF00E45888 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FA1BC447BF00E45888 /* Piece.swift */; };
 		ADF807FD1BC447D100E45888 /* MadDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FC1BC447D100E45888 /* MadDot.swift */; };
+		B76762EA22B971BE5C9F5C9D /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAD42BC1C35E9E5002B0493 /* Globals.swift */; };
+		B7857B14CF6B8247295EB109 /* MacAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDFF2823A1F98F7A668E90E /* MacAppDelegate.swift */; };
+		C3832C0F3D3D0B832DD7288A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */; };
+		D7CA4F8537F38C8F9DAAAC27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286311AE0F2789FE3E414C3 /* main.swift */; };
+		F39A85767F3A7C0B2E2BB7DF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807E41BC4462300E45888 /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +98,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0BDFF2823A1F98F7A668E90E /* MacAppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacAppDelegate.swift; sourceTree = "<group>"; };
+		18DB174B40F9D9520B75A284 /* MacGameViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacGameViewController.swift; sourceTree = "<group>"; };
 		5F4ABB8C01ED4BBD8E9D1E004BA32D2A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AD0B73F41BCC22C30085B244 /* DotGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DotGame.swift; sourceTree = "<group>"; tabWidth = 2; };
 		AD0F41022516B7E4006512BD /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
@@ -116,9 +141,22 @@
 		ADF807F81BC4479A00E45888 /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		ADF807FA1BC447BF00E45888 /* Piece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		ADF807FC1BC447D100E45888 /* MadDot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadDot.swift; sourceTree = "<group>"; };
+		B6DC3E27CFFEF6641DAD98E6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		CA2ACB6A6F605BB61050D1AA /* DrKodamaMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrKodamaMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E286311AE0F2789FE3E414C3 /* main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F8ADD2114F70E04078A90191 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8FE1FBBB182546406F5C32A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EB1EA273E760CBC5FC8B196 /* Cocoa.framework in Frameworks */,
+				A3F798DE5BEB24CA26905DC6 /* SpriteKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AD5D0D0F1BEED5B8005043A8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -136,6 +174,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C943C1F8AC2326658942229 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				B6DC3E27CFFEF6641DAD98E6 /* Cocoa.framework */,
+				F8ADD2114F70E04078A90191 /* SpriteKit.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
 		AD5D0D131BEED5B8005043A8 /* MadDotsTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +201,8 @@
 				ADF807DF1BC4462300E45888 /* MadDots */,
 				AD5D0D131BEED5B8005043A8 /* MadDotsTests */,
 				ADF807DE1BC4462300E45888 /* Products */,
+				C0F44DE44E81A803EE727380 /* Frameworks */,
+				DB38E330711637D2E7AA4929 /* MadDotsMac */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,6 +211,7 @@
 			children = (
 				ADF807DD1BC4462300E45888 /* Dr. Kodama.app */,
 				AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */,
+				CA2ACB6A6F605BB61050D1AA /* DrKodamaMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,9 +257,45 @@
 			path = MadDots;
 			sourceTree = "<group>";
 		};
+		C0F44DE44E81A803EE727380 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C943C1F8AC2326658942229 /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB38E330711637D2E7AA4929 /* MadDotsMac */ = {
+			isa = PBXGroup;
+			children = (
+				0BDFF2823A1F98F7A668E90E /* MacAppDelegate.swift */,
+				18DB174B40F9D9520B75A284 /* MacGameViewController.swift */,
+				E286311AE0F2789FE3E414C3 /* main.swift */,
+			);
+			name = MadDotsMac;
+			path = MadDotsMac;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		38FE69CC5E8B6F0B490D2C03 /* DrKodamaMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A6A7486EDC85791507EF58E1 /* Build configuration list for PBXNativeTarget "DrKodamaMac" */;
+			buildPhases = (
+				A0556D6B3FDF356BCF2A036D /* Sources */,
+				8FE1FBBB182546406F5C32A6 /* Frameworks */,
+				D9DB60D90FBB646CD796680C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DrKodamaMac;
+			productName = DrKodamaMac;
+			productReference = CA2ACB6A6F605BB61050D1AA /* DrKodamaMac.app */;
+			productType = "com.apple.product-type.application";
+		};
 		AD5D0D111BEED5B8005043A8 /* MadDotsTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD5D0D191BEED5B8005043A8 /* Build configuration list for PBXNativeTarget "MadDotsTests" */;
@@ -283,6 +369,7 @@
 			targets = (
 				ADF807DC1BC4462300E45888 /* Dr. Kodama */,
 				AD5D0D111BEED5B8005043A8 /* MadDotsTests */,
+				38FE69CC5E8B6F0B490D2C03 /* DrKodamaMac */,
 			);
 		};
 /* End PBXProject section */
@@ -311,9 +398,44 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D9DB60D90FBB646CD796680C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				164AC69005FDF487F90EF36A /* Sprites.atlas in Resources */,
+				7EEBACE4EFD211B7DD4572A3 /* AngryKodama.atlas in Resources */,
+				21E7A7337F47C730F73D0358 /* Background.atlas in Resources */,
+				4C2BC2A0954BE47FB52EE752 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A0556D6B3FDF356BCF2A036D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00BCC89BEAFA3F437571F228 /* DotGame.swift in Sources */,
+				43F77C09A0A4819D646F2F48 /* Piece.swift in Sources */,
+				343F9214642B11001A01F6D7 /* Dot.swift in Sources */,
+				A3C31D14FF94E6FBFDB9D2E7 /* GoodDot.swift in Sources */,
+				8097EABE06602C135886EDD4 /* MadDot.swift in Sources */,
+				77649430325CD80A7F2E0F0E /* DotArray2D.swift in Sources */,
+				9223E686780C60935BDF8703 /* Array2D.swift in Sources */,
+				35CD099D6A3A0AD9225F6CC5 /* HandleChains.swift in Sources */,
+				4E4480A950BF80BC5C2ACB90 /* GameLevels.swift in Sources */,
+				B76762EA22B971BE5C9F5C9D /* Globals.swift in Sources */,
+				C3832C0F3D3D0B832DD7288A /* Utilities.swift in Sources */,
+				AC50296B45B805E089832B8C /* AppUtilities.swift in Sources */,
+				5FF423188562403C9F5453C5 /* Extensions.swift in Sources */,
+				F39A85767F3A7C0B2E2BB7DF /* GameScene.swift in Sources */,
+				B7857B14CF6B8247295EB109 /* MacAppDelegate.swift in Sources */,
+				5E17DAB6CB76925E24F37018 /* MacGameViewController.swift in Sources */,
+				D7CA4F8537F38C8F9DAAAC27 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AD5D0D0E1BEED5B8005043A8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -404,6 +526,23 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2D4A476F475830A3882394F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kylemurphy.DrKodamaMac;
+				PRODUCT_NAME = "Dr. Kodama";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
 		AD5D0D1A1BEED5B8005043A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -581,9 +720,35 @@
 			};
 			name = Release;
 		};
+		E67CA4846FB192FC507175FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kylemurphy.DrKodamaMac;
+				PRODUCT_NAME = "Dr. Kodama";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A6A7486EDC85791507EF58E1 /* Build configuration list for PBXNativeTarget "DrKodamaMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E67CA4846FB192FC507175FF /* Release */,
+				2D4A476F475830A3882394F3 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AD5D0D191BEED5B8005043A8 /* Build configuration list for PBXNativeTarget "MadDotsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

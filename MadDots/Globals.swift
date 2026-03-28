@@ -8,6 +8,13 @@
 
 import Foundation
 
+var GameLevel = 1
+var GameSpeed = 5
+var NumberOfColors = 4
+var ShowBG = false
+var ShowNextPiece = false
+var AngryKodama = false
+
 func assessState() {
   if let gameSpeed = UserDefaults.standard.value(forKey: "gameSpeed") as? Int {
     GameSpeed = gameSpeed

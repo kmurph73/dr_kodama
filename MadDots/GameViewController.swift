@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizerDelegate {
+class GameViewController: UIViewController, DotGameDelegate, GameSceneDelegate, UIGestureRecognizerDelegate {
   var dotGame:DotGame!
   var scene: GameScene!
   var panPointReference:CGPoint?
@@ -73,7 +73,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
   }
   
   func backToMenu() {
-    self.scene.ctrl = nil
+    self.scene.sceneDelegate = nil
     self.scene.tick = nil
     self.scene.count = nil
     self.scene?.stopTicking()
@@ -159,7 +159,7 @@ class GameViewController: UIViewController, DotGameDelegate, UIGestureRecognizer
     
     /* Set the scale mode to scale to fit the window */
     scene = GameScene(size: skView.bounds.size)
-    scene.ctrl = self
+    scene.sceneDelegate = self
     scene.scaleMode = .aspectFill
     scene.tick = didTick
     scene.count = didCount

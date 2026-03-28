@@ -31,6 +31,8 @@ protocol DotGameDelegate: AnyObject {
   func gameDidBegin(_ dotGame: DotGame)
   func gamePieceDidMove(_ dotGame: DotGame, duration: TimeInterval, completion: (() -> ())?)
   func gamePieceDidLand(_ dotGame: DotGame)
+  func stopTimer()
+  func setLevelLabel()
 }
 
 class DotGame {
@@ -73,9 +75,7 @@ class DotGame {
   
   func dropPiece() {
     if let piece = fallingPiece {
-      if let ctrl = delegate as? GameViewController {
-        ctrl.scene.stopTicking()
-      }
+      delegate?.stopTimer()
       while true {
         piece.lowerByOneRow()
         if detectIllegalPlacement() {
@@ -91,9 +91,7 @@ class DotGame {
   }
   
   func beginAnew() {
-    if let vc = delegate as? GameViewController {
-      vc.setLevelLabel()
-    }
+    delegate?.setLevelLabel()
 
     fallingPiece?.removeFromScene()
     nextPiece?.removeFromScene()
