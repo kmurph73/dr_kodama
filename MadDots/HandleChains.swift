@@ -101,22 +101,6 @@ import Foundation
   return realChains
 }
 
-func columnHasChain(_ dotArray: DotArray2D, column: Int) -> Bool {
-  var chains = Set<Dot>()
-
-  findChainsForColumns(dotArray, realChains: &chains, startColumn: column, endColumn: column)
-
-  return chains.count > 0
-}
-
-func rowHasChain(_ dotArray: DotArray2D, row: Int) -> Bool {
-  var chains = Set<Dot>()
-
-  findChainsForRows(dotArray, realChains: &chains, startRow: row, endRow: row)
-
-  return chains.count > 0
-}
-
 func findAllChains(_ dotArray: DotArray2D) -> Array<Dot> {
   var realChains = Set<Dot>()
 

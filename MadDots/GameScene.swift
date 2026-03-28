@@ -312,23 +312,25 @@ class GameScene: SKScene {
     for (columnIdx, dot) in fallenDots.enumerated() {
       let newPosition = points![dot.column, dot.row]!.point
       let sprite = dot.sprite!
-      
-      let delay = (TimeInterval(columnIdx) * 0.05) + (TimeInterval(columnIdx) * 0.05)
+
+      let delay = TimeInterval(columnIdx) * 0.1
       let duration = TimeInterval(((sprite.position.y - newPosition.y) / BlockSize) * 0.1)
       let moveAction = SKAction.move(to: newPosition, duration: duration)
-      
+
       moveAction.timingMode = .easeIn
-      sprite.run(moveAction)
-      
+      let sequence = SKAction.sequence([SKAction.wait(forDuration: delay), moveAction])
+      sprite.run(sequence)
+
       if let p = pointForConnector(dot) {
         let connector = dot.connector!
 
         let movAction = SKAction.move(to: p, duration: duration)
         movAction.timingMode = .easeIn
 
-        connector.run(movAction)
+        let connSequence = SKAction.sequence([SKAction.wait(forDuration: delay), movAction])
+        connector.run(connSequence)
       }
-      
+
       longestDuration = max(longestDuration, duration + delay)
     }
     
@@ -480,8 +482,11 @@ class GameScene: SKScene {
     
     let screenSize: CGRect = UIScreen.main.bounds
     
-    let window = UIApplication.shared.windows.first
-    var topNotchHeight = window!.safeAreaInsets.top
+    let window = UIApplication.shared.connectedScenes
+      .compactMap { $0 as? UIWindowScene }
+      .flatMap { $0.windows }
+      .first { $0.isKeyWindow }
+    var topNotchHeight = window?.safeAreaInsets.top ?? 0
 
     let rowSquare = screenSize.maxY  / CGFloat(totalRows)
     let colSquare = screenSize.maxX / CGFloat(totalCols)

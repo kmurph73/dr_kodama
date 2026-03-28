@@ -43,7 +43,6 @@ class DotGame {
   var levelMaker: LevelMaker
 
   weak var delegate: DotGameDelegate?
-  var seq: Array<Piece>?
   
   init() {
     fallingPiece = nil
@@ -64,20 +63,8 @@ class DotGame {
     }
   }
   
-  var cnt = 0
-//  var alt = true
-  
   func newPiece() -> Piece {
-    if let s = seq {
-      cnt += 1
-      if cnt <= s.count {
-        return s[cnt - 1]
-      } else {
-        return Piece.random(StartingColumn, startingRow: StartingRow)
-      }
-    } else {
-      return Piece.random(StartingColumn, startingRow: StartingRow)
-    }
+    return Piece.random(StartingColumn, startingRow: StartingRow)
   }
   
   func newNextPiece() -> Piece {
@@ -117,9 +104,6 @@ class DotGame {
     madDots = Array<MadDot>()
     levelMaker.dotArray = dotArray
 
-    // Reset test mode counter
-    cnt = 0
-
     // Reset angry dot state
     angryLengthCountdown = AngryLengthDefault
     angryIntervalCountdown = AngryIntervalDefault
@@ -140,14 +124,7 @@ class DotGame {
     NeedAngryDot = true
     
     self.madDots.append(contentsOf: levelMaker.makeRandomLevel(GameLevel))
-    
-//    let sen = testScenario3()
-//    dotArray = sen.array
-//    seq = sen.pieces
-//    if let vc = delegate as? GameViewController {
-//      vc.scene.addArrayToScene(dotArray)
-//    }
-    
+
     delegate?.gameDidBegin(self)
   }
   
@@ -182,10 +159,11 @@ class DotGame {
       cols.insert(num)
     }
     
-    let dots = cols.enumerated().map { (index, col) in
-      GoodDot(column: col, row: 1, color: colors[index]!)
+    let dots = cols.enumerated().compactMap { (index, col) -> GoodDot? in
+      guard dotArray[col, 1] == nil else { return nil }
+      return GoodDot(column: col, row: 1, color: colors[index]!)
     }
-    
+
     for dot in dots {
       dotArray[dot.column, dot.row] = dot
     }
