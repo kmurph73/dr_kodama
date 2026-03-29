@@ -45,7 +45,16 @@ class MacAppDelegate: NSObject, NSApplicationDelegate {
     appMenu.addItem(withTitle: "Quit Dr. Kodama", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
     appMenuItem.submenu = appMenu
 
+    let windowMenuItem = NSMenuItem()
+    mainMenu.addItem(windowMenuItem)
+
+    let windowMenu = NSMenu(title: "Window")
+    windowMenu.addItem(withTitle: "Close", action: #selector(NSWindow.performClose(_:)), keyEquivalent: "w")
+    windowMenu.addItem(withTitle: "Minimize", action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
+    windowMenuItem.submenu = windowMenu
+
     NSApp.mainMenu = mainMenu
+    NSApp.windowsMenu = windowMenu
   }
 
   func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

@@ -12,7 +12,11 @@ var GameLevel = 1
 var GameSpeed = 5
 var NumberOfColors = 4
 var ShowBG = false
+#if os(macOS)
+var ShowNextPiece = true
+#else
 var ShowNextPiece = false
+#endif
 var AngryKodama = false
 
 func assessState() {
@@ -47,4 +51,13 @@ func assessState() {
 //  if let angryLengthDefault = UserDefaults.standard.value(forKey: "angryLengthDefault") as? Int {
 //    AngryLengthDefault = angryLengthDefault
 //  }
+}
+
+func saveState() {
+  let defaults = UserDefaults.standard
+  defaults.set(GameSpeed, forKey: "gameSpeed")
+  defaults.set(GameLevel, forKey: "gameLevel")
+  defaults.set(NumberOfColors, forKey: "numColors")
+  defaults.set(ShowNextPiece, forKey: "showNextPiece")
+  defaults.set(AngryKodama, forKey: "angryKodama")
 }

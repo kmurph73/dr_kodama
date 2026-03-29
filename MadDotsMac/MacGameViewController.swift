@@ -8,10 +8,11 @@
 import Cocoa
 import SpriteKit
 
-class MacGameViewController: NSViewController, DotGameDelegate, GameSceneDelegate, GameSceneKeyboardDelegate {
+class MacGameViewController: NSViewController, DotGameDelegate, GameSceneDelegate, GameSceneKeyboardDelegate, MacMenuSceneDelegate, MacAboutSceneDelegate {
   var dotGame: DotGame!
   var scene: GameScene!
   var skView: SKView!
+  var menuScene: MacMenuScene!
 
   override func loadView() {
     skView = SKView(frame: NSRect(x: 0, y: 0, width: 400, height: 720))
@@ -20,9 +21,48 @@ class MacGameViewController: NSViewController, DotGameDelegate, GameSceneDelegat
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
     skView.ignoresSiblingOrder = true
+    showMenu()
+  }
 
+  override func viewDidAppear() {
+    super.viewDidAppear()
+    view.window?.makeFirstResponder(skView)
+  }
+
+  func showMenu() {
+    // Clean up any running game
+    scene?.stopTicking()
+    scene?.stopCounting()
+    dotGame?.delegate = nil
+    dotGame = nil
+    scene = nil
+
+    menuScene = MacMenuScene(size: skView.bounds.size)
+    menuScene.scaleMode = .aspectFill
+    menuScene.menuDelegate = self
+    skView.presentScene(menuScene)
+  }
+
+  func menuDidSelectPlay() {
+    menuScene.menuDelegate = nil
+    menuScene = nil
+    saveState()
+    startGame()
+  }
+
+  func menuDidSelectAbout() {
+    let aboutScene = MacAboutScene(size: skView.bounds.size)
+    aboutScene.scaleMode = .aspectFill
+    aboutScene.aboutDelegate = self
+    skView.presentScene(aboutScene)
+  }
+
+  func aboutDidClose() {
+    showMenu()
+  }
+
+  func startGame() {
     scene = GameScene(size: skView.bounds.size)
     scene.sceneDelegate = self
     scene.keyboardDelegate = self
@@ -36,11 +76,6 @@ class MacGameViewController: NSViewController, DotGameDelegate, GameSceneDelegat
     dotGame.beginGame()
 
     skView.presentScene(scene)
-  }
-
-  override func viewDidAppear() {
-    super.viewDidAppear()
-    view.window?.makeFirstResponder(skView)
   }
 
   // MARK: - Keyboard Input
@@ -253,32 +288,30 @@ class MacGameViewController: NSViewController, DotGameDelegate, GameSceneDelegat
     let alert = NSAlert()
     alert.messageText = "Congrats! You beat level \(GameLevel)"
     alert.addButton(withTitle: "Play next level")
-    alert.addButton(withTitle: "Quit")
+    alert.addButton(withTitle: "Menu")
+    alert.addButton(withTitle: "Quit App")
 
     let response = alert.runModal()
-    if response == .alertFirstButtonReturn {
+    switch response {
+    case .alertFirstButtonReturn:
       GameLevel += 1
       dotGame.beginAnew()
-    } else {
+    case .alertSecondButtonReturn:
       backToMenu()
+    default:
+      NSApplication.shared.terminate(nil)
     }
   }
 
   func backToMenu() {
-    scene.sceneDelegate = nil
-    scene.tick = nil
-    scene.count = nil
-    scene.stopTicking()
-    scene.stopCounting()
-    dotGame.delegate = nil
-
-    // For MVP, just start a new game
-    dotGame = DotGame()
-    dotGame.delegate = self
-    scene.sceneDelegate = self
-    scene.tick = didTick
-    scene.count = didCount
-    dotGame.beginGame()
+    scene?.sceneDelegate = nil
+    scene?.keyboardDelegate = nil
+    scene?.tick = nil
+    scene?.count = nil
+    scene?.stopTicking()
+    scene?.stopCounting()
+    dotGame?.delegate = nil
+    showMenu()
   }
 
   // MARK: - GameSceneDelegate
@@ -287,19 +320,22 @@ class MacGameViewController: NSViewController, DotGameDelegate, GameSceneDelegat
     let alert = NSAlert()
     alert.messageText = msg ?? ""
     alert.addButton(withTitle: "New Game")
-    alert.addButton(withTitle: "Quit")
+    alert.addButton(withTitle: "Menu")
     if showCancel {
       alert.addButton(withTitle: "Resume")
     }
+    alert.addButton(withTitle: "Quit App")
 
     let response = alert.runModal()
     switch response {
     case .alertFirstButtonReturn:
       dotGame.beginAnew()
     case .alertSecondButtonReturn:
-      NSApplication.shared.terminate(nil)
-    default:
+      backToMenu()
+    case .alertThirdButtonReturn where showCancel:
       scene.resumeGame()
+    default:
+      NSApplication.shared.terminate(nil)
     }
   }
 

@@ -12,6 +12,7 @@
 		21E7A7337F47C730F73D0358 /* Background.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AD34A8311C1364A90049D6B2 /* Background.atlas */; };
 		343F9214642B11001A01F6D7 /* Dot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F61BC446A400E45888 /* Dot.swift */; };
 		35CD099D6A3A0AD9225F6CC5 /* HandleChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5E50091BD409D900AE3858 /* HandleChains.swift */; };
+		4336ED4A4FF8FD181557D754 /* MacMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838C61A508778F9D302D6327 /* MacMenuScene.swift */; };
 		43F77C09A0A4819D646F2F48 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FA1BC447BF00E45888 /* Piece.swift */; };
 		4C2BC2A0954BE47FB52EE752 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADF807EB1BC4462300E45888 /* Assets.xcassets */; };
 		4E4480A950BF80BC5C2ACB90 /* GameLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D0B1BED23DE005043A8 /* GameLevels.swift */; };
@@ -23,6 +24,7 @@
 		8097EABE06602C135886EDD4 /* MadDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807FC1BC447D100E45888 /* MadDot.swift */; };
 		9223E686780C60935BDF8703 /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807F81BC4479A00E45888 /* Array2D.swift */; };
 		97F352DB101C4B9F9C98F224D2215026 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4ABB8C01ED4BBD8E9D1E004BA32D2A /* SceneDelegate.swift */; };
+		A19207C882580A7CCBCD6255 /* kodama.png in Resources */ = {isa = PBXBuildFile; fileRef = AD66B1A11C3750DE00A42201 /* kodama.png */; };
 		A3C31D14FF94E6FBFDB9D2E7 /* GoodDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5D0D091BEBD553005043A8 /* GoodDot.swift */; };
 		A3F798DE5BEB24CA26905DC6 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8ADD2114F70E04078A90191 /* SpriteKit.framework */; };
 		AC50296B45B805E089832B8C /* AppUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD6F257272D8DFF00666701 /* AppUtilities.swift */; };
@@ -84,6 +86,7 @@
 		B7857B14CF6B8247295EB109 /* MacAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDFF2823A1F98F7A668E90E /* MacAppDelegate.swift */; };
 		C3832C0F3D3D0B832DD7288A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9CAE6E1C080D4200BD3E9B /* Utilities.swift */; };
 		D7CA4F8537F38C8F9DAAAC27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E286311AE0F2789FE3E414C3 /* main.swift */; };
+		DFEDEA473147A8DE64AAD289 /* MacAboutScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3E69E552F7D8577FD9053B /* MacAboutScene.swift */; };
 		F39A85767F3A7C0B2E2BB7DF /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF807E41BC4462300E45888 /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +104,7 @@
 		0BDFF2823A1F98F7A668E90E /* MacAppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacAppDelegate.swift; sourceTree = "<group>"; };
 		18DB174B40F9D9520B75A284 /* MacGameViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacGameViewController.swift; sourceTree = "<group>"; };
 		5F4ABB8C01ED4BBD8E9D1E004BA32D2A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		838C61A508778F9D302D6327 /* MacMenuScene.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacMenuScene.swift; sourceTree = "<group>"; };
 		AD0B73F41BCC22C30085B244 /* DotGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DotGame.swift; sourceTree = "<group>"; tabWidth = 2; };
 		AD0F41022516B7E4006512BD /* DeviceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
 		AD34A82F1C0D4EAF0049D6B2 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 		ADF807FC1BC447D100E45888 /* MadDot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadDot.swift; sourceTree = "<group>"; };
 		B6DC3E27CFFEF6641DAD98E6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		CA2ACB6A6F605BB61050D1AA /* DrKodamaMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrKodamaMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE3E69E552F7D8577FD9053B /* MacAboutScene.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacAboutScene.swift; sourceTree = "<group>"; };
 		E286311AE0F2789FE3E414C3 /* main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F8ADD2114F70E04078A90191 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -271,6 +276,8 @@
 				0BDFF2823A1F98F7A668E90E /* MacAppDelegate.swift */,
 				18DB174B40F9D9520B75A284 /* MacGameViewController.swift */,
 				E286311AE0F2789FE3E414C3 /* main.swift */,
+				838C61A508778F9D302D6327 /* MacMenuScene.swift */,
+				DE3E69E552F7D8577FD9053B /* MacAboutScene.swift */,
 			);
 			name = MadDotsMac;
 			path = MadDotsMac;
@@ -406,6 +413,7 @@
 				7EEBACE4EFD211B7DD4572A3 /* AngryKodama.atlas in Resources */,
 				21E7A7337F47C730F73D0358 /* Background.atlas in Resources */,
 				4C2BC2A0954BE47FB52EE752 /* Assets.xcassets in Resources */,
+				A19207C882580A7CCBCD6255 /* kodama.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +441,8 @@
 				B7857B14CF6B8247295EB109 /* MacAppDelegate.swift in Sources */,
 				5E17DAB6CB76925E24F37018 /* MacGameViewController.swift in Sources */,
 				D7CA4F8537F38C8F9DAAAC27 /* main.swift in Sources */,
+				4336ED4A4FF8FD181557D754 /* MacMenuScene.swift in Sources */,
+				DFEDEA473147A8DE64AAD289 /* MacAboutScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -80,10 +80,11 @@ class GameScene: SKScene {
     dotLayer.position = LayerPosition
     self.addChild(dotLayer)
     
+    #if os(iOS)
     let y = self.frame.maxY - (extraYSpace - BlockSize)
-    
+
     menuBtn = SKSpriteNode(imageNamed: "menubtn")
-    
+
     if let menuBtn = menuBtn {
       menuBtn.name = "menu"
 
@@ -98,6 +99,7 @@ class GameScene: SKScene {
       menuBtn.position = CGPoint(x: self.frame.maxX - (BlockSize * 2), y: y - CGFloat(offset))
       self.addChild(menuBtn)
     }
+    #endif
     
     levelLabelSetter()
 //    if AngryKodama {
