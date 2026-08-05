@@ -221,21 +221,23 @@ class MacMenuScene: SKScene {
 
   override func mouseDown(with event: NSEvent) {
     let location = event.location(in: self)
-    let node = atPoint(location)
-
-    if node.name == "play" || node == playLabel {
-      menuDelegate?.menuDidSelectPlay()
-      return
-    }
 
     for (index, item) in menuItems.enumerated() {
       if isNear(location, node: labelForItem(item)) {
         selectedIndex = index
         updateSelectionHighlight()
-        if location.x < 0 {
-          adjustSelected(delta: -1)
-        } else {
-          adjustSelected(delta: 1)
+
+        switch item {
+        case .play, .about, .quit:
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            self?.confirmSelected()
+          }
+        default:
+          if location.x < 0 {
+            adjustSelected(delta: -1)
+          } else {
+            adjustSelected(delta: 1)
+          }
         }
         return
       }

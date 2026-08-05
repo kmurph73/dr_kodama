@@ -41,6 +41,7 @@ class DotGame {
 
   var fallingPiece:Piece?
   var nextPiece:Piece?
+  var graceSettle = false
 
   var levelMaker: LevelMaker
 
@@ -237,7 +238,8 @@ class DotGame {
             piece.undoPreviousRotation()
             piece.raiseByOneRow()
           } else {
-            // Success! Lowered and rotated
+            // Success! Lowered and rotated — give the player a grace tick
+            graceSettle = true
             delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
           }
         } else {
@@ -267,11 +269,16 @@ class DotGame {
     if let piece = fallingPiece {
       piece.lowerByOneRow()
       if detectIllegalPlacement() {
-        // Piece hit something, raise it back and settle
         piece.raiseByOneRow()
-        settlePiece()
+        if graceSettle {
+          // Give the player one tick to move/rotate after a snap-down
+          graceSettle = false
+        } else {
+          settlePiece()
+        }
       } else {
         // Piece moved successfully
+        graceSettle = false
         delegate?.gamePieceDidMove(self, duration: 0, completion: nil)
       }
     }

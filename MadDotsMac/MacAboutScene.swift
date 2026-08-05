@@ -34,11 +34,11 @@ class MacAboutScene: SKScene {
     addChild(title)
 
     let lines = [
-      "A tile-matching puzzle game inspired by Dr. Mario.",
+      "A fun tile-matching puzzle game.",
       "",
-      "Rotate and position falling two-dot pieces to",
+      "Rotate and position falling two-dot pieces to",  
       "create chains of 4 or more same-colored dots.",
-      "Clear all the MadDots to beat each level!",
+      "Clear all the Kodama to beat a level.",
       "",
       "Controls:",
       "  Left/Right arrows - Move piece",
@@ -48,7 +48,7 @@ class MacAboutScene: SKScene {
       "  Enter - Pause menu",
       "",
       "Angry Kodama mode adds a timed challenge:",
-      "a MadDot becomes angry and after a countdown,",
+      "a Kodama becomes angry and after a countdown,",
       "extra dots rain down from above!",
       "",
       "20 levels of increasing difficulty.",

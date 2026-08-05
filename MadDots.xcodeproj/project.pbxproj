@@ -146,7 +146,7 @@
 		ADF807FA1BC447BF00E45888 /* Piece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		ADF807FC1BC447D100E45888 /* MadDot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadDot.swift; sourceTree = "<group>"; };
 		B6DC3E27CFFEF6641DAD98E6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		CA2ACB6A6F605BB61050D1AA /* DrKodamaMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrKodamaMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA2ACB6A6F605BB61050D1AA /* Dr. Kodama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dr. Kodama.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE3E69E552F7D8577FD9053B /* MacAboutScene.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MacAboutScene.swift; sourceTree = "<group>"; };
 		E286311AE0F2789FE3E414C3 /* main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F8ADD2114F70E04078A90191 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -216,7 +216,7 @@
 			children = (
 				ADF807DD1BC4462300E45888 /* Dr. Kodama.app */,
 				AD5D0D121BEED5B8005043A8 /* MadDotsTests.xctest */,
-				CA2ACB6A6F605BB61050D1AA /* DrKodamaMac.app */,
+				CA2ACB6A6F605BB61050D1AA /* Dr. Kodama.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -279,7 +279,6 @@
 				838C61A508778F9D302D6327 /* MacMenuScene.swift */,
 				DE3E69E552F7D8577FD9053B /* MacAboutScene.swift */,
 			);
-			name = MadDotsMac;
 			path = MadDotsMac;
 			sourceTree = "<group>";
 		};
@@ -300,7 +299,7 @@
 			);
 			name = DrKodamaMac;
 			productName = DrKodamaMac;
-			productReference = CA2ACB6A6F605BB61050D1AA /* DrKodamaMac.app */;
+			productReference = CA2ACB6A6F605BB61050D1AA /* Dr. Kodama.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AD5D0D111BEED5B8005043A8 /* MadDotsTests */ = {
@@ -348,6 +347,10 @@
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Kyle Murphy";
 				TargetAttributes = {
+					38FE69CC5E8B6F0B490D2C03 = {
+						DevelopmentTeam = 5YW22MKNYB;
+						ProvisioningStyle = Automatic;
+					};
 					AD5D0D111BEED5B8005043A8 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 5YW22MKNYB;
@@ -541,12 +544,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = MadDotsMac/MadDotsMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5YW22MKNYB;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kylemurphy.DrKodamaMac;
+				MARKETING_VERSION = 1.92;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blah.kmurphles.kodama;
 				PRODUCT_NAME = "Dr. Kodama";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -695,14 +705,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 5YW22MKNYB;
 				INFOPLIST_FILE = MadDots/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dr Kodama";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.90;
+				MARKETING_VERSION = 1.92;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blah.kmurphles.kodama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -715,14 +725,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 5YW22MKNYB;
 				INFOPLIST_FILE = MadDots/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dr Kodama";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.90;
+				MARKETING_VERSION = 1.92;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blah.kmurphles.kodama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -735,12 +745,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = MadDotsMac/MadDotsMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5YW22MKNYB;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kylemurphy.DrKodamaMac;
+				MARKETING_VERSION = 1.92;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blah.kmurphles.kodama;
 				PRODUCT_NAME = "Dr. Kodama";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
